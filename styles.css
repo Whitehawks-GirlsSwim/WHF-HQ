@@ -218,19 +218,17 @@ input,textarea{width:100%;background:#07070a;color:#fff;border:1px solid var(--l
 }
 
 
-/* V7 tap behavior polish */
+/* V8 stable tap polish */
 .tappablePanel,
 .primaryAction,
-.miniAction,
-.scheduleItem {
+.miniAction {
   cursor: pointer;
   touch-action: manipulation;
 }
 
-.todayPanel:active,
+.tappablePanel:active,
 .primaryAction:active,
-.miniAction:active,
-.scheduleItem:active {
+.miniAction:active {
   transform: scale(0.992);
 }
 
@@ -242,7 +240,8 @@ input,textarea{width:100%;background:#07070a;color:#fff;border:1px solid var(--l
 }
 
 .primaryAction,
-.miniAction {
+.miniAction,
+.tappablePanel {
   -webkit-user-select: none;
   user-select: none;
 }

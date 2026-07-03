@@ -141,11 +141,13 @@ function updateFund() {
   const total = Math.max(0, Math.min(30000, raw));
   localStorage.setItem('whfFundTotal', String(total));
   renderFund();
+setupHomeTaps();
 }
 
 function resetFund() {
   localStorage.removeItem('whfFundTotal');
   renderFund();
+setupHomeTaps();
 }
 
 function renderFund() {
@@ -161,7 +163,22 @@ function escapeHtml(value) {
   return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
 }
 
+
+function setupHomeTaps() {
+  const todayPanel = document.getElementById('todayPanel');
+  if (!todayPanel) return;
+
+  todayPanel.addEventListener('click', () => showScreen('season'));
+  todayPanel.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      showScreen('season');
+    }
+  });
+}
+
 renderTodayPanel();
 renderSchedule();
 renderSponsors();
 renderFund();
+setupHomeTaps();

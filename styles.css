@@ -136,3 +136,117 @@ nav.fixed a,
 .mobile-nav a {
   padding: 10px 8px;
 }
+/* Premium WHF home screen */
+
+.homeHeroPro {
+  position: relative;
+  height: 360px;
+  border-radius: 0 0 26px 26px;
+  overflow: hidden;
+  margin: -6px -2px 22px;
+  background: #050505;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.homeHeroPro img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(10%) contrast(1.05);
+}
+
+.heroShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.88)),
+    linear-gradient(120deg, rgba(155,0,0,0.32), transparent 45%),
+    linear-gradient(240deg, rgba(0,120,70,0.28), transparent 45%);
+}
+
+.heroLines {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #c1121f 0 50%, #00843d 50% 100%);
+}
+
+.heroContent {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 28px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.heroContent h1 {
+  font-size: 42px !important;
+  line-height: 0.95;
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-weight: 950;
+  letter-spacing: 1px;
+}
+
+.heroContent p {
+  font-size: 15px !important;
+  line-height: 1.35;
+  margin: 0;
+  color: #e5e7eb !important;
+  max-width: 330px;
+}
+
+.homeActions {
+  display: grid;
+  gap: 12px;
+  padding-bottom: 90px;
+}
+
+.proCard {
+  width: 100%;
+  background: rgba(14,14,18,0.96);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-left: 5px solid #ffffff;
+  border-radius: 16px;
+  padding: 18px 18px;
+  text-align: left;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.proCard h3 {
+  margin: 0 0 7px;
+  font-size: 17px;
+  font-weight: 950;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.proCard p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: #cfd3da !important;
+}
+
+.greenAccent {
+  border-left-color: #00843d;
+}
+
+.redAccent {
+  border-left-color: #c1121f;
+}
+
+.proCard:active {
+  transform: scale(0.985);
+}

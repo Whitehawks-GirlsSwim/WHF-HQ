@@ -20,15 +20,36 @@
 
   <div class="screens">
     <section class="screen active" id="home">
-      <div class="hero">
-        <div>
-          <span class="kicker"><span class="dot"></span>year two starts now</span>
-          <h1>WHF HQ</h1>
-          <div class="sub">Everything from the kickoff message, organized into big tappable sections so families can actually find it.</div>
-        </div>
-      </div>
+<div class="homeHero">
+  <img class="homeLogo" src="whitehawk-logo.jpeg" alt="Whitehawk logo">
+  <span class="kicker"><span class="dot"></span>YEAR TWO STARTS NOW</span>
+  <h1>WHF HQ</h1>
+  <p>One Team. One Family.</p>
+  <div class="homeSub">Your home for schedules, team updates, volunteering and booster information.</div>
+</div>
 
-      <div class="quickGrid">
+<div class="featuredGrid">
+  <button class="featureTile green" onclick="showScreen('parents')">
+    <div class="tileIcon">🏊</div>
+    <h3>PARENT HUB</h3>
+    <p>Everything parents need in one place.</p>
+  </button>
+
+  <button class="featureTile blue" onclick="showScreen('allinfo')">
+    <div class="tileIcon">📅</div>
+    <h3>TEAM CALENDAR</h3>
+    <p>Practices, meets and important dates.</p>
+  </button>
+</div>
+
+<div class="sectionLabel">TEAM</div>
+
+<div class="quickGrid homeMenu">
+  <button class="tile red" onclick="showScreen('booster')"><h3>BOOSTER CLUB</h3><p>Fees, bylaws, leadership and volunteer roles.</p></button>
+  <button class="tile green" onclick="showScreen('spirit')"><h3>EVENTS & FUNDRAISERS</h3><p>Spirit of the Lakes, Dunk Tank, shifts and signup links.</p></button>
+  <button class="tile blue" onclick="showScreen('parents')"><h3>TEAM STORE</h3><p>Apparel, suits, caps and order windows.</p></button>
+  <button class="tile red" onclick="showScreen('sponsors')"><h3>SPONSORS</h3><p>Support businesses that support WHF Swim & Dive.</p></button>
+</div>
         <button class="tile red" onclick="showScreen('spirit')"><h3>Spirit of the Lakes</h3><p>Hydration Station, Dunk Tank, shifts, and signup links.</p></button>
         <button class="tile green" onclick="showScreen('parents')"><h3>Parent Hub</h3><p>Registration, team store, eligibility meeting, first practice.</p></button>
         <button class="tile blue" onclick="showScreen('fund')"><h3>Timing Fund</h3><p>$30,000 equipment commitment and fundraising progress.</p></button>

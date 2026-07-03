@@ -7,7 +7,7 @@
   "theme_color": "#030306",
   "icons": [
     {
-      "src": "assets/whitehawk-logo.jpeg",
+      "src": "whitehawk-logo.jpeg",
       "sizes": "192x192",
       "type": "image/jpeg"
     }

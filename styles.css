@@ -64,3 +64,75 @@ button.ghost{background:rgba(255,255,255,.10);border:1px solid var(--line)}
 .bottomNav button{font-size:10px;padding:10px 2px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid var(--line);box-shadow:none;text-transform:uppercase}
 .bottomNav button.active{background:linear-gradient(135deg,var(--green),#006b35);color:#001b0c}
 @media(max-width:420px){.quickGrid{grid-template-columns:1fr}.bottomNav{grid-template-columns:repeat(3,1fr)}.app{padding-bottom:142px}.pool{height:220px}.screenTitle{font-size:38px}.hero{min-height:205px}}
+/* Mobile polish updates */
+
+header {
+  padding: 18px 16px 12px;
+}
+
+h1 {
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+h2,
+.page-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 14px;
+  color: #ffffff;
+}
+
+.card,
+.menu-card,
+.tile,
+.nav-card {
+  padding: 16px !important;
+  margin-bottom: 12px !important;
+  border-radius: 16px;
+}
+
+.card h3,
+.menu-card h3,
+.tile h3,
+.nav-card h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+  color: #ffffff;
+}
+
+.card p,
+.menu-card p,
+.tile p,
+.nav-card p {
+  font-size: 14px;
+  line-height: 1.35;
+  color: #d1d5db !important;
+}
+
+.card:active,
+.menu-card:active,
+.tile:active,
+.nav-card:active {
+  transform: scale(0.98);
+  transition: transform 0.12s ease;
+}
+
+main,
+.container,
+.page-content {
+  padding-bottom: 90px;
+}
+
+.bottom-nav,
+nav.fixed,
+.mobile-nav {
+  min-height: 68px;
+  padding-bottom: 8px;
+}
+
+.bottom-nav a,
+nav.fixed a,
+.mobile-nav a {
+  padding: 10px 8px;
+}

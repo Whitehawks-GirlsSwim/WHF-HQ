@@ -1,7 +1,7 @@
 {
   "name": "WHF HQ",
   "short_name": "WHF HQ",
-  "start_url": "./index.html",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#030306",
   "theme_color": "#030306",

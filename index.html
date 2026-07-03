@@ -14,52 +14,64 @@
       <div class="brandMark">WHF</div>
       <div class="brandText">
         <strong>WHF HQ</strong>
-        <span>Westonka + Holy Family</span>
+        <span>Westonka • Holy Family</span>
       </div>
-      <div class="status" id="greeting">live</div>
     </header>
 
     <main class="screens">
       <section class="screen active" id="home">
-        <div class="homeHeroPro">
+        <div class="homeHeroWow">
           <img src="team-hero.jpg" alt="WHF Swim and Dive team">
-          <div class="heroShade"></div>
-          <div class="heroLines"></div>
-          <div class="heroContent">
+          <div class="heroOverlay"></div>
+          <div class="heroTopLine"></div>
+          <div class="heroContentWow">
             <div class="eyebrow">WELCOME BACK</div>
-            <h1>WHF HQ</h1>
-            <p>Everything Westonka/Holy Family Girls Swim & Dive in one place.</p>
+            <h1>WHF<br><span>SWIM & DIVE</span></h1>
+            <p>One Team. One Family.</p>
           </div>
+          <div class="heroBottomLine"></div>
         </div>
 
-        <div class="homeActions">
-          <button class="proCard greenAccent" onclick="showScreen('parents')">
-            <h3>PARENT HUB</h3>
-            <p>Registration, eligibility, team store and first practice.</p>
+        <section class="nextPanel">
+          <div class="nextLabel">NEXT UP</div>
+          <div class="nextMain">Practice Begins</div>
+          <div class="nextMeta">Monday • August 17</div>
+          <div class="nextMiniGrid">
+            <div><span>TEAM STORE</span><strong>July 6–12</strong></div>
+            <div><span>FUNDRAISER</span><strong>Spirit of the Lakes</strong></div>
+          </div>
+        </section>
+
+        <div class="homeActionsWow">
+          <button class="wideAction greenAccent" onclick="showScreen('parents')">
+            <div>
+              <h3>PARENT HUB</h3>
+              <p>Everything families need before the season.</p>
+            </div>
+            <span>EXPLORE</span>
           </button>
-          <button class="proCard redAccent" onclick="showScreen('allinfo')">
-            <h3>TEAM CALENDAR</h3>
-            <p>Practices, meets, important dates and season updates.</p>
+
+          <button class="wideAction redAccent" onclick="showScreen('allinfo')">
+            <div>
+              <h3>2026 SEASON</h3>
+              <p>Practice, meets, calendar and team information.</p>
+            </div>
+            <span>VIEW</span>
           </button>
-          <button class="proCard greenAccent" onclick="showScreen('booster')">
-            <h3>BOOSTER CLUB</h3>
-            <p>Fees, bylaws, leadership and volunteer roles.</p>
-          </button>
-          <button class="proCard greenAccent" onclick="showScreen('spirit')">
-            <h3>EVENTS & FUNDRAISERS</h3>
-            <p>Spirit of the Lakes, Dunk Tank, shifts and signup links.</p>
-          </button>
-          <button class="proCard redAccent" onclick="showScreen('parents')">
-            <h3>TEAM STORE</h3>
-            <p>Apparel, suits, caps and order windows.</p>
-          </button>
-          <button class="proCard redAccent" onclick="showScreen('sponsors')">
-            <h3>SPONSORS</h3>
-            <p>Support businesses that support WHF Swim & Dive.</p>
-          </button>
-          <button class="proCard splitAccent" onclick="showScreen('fund')">
-            <h3>TIMING FUND</h3>
-            <p>$30,000 equipment commitment and fundraising progress.</p>
+
+          <div class="compactGrid">
+            <button class="compactAction greenAccent" onclick="showScreen('booster')"><h3>BOOSTER CLUB</h3><p>Meetings • Fees • Roles</p></button>
+            <button class="compactAction greenAccent" onclick="showScreen('spirit')"><h3>EVENTS</h3><p>Fundraisers • Signups</p></button>
+            <button class="compactAction redAccent" onclick="showScreen('parents')"><h3>TEAM STORE</h3><p>Apparel • Suits • Caps</p></button>
+            <button class="compactAction redAccent" onclick="showScreen('sponsors')"><h3>SPONSORS</h3><p>Community Partners</p></button>
+          </div>
+
+          <button class="wideAction splitAccent" onclick="showScreen('fund')">
+            <div>
+              <h3>TIMING FUND</h3>
+              <p>$30,000 equipment campaign and fundraising progress.</p>
+            </div>
+            <span>TRACK</span>
           </button>
         </div>
       </section>
@@ -103,7 +115,7 @@
       </section>
 
       <section class="screen" id="allinfo">
-        <div class="screenTitle">Team Calendar & Info</div>
+        <div class="screenTitle">2026 Season</div>
         <div class="card green"><h3>Welcome Back</h3><p>Year Two is about building on last season’s fundraising, sponsorships, team events, and the $30,000 timing equipment commitment.</p></div>
         <div class="card red"><h3>Spirit of the Lakes</h3><p>Hydration Station and Dunk Tank fundraiser. Potential impact: $3,000–$4,000. Dollars stay with the team for equipment, athlete activities, and future improvements.</p></div>
         <div class="card green"><h3>Apparel</h3><p>Order Window #1: July 6–12. Order Window #2: July 27–August 2. Team suits and caps are required for varsity competition. Captains-designed team shirt is free for every athlete.</p></div>
@@ -123,10 +135,10 @@
 
   <nav class="bottomNav">
     <button class="active" data-screen="home" onclick="showScreen('home')">Home</button>
+    <button data-screen="allinfo" onclick="showScreen('allinfo')">Season</button>
     <button data-screen="spirit" onclick="showScreen('spirit')">Events</button>
     <button data-screen="parents" onclick="showScreen('parents')">Parents</button>
     <button data-screen="booster" onclick="showScreen('booster')">Booster</button>
-    <button data-screen="allinfo" onclick="showScreen('allinfo')">Info</button>
     <button data-screen="admin" onclick="showScreen('admin')">Admin</button>
   </nav>
 

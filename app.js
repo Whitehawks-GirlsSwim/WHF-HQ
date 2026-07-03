@@ -7,15 +7,6 @@ function showScreen(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function setGreeting() {
-  const hour = new Date().getHours();
-  const greeting = document.getElementById('greeting');
-  if (!greeting) return;
-  if (hour < 12) greeting.textContent = 'good morning';
-  else if (hour < 18) greeting.textContent = 'good afternoon';
-  else greeting.textContent = 'good evening';
-}
-
 function addSponsor() {
   const name = document.getElementById('sponsorName').value.trim();
   const note = document.getElementById('sponsorNote').value.trim();
@@ -65,6 +56,5 @@ function escapeHtml(value) {
   return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
 }
 
-setGreeting();
 renderSponsors();
 renderFund();

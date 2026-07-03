@@ -54,19 +54,26 @@
             <button class="miniAction greenAccent" onclick="showScreen('spirit')"><h3>EVENTS</h3><p>Volunteer opportunities and team events</p></button>
             <button class="miniAction redAccent" onclick="showScreen('parents')"><h3>TEAM STORE</h3><p>Apparel, suits, caps and order windows</p></button>
             <button class="miniAction greenAccent" onclick="showScreen('booster')"><h3>BOOSTER CLUB</h3><p>Fees, leadership and meeting information</p></button>
-            <button class="miniAction redAccent" onclick="showScreen('program')"><h3>PROGRAM</h3><p>Records, honors, photos and community</p></button>
+            <button class="miniAction redAccent" onclick="showScreen('sponsors')"><h3>SPONSORS</h3><p>Community partners supporting WHF</p></button>
           </div>
         </div>
       </section>
 
       <section class="screen" id="spirit">
         <div class="screenTitle">Events & Fundraisers</div>
-        <div id="eventsList"></div>
+        <div class="card split"><h3>Biggest Summer Fundraiser</h3><p>WHF Swim & Dive is partnering with Spirit of the Lakes to operate both the Hydration Station and Dunk Tank.</p><div class="big">$3–4k</div><p>Potential impact if all goes well.</p></div>
+        <div class="card green"><h3>Hydration Station</h3><p>Water, pop, Gatorade, and Alani Energy Drinks.</p><p><b>Thursday, July 16</b> • 4:00–10:00 PM<br><b>Friday, July 17</b> • 5:00–11:00 PM<br><b>Saturday, July 18</b> • 11:00 AM–11:00 PM</p><a class="link" href="https://www.signupgenius.com/go/5080F4BAFA62DA1FE3-63621451-2026">Hydration Station Sign Up</a></div>
+        <div class="card red"><h3>Dunk Tank</h3><p>Festival-goers buy balls to dunk participants and support the team.</p><p><b>Saturday, July 18</b><br>4:30–6:30 PM</p><a class="link" href="https://www.signupgenius.com/go/5080F4BAFA62DA1FE3-63624280-2026">Dunk Tank Sign Up</a></div>
+        <div class="card green"><h3>Athlete Reminders</h3><p>Check the SignUpGenius, be on time, check in at the ticket booth when your shift begins, check out when finished, and represent the team well.</p></div>
       </section>
 
       <section class="screen" id="parents">
         <div class="screenTitle">Parent Hub</div>
-        <div id="parentCards"></div>
+        <div class="card green"><h3>Registration Open</h3><p>All athletes must complete Westonka Activities registration before the season begins and have a current sports physical on file.</p><a class="link" href="https://www.gobound.com/mn/schools/westonka">Register Athlete</a></div>
+        <div class="card red"><h3>Team Store</h3><p>Elsmore Team Store is open.</p><p><b>Order Window #1</b><br>July 6 – July 12<br><br><b>Order Window #2</b><br>July 27 – August 2</p><p>Team suits and caps are required for varsity competition. Every athlete receives the captains-designed team shirt at no cost.</p><a class="link" href="https://elsmoreswim.com/collections/mound-westonka-holy-family-hs-girls">Shop Team Store</a></div>
+        <div class="card green"><h3>Eligibility Meeting</h3><p><b>Wednesday, August 12</b><br>5:00 PM • Performing Arts Center<br>Sport breakout sessions begin at 5:30 PM</p></div>
+        <div class="card red"><h3>First Practice</h3><div class="big">Aug 17</div><p>Monday, August 17</p></div>
+        <div class="card split"><h3>Meet Schedule</h3><p>The 2026 meet schedule has been added to the Season page. Practice information can be added once finalized.</p></div>
       </section>
 
       <section class="screen" id="fund">
@@ -77,12 +84,16 @@
 
       <section class="screen" id="booster">
         <div class="screenTitle">Booster Club</div>
-        <div id="boosterCards"></div>
+        <div class="card split"><h3>Booster Fee</h3><div class="big">$175</div><p>Unchanged from last year.</p></div>
+        <div class="card green"><h3>Leadership Update</h3><p>Tammy Johnson will continue serving as Treasurer through the conclusion of this season at her request.</p></div>
+        <div class="card red"><h3>Bylaw Updates</h3><p>The President and Vice President will continue serving until the conclusion of their athlete’s senior year so the current leadership team can fulfill the timing equipment commitment before transitioning roles.</p></div>
+        <div class="card green"><h3>Open After Season</h3><p>At the conclusion of this season, Treasurer, Secretary, and Volunteer Coordinator will be open for election.</p></div>
+        <div class="card red"><h3>Volunteers Matter</h3><p>Timing, concessions, hospitality, admissions, fundraising, and behind-the-scenes roles all make a difference.</p></div>
       </section>
 
       <section class="screen" id="sponsors">
         <div class="screenTitle">Sponsors</div>
-        <div id="sponsorIntro"></div>
+        <div class="card split"><h3>Support Local</h3><p>Last year’s sponsorship program exceeded expectations. Please support the businesses that support WHF Girls Swim & Dive whenever you can.</p></div>
         <div id="sponsorWall"></div>
       </section>
 
@@ -99,101 +110,19 @@
         <div class="scheduleList" id="scheduleList"></div>
       </section>
 
-      <section class="screen" id="program">
-        <div class="screenTitle">Program</div>
-        <div class="seasonLead programLead">
-          <div class="seasonLeadTop">WHF GIRLS SWIM &amp; DIVE</div>
-          <h2 id="programHeadline">Records &amp; Accolades</h2>
-          <p id="programIntroText">Program history, season record, individual honors, team records and photo links live here.</p>
-        </div>
-
-        <div class="programGrid">
-          <div class="programStat greenAccent">
-            <span>SEASON RECORD</span>
-            <strong id="seasonRecordValue">Coming Soon</strong>
-            <p id="seasonRecordNote">Update from Admin when results are available.</p>
-          </div>
-          <div class="programStat redAccent">
-            <span>PROGRAM</span>
-            <strong id="programStatusValue">2026 Season</strong>
-            <p>Records, honors and team history.</p>
-          </div>
-        </div>
-
-        <div class="programBlock">
-          <div class="blockTitle">Program Highlights</div>
-          <div id="programHighlightsList"></div>
-        </div>
-
-        <div class="programBlock">
-          <div class="blockTitle">Team Records</div>
-          <div id="teamRecordsList"></div>
-        </div>
-
-        <div class="programBlock">
-          <div class="blockTitle">Individual Accolades</div>
-          <div id="accoladesList"></div>
-        </div>
-
-        <div class="programBlock">
-          <div class="blockTitle">Photos</div>
-          <div id="photoLinksList"></div>
-        </div>
-
-        <div class="programLinks">
-          <button class="primaryAction greenAccent" onclick="showScreen('sponsors')"><h3>SPONSORS &amp; COMMUNITY</h3><p>Community partners supporting WHF Swim &amp; Dive</p></button>
-          <button class="primaryAction redAccent" onclick="showScreen('booster')"><h3>BOOSTER CLUB</h3><p>Leadership, roles and behind-the-scenes support</p></button>
-        </div>
-      </section>
-
-      <section class="screen" id="admin">
+      
+<section class="screen" id="program">
+<div class="screenTitle">Program</div>
+<div class="card split"><h3>Program History</h3><p id="programHistory"></p></div>
+<div class="card green"><h3>Season Record</h3><div class="big" id="seasonRecord"></div></div>
+<div class="card red"><h3>Individual Accolades</h3><ul id="accolades"></ul></div>
+<div class="card green"><h3>Team Records</h3><div id="records"></div></div>
+</section>
+<section class="screen" id="admin">
         <div class="screenTitle">Admin</div>
-
-        <div class="adminDashboard" id="adminDashboard">
-          <div class="adminDashCard splitAccent">
-            <span>STATUS</span>
-            <strong id="adminPendingCount">No pending changes</strong>
-            <p id="adminPendingDetail">Published data is currently loaded.</p>
-          </div>
-          <div class="adminDashCard greenAccent">
-            <span>WORKFLOW</span>
-            <strong>Edit → Preview → Publish</strong>
-            <p>Use Admin to edit content. GitHub publishes the final file for everyone.</p>
-          </div>
-        </div>
-
-        <div class="card split adminNotice">
-          <h3>Admin Control Center</h3>
-          <p>Edit the app from here. <b>Save Preview</b> updates this device immediately. <b>Download Publish File</b> creates the new <b>data.js</b> file to upload to GitHub so every family sees the update.</p>
-          <div class="quickPublishRow">
-            <button onclick="saveAdminPreview()">Save Preview</button>
-            <button onclick="downloadDataFile()">Download Publish File</button>
-          </div>
-        </div>
-
-        <div class="card green adminPanel publishGuide">
-          <h3>How to Publish Updates</h3>
-          <ol>
-            <li>Edit the content below.</li>
-            <li>Tap <b>Save Preview</b> and review the app on this device.</li>
-            <li>Tap <b>Download Publish File</b>.</li>
-            <li>In GitHub, replace only <b>data.js</b>.</li>
-            <li>Commit changes and refresh the app with <b>?v=13</b>.</li>
-          </ol>
-          <p class="helperText">Most weekly updates should only require replacing <b>data.js</b>. Do not edit layout files unless we are redesigning the app.</p>
-        </div>
-
-        <div id="adminSimpleEditor"></div>
-
-        <div class="card split adminPanel stickyPublishPanel">
-          <h3>Publish Changes</h3>
-          <p id="publishSummary">Save your preview first. When it looks right, download the publish file and replace <b>data.js</b> in GitHub.</p>
-          <button onclick="saveAdminPreview()">Save Preview</button>
-          <button onclick="downloadDataFile()">Download Publish File</button>
-          <button class="ghost" onclick="resetAdminPreview()">Reset Preview</button>
-        </div>
-
+        <div class="card red"><h3>Add Sponsor</h3><input id="sponsorName" placeholder="Business name"><textarea id="sponsorNote" placeholder="Website / note / level if you want"></textarea><button onclick="addSponsor()">Add Sponsor</button><button class="ghost" onclick="clearSponsors()">Clear</button></div>
         <div class="card green"><h3>Update Fund</h3><input id="fundTotal" type="number" placeholder="Amount raised"><button onclick="updateFund()">Update Total</button><button class="ghost" onclick="resetFund()">Reset</button></div>
+        <div class="card split"><h3>Free Path</h3><p>Update app content by editing data.js. The design stays untouched while schedule, announcements, events, sponsors and store info can change.</p></div>
       </section>
     </main>
   </div>
@@ -203,8 +132,8 @@
     <button data-screen="season" onclick="showScreen('season')">Season</button>
     <button data-screen="spirit" onclick="showScreen('spirit')">Events</button>
     <button data-screen="parents" onclick="showScreen('parents')">Parents</button>
-    <button data-screen="program" onclick="showScreen('program')">Program</button>
-    <button data-screen="admin" onclick="showScreen('admin')">Admin</button>
+    <button data-screen="booster" onclick="showScreen('booster')">Booster</button>
+    <button data-screen="program" onclick="showScreen('program')">Program</button><button data-screen="admin" onclick="showScreen('admin')">Admin</button>
   </nav>
 
   <script src="data.js"></script>

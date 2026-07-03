@@ -1,0 +1,23 @@
+WHF HQ V15 Launch Base
+
+What this version does:
+- Restores the full Admin editor and publish workflow.
+- Keeps the Program section with records, highlights, accolades and photos.
+- Keeps auto-advancing Season schedule.
+- Applies the 50/50 WHF red/green border treatment across app boxes.
+- Fixes duplicate photo list markup.
+- Updates Admin publishing instructions to use ?v=15.
+
+Upload to GitHub:
+1. index.html
+2. styles.css
+3. app.js
+4. data.js
+5. manifest.json
+6. team-hero.jpg
+
+After routine content updates:
+- Use Admin > Save Preview > Download Publish File.
+- Upload only the downloaded data.js to GitHub.
+- Commit.
+- Refresh the app with ?v=15 or a later number.

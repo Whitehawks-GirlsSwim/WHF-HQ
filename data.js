@@ -11,8 +11,8 @@ window.WHF_DATA = {
   },
 
   publishInfo: {
-    version: 'V14 Admin Restored',
-    note: 'Use Admin to edit, preview, download data.js, then replace data.js in GitHub.'
+    version: 'V15 Launch Base',
+    note: 'Use Admin to edit, Save Preview, Download Publish File, then replace data.js in GitHub.'
   },
 
   latestUpdate: {

@@ -114,7 +114,7 @@
         <div class="screenTitle">Admin</div>
         <div class="card red"><h3>Add Sponsor</h3><input id="sponsorName" placeholder="Business name"><textarea id="sponsorNote" placeholder="Website / note / level if you want"></textarea><button onclick="addSponsor()">Add Sponsor</button><button class="ghost" onclick="clearSponsors()">Clear</button></div>
         <div class="card green"><h3>Update Fund</h3><input id="fundTotal" type="number" placeholder="Amount raised"><button onclick="updateFund()">Update Total</button><button class="ghost" onclick="resetFund()">Reset</button></div>
-        <div class="card split"><h3>Free Path</h3><p>This version is ready for free GitHub Pages hosting. Admin changes save on this device.</p></div>
+        <div class="card split"><h3>Free Path</h3><p>Update app content by editing data.js. The design stays untouched while schedule, announcements, events, sponsors and store info can change.</p></div>
       </section>
     </main>
   </div>
@@ -128,6 +128,7 @@
     <button data-screen="admin" onclick="showScreen('admin')">Admin</button>
   </nav>
 
+  <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

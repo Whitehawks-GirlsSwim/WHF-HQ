@@ -1,26 +1,9 @@
 const screens = document.querySelectorAll('.screen');
 const navButtons = document.querySelectorAll('.bottomNav button');
-
-const meetSchedule = [
-  { date: '2026-08-29T10:00:00-05:00', level: 'Junior Varsity', opponent: 'Tim Daly Invitational', location: 'Orono Intermediate School Educational Link Pool' },
-  { date: '2026-08-29T10:00:00-05:00', level: 'Varsity', opponent: 'Tim Daly Invitational', location: 'Orono Intermediate School Educational Link Pool' },
-  { date: '2026-09-10T18:00:00-05:00', level: 'Varsity', opponent: 'vs Dassel-Cokato', location: 'Westonka Activity Center Pool' },
-  { date: '2026-09-17T18:00:00-05:00', level: 'Varsity', opponent: '@ Watertown-Mayer/ML/SWC', location: 'Watertown-Mayer High School' },
-  { date: '2026-09-22T18:00:00-05:00', level: 'Varsity', opponent: 'vs Orono', location: 'Westonka Activity Center Pool' },
-  { date: '2026-09-22T18:00:00-05:00', level: 'Junior Varsity', opponent: 'vs Orono', location: 'Westonka Activity Center Pool' },
-  { date: '2026-09-24T18:00:00-05:00', level: 'Varsity', opponent: 'vs Litchfield', location: 'Litchfield High School' },
-  { date: '2026-10-01T18:00:00-05:00', level: 'Varsity', opponent: 'vs Hutchinson', location: 'Westonka Activity Center Pool' },
-  { date: '2026-10-08T18:00:00-05:00', level: 'Junior Varsity', opponent: '@ Delano', location: 'Delano High School Pool' },
-  { date: '2026-10-08T18:00:00-05:00', level: 'Varsity', opponent: '@ Delano', location: 'Delano High School Pool' },
-  { date: '2026-10-10T09:00:00-05:00', level: 'Varsity', opponent: 'True Team Sections', location: 'Willmar High School WHS Pool' },
-  { date: '2026-10-17T12:00:00-05:00', level: 'Varsity', opponent: 'True Team State', location: 'University of Minnesota Jean K. Freeman Aquatic Center' },
-  { date: '2026-10-22T09:00:00-05:00', level: 'Varsity', opponent: 'True Team Sections', location: 'Willmar High School WHS Pool' },
-  { date: '2026-11-05T18:00:00-06:00', level: 'Varsity', opponent: 'Section Prelims', location: 'Hutchinson High School' },
-  { date: '2026-11-07T12:00:00-06:00', level: 'Varsity', opponent: 'Section Finals', location: 'Hutchinson High School' },
-  { date: '2026-11-12T12:00:00-06:00', level: 'Varsity', opponent: 'State Dive Prelims', location: 'Jean K. Freeman Aquatic Center - U of MN' },
-  { date: '2026-11-13T12:00:00-06:00', level: 'Varsity', opponent: 'State Swim Prelims', location: 'Jean K. Freeman Aquatic Center - U of MN' },
-  { date: '2026-11-14T12:00:00-06:00', level: 'Varsity', opponent: 'State Swim/Dive Finals', location: 'Jean K. Freeman Aquatic Center - U of MN' }
-];
+const DATA = window.WHF_DATA || {};
+const meetSchedule = DATA.meetSchedule || [];
+const keyDates = DATA.keyDates || [];
+const initialSponsors = DATA.sponsors || [];
 
 function showScreen(id) {
   screens.forEach(screen => screen.classList.toggle('active', screen.id === id));
@@ -33,7 +16,7 @@ function formatDate(date) {
 }
 
 function formatTime(date) {
-  return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }).replace(' AM', ' AM').replace(' PM', ' PM');
+  return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 }
 
 function daysUntil(date, now) {
@@ -50,14 +33,36 @@ function getEventStatus(eventDate, now) {
   return 'COMPLETE';
 }
 
-function getNextEvent(now = new Date()) {
+function getSeasonItems() {
+  const meetItems = meetSchedule.map(event => ({
+    ...event,
+    title: event.opponent,
+    type: 'meet',
+    label: 'NEXT MEET'
+  }));
+
+  const dateItems = keyDates.map(item => ({
+    ...item,
+    opponent: item.title,
+    level: item.label || 'IMPORTANT DATE',
+    type: 'keyDate'
+  }));
+
+  return [...dateItems, ...meetItems].sort((a, b) => new Date(a.date) - new Date(b.date));
+}
+
+function getNextSeasonItem(now = new Date()) {
+  return getSeasonItems().find(item => new Date(item.date).getTime() + 3 * 60 * 60 * 1000 >= now.getTime()) || null;
+}
+
+function getNextMeet(now = new Date()) {
   const sorted = [...meetSchedule].sort((a, b) => new Date(a.date) - new Date(b.date));
   return sorted.find(event => new Date(event.date).getTime() + 3 * 60 * 60 * 1000 >= now.getTime()) || null;
 }
 
 function renderTodayPanel() {
   const now = new Date();
-  const next = getNextEvent(now);
+  const next = getNextSeasonItem(now);
   const kicker = document.getElementById('todayKicker');
   const main = document.getElementById('todayMain');
   const meta = document.getElementById('todayMeta');
@@ -75,10 +80,16 @@ function renderTodayPanel() {
 
   const date = new Date(next.date);
   const status = getEventStatus(date, now);
-  kicker.textContent = status === 'TODAY' ? 'TODAY' : 'NEXT MEET';
-  main.textContent = next.opponent;
-  meta.textContent = `${next.level} • ${formatDate(date)} • ${formatTime(date)}`;
-  location.textContent = next.location;
+  kicker.textContent = status === 'TODAY' ? 'TODAY' : (next.type === 'keyDate' ? (next.label || 'NEXT UP') : 'NEXT MEET');
+  main.textContent = next.title || next.opponent;
+
+  if (next.type === 'keyDate') {
+    meta.textContent = next.meta || `${formatDate(date)} • ${formatTime(date)}`;
+    location.textContent = next.location || 'Details will be updated here.';
+  } else {
+    meta.textContent = `${next.level} • ${formatDate(date)} • ${formatTime(date)}`;
+    location.textContent = next.location;
+  }
 }
 
 function renderSchedule() {
@@ -87,12 +98,13 @@ function renderSchedule() {
   if (!list) return;
 
   const now = new Date();
-  const next = getNextEvent(now);
-  const nextTime = next ? new Date(next.date).getTime() : null;
+  const next = getNextMeet(now);
+  const nextKey = next ? `${next.date}|${next.level}|${next.opponent}` : null;
 
   list.innerHTML = meetSchedule.map((event, index) => {
     const date = new Date(event.date);
-    const isNext = nextTime === date.getTime() && next && next.opponent === event.opponent && next.level === event.level;
+    const eventKey = `${event.date}|${event.level}|${event.opponent}`;
+    const isNext = nextKey === eventKey;
     const isPast = date.getTime() + 3 * 60 * 60 * 1000 < now.getTime();
     const accent = index % 2 === 0 ? 'greenAccent' : 'redAccent';
     const stateClass = isNext ? ' currentEvent' : isPast ? ' pastEvent' : '';
@@ -106,7 +118,7 @@ function renderSchedule() {
 
   if (status && next) {
     const date = new Date(next.date);
-    status.textContent = `Next up: ${next.opponent} • ${formatDate(date)} at ${formatTime(date)}`;
+    status.textContent = `Next meet: ${next.opponent} • ${formatDate(date)} at ${formatTime(date)}`;
   } else if (status) {
     status.textContent = 'The 2026 meet schedule is complete.';
   }
@@ -132,7 +144,8 @@ function clearSponsors() {
 function renderSponsors() {
   const wall = document.getElementById('sponsorWall');
   if (!wall) return;
-  const sponsors = JSON.parse(localStorage.getItem('whfSponsors') || '[]');
+  const savedSponsors = JSON.parse(localStorage.getItem('whfSponsors') || '[]');
+  const sponsors = [...initialSponsors, ...savedSponsors];
   wall.innerHTML = sponsors.map(s => `<div class="card green"><h3>${escapeHtml(s.name)}</h3><p>${escapeHtml(s.note || 'Thank you for supporting WHF Swim & Dive.')}</p></div>`).join('');
 }
 
@@ -141,13 +154,11 @@ function updateFund() {
   const total = Math.max(0, Math.min(30000, raw));
   localStorage.setItem('whfFundTotal', String(total));
   renderFund();
-setupHomeTaps();
 }
 
 function resetFund() {
   localStorage.removeItem('whfFundTotal');
   renderFund();
-setupHomeTaps();
 }
 
 function renderFund() {
@@ -162,7 +173,6 @@ function renderFund() {
 function escapeHtml(value) {
   return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
 }
-
 
 function setupHomeTaps() {
   const todayPanel = document.getElementById('todayPanel');

@@ -54,7 +54,7 @@
             <button class="miniAction greenAccent" onclick="showScreen('spirit')"><h3>EVENTS</h3><p>Volunteer opportunities and team events</p></button>
             <button class="miniAction redAccent" onclick="showScreen('parents')"><h3>TEAM STORE</h3><p>Apparel, suits, caps and order windows</p></button>
             <button class="miniAction greenAccent" onclick="showScreen('booster')"><h3>BOOSTER CLUB</h3><p>Fees, leadership and meeting information</p></button>
-            <button class="miniAction redAccent" onclick="showScreen('sponsors')"><h3>SPONSORS</h3><p>Community partners supporting WHF</p></button>
+            <button class="miniAction redAccent" onclick="showScreen('program')"><h3>PROGRAM</h3><p>Records, honors, photos and community</p></button>
           </div>
         </div>
       </section>
@@ -99,19 +99,95 @@
         <div class="scheduleList" id="scheduleList"></div>
       </section>
 
+      <section class="screen" id="program">
+        <div class="screenTitle">Program</div>
+        <div class="seasonLead programLead">
+          <div class="seasonLeadTop">WHF GIRLS SWIM &amp; DIVE</div>
+          <h2 id="programHeadline">Records &amp; Accolades</h2>
+          <p id="programIntroText">Program history, season record, individual honors, team records and photo links live here.</p>
+        </div>
+
+        <div class="programGrid">
+          <div class="programStat greenAccent">
+            <span>SEASON RECORD</span>
+            <strong id="seasonRecordValue">Coming Soon</strong>
+            <p id="seasonRecordNote">Update from Admin when results are available.</p>
+          </div>
+          <div class="programStat redAccent">
+            <span>PROGRAM</span>
+            <strong id="programStatusValue">2026 Season</strong>
+            <p>Records, honors and team history.</p>
+          </div>
+        </div>
+
+        <div class="programBlock">
+          <div class="blockTitle">Program Highlights</div>
+          <div id="programHighlightsList"></div>
+        </div>
+
+        <div class="programBlock">
+          <div class="blockTitle">Team Records</div>
+          <div id="teamRecordsList"></div>
+        </div>
+
+        <div class="programBlock">
+          <div class="blockTitle">Individual Accolades</div>
+          <div id="accoladesList"></div>
+        </div>
+
+        <div class="programBlock">
+          <div class="blockTitle">Photos</div>
+          <div id="photoLinksList"></div>
+        </div>
+
+        <div class="programLinks">
+          <button class="primaryAction greenAccent" onclick="showScreen('sponsors')"><h3>SPONSORS &amp; COMMUNITY</h3><p>Community partners supporting WHF Swim &amp; Dive</p></button>
+          <button class="primaryAction redAccent" onclick="showScreen('booster')"><h3>BOOSTER CLUB</h3><p>Leadership, roles and behind-the-scenes support</p></button>
+        </div>
+      </section>
+
       <section class="screen" id="admin">
         <div class="screenTitle">Admin</div>
 
+        <div class="adminDashboard" id="adminDashboard">
+          <div class="adminDashCard splitAccent">
+            <span>STATUS</span>
+            <strong id="adminPendingCount">No pending changes</strong>
+            <p id="adminPendingDetail">Published data is currently loaded.</p>
+          </div>
+          <div class="adminDashCard greenAccent">
+            <span>WORKFLOW</span>
+            <strong>Edit → Preview → Publish</strong>
+            <p>Use Admin to edit content. GitHub publishes the final file for everyone.</p>
+          </div>
+        </div>
+
         <div class="card split adminNotice">
-          <h3>App Editor</h3>
-          <p>Edit the app from here. <b>Save Preview</b> updates this device immediately. <b>Download Publish File</b> gives you the new <b>data.js</b> file to upload to GitHub so every family sees the update.</p>
+          <h3>Admin Control Center</h3>
+          <p>Edit the app from here. <b>Save Preview</b> updates this device immediately. <b>Download Publish File</b> creates the new <b>data.js</b> file to upload to GitHub so every family sees the update.</p>
+          <div class="quickPublishRow">
+            <button onclick="saveAdminPreview()">Save Preview</button>
+            <button onclick="downloadDataFile()">Download Publish File</button>
+          </div>
+        </div>
+
+        <div class="card green adminPanel publishGuide">
+          <h3>How to Publish Updates</h3>
+          <ol>
+            <li>Edit the content below.</li>
+            <li>Tap <b>Save Preview</b> and review the app on this device.</li>
+            <li>Tap <b>Download Publish File</b>.</li>
+            <li>In GitHub, replace only <b>data.js</b>.</li>
+            <li>Commit changes and refresh the app with <b>?v=13</b>.</li>
+          </ol>
+          <p class="helperText">Most weekly updates should only require replacing <b>data.js</b>. Do not edit layout files unless we are redesigning the app.</p>
         </div>
 
         <div id="adminSimpleEditor"></div>
 
-        <div class="card split adminPanel">
+        <div class="card split adminPanel stickyPublishPanel">
           <h3>Publish Changes</h3>
-          <p>After editing, save your preview first. When it looks right, download the publish file and replace <b>data.js</b> in GitHub. No layout code needs to be touched.</p>
+          <p id="publishSummary">Save your preview first. When it looks right, download the publish file and replace <b>data.js</b> in GitHub.</p>
           <button onclick="saveAdminPreview()">Save Preview</button>
           <button onclick="downloadDataFile()">Download Publish File</button>
           <button class="ghost" onclick="resetAdminPreview()">Reset Preview</button>
@@ -127,7 +203,7 @@
     <button data-screen="season" onclick="showScreen('season')">Season</button>
     <button data-screen="spirit" onclick="showScreen('spirit')">Events</button>
     <button data-screen="parents" onclick="showScreen('parents')">Parents</button>
-    <button data-screen="booster" onclick="showScreen('booster')">Booster</button>
+    <button data-screen="program" onclick="showScreen('program')">Program</button>
     <button data-screen="admin" onclick="showScreen('admin')">Admin</button>
   </nav>
 

@@ -106,7 +106,12 @@ function cardHtml(item, idx = 0) {
   const cls = accent === 'split' ? 'split' : accent === 'red' ? 'red' : 'green';
   const detail = item.body || item.detail || '';
   const date = item.date ? `<p><b>${escapeHtml(item.date)}</b></p>` : '';
-  const link = item.linkUrl ? `<a class="link" href="${escapeHtml(item.linkUrl)}">${escapeHtml(item.linkText || 'View Details')}</a>` : '';
+  let link = '';
+  if (item.targetScreen) {
+    link = `<button class="inlineLink" onclick="showScreen('${escapeHtml(item.targetScreen)}')">${escapeHtml(item.linkText || 'Open')}</button>`;
+  } else if (item.linkUrl) {
+    link = `<a class="link" href="${escapeHtml(item.linkUrl)}">${escapeHtml(item.linkText || 'View Details')}</a>`;
+  }
   return `<div class="card ${cls}"><h3>${escapeHtml(item.title || item.name || 'Untitled')}</h3>${date}<p>${escapeHtml(detail)}</p>${link}</div>`;
 }
 
@@ -163,6 +168,40 @@ function renderSponsors() {
   wall.innerHTML = sponsors.length
     ? sponsors.map(s => `<div class="card green"><h3>${escapeHtml(s.name)}</h3><p>${escapeHtml(s.note || 'Thank you for supporting WHF Swim & Dive.')}</p></div>`).join('')
     : `<div class="card green"><h3>Sponsors Coming Soon</h3><p>Community partners will be added here as sponsorships are finalized.</p></div>`;
+}
+
+
+function renderProgram() {
+  const summary = DATA.programSummary || {};
+  const record = DATA.seasonRecord || {};
+  const headline = document.getElementById('programHeadline');
+  const intro = document.getElementById('programIntroText');
+  const recordValue = document.getElementById('seasonRecordValue');
+  const recordNote = document.getElementById('seasonRecordNote');
+  const statusValue = document.getElementById('programStatusValue');
+  if (headline) headline.textContent = summary.headline || 'Records & Accolades';
+  if (intro) intro.textContent = summary.intro || 'Program history and honors live here.';
+  if (recordValue) recordValue.textContent = record.value || 'Coming Soon';
+  if (recordNote) recordNote.textContent = record.note || 'Update from Admin when results are available.';
+  if (statusValue) statusValue.textContent = summary.status || (DATA.season?.label || '2026 Season');
+
+  const highlights = document.getElementById('programHighlightsList');
+  if (highlights) highlights.innerHTML = (DATA.programHighlights || []).map(cardHtml).join('') || cardHtml({ accent:'split', title:'Highlights Coming Soon', body:'Add program highlights from Admin.' });
+
+  const records = document.getElementById('teamRecordsList');
+  if (records) records.innerHTML = (DATA.teamRecords || []).map((item, idx) => {
+    const cls = idx % 2 === 0 ? 'green' : 'red';
+    return `<div class="recordRow ${cls}"><div><strong>${escapeHtml(item.event || 'Event')}</strong><span>${escapeHtml(item.holder || '')}</span></div><div><b>${escapeHtml(item.mark || '')}</b><em>${escapeHtml(item.year || '')}</em></div></div>`;
+  }).join('') || `<div class="card green"><h3>Records Coming Soon</h3><p>Add team records from Admin.</p></div>`;
+
+  const accolades = document.getElementById('accoladesList');
+  if (accolades) accolades.innerHTML = (DATA.accolades || []).map((item, idx) => {
+    const cls = idx % 2 === 0 ? 'green' : 'red';
+    return `<div class="recordRow ${cls}"><div><strong>${escapeHtml(item.name || 'Athlete')}</strong><span>${escapeHtml(item.honor || '')}</span></div><div><em>${escapeHtml(item.year || '')}</em></div></div>`;
+  }).join('') || `<div class="card red"><h3>Accolades Coming Soon</h3><p>Add individual honors from Admin.</p></div>`;
+
+  const photos = document.getElementById('photoLinksList');
+  if (photos) photos.innerHTML = (DATA.photoLinks || []).map(cardHtml).join('') || cardHtml({accent:'split', title:'Photo Links Coming Soon', body:'Add upload and gallery links from Admin.'});
 }
 
 function updateFund() {
@@ -293,6 +332,58 @@ function buildAdminForms() {
       <button onclick="addAdminItem('boosterCards')">Add Booster Box</button>
     </div>
 
+    <div class="card split adminPanel">
+      <h3>Program Summary</h3>
+      <input id="adminProgramHeadline" value="${escapeHtml(DATA.programSummary?.headline || '')}" placeholder="Headline">
+      <textarea id="adminProgramIntro" placeholder="Intro text">${escapeHtml(DATA.programSummary?.intro || '')}</textarea>
+      <input id="adminProgramStatus" value="${escapeHtml(DATA.programSummary?.status || '')}" placeholder="Program status / season label">
+      <input id="adminSeasonRecordValue" value="${escapeHtml(DATA.seasonRecord?.value || '')}" placeholder="Season record, ex: 4-1">
+      <textarea id="adminSeasonRecordNote" placeholder="Season record note">${escapeHtml(DATA.seasonRecord?.note || '')}</textarea>
+    </div>
+
+    <div class="card green adminPanel">
+      <h3>Program Highlights</h3>
+      <div id="adminProgramHighlights">${(DATA.programHighlights || []).map((item, i) => adminCardEditor('programHighlights', item, i, [
+        {key:'accent', label:'Accent: green, red, or split'},
+        {key:'title', label:'Title'},
+        {key:'body', label:'Body', type:'textarea'}
+      ])).join('')}</div>
+      <button onclick="addAdminItem('programHighlights')">Add Highlight</button>
+    </div>
+
+    <div class="card red adminPanel">
+      <h3>Team Records</h3>
+      <div id="adminTeamRecords">${(DATA.teamRecords || []).map((item, i) => adminCardEditor('teamRecords', item, i, [
+        {key:'event', label:'Event'},
+        {key:'holder', label:'Record holder / relay'},
+        {key:'mark', label:'Time / score'},
+        {key:'year', label:'Year'}
+      ])).join('')}</div>
+      <button onclick="addAdminItem('teamRecords')">Add Record</button>
+    </div>
+
+    <div class="card green adminPanel">
+      <h3>Individual Accolades</h3>
+      <div id="adminAccolades">${(DATA.accolades || []).map((item, i) => adminCardEditor('accolades', item, i, [
+        {key:'name', label:'Name'},
+        {key:'honor', label:'Honor / accolade'},
+        {key:'year', label:'Year'}
+      ])).join('')}</div>
+      <button onclick="addAdminItem('accolades')">Add Accolade</button>
+    </div>
+
+    <div class="card split adminPanel">
+      <h3>Photo Links</h3>
+      <div id="adminPhotoLinks">${(DATA.photoLinks || []).map((item, i) => adminCardEditor('photoLinks', item, i, [
+        {key:'accent', label:'Accent: green, red, or split'},
+        {key:'title', label:'Title'},
+        {key:'detail', label:'Details', type:'textarea'},
+        {key:'linkText', label:'Button text'},
+        {key:'linkUrl', label:'Google Drive / gallery link'}
+      ])).join('')}</div>
+      <button onclick="addAdminItem('photoLinks')">Add Photo Link</button>
+    </div>
+
     <div class="card red adminPanel">
       <h3>Sponsors</h3>
       <input id="adminSponsorIntroTitle" value="${escapeHtml(DATA.sponsorIntro?.title || '')}" placeholder="Sponsor intro title">
@@ -317,6 +408,15 @@ function getAdminFormData() {
     title: document.getElementById('adminSponsorIntroTitle')?.value.trim() || '',
     body: document.getElementById('adminSponsorIntroBody')?.value.trim() || ''
   };
+  next.programSummary = {
+    headline: document.getElementById('adminProgramHeadline')?.value.trim() || '',
+    intro: document.getElementById('adminProgramIntro')?.value.trim() || '',
+    status: document.getElementById('adminProgramStatus')?.value.trim() || ''
+  };
+  next.seasonRecord = {
+    value: document.getElementById('adminSeasonRecordValue')?.value.trim() || '',
+    note: document.getElementById('adminSeasonRecordNote')?.value.trim() || ''
+  };
 
   document.querySelectorAll('[data-section][data-index][data-key]').forEach(el => {
     const section = el.dataset.section;
@@ -333,9 +433,11 @@ function getAdminFormData() {
 
   next.meetSchedule = (next.meetSchedule || []).filter(x => x.opponent || x.date).sort((a, b) => new Date(a.date) - new Date(b.date));
   next.keyDates = (next.keyDates || []).filter(x => x.title || x.date).sort((a, b) => new Date(a.date) - new Date(b.date));
-  ['parentCards','boosterCards','events','sponsors'].forEach(section => {
-    next[section] = (next[section] || []).filter(x => x.title || x.name || x.body || x.detail);
+  ['parentCards','boosterCards','events','sponsors','programHighlights','photoLinks'].forEach(section => {
+    next[section] = (next[section] || []).filter(x => x.title || x.name || x.body || x.detail || x.linkUrl);
   });
+  next.teamRecords = (next.teamRecords || []).filter(x => x.event || x.holder || x.mark);
+  next.accolades = (next.accolades || []).filter(x => x.name || x.honor);
   return next;
 }
 
@@ -358,7 +460,11 @@ function addAdminItem(section) {
     parentCards: { accent: 'green', title: '', body: '', linkText: '', linkUrl: '' },
     events: { accent: 'green', title: '', date: '', detail: '', linkText: '', linkUrl: '' },
     boosterCards: { accent: 'green', title: '', body: '' },
-    sponsors: { name: '', note: '' }
+    sponsors: { name: '', note: '' },
+    programHighlights: { accent: 'green', title: '', body: '' },
+    teamRecords: { event: '', holder: '', mark: '', year: '' },
+    accolades: { name: '', honor: '', year: '' },
+    photoLinks: { accent: 'split', title: '', detail: '', linkText: '', linkUrl: '' }
   };
   next[section].push(templates[section] || {});
   setRuntimeData(next);
@@ -389,6 +495,9 @@ function resetAdminPreview() {
 function downloadDataFile() {
   try {
     const nextData = getAdminFormData();
+    localStorage.setItem('whfAdminDataPreview', JSON.stringify(nextData));
+    setRuntimeData(nextData);
+    renderAdminStatus();
     const fileText = 'window.WHF_DATA = ' + JSON.stringify(nextData, null, 2) + ';\n';
     const blob = new Blob([fileText], { type: 'application/javascript' });
     const url = URL.createObjectURL(blob);
@@ -404,19 +513,63 @@ function downloadDataFile() {
   }
 }
 
+
+function getChangedSections(candidate = DATA) {
+  const base = window.WHF_DATA || {};
+  const sections = [
+    ['latestUpdate', 'Latest Update'],
+    ['keyDates', 'Key Dates / Practice Info'],
+    ['meetSchedule', 'Meet Schedule'],
+    ['parentCards', 'Parent Hub'],
+    ['events', 'Events'],
+    ['boosterCards', 'Booster Club'],
+    ['programSummary', 'Program Summary'],
+    ['seasonRecord', 'Season Record'],
+    ['programHighlights', 'Program Highlights'],
+    ['teamRecords', 'Team Records'],
+    ['accolades', 'Individual Accolades'],
+    ['photoLinks', 'Photo Links'],
+    ['sponsorIntro', 'Sponsor Intro'],
+    ['sponsors', 'Sponsors'],
+    ['teamStore', 'Team Store']
+  ];
+  return sections.filter(([key]) => JSON.stringify(candidate?.[key] ?? null) !== JSON.stringify(base?.[key] ?? null)).map(([, label]) => label);
+}
+
+function renderAdminStatus() {
+  const countEl = document.getElementById('adminPendingCount');
+  const detailEl = document.getElementById('adminPendingDetail');
+  const summaryEl = document.getElementById('publishSummary');
+  if (!countEl || !detailEl) return;
+  const changed = getChangedSections(DATA);
+  if (!changed.length) {
+    countEl.textContent = 'No pending changes';
+    detailEl.textContent = 'Published data is currently loaded.';
+    if (summaryEl) summaryEl.textContent = 'Make edits below, save a preview, then download data.js when you are ready to publish.';
+    return;
+  }
+  countEl.textContent = `${changed.length} pending ${changed.length === 1 ? 'change' : 'changes'}`;
+  detailEl.textContent = changed.slice(0, 4).join(' • ') + (changed.length > 4 ? ` • +${changed.length - 4} more` : '');
+  if (summaryEl) summaryEl.textContent = `${changed.length} section${changed.length === 1 ? '' : 's'} changed. Download data.js when the preview looks right.`;
+}
+
 function refreshAppFromData() {
   renderTodayPanel();
   renderSchedule();
   renderPageCards();
   renderSponsors();
+  renderProgram();
   renderFund();
   buildAdminForms();
+  renderAdminStatus();
 }
 
 renderTodayPanel();
 renderSchedule();
 renderPageCards();
 renderSponsors();
+renderProgram();
 renderFund();
 setupHomeTaps();
 buildAdminForms();
+renderAdminStatus();

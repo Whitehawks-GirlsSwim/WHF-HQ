@@ -10,6 +10,11 @@ window.WHF_DATA = {
     programName: 'WHF Girls Swim & Dive'
   },
 
+  publishInfo: {
+    version: 'V13 Publish Workflow',
+    note: 'Use Admin to edit, preview, download data.js, then replace data.js in GitHub.'
+  },
+
   latestUpdate: {
     title: 'Meet schedule loaded',
     body: 'The 2026 meet schedule has been added. Practice information can be added once finalized.',
@@ -52,7 +57,7 @@ window.WHF_DATA = {
     { accent: 'red', title: 'Team Store', body: 'Elsmore Team Store is open. Order Window #1: July 6 – July 12. Order Window #2: July 27 – August 2. Team suits and caps are required for varsity competition. Every athlete receives the captains-designed team shirt at no cost.', linkText: 'Shop Team Store', linkUrl: 'https://elsmoreswim.com/collections/mound-westonka-holy-family-hs-girls' },
     { accent: 'green', title: 'Eligibility Meeting', body: 'Wednesday, August 12 at 5:00 PM in the Performing Arts Center. Sport breakout sessions begin at 5:30 PM.' },
     { accent: 'red', title: 'First Practice', body: 'Monday, August 17.' },
-    { accent: 'split', title: 'Meet Schedule', body: 'The 2026 meet schedule has been added to the Season page. Practice information can be added once finalized.' }
+    { accent: 'split', title: 'Season Schedule', body: 'The 2026 meet schedule has been added to the Season page. Practice information can be added once finalized.', targetScreen: 'season', linkText: 'View Season' }
   ],
 
   boosterCards: [
@@ -75,6 +80,35 @@ window.WHF_DATA = {
     { accent: 'green', title: 'Hydration Station', date: 'July 16–18', detail: 'Water, pop, Gatorade, and Alani Energy Drinks. Thursday, July 16 • 4:00–10:00 PM. Friday, July 17 • 5:00–11:00 PM. Saturday, July 18 • 11:00 AM–11:00 PM.', linkText: 'Hydration Station Sign Up', linkUrl: 'https://www.signupgenius.com/go/5080F4BAFA62DA1FE3-63621451-2026' },
     { accent: 'red', title: 'Dunk Tank', date: 'Saturday, July 18', detail: 'Festival-goers buy balls to dunk participants and support the team. 4:30–6:30 PM.', linkText: 'Dunk Tank Sign Up', linkUrl: 'https://www.signupgenius.com/go/5080F4BAFA62DA1FE3-63624280-2026' },
     { accent: 'green', title: 'Athlete Reminders', date: '', detail: 'Check the SignUpGenius, be on time, check in at the ticket booth when your shift begins, check out when finished, and represent the team well.' }
+  ],
+
+  programSummary: {
+    headline: 'Records & Accolades',
+    intro: 'Program history, season record, individual honors, team records and photo links live here.',
+    status: '2026 Season'
+  },
+
+  seasonRecord: {
+    value: '0-0',
+    note: 'Update from Admin as dual meets and championship results are finalized.'
+  },
+
+  programHighlights: [
+    { accent: 'green', title: '2025 True Team', body: '2nd place finish at True Team.' },
+    { accent: 'red', title: '2025 State Meet', body: '4th place finish at State.' }
+  ],
+
+  teamRecords: [
+    { event: 'School Records', holder: 'Coming Soon', mark: 'Add records from Admin', year: '' }
+  ],
+
+  accolades: [
+    { name: 'Individual Honors', honor: 'All-State, All-Conference, State Qualifiers and team awards can be added here.', year: '2026' }
+  ],
+
+  photoLinks: [
+    { title: 'Upload Photos', detail: 'Shared team photo folder for families.', linkText: 'Upload Photos', linkUrl: '' },
+    { title: 'View Gallery', detail: 'Season photo gallery link.', linkText: 'View Gallery', linkUrl: '' }
   ],
 
   teamStore: {

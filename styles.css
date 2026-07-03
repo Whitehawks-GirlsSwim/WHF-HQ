@@ -245,3 +245,45 @@ input,textarea{width:100%;background:#07070a;color:#fff;border:1px solid var(--l
   -webkit-user-select: none;
   user-select: none;
 }
+
+/* Admin content control */
+.adminNotice p,
+.adminPanel p {
+  color: #cfd3da;
+}
+
+.adminPanel input,
+.adminPanel textarea,
+.card input,
+.card textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 8px 0;
+  padding: 13px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.35);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+
+.adminPanel input:focus,
+.adminPanel textarea:focus,
+.card input:focus,
+.card textarea:focus {
+  border-color: rgba(255,255,255,.32);
+}
+
+.codeEditor {
+  min-height: 360px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 12px !important;
+  line-height: 1.45;
+  white-space: pre;
+}
+
+.adminPanel button,
+.card button {
+  margin: 8px 8px 0 0;
+}

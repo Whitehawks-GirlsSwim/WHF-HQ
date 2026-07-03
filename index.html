@@ -110,15 +110,17 @@
         <div class="scheduleList" id="scheduleList"></div>
       </section>
 
-      
-<section class="screen" id="program">
-<div class="screenTitle">Program</div>
-<div class="card split"><h3>Program History</h3><p id="programHistory"></p></div>
-<div class="card green"><h3>Season Record</h3><div class="big" id="seasonRecord"></div></div>
-<div class="card red"><h3>Individual Accolades</h3><ul id="accolades"></ul></div>
-<div class="card green"><h3>Team Records</h3><div id="records"></div></div>
-</section>
-<section class="screen" id="admin">
+
+      <section class="screen" id="program">
+        <div class="screenTitle">Program</div>
+        <div class="card split"><h3>Season Record</h3><div class="big" id="programRecord">Loading...</div><p>Update this in data.js as the season moves.</p></div>
+        <div class="card green"><h3>Program Highlights</h3><div id="programHighlights"></div></div>
+        <div class="card red"><h3>Team Records</h3><div id="teamRecords"></div></div>
+        <div class="card green"><h3>Individual Accolades</h3><div id="programAccolades"></div></div>
+        <div class="card split"><h3>Photos</h3><p>Use this area for team gallery and upload links once finalized.</p><div id="photoLinks"></div></div>
+      </section>
+
+      <section class="screen" id="admin">
         <div class="screenTitle">Admin</div>
         <div class="card red"><h3>Add Sponsor</h3><input id="sponsorName" placeholder="Business name"><textarea id="sponsorNote" placeholder="Website / note / level if you want"></textarea><button onclick="addSponsor()">Add Sponsor</button><button class="ghost" onclick="clearSponsors()">Clear</button></div>
         <div class="card green"><h3>Update Fund</h3><input id="fundTotal" type="number" placeholder="Amount raised"><button onclick="updateFund()">Update Total</button><button class="ghost" onclick="resetFund()">Reset</button></div>
@@ -133,7 +135,8 @@
     <button data-screen="spirit" onclick="showScreen('spirit')">Events</button>
     <button data-screen="parents" onclick="showScreen('parents')">Parents</button>
     <button data-screen="booster" onclick="showScreen('booster')">Booster</button>
-    <button data-screen="program" onclick="showScreen('program')">Program</button><button data-screen="admin" onclick="showScreen('admin')">Admin</button>
+    <button data-screen="program" onclick="showScreen('program')">Program</button>
+    <button data-screen="admin" onclick="showScreen('admin')">Admin</button>
   </nav>
 
   <script src="data.js"></script>

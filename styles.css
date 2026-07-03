@@ -21,7 +21,7 @@ button,a,input,textarea{font:inherit}button{cursor:pointer;-webkit-tap-highlight
 .screenTitle{font-size:29px;font-weight:950;letter-spacing:.5px;margin:20px 0 14px}.card{background:rgba(14,14,18,.96);border:1px solid var(--line);border-left:5px solid #fff;border-radius:16px;padding:18px;margin-bottom:12px}.card.red{border-left-color:var(--red)}.card.green{border-left-color:var(--green)}.card.split{border-left-color:transparent;background:linear-gradient(#101015,#101015) padding-box,linear-gradient(90deg,var(--red),var(--green)) border-box}.card h3{margin:0 0 8px;font-size:18px;font-weight:950;letter-spacing:.3px}.card p{margin:0 0 10px;color:var(--muted);font-size:14px;line-height:1.45}.card p:last-child{margin-bottom:0}.big{font-size:34px;font-weight:950;margin:8px 0;color:#fff}.link{display:inline-block;color:#fff;text-decoration:none;font-weight:950;border-bottom:2px solid var(--green);padding-bottom:2px;margin-top:4px}
 .fundBox{position:relative;height:150px;border-radius:16px;background:#050509;border:1px solid var(--line);overflow:hidden;margin-top:14px}.fundFill{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(90deg,var(--red),var(--green));transition:height .3s ease}.fundText{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-size:30px;font-weight:950}.fundText small{font-size:13px;color:var(--muted);font-weight:800}
 input,textarea{width:100%;background:#07070a;color:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0 10px}textarea{min-height:90px;resize:vertical}.card button{background:#fff;color:#000;border:0;border-radius:12px;padding:11px 14px;font-weight:950;margin-right:8px;margin-top:4px}.card button.ghost{background:transparent;color:#fff;border:1px solid var(--line)}#sponsorWall .card{border-left-color:var(--green)}
-.bottomNav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(3,3,6,.94);backdrop-filter:blur(18px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);padding:8px 8px calc(8px + env(safe-area-inset-bottom));gap:4px}.bottomNav button{background:transparent;border:0;color:var(--soft);font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.2px;padding:11px 4px;border-radius:11px}.bottomNav button.active{color:#fff;background:linear-gradient(90deg,rgba(193,18,31,.25),rgba(0,132,61,.22));border:1px solid var(--line)}
+.bottomNav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(3,3,6,.94);backdrop-filter:blur(18px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(7,1fr);padding:8px 8px calc(8px + env(safe-area-inset-bottom));gap:4px}.bottomNav button{background:transparent;border:0;color:var(--soft);font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.2px;padding:11px 4px;border-radius:11px}.bottomNav button.active{color:#fff;background:linear-gradient(90deg,rgba(193,18,31,.25),rgba(0,132,61,.22));border:1px solid var(--line)}
 @media (min-width:720px){.app{padding-left:24px;padding-right:24px}.homeHeroWow{height:470px}.homeActionsWow{grid-template-columns:1fr 1fr}.wideAction,.homeActionsWow>.splitAccent{grid-column:1/-1}.bottomNav{max-width:860px;margin:0 auto;left:50%;transform:translateX(-50%);border-radius:22px 22px 0 0}}
 @media (max-width:380px){.homeHeroWow{height:360px}.heroContentWow h1{font-size:48px}.heroContentWow h1 span{font-size:25px}.nextPanel{margin-left:8px;margin-right:8px}.wideAction{padding:18px 15px}.compactAction{min-height:104px}}
 
@@ -244,4 +244,23 @@ input,textarea{width:100%;background:#07070a;color:#fff;border:1px solid var(--l
 .tappablePanel {
   -webkit-user-select: none;
   user-select: none;
+}
+
+
+/* V14 program safe */
+#programHighlights p,
+#teamRecords p,
+#programAccolades p,
+#photoLinks p {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+#teamRecords b,
+#programAccolades b { color: #fff; }
+#photoLinks .link { margin-right: 12px; }
+@media (max-width:420px){
+  .bottomNav{grid-template-columns:repeat(7,1fr);gap:2px;padding-left:4px;padding-right:4px}
+  .bottomNav button{font-size:9px;padding-left:2px;padding-right:2px}
 }

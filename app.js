@@ -174,6 +174,46 @@ function escapeHtml(value) {
   return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
 }
 
+
+function renderProgram() {
+  const program = DATA.program || {};
+  const record = document.getElementById('programRecord');
+  const highlights = document.getElementById('programHighlights');
+  const records = document.getElementById('teamRecords');
+  const accolades = document.getElementById('programAccolades');
+  const photos = document.getElementById('photoLinks');
+
+  if (record) record.textContent = program.seasonRecord || 'Add season record';
+
+  if (highlights) {
+    const items = program.highlights || [];
+    highlights.innerHTML = items.length
+      ? items.map(item => `<p>• ${escapeHtml(item)}</p>`).join('')
+      : '<p>Program highlights can be added here.</p>';
+  }
+
+  if (records) {
+    const items = program.teamRecords || [];
+    records.innerHTML = items.length
+      ? items.map(item => `<p><b>${escapeHtml(item.event || '')}</b><br>${escapeHtml(item.name || '')} • ${escapeHtml(item.time || '')} • ${escapeHtml(item.year || '')}</p>`).join('')
+      : '<p>Team records can be added here.</p>';
+  }
+
+  if (accolades) {
+    const items = program.accolades || [];
+    accolades.innerHTML = items.length
+      ? items.map(item => `<p><b>${escapeHtml(item.name || '')}</b><br>${escapeHtml(item.honor || '')} • ${escapeHtml(item.year || '')}</p>`).join('')
+      : '<p>Individual accolades can be added here.</p>';
+  }
+
+  if (photos) {
+    const links = program.photoLinks || {};
+    const gallery = links.gallery ? `<a class="link" href="${escapeHtml(links.gallery)}">View Gallery</a>` : '';
+    const upload = links.upload ? `<a class="link" href="${escapeHtml(links.upload)}">Upload Photos</a>` : '';
+    photos.innerHTML = gallery || upload ? `${gallery} ${upload}` : '<p>Photo gallery and upload links can be added here.</p>';
+  }
+}
+
 function setupHomeTaps() {
   const todayPanel = document.getElementById('todayPanel');
   if (!todayPanel) return;
@@ -191,15 +231,5 @@ renderTodayPanel();
 renderSchedule();
 renderSponsors();
 renderFund();
-setupHomeTaps();
-
-
-function renderProgram(){
- const p=DATA.program||{};
- const h=document.getElementById('programHistory'); if(!h) return;
- h.textContent=p.history||'';
- document.getElementById('seasonRecord').textContent=p.seasonRecord||'';
- document.getElementById('accolades').innerHTML=(p.accolades||[]).map(a=>`<li>${escapeHtml(a)}</li>`).join('');
- document.getElementById('records').innerHTML=(p.records||[]).map(r=>`<p><strong>${escapeHtml(r.event)}</strong> - ${escapeHtml(r.athlete)} ${escapeHtml(r.time)}</p>`).join('');
-}
 renderProgram();
+setupHomeTaps();

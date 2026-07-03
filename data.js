@@ -83,21 +83,26 @@ window.WHF_DATA = {
   sponsors: [
     // Add confirmed sponsors here:
     // { name: 'Business Name', note: 'Gold Sponsor' }
-  ]
-};
+  ],
 
+  program: {
+    seasonRecord: 'Add 2026 record when season begins',
+    highlights: [
+      '2nd Place – True Team State',
+      '4th Place – MSHSL State Championships',
+      '2026 timing equipment investment supported by sponsors and community partners'
+    ],
+    teamRecords: [
+      { event: '100 Breast', name: 'Add record holder', time: 'Add time', year: 'Add year' },
+      { event: '200 IM', name: 'Add record holder', time: 'Add time', year: 'Add year' }
+    ],
+    accolades: [
+      { name: 'Add athlete name', honor: 'All-Conference / All-State / State Qualifier', year: '2026' }
+    ],
+    photoLinks: {
+      gallery: '',
+      upload: ''
+    }
+  }
 
-window.WHF_DATA.program = {
- history:"Founded through the Westonka/Holy Family co-op, the Whitehawks continue to build a tradition of excellence.",
- seasonRecord:"0-0",
- stateAppearances:"Update each season",
- records:[
-  {event:"100 Breaststroke", athlete:"Mia Dongoske", time:"1:06.96"},
-  {event:"Add Team Records", athlete:"", time:""}
- ],
- accolades:[
-  "True Team Section Runner-Up",
-  "Section Finalists",
-  "Academic All-State"
- ]
 };

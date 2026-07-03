@@ -1,15 +1,9 @@
 {
   "name": "WHF HQ",
   "short_name": "WHF HQ",
-  "start_url": "./",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#030306",
   "theme_color": "#030306",
-  "icons": [
-    {
-      "src": "whitehawk-logo.jpeg",
-      "sizes": "192x192",
-      "type": "image/jpeg"
-    }
-  ]
+  "icons": []
 }

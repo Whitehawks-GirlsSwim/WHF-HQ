@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -7,165 +9,127 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="waterLight"></div>
-
-<div class="app">
-  <div class="top">
-    <div class="brand">
-      <img class="logo" src="whitehawk-logo.jpeg" alt="Whitehawk logo">
-      <div>WHF HQ<small>Westonka + Holy Family</small></div>
-    </div>
-    <div class="live" id="greeting">live</div>
-  </div>
-<section class="screen active" id="home">
-  <div class="homeHeroPro">
-    <img src="team-hero.jpg" alt="WHF Swim and Dive team">
-    <div class="heroShade"></div>
-    <div class="heroLines"></div>
-
-    <div class="heroContent">
-      <div class="eyebrow">WELCOME BACK</div>
-      <h1>WHF HQ</h1>
-      <p>Everything Westonka/Holy Family Girls Swim & Dive in one place.</p>
-    </div>
-  </div>
-
-  <div class="homeActions">
-    <button class="proCard greenAccent" onclick="showScreen('parents')">
-      <h3>PARENT HUB</h3>
-      <p>Registration, eligibility, team store and first practice.</p>
-    </button>
-
-    <button class="proCard redAccent" onclick="showScreen('allinfo')">
-      <h3>TEAM CALENDAR</h3>
-      <p>Practices, meets, important dates and season updates.</p>
-    </button>
-
-    <button class="proCard greenAccent" onclick="showScreen('booster')">
-      <h3>BOOSTER CLUB</h3>
-      <p>Fees, bylaws, leadership and volunteer roles.</p>
-    </button>
-
-    <button class="proCard greenAccent" onclick="showScreen('spirit')">
-      <h3>EVENTS & FUNDRAISERS</h3>
-      <p>Spirit of the Lakes, dunk tank, shifts and signup links.</p>
-    </button>
-
-    <button class="proCard redAccent" onclick="showScreen('parents')">
-      <h3>TEAM STORE</h3>
-      <p>Apparel, suits, caps and order windows.</p>
-    </button>
-
-    <button class="proCard redAccent" onclick="showScreen('sponsors')">
-      <h3>SPONSORS</h3>
-      <p>Support businesses that support WHF Swim & Dive.</p>
-    </button>
-  </div>
-</section>
-  <div class="screens">
-    <section class="screen active" id="home">
-<div class="homeHero">
-  <img class="homeLogo" src="whitehawk-logo.jpeg" alt="Whitehawk logo">
-  <span class="kicker"><span class="dot"></span>YEAR TWO STARTS NOW</span>
-  <h1>WHF HQ</h1>
-  <p>One Team. One Family.</p>
-  <div class="homeSub">Your home for schedules, team updates, volunteering and booster information.</div>
-</div>
-
-<div class="featuredGrid">
-  <button class="featureTile green" onclick="showScreen('parents')">
-    <div class="tileIcon">🏊</div>
-    <h3>PARENT HUB</h3>
-    <p>Everything parents need in one place.</p>
-  </button>
-
-  <button class="featureTile blue" onclick="showScreen('allinfo')">
-    <div class="tileIcon">📅</div>
-    <h3>TEAM CALENDAR</h3>
-    <p>Practices, meets and important dates.</p>
-  </button>
-</div>
-
-<div class="sectionLabel">TEAM</div>
-
-<div class="quickGrid homeMenu">
-  <button class="tile red" onclick="showScreen('booster')"><h3>BOOSTER CLUB</h3><p>Fees, bylaws, leadership and volunteer roles.</p></button>
-  <button class="tile green" onclick="showScreen('spirit')"><h3>EVENTS & FUNDRAISERS</h3><p>Spirit of the Lakes, Dunk Tank, shifts and signup links.</p></button>
-  <button class="tile blue" onclick="showScreen('parents')"><h3>TEAM STORE</h3><p>Apparel, suits, caps and order windows.</p></button>
-  <button class="tile red" onclick="showScreen('sponsors')"><h3>SPONSORS</h3><p>Support businesses that support WHF Swim & Dive.</p></button>
-</div>
-
-</section>
-
-  <section class="screen" id="spirit">
-      <div class="screenTitle">Spirit of the Lakes</div>
-      <div class="card blue"><h3>Biggest Summer Fundraiser</h3><p>For the first time, WHF Swim & Dive is partnering with Spirit of the Lakes to operate both the Hydration Station and Dunk Tank.</p><div class="big">$3–4k</div><p>potential impact if all goes well.</p></div>
-      <div class="card red"><h3>Hydration Station</h3><p>Water, pop, Gatorade, and Alani Energy Drinks.</p><p><b>Thursday, July 16</b> • 4:00–10:00 PM<br><b>Friday, July 17</b> • 5:00–11:00 PM<br><b>Saturday, July 18</b> • 11:00 AM–11:00 PM</p><a class="link" href="https://www.signupgenius.com/go/5080F4BAFA62DA1FE3-63621451-2026">Hydration Station Sign Up</a></div>
-      <div class="card green"><h3>Dunk Tank</h3><p>Festival-goers buy balls to dunk participants and support the team.</p><p><b>Saturday, July 18</b><br>4:30–6:30 PM</p><a class="link" href="https://www.signupgenius.com/go/5080F4BAFA62DA1FE3-63624280-2026">Dunk Tank Sign Up</a></div>
-      <div class="card red"><h3>Athlete Reminders</h3><p>Check the SignUpGenius, be on time, check in at the ticket booth when your shift begins, check out when finished, and represent the team well.</p></div>
-    </section>
-
-    <section class="screen" id="parents">
-      <div class="screenTitle">Parent Hub</div>
-      <div class="card green"><h3>Registration Open</h3><p>All athletes must complete Westonka Activities registration before the season begins and have a current sports physical on file.</p><a class="link" href="https://www.gobound.com/mn/schools/westonka">Register Athlete</a></div>
-      <div class="card red"><h3>Team Store</h3><p>Elsmore Team Store is open.</p><p><b>Order Window #1</b><br>July 6 – July 12<br><br><b>Order Window #2</b><br>July 27 – August 2</p><p>Team suits and caps are required for varsity competition. Every athlete receives the captains-designed team shirt at no cost.</p><a class="link" href="https://elsmoreswim.com/collections/mound-westonka-holy-family-hs-girls">Shop Team Store</a></div>
-      <div class="card green"><h3>Eligibility Meeting</h3><p><b>Wednesday, August 12</b><br>5:00 PM • Performing Arts Center<br>Sport breakout sessions begin at 5:30 PM</p></div>
-      <div class="card red"><h3>First Practice</h3><div class="big">Aug 17</div><p>Monday, August 17</p></div>
-      <div class="card blue"><h3>Meet Schedule</h3><p>The current meet schedule is still being finalized. Coach Ben is working through details, including a possible meet with Breck and a change to the October 22 Willmar meet.</p></div>
-    </section>
-
-    <section class="screen" id="fund">
-      <div class="screenTitle">Timing Fund</div>
-      <div class="card blue"><h3>$30,000 Commitment</h3><p>Every dollar raised stays with the team and helps fund equipment, athlete activities, and future improvements.</p>
-        <div class="pool"><div class="water" id="water"></div><div class="ripples"></div><div class="poolText" id="poolText">$0<br><small>of $30,000</small></div></div>
+  <div class="app">
+    <header class="topBar">
+      <div class="brandMark">WHF</div>
+      <div class="brandText">
+        <strong>WHF HQ</strong>
+        <span>Westonka + Holy Family</span>
       </div>
-      <div class="card green"><h3>Why It Matters</h3><p>The timing equipment commitment is a long-term program investment and a major reason the Booster Club is focused on leadership stability this season.</p></div>
-    </section>
+      <div class="status" id="greeting">live</div>
+    </header>
 
-    <section class="screen" id="booster">
-      <div class="screenTitle">Booster Club</div>
-      <div class="card blue"><h3>Booster Fee</h3><div class="big">$175</div><p>Unchanged from last year.</p></div>
-      <div class="card green"><h3>Leadership Update</h3><p>Tammy Johnson will continue serving as Treasurer through the conclusion of this season at her request.</p></div>
-      <div class="card red"><h3>Bylaw Updates</h3><p>The President and Vice President will continue serving until the conclusion of their athlete’s senior year so the current leadership team can fulfill the timing equipment commitment before transitioning roles.</p></div>
-      <div class="card green"><h3>Open After Season</h3><p>At the conclusion of this season, Treasurer, Secretary, and Volunteer Coordinator will be open for election.</p></div>
-      <div class="card red"><h3>Volunteers Matter</h3><p>Timing, concessions, hospitality, admissions, fundraising, and behind-the-scenes roles all make a difference.</p></div>
-    </section>
+    <main class="screens">
+      <section class="screen active" id="home">
+        <div class="homeHeroPro">
+          <img src="team-hero.jpg" alt="WHF Swim and Dive team">
+          <div class="heroShade"></div>
+          <div class="heroLines"></div>
+          <div class="heroContent">
+            <div class="eyebrow">WELCOME BACK</div>
+            <h1>WHF HQ</h1>
+            <p>Everything Westonka/Holy Family Girls Swim & Dive in one place.</p>
+          </div>
+        </div>
 
-    <section class="screen" id="sponsors">
-      <div class="screenTitle">Sponsors</div>
-      <div class="card red"><h3>Support Local</h3><p>Last year’s sponsorship program exceeded expectations. Please support the businesses that support WHF Girls Swim & Dive whenever you can.</p></div>
-      <div id="sponsorWall"></div>
-    </section>
+        <div class="homeActions">
+          <button class="proCard greenAccent" onclick="showScreen('parents')">
+            <h3>PARENT HUB</h3>
+            <p>Registration, eligibility, team store and first practice.</p>
+          </button>
+          <button class="proCard redAccent" onclick="showScreen('allinfo')">
+            <h3>TEAM CALENDAR</h3>
+            <p>Practices, meets, important dates and season updates.</p>
+          </button>
+          <button class="proCard greenAccent" onclick="showScreen('booster')">
+            <h3>BOOSTER CLUB</h3>
+            <p>Fees, bylaws, leadership and volunteer roles.</p>
+          </button>
+          <button class="proCard greenAccent" onclick="showScreen('spirit')">
+            <h3>EVENTS & FUNDRAISERS</h3>
+            <p>Spirit of the Lakes, Dunk Tank, shifts and signup links.</p>
+          </button>
+          <button class="proCard redAccent" onclick="showScreen('parents')">
+            <h3>TEAM STORE</h3>
+            <p>Apparel, suits, caps and order windows.</p>
+          </button>
+          <button class="proCard redAccent" onclick="showScreen('sponsors')">
+            <h3>SPONSORS</h3>
+            <p>Support businesses that support WHF Swim & Dive.</p>
+          </button>
+          <button class="proCard splitAccent" onclick="showScreen('fund')">
+            <h3>TIMING FUND</h3>
+            <p>$30,000 equipment commitment and fundraising progress.</p>
+          </button>
+        </div>
+      </section>
 
-    <section class="screen" id="allinfo">
-      <div class="screenTitle">All Info</div>
-      <div class="card green"><h3>Welcome Back</h3><p>Welcome back, WHF families. Year Two is about building on last season’s fundraising, sponsorships, team events, and the $30,000 timing equipment commitment.</p></div>
-      <div class="card red"><h3>Spirit of the Lakes</h3><p>Hydration Station and Dunk Tank fundraiser. Potential impact: $3,000–$4,000. Dollars stay with the team for equipment, athlete activities, and future improvements.</p></div>
-      <div class="card green"><h3>Apparel</h3><p>Order Window #1: July 6–12. Order Window #2: July 27–August 2. Team suits and caps are required for varsity competition. Captains-designed team shirt is free for every athlete.</p></div>
-      <div class="card red"><h3>Important Dates</h3><p>Registration is open. Eligibility Meeting: Wednesday, August 12 at 5:00 PM in the Performing Arts Center. First Practice: Monday, August 17.</p></div>
-      <div class="card green"><h3>Meet Schedule</h3><p>Coach Ben is still working through details, including a possible meet with Breck. The October 22 Willmar meet is expected to change.</p></div>
-      <div class="card red"><h3>Volunteers</h3><p>The program needs volunteers for timing, concessions, hospitality, admissions, fundraising, and behind-the-scenes work. Treasurer, Secretary, and Volunteer Coordinator will be open after the season.</p></div>
-      <div class="card green"><h3>Communication</h3><p>Coach Ben will send weekly updates for practices, meets, and pool-related details. The Booster Club will share apparel, fundraising, sponsorships, volunteer opportunities, concessions, team events, and banquet information.</p></div>
-    </section>
+      <section class="screen" id="spirit">
+        <div class="screenTitle">Events & Fundraisers</div>
+        <div class="card split"><h3>Biggest Summer Fundraiser</h3><p>WHF Swim & Dive is partnering with Spirit of the Lakes to operate both the Hydration Station and Dunk Tank.</p><div class="big">$3–4k</div><p>Potential impact if all goes well.</p></div>
+        <div class="card green"><h3>Hydration Station</h3><p>Water, pop, Gatorade, and Alani Energy Drinks.</p><p><b>Thursday, July 16</b> • 4:00–10:00 PM<br><b>Friday, July 17</b> • 5:00–11:00 PM<br><b>Saturday, July 18</b> • 11:00 AM–11:00 PM</p><a class="link" href="https://www.signupgenius.com/go/5080F4BAFA62DA1FE3-63621451-2026">Hydration Station Sign Up</a></div>
+        <div class="card red"><h3>Dunk Tank</h3><p>Festival-goers buy balls to dunk participants and support the team.</p><p><b>Saturday, July 18</b><br>4:30–6:30 PM</p><a class="link" href="https://www.signupgenius.com/go/5080F4BAFA62DA1FE3-63624280-2026">Dunk Tank Sign Up</a></div>
+        <div class="card green"><h3>Athlete Reminders</h3><p>Check the SignUpGenius, be on time, check in at the ticket booth when your shift begins, check out when finished, and represent the team well.</p></div>
+      </section>
 
-    <section class="screen" id="admin">
-      <div class="screenTitle">Admin</div>
-      <div class="card red"><h3>Add Sponsor</h3><input id="sponsorName" placeholder="Business name"><textarea id="sponsorNote" placeholder="Website / note / level if you want"></textarea><button onclick="addSponsor()">add sponsor</button> <button class="ghost" onclick="clearSponsors()">clear</button></div>
-      <div class="card green"><h3>Update Fund</h3><input id="fundTotal" type="number" placeholder="Amount raised"><button class="green" onclick="updateFund()">update total</button> <button class="ghost" onclick="resetFund()">reset</button></div>
-      <div class="card blue"><h3>Free Path</h3><p>This version is ready for free GitHub Pages hosting. This demo saves changes on this device.</p></div>
-    </section>
+      <section class="screen" id="parents">
+        <div class="screenTitle">Parent Hub</div>
+        <div class="card green"><h3>Registration Open</h3><p>All athletes must complete Westonka Activities registration before the season begins and have a current sports physical on file.</p><a class="link" href="https://www.gobound.com/mn/schools/westonka">Register Athlete</a></div>
+        <div class="card red"><h3>Team Store</h3><p>Elsmore Team Store is open.</p><p><b>Order Window #1</b><br>July 6 – July 12<br><br><b>Order Window #2</b><br>July 27 – August 2</p><p>Team suits and caps are required for varsity competition. Every athlete receives the captains-designed team shirt at no cost.</p><a class="link" href="https://elsmoreswim.com/collections/mound-westonka-holy-family-hs-girls">Shop Team Store</a></div>
+        <div class="card green"><h3>Eligibility Meeting</h3><p><b>Wednesday, August 12</b><br>5:00 PM • Performing Arts Center<br>Sport breakout sessions begin at 5:30 PM</p></div>
+        <div class="card red"><h3>First Practice</h3><div class="big">Aug 17</div><p>Monday, August 17</p></div>
+        <div class="card split"><h3>Meet Schedule</h3><p>The current meet schedule is still being finalized. Coach Ben is working through details, including a possible meet with Breck and a change to the October 22 Willmar meet.</p></div>
+      </section>
+
+      <section class="screen" id="fund">
+        <div class="screenTitle">Timing Fund</div>
+        <div class="card split"><h3>$30,000 Commitment</h3><p>Every dollar raised stays with the team and helps fund equipment, athlete activities, and future improvements.</p><div class="fundBox"><div class="fundFill" id="water"></div><div class="fundText" id="poolText">$0<br><small>of $30,000</small></div></div></div>
+        <div class="card green"><h3>Why It Matters</h3><p>The timing equipment commitment is a long-term program investment and a major reason the Booster Club is focused on leadership stability this season.</p></div>
+      </section>
+
+      <section class="screen" id="booster">
+        <div class="screenTitle">Booster Club</div>
+        <div class="card split"><h3>Booster Fee</h3><div class="big">$175</div><p>Unchanged from last year.</p></div>
+        <div class="card green"><h3>Leadership Update</h3><p>Tammy Johnson will continue serving as Treasurer through the conclusion of this season at her request.</p></div>
+        <div class="card red"><h3>Bylaw Updates</h3><p>The President and Vice President will continue serving until the conclusion of their athlete’s senior year so the current leadership team can fulfill the timing equipment commitment before transitioning roles.</p></div>
+        <div class="card green"><h3>Open After Season</h3><p>At the conclusion of this season, Treasurer, Secretary, and Volunteer Coordinator will be open for election.</p></div>
+        <div class="card red"><h3>Volunteers Matter</h3><p>Timing, concessions, hospitality, admissions, fundraising, and behind-the-scenes roles all make a difference.</p></div>
+      </section>
+
+      <section class="screen" id="sponsors">
+        <div class="screenTitle">Sponsors</div>
+        <div class="card split"><h3>Support Local</h3><p>Last year’s sponsorship program exceeded expectations. Please support the businesses that support WHF Girls Swim & Dive whenever you can.</p></div>
+        <div id="sponsorWall"></div>
+      </section>
+
+      <section class="screen" id="allinfo">
+        <div class="screenTitle">Team Calendar & Info</div>
+        <div class="card green"><h3>Welcome Back</h3><p>Year Two is about building on last season’s fundraising, sponsorships, team events, and the $30,000 timing equipment commitment.</p></div>
+        <div class="card red"><h3>Spirit of the Lakes</h3><p>Hydration Station and Dunk Tank fundraiser. Potential impact: $3,000–$4,000. Dollars stay with the team for equipment, athlete activities, and future improvements.</p></div>
+        <div class="card green"><h3>Apparel</h3><p>Order Window #1: July 6–12. Order Window #2: July 27–August 2. Team suits and caps are required for varsity competition. Captains-designed team shirt is free for every athlete.</p></div>
+        <div class="card red"><h3>Important Dates</h3><p>Registration is open. Eligibility Meeting: Wednesday, August 12 at 5:00 PM in the Performing Arts Center. First Practice: Monday, August 17.</p></div>
+        <div class="card green"><h3>Meet Schedule</h3><p>Coach Ben is still working through details, including a possible meet with Breck. The October 22 Willmar meet is expected to change.</p></div>
+        <div class="card red"><h3>Volunteers</h3><p>The program needs volunteers for timing, concessions, hospitality, admissions, fundraising, and behind-the-scenes work.</p></div>
+      </section>
+
+      <section class="screen" id="admin">
+        <div class="screenTitle">Admin</div>
+        <div class="card red"><h3>Add Sponsor</h3><input id="sponsorName" placeholder="Business name"><textarea id="sponsorNote" placeholder="Website / note / level if you want"></textarea><button onclick="addSponsor()">Add Sponsor</button><button class="ghost" onclick="clearSponsors()">Clear</button></div>
+        <div class="card green"><h3>Update Fund</h3><input id="fundTotal" type="number" placeholder="Amount raised"><button onclick="updateFund()">Update Total</button><button class="ghost" onclick="resetFund()">Reset</button></div>
+        <div class="card split"><h3>Free Path</h3><p>This version is ready for free GitHub Pages hosting. Admin changes save on this device.</p></div>
+      </section>
+    </main>
   </div>
-</div>
 
-<nav class="bottomNav">
-  <button class="active" data-screen="home" onclick="showScreen('home')">Home</button>
-  <button data-screen="spirit" onclick="showScreen('spirit')">Spirit</button>
-  <button data-screen="parents" onclick="showScreen('parents')">Parents</button>
-  <button data-screen="booster" onclick="showScreen('booster')">Booster</button>
-  <button data-screen="allinfo" onclick="showScreen('allinfo')">All Info</button>
-  <button data-screen="admin" onclick="showScreen('admin')">Admin</button>
-</nav>
+  <nav class="bottomNav">
+    <button class="active" data-screen="home" onclick="showScreen('home')">Home</button>
+    <button data-screen="spirit" onclick="showScreen('spirit')">Events</button>
+    <button data-screen="parents" onclick="showScreen('parents')">Parents</button>
+    <button data-screen="booster" onclick="showScreen('booster')">Booster</button>
+    <button data-screen="allinfo" onclick="showScreen('allinfo')">Info</button>
+    <button data-screen="admin" onclick="showScreen('admin')">Admin</button>
+  </nav>
 
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

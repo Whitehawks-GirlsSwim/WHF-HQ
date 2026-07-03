@@ -1,55 +1,70 @@
-const goal=30000;
-let data=JSON.parse(localStorage.getItem("whfAppClearFilled")||JSON.stringify({fund:0,sponsors:[{name:"Your Business Here",note:"Become a sponsor and support WHF girls swim & dive."}]}));
+const screens = document.querySelectorAll('.screen');
+const navButtons = document.querySelectorAll('.bottomNav button');
 
-function showScreen(id){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  document.querySelectorAll(".bottomNav button").forEach(b=>b.classList.toggle("active",b.dataset.screen===id));
+function showScreen(id) {
+  screens.forEach(screen => screen.classList.toggle('active', screen.id === id));
+  navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.screen === id));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function greet(){
-  const h=new Date().getHours();
-  document.getElementById("greeting").textContent=h<12?"good morning":h<18?"good afternoon":"good evening";
+function setGreeting() {
+  const hour = new Date().getHours();
+  const greeting = document.getElementById('greeting');
+  if (!greeting) return;
+  if (hour < 12) greeting.textContent = 'good morning';
+  else if (hour < 18) greeting.textContent = 'good afternoon';
+  else greeting.textContent = 'good evening';
 }
 
-function save(){
-  localStorage.setItem("whfAppClearFilled",JSON.stringify(data));
-  render();
+function addSponsor() {
+  const name = document.getElementById('sponsorName').value.trim();
+  const note = document.getElementById('sponsorNote').value.trim();
+  if (!name) return;
+  const sponsors = JSON.parse(localStorage.getItem('whfSponsors') || '[]');
+  sponsors.push({ name, note });
+  localStorage.setItem('whfSponsors', JSON.stringify(sponsors));
+  document.getElementById('sponsorName').value = '';
+  document.getElementById('sponsorNote').value = '';
+  renderSponsors();
 }
 
-function render(){
-  greet();
-  const water = document.getElementById("water");
-  const poolText = document.getElementById("poolText");
-  const sponsorWall = document.getElementById("sponsorWall");
-  const pct=Math.min(100,Math.round((data.fund/goal)*100));
-  if (water) water.style.height=pct+"%";
-  if (poolText) poolText.innerHTML="$"+data.fund.toLocaleString()+"<br><small>of $30,000</small>";
-  if (sponsorWall) {
-    sponsorWall.innerHTML=data.sponsors.map((s,i)=>`<div class="card green"><h3>${s.name}</h3><p>${s.note||""}</p><button class="ghost" onclick="removeSponsor(${i})">remove</button></div>`).join("");
-  }
+function clearSponsors() {
+  localStorage.removeItem('whfSponsors');
+  renderSponsors();
 }
 
-function addSponsor(){
-  let name=document.getElementById("sponsorName").value.trim();
-  let note=document.getElementById("sponsorNote").value.trim();
-  if(name){
-    data.sponsors.push({name,note});
-    document.getElementById("sponsorName").value="";
-    document.getElementById("sponsorNote").value="";
-    save();
-  }
+function renderSponsors() {
+  const wall = document.getElementById('sponsorWall');
+  if (!wall) return;
+  const sponsors = JSON.parse(localStorage.getItem('whfSponsors') || '[]');
+  wall.innerHTML = sponsors.map(s => `<div class="card green"><h3>${escapeHtml(s.name)}</h3><p>${escapeHtml(s.note || 'Thank you for supporting WHF Swim & Dive.')}</p></div>`).join('');
 }
-function removeSponsor(i){data.sponsors.splice(i,1);save()}
-function clearSponsors(){data.sponsors=[];save()}
-function updateFund(){
-  let amount=parseInt(document.getElementById("fundTotal").value,10);
-  if(!isNaN(amount)){
-    data.fund=amount;
-    document.getElementById("fundTotal").value="";
-    save();
-  }
-}
-function resetFund(){data.fund=0;save()}
 
-render();
+function updateFund() {
+  const raw = Number(document.getElementById('fundTotal').value || 0);
+  const total = Math.max(0, Math.min(30000, raw));
+  localStorage.setItem('whfFundTotal', String(total));
+  renderFund();
+}
+
+function resetFund() {
+  localStorage.removeItem('whfFundTotal');
+  renderFund();
+}
+
+function renderFund() {
+  const total = Number(localStorage.getItem('whfFundTotal') || 0);
+  const pct = Math.max(0, Math.min(100, (total / 30000) * 100));
+  const fill = document.getElementById('water');
+  const text = document.getElementById('poolText');
+  if (fill) fill.style.height = pct + '%';
+  if (text) text.innerHTML = `$${total.toLocaleString()}<br><small>of $30,000</small>`;
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
+}
+
+setGreeting();
+renderSponsors();
+renderFund();

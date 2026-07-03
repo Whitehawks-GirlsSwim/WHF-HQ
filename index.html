@@ -31,11 +31,12 @@
           <div class="dualLine"></div>
         </div>
 
-        <section class="todayPanel">
-          <div class="todayKicker">FIRST MEET</div>
-          <div class="todayMain">Tim Daly Invitational</div>
-          <div class="todayMeta">Saturday, August 29 • 10:00 AM</div>
-          <div class="todayLocation">Orono Intermediate School Educational Link Pool</div>
+        <section class="todayPanel tappablePanel" id="todayPanel" role="button" tabindex="0" onclick="showScreen('season')" onkeydown="if(event.key==='Enter'||event.key===' '){showScreen('season')}">
+          <div class="todayKicker" id="todayKicker">NEXT EVENT</div>
+          <div class="todayMain" id="todayMain">Loading season...</div>
+          <div class="todayMeta" id="todayMeta">2026 WHF Girls Swim &amp; Dive</div>
+          <div class="todayLocation" id="todayLocation">Schedule updates automatically as the season moves.</div>
+          <div class="todayButton" aria-hidden="true">View Season Schedule</div>
         </section>
 
         <div class="homeActionsPremium">
@@ -103,80 +104,10 @@
           <h2>WHF Girls Swim &amp; Dive</h2>
           <p>Schedule is loaded from the information you provided. Practice schedule can be added the same way when it is finalized.</p>
         </div>
-        <div class="scheduleList">
-          <div class="scheduleItem greenAccent">
-            <div class="scheduleDate"><strong>Sat 08/29/26</strong><span>10:00 AM</span></div>
-            <div class="scheduleInfo"><h3>Tim Daly Invitational</h3><p>Junior Varsity • Orono Intermediate School Educational Link Pool</p></div>
-          </div>
-          <div class="scheduleItem redAccent">
-            <div class="scheduleDate"><strong>Sat 08/29/26</strong><span>10:00 AM</span></div>
-            <div class="scheduleInfo"><h3>Tim Daly Invitational</h3><p>Varsity • Orono Intermediate School Educational Link Pool</p></div>
-          </div>
-          <div class="scheduleItem greenAccent">
-            <div class="scheduleDate"><strong>Thu 09/10/26</strong><span>6:00 PM</span></div>
-            <div class="scheduleInfo"><h3>vs Dassel-Cokato</h3><p>Varsity • Westonka Activity Center Pool</p></div>
-          </div>
-          <div class="scheduleItem redAccent">
-            <div class="scheduleDate"><strong>Thu 09/17/26</strong><span>6:00 PM</span></div>
-            <div class="scheduleInfo"><h3>@ Watertown-Mayer/ML/SWC</h3><p>Varsity • Watertown-Mayer High School</p></div>
-          </div>
-          <div class="scheduleItem greenAccent">
-            <div class="scheduleDate"><strong>Tue 09/22/26</strong><span>6:00 PM</span></div>
-            <div class="scheduleInfo"><h3>vs Orono</h3><p>Varsity • Westonka Activity Center Pool</p></div>
-          </div>
-          <div class="scheduleItem redAccent">
-            <div class="scheduleDate"><strong>Tue 09/22/26</strong><span>6:00 PM</span></div>
-            <div class="scheduleInfo"><h3>vs Orono</h3><p>Junior Varsity • Westonka Activity Center Pool</p></div>
-          </div>
-          <div class="scheduleItem greenAccent">
-            <div class="scheduleDate"><strong>Thu 09/24/26</strong><span>6:00 PM</span></div>
-            <div class="scheduleInfo"><h3>vs Litchfield</h3><p>Varsity • Litchfield High School</p></div>
-          </div>
-          <div class="scheduleItem redAccent">
-            <div class="scheduleDate"><strong>Thu 10/01/26</strong><span>6:00 PM</span></div>
-            <div class="scheduleInfo"><h3>vs Hutchinson</h3><p>Varsity • Westonka Activity Center Pool</p></div>
-          </div>
-          <div class="scheduleItem greenAccent">
-            <div class="scheduleDate"><strong>Thu 10/08/26</strong><span>6:00 PM</span></div>
-            <div class="scheduleInfo"><h3>@ Delano</h3><p>Junior Varsity • Delano High School Pool</p></div>
-          </div>
-          <div class="scheduleItem redAccent">
-            <div class="scheduleDate"><strong>Thu 10/08/26</strong><span>6:00 PM</span></div>
-            <div class="scheduleInfo"><h3>@ Delano</h3><p>Varsity • Delano High School Pool</p></div>
-          </div>
-          <div class="scheduleItem greenAccent">
-            <div class="scheduleDate"><strong>Sat 10/10/26</strong><span>9:00 AM</span></div>
-            <div class="scheduleInfo"><h3>True Team Sections</h3><p>Varsity • Willmar High School WHS Pool</p></div>
-          </div>
-          <div class="scheduleItem redAccent">
-            <div class="scheduleDate"><strong>Sat 10/17/26</strong><span>12:00 PM</span></div>
-            <div class="scheduleInfo"><h3>True Team State</h3><p>Varsity • University of Minnesota Jean K. Freeman Aquatic Center</p></div>
-          </div>
-          <div class="scheduleItem greenAccent">
-            <div class="scheduleDate"><strong>Thu 10/22/26</strong><span>9:00 AM</span></div>
-            <div class="scheduleInfo"><h3>True Team Sections</h3><p>Varsity • Willmar High School WHS Pool</p></div>
-          </div>
-          <div class="scheduleItem redAccent">
-            <div class="scheduleDate"><strong>Thu 11/05/26</strong><span>6:00 PM</span></div>
-            <div class="scheduleInfo"><h3>Section Prelims</h3><p>Varsity • Hutchinson High School</p></div>
-          </div>
-          <div class="scheduleItem greenAccent">
-            <div class="scheduleDate"><strong>Sat 11/07/26</strong><span>12:00 PM</span></div>
-            <div class="scheduleInfo"><h3>Section Finals</h3><p>Varsity • Hutchinson High School</p></div>
-          </div>
-          <div class="scheduleItem redAccent">
-            <div class="scheduleDate"><strong>Thu 11/12/26</strong><span>12:00 PM</span></div>
-            <div class="scheduleInfo"><h3>State Dive Prelims</h3><p>Varsity • Jean K. Freeman Aquatic Center - U of MN</p></div>
-          </div>
-          <div class="scheduleItem greenAccent">
-            <div class="scheduleDate"><strong>Fri 11/13/26</strong><span>12:00 PM</span></div>
-            <div class="scheduleInfo"><h3>State Swim Prelims</h3><p>Varsity • Jean K. Freeman Aquatic Center - U of MN</p></div>
-          </div>
-          <div class="scheduleItem redAccent">
-            <div class="scheduleDate"><strong>Sat 11/14/26</strong><span>12:00 PM</span></div>
-            <div class="scheduleInfo"><h3>State Swim/Dive Finals</h3><p>Varsity • Jean K. Freeman Aquatic Center - U of MN</p></div>
-          </div>
+        <div class="scheduleTools">
+          <div class="scheduleStatus" id="scheduleStatus">Schedule moves automatically based on the calendar.</div>
         </div>
+        <div class="scheduleList" id="scheduleList"></div>
       </section>
 
       <section class="screen" id="admin">

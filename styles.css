@@ -21,7 +21,7 @@ button,a,input,textarea{font:inherit}button{cursor:pointer;-webkit-tap-highlight
 .screenTitle{font-size:29px;font-weight:950;letter-spacing:.5px;margin:20px 0 14px}.card{background:rgba(14,14,18,.96);border:1px solid var(--line);border-left:5px solid #fff;border-radius:16px;padding:18px;margin-bottom:12px}.card.red{border-left-color:var(--red)}.card.green{border-left-color:var(--green)}.card.split{border-left-color:transparent;background:linear-gradient(#101015,#101015) padding-box,linear-gradient(90deg,var(--red),var(--green)) border-box}.card h3{margin:0 0 8px;font-size:18px;font-weight:950;letter-spacing:.3px}.card p{margin:0 0 10px;color:var(--muted);font-size:14px;line-height:1.45}.card p:last-child{margin-bottom:0}.big{font-size:34px;font-weight:950;margin:8px 0;color:#fff}.link{display:inline-block;color:#fff;text-decoration:none;font-weight:950;border-bottom:2px solid var(--green);padding-bottom:2px;margin-top:4px}
 .fundBox{position:relative;height:150px;border-radius:16px;background:#050509;border:1px solid var(--line);overflow:hidden;margin-top:14px}.fundFill{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(90deg,var(--red),var(--green));transition:height .3s ease}.fundText{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-size:30px;font-weight:950}.fundText small{font-size:13px;color:var(--muted);font-weight:800}
 input,textarea{width:100%;background:#07070a;color:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0 10px}textarea{min-height:90px;resize:vertical}.card button{background:#fff;color:#000;border:0;border-radius:12px;padding:11px 14px;font-weight:950;margin-right:8px;margin-top:4px}.card button.ghost{background:transparent;color:#fff;border:1px solid var(--line)}#sponsorWall .card{border-left-color:var(--green)}
-.bottomNav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(3,3,6,.94);backdrop-filter:blur(18px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(7,1fr);padding:8px 8px calc(8px + env(safe-area-inset-bottom));gap:4px}.bottomNav button{background:transparent;border:0;color:var(--soft);font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.2px;padding:11px 4px;border-radius:11px}.bottomNav button.active{color:#fff;background:linear-gradient(90deg,rgba(193,18,31,.25),rgba(0,132,61,.22));border:1px solid var(--line)}
+.bottomNav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(3,3,6,.94);backdrop-filter:blur(18px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);padding:8px 8px calc(8px + env(safe-area-inset-bottom));gap:4px}.bottomNav button{background:transparent;border:0;color:var(--soft);font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.2px;padding:11px 4px;border-radius:11px}.bottomNav button.active{color:#fff;background:linear-gradient(90deg,rgba(193,18,31,.25),rgba(0,132,61,.22));border:1px solid var(--line)}
 @media (min-width:720px){.app{padding-left:24px;padding-right:24px}.homeHeroWow{height:470px}.homeActionsWow{grid-template-columns:1fr 1fr}.wideAction,.homeActionsWow>.splitAccent{grid-column:1/-1}.bottomNav{max-width:860px;margin:0 auto;left:50%;transform:translateX(-50%);border-radius:22px 22px 0 0}}
 @media (max-width:380px){.homeHeroWow{height:360px}.heroContentWow h1{font-size:48px}.heroContentWow h1 span{font-size:25px}.nextPanel{margin-left:8px;margin-right:8px}.wideAction{padding:18px 15px}.compactAction{min-height:104px}}
 
@@ -246,21 +246,207 @@ input,textarea{width:100%;background:#07070a;color:#fff;border:1px solid var(--l
   user-select: none;
 }
 
-
-/* V14 program safe */
-#programHighlights p,
-#teamRecords p,
-#programAccolades p,
-#photoLinks p {
-  margin: 0 0 10px;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.45;
+/* Admin content control */
+.adminNotice p,
+.adminPanel p {
+  color: #cfd3da;
 }
-#teamRecords b,
-#programAccolades b { color: #fff; }
-#photoLinks .link { margin-right: 12px; }
-@media (max-width:420px){
-  .bottomNav{grid-template-columns:repeat(7,1fr);gap:2px;padding-left:4px;padding-right:4px}
-  .bottomNav button{font-size:9px;padding-left:2px;padding-right:2px}
+
+.adminPanel input,
+.adminPanel textarea,
+.card input,
+.card textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 8px 0;
+  padding: 13px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.35);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+
+.adminPanel input:focus,
+.adminPanel textarea:focus,
+.card input:focus,
+.card textarea:focus {
+  border-color: rgba(255,255,255,.32);
+}
+
+.codeEditor {
+  min-height: 360px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 12px !important;
+  line-height: 1.45;
+  white-space: pre;
+}
+
+.adminPanel button,
+.card button {
+  margin: 8px 8px 0 0;
+}
+
+/* V12 Program redesign: records, accolades, photos */
+.programLead{margin-bottom:14px}
+.programGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.programStat{background:#101015;border:1px solid var(--line);border-left:5px solid #fff;border-radius:16px;padding:16px;min-height:118px}
+.programStat span{display:block;color:var(--soft);font-size:10px;font-weight:950;letter-spacing:1.7px;margin-bottom:8px;text-transform:uppercase}
+.programStat strong{display:block;color:#fff;font-size:22px;font-weight:950;line-height:1.1}
+.programStat p{margin:8px 0 0;color:var(--muted);font-size:12px;line-height:1.35;font-weight:750}
+.programBlock{margin-top:16px}
+.blockTitle{color:#fff;font-size:13px;font-weight:950;letter-spacing:1.8px;text-transform:uppercase;margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.recordRow{display:flex;justify-content:space-between;gap:14px;align-items:center;background:#101015;border:1px solid var(--line);border-left:5px solid #fff;border-radius:15px;padding:14px 14px;margin-bottom:10px}
+.recordRow.green{border-left-color:var(--green)}
+.recordRow.red{border-left-color:var(--red)}
+.recordRow strong{display:block;font-size:15px;font-weight:950;color:#fff;line-height:1.15}
+.recordRow span{display:block;color:var(--muted);font-size:12px;font-weight:750;line-height:1.35;margin-top:4px}
+.recordRow b{display:block;font-size:15px;color:#fff;text-align:right}
+.recordRow em{display:block;color:var(--soft);font-size:11px;font-weight:850;text-align:right;font-style:normal;margin-top:4px}
+.programLinks{display:grid;gap:12px;margin-top:18px;padding-bottom:10px}
+.inlineLink{display:inline-block;background:transparent!important;color:#fff!important;border:1px solid var(--line)!important;border-radius:12px!important;padding:10px 12px!important;font-size:11px!important;font-weight:950!important;letter-spacing:1px!important;text-transform:uppercase!important;margin-top:6px!important}
+@media (max-width:430px){.programGrid{grid-template-columns:1fr}.recordRow{align-items:flex-start}.recordRow b,.recordRow em{text-align:left}}
+
+/* V13 Admin publish workflow */
+.adminDashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.adminDashCard {
+  background: rgba(14, 14, 18, 0.96);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-left: 5px solid rgba(255,255,255,0.28);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.adminDashCard span {
+  display: block;
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.7px;
+  margin-bottom: 8px;
+}
+
+.adminDashCard strong {
+  display: block;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 950;
+  letter-spacing: .2px;
+  margin-bottom: 6px;
+}
+
+.adminDashCard p,
+.helperText {
+  margin: 0;
+  color: #cfd3da;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.splitAccent {
+  border-left-color: #c1121f;
+  box-shadow: inset 5px 0 0 #c1121f, inset 9px 0 0 #00843d;
+}
+
+.quickPublishRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.publishGuide ol {
+  margin: 10px 0 12px 20px;
+  padding: 0;
+  color: #e5e7eb;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.publishGuide li {
+  margin-bottom: 6px;
+}
+
+.stickyPublishPanel {
+  margin-top: 18px;
+}
+
+.adminEditItem {
+  position: relative;
+}
+
+.adminEditItem.changedItem {
+  outline: 1px solid rgba(0,132,61,.45);
+}
+
+/* V14.1 - 50/50 WHF red/green border treatment across all boxes */
+.card,
+.card.red,
+.card.green,
+.card.split,
+.primaryAction,
+.miniAction,
+.wideAction,
+.compactAction,
+.scheduleItem,
+.seasonLead,
+.todayPanel,
+.adminDashCard,
+.fundBox,
+.nextPanel,
+.recordRow,
+.programFeature,
+.photoCard,
+.publishGuide,
+.stickyPublishPanel,
+.adminEditItem {
+  border: 1px solid transparent !important;
+  border-left: 1px solid transparent !important;
+  background:
+    linear-gradient(#101015, #101015) padding-box,
+    linear-gradient(90deg, var(--red) 0 50%, var(--green) 50% 100%) border-box !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,.22);
+}
+
+.card.red,
+.card.green,
+.greenAccent,
+.redAccent,
+.splitAccent {
+  border-left-color: transparent !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,.22) !important;
+}
+
+.todayPanel::before {
+  display: none !important;
+}
+
+.scheduleItem.currentEvent {
+  background:
+    linear-gradient(#171720, #0f0f14) padding-box,
+    linear-gradient(90deg, var(--red) 0 50%, var(--green) 50% 100%) border-box !important;
+  box-shadow: 0 14px 30px rgba(0,0,0,.34) !important;
+}
+
+/* Keep inputs/buttons clean inside admin cards */
+.card input,
+.card textarea,
+.adminEditItem input,
+.adminEditItem textarea {
+  border: 1px solid rgba(255,255,255,.13) !important;
+  background: #07070a !important;
+}
+
+/* Preserve the hero/program bars as the signature 50/50 identity */
+.dualLine,
+.heroTopLine,
+.heroBottomLine {
+  background: linear-gradient(90deg, var(--red) 0 50%, var(--green) 50% 100%) !important;
 }

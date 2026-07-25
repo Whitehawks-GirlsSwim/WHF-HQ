@@ -236,10 +236,28 @@ function renderProgram() {
   if (highlights) highlights.innerHTML = (DATA.programHighlights || []).map(cardHtml).join('') || cardHtml({ accent:'split', title:'Highlights Coming Soon', body:'Add program highlights from Admin.' });
 
   const records = document.getElementById('teamRecordsList');
-  if (records) records.innerHTML = (DATA.teamRecords || []).map((item, idx) => {
-    const cls = idx % 2 === 0 ? 'green' : 'red';
-    return `<div class="recordRow ${cls}"><div><strong>${escapeHtml(item.event || 'Event')}</strong><span>${escapeHtml(item.holder || '')}</span></div><div><b>${escapeHtml(item.mark || '')}</b><em>${escapeHtml(item.year || '')}</em></div></div>`;
-  }).join('') || `<div class="card green"><h3>Records Coming Soon</h3><p>Add team records from Admin.</p></div>`;
+  if (records) {
+    const rows = DATA.teamRecords || [];
+    records.innerHTML = rows.length ? `<div class="recordsTableHint">Swipe sideways to view every school and pool record.</div>
+      <div class="recordsTableShell" role="region" aria-label="White Hawk Swimming and Diving records" tabindex="0">
+        <table class="recordsTable">
+          <thead><tr>
+            <th scope="col">Event</th>
+            <th scope="col">Boys Mound Westonka School</th>
+            <th scope="col">Girls Mound Westonka School</th>
+            <th scope="col">Girls Holy Family School</th>
+            <th scope="col">Girls Pool</th>
+          </tr></thead>
+          <tbody>${rows.map(item => `<tr>
+            <th scope="row">${escapeHtml(item.event || 'Event')}</th>
+            <td>${escapeHtml(item.boysMoundWestonka || '—')}</td>
+            <td>${escapeHtml(item.girlsMoundWestonka || '—')}</td>
+            <td>${escapeHtml(item.girlsHolyFamily || '—')}</td>
+            <td>${escapeHtml(item.girlsPool || '—')}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>` : `<div class="card green"><h3>Records Coming Soon</h3><p>Add team records from Admin.</p></div>`;
+  }
 
   const accolades = document.getElementById('accoladesList');
   if (accolades) accolades.innerHTML = (DATA.accolades || []).map((item, idx) => {

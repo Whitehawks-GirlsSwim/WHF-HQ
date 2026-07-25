@@ -35,6 +35,35 @@ function setRuntimeData(nextData) {
   initialSponsors = DATA.sponsors || [];
 }
 
+let publishedRefreshInFlight = false;
+
+async function refreshPublishedData() {
+  if (publishedRefreshInFlight || document.getElementById('admin')?.classList.contains('active')) return;
+  publishedRefreshInFlight = true;
+
+  try {
+    const response = await fetch(`data.js?refresh=${Date.now()}`, { cache: 'no-store' });
+    if (!response.ok) return;
+
+    const fileText = await response.text();
+    const jsonText = fileText
+      .replace(/^\s*window\.WHF_DATA\s*=\s*/, '')
+      .replace(/;\s*$/, '');
+    const fresh = JSON.parse(jsonText);
+
+    if (JSON.stringify(fresh) !== JSON.stringify(DATA)) {
+      localStorage.removeItem('whfAdminDataPreview');
+      window.WHF_DATA = fresh;
+      setRuntimeData(fresh);
+      refreshAppFromData();
+    }
+  } catch (error) {
+    console.warn('Published schedule refresh will retry later.', error);
+  } finally {
+    publishedRefreshInFlight = false;
+  }
+}
+
 function showScreen(id) {
   screens.forEach(screen => screen.classList.toggle('active', screen.id === id));
   navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.screen === id));
@@ -591,4 +620,11 @@ renderFund();
 setupHomeTaps();
 buildAdminForms();
 renderAdminStatus();
+refreshPublishedData();
+
+window.addEventListener('focus', refreshPublishedData);
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) refreshPublishedData();
+});
+setInterval(refreshPublishedData, 5 * 60 * 1000);
 

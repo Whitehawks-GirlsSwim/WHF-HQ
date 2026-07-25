@@ -227,8 +227,8 @@ window.WHF_DATA = {
     }
   ],
   "sponsorIntro": {
-    "title": "Support Local",
-    "body": "Last year’s sponsorship program exceeded expectations. Please support the businesses that support WHF Girls Swim & Dive whenever you can."
+    "title": "Total Raised: $15,450",
+    "body": "Thank you to the businesses and community organizations supporting WHF Girls Swim & Dive."
   },
   "sponsors": [
     {
@@ -347,6 +347,7 @@ window.WHF_DATA = {
   "teamRecords": [],
   "accolades": []
 };
+
 
 
 

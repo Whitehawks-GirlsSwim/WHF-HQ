@@ -450,3 +450,19 @@ input,textarea{width:100%;background:#07070a;color:#fff;border:1px solid var(--l
 .heroBottomLine {
   background: linear-gradient(90deg, var(--red) 0 50%, var(--green) 50% 100%) !important;
 }
+
+/* Responsive school and pool records table */
+.recordsTableHint{margin:0 0 8px;color:var(--muted);font-size:12px;font-weight:800}
+.recordsTableShell{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:#0d0d12;-webkit-overflow-scrolling:touch;scrollbar-color:var(--red) #18181e}
+.recordsTable{width:100%;min-width:1080px;border-collapse:separate;border-spacing:0;color:#fff;font-size:13px;line-height:1.35}
+.recordsTable th,.recordsTable td{padding:13px 14px;border-right:1px solid #34343b;border-bottom:1px solid #34343b;text-align:left;vertical-align:middle}
+.recordsTable thead th{position:sticky;top:0;z-index:2;background:var(--red);color:#fff;font-size:13px;font-weight:950;text-align:center}
+.recordsTable thead th:first-child{left:0;z-index:4;min-width:170px}
+.recordsTable tbody th{position:sticky;left:0;z-index:1;min-width:170px;background:#16161b;color:#fff;font-weight:950}
+.recordsTable tbody td{min-width:220px;background:#111116;color:#f7f7fa;font-weight:700}
+.recordsTable tbody tr:nth-child(even) td{background:#241719}
+.recordsTable tbody tr:nth-child(even) th{background:#201416}
+.recordsTable tr:last-child th,.recordsTable tr:last-child td{border-bottom:0}
+.recordsTable th:last-child,.recordsTable td:last-child{border-right:0}
+.recordsTableShell:focus{outline:3px solid rgba(226,27,35,.45);outline-offset:3px}
+@media (max-width:600px){.recordsTable{min-width:980px;font-size:12px}.recordsTable th,.recordsTable td{padding:11px 12px}.recordsTable thead th:first-child,.recordsTable tbody th{min-width:145px}.recordsTable tbody td{min-width:195px}}

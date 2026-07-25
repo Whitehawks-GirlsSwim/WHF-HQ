@@ -230,7 +230,52 @@ window.WHF_DATA = {
     "title": "Support Local",
     "body": "Last year’s sponsorship program exceeded expectations. Please support the businesses that support WHF Girls Swim & Dive whenever you can."
   },
-  "sponsors": [],
+  "sponsors": [
+    {
+      "name": "Insurance Warehouse / Auto Owners Insurance",
+      "note": "$7,500"
+    },
+    {
+      "name": "Lions",
+      "note": "$2,000"
+    },
+    {
+      "name": "Foss Swim School",
+      "note": "$1,500"
+    },
+    {
+      "name": "Skin Rehab Aesthetics",
+      "note": "$1,000"
+    },
+    {
+      "name": "Westside Auto",
+      "note": "$1,000"
+    },
+    {
+      "name": "Dolder Plumbing",
+      "note": "$700"
+    },
+    {
+      "name": "Youngstedts Companies",
+      "note": "$500"
+    },
+    {
+      "name": "Dock & Lift",
+      "note": "$500"
+    },
+    {
+      "name": "West Lakes Dentistry",
+      "note": "$250"
+    },
+    {
+      "name": "True Value",
+      "note": "$250"
+    },
+    {
+      "name": "Align",
+      "note": "$250"
+    }
+  ],
   "events": [
     {
       "accent": "split",
@@ -302,5 +347,6 @@ window.WHF_DATA = {
   "teamRecords": [],
   "accolades": []
 };
+
 
 

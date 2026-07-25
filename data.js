@@ -227,7 +227,7 @@ window.WHF_DATA = {
     }
   ],
   "sponsorIntro": {
-    "title": "Total Raised: $15,450",
+    "title": "Total Raised: $16,785.47",
     "body": "Thank you to the businesses and community organizations supporting WHF Girls Swim & Dive."
   },
   "sponsors": [
@@ -279,9 +279,9 @@ window.WHF_DATA = {
   "events": [
     {
       "accent": "split",
-      "title": "Biggest Summer Fundraiser",
+      "title": "Spirit of the Lakes Fundraiser",
       "date": "",
-      "detail": "WHF Swim & Dive is partnering with Spirit of the Lakes to operate both the Hydration Station and Dunk Tank. Potential impact if all goes well: $3–4k.",
+      "detail": "Spirit of the Lakes raised $1,335.47 for WHF Swim & Dive from the Hydration Station and Dunk Tank combined.",
       "linkText": "",
       "linkUrl": ""
     },
@@ -347,7 +347,6 @@ window.WHF_DATA = {
   "teamRecords": [],
   "accolades": []
 };
-
 
 
 

@@ -457,10 +457,13 @@ input,textarea{width:100%;background:#07070a;color:#fff;border:1px solid var(--l
 .recordsTable{width:100%;min-width:1080px;border-collapse:separate;border-spacing:0;color:#fff;font-size:13px;line-height:1.35}
 .recordsTable th,.recordsTable td{padding:13px 14px;border-right:1px solid #34343b;border-bottom:1px solid #34343b;text-align:left;vertical-align:middle}
 .recordsTable thead th{position:sticky;top:0;z-index:2;background:#c1121f;color:#fff;font-size:13px;font-weight:950;text-align:center}
+.recordsTable thead th:nth-child(4){background:#00843d}
 .recordsTable thead th:first-child{left:0;z-index:4;min-width:170px}
 .recordsTable tbody th{position:sticky;left:0;z-index:1;min-width:170px;background:#16161b;color:#fff;font-weight:950}
 .recordsTable tbody td{min-width:220px;background:#111116;color:#f7f7fa;font-weight:700}
+.recordsTable tbody td:nth-child(4){background:rgba(0,132,61,.12)}
 .recordsTable tbody tr:nth-child(even) td{background:rgba(193,18,31,.18)}
+.recordsTable tbody tr:nth-child(even) td:nth-child(4){background:rgba(0,132,61,.22)}
 .recordsTable tbody tr:nth-child(even) th{background:linear-gradient(rgba(193,18,31,.18),rgba(193,18,31,.18)),#16161b}
 .recordsTable tr:last-child th,.recordsTable tr:last-child td{border-bottom:0}
 .recordsTable th:last-child,.recordsTable td:last-child{border-right:0}

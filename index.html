@@ -8,8 +8,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
-  <link rel="manifest" href="manifest.json?v=20260725-11">
-  <link rel="stylesheet" href="styles.css?v=20260725-11">
+  <link rel="manifest" href="manifest.json?v=20260725-12">
+  <link rel="stylesheet" href="styles.css?v=20260725-12">
 </head>
 <body>
   <div class="app">
@@ -19,6 +19,7 @@
         <strong>WHF HQ</strong>
         <span>Westonka • Holy Family</span>
       </div>
+      <div class="seasonPill"><i></i> 2026 SEASON</div>
     </header>
 
     <main class="screens">
@@ -41,6 +42,11 @@
           <div class="todayLocation" id="todayLocation">Schedule updates automatically as the season moves.</div>
           <div class="todayButton" aria-hidden="true">View Season Schedule</div>
         </section>
+
+        <div class="quickLinks" aria-label="Quick links">
+          <button onclick="showScreen('season')"><span class="quickIcon">CAL</span><span><b>Schedule</b><small>Practices &amp; meets</small></span></button>
+          <button onclick="showScreen('parents')"><span class="quickIcon">INFO</span><span><b>Parent Hub</b><small>Team essentials</small></span></button>
+        </div>
 
         <div class="homeActionsPremium">
           <button class="primaryAction greenAccent" onclick="showScreen('parents')">
@@ -192,14 +198,14 @@
   </div>
 
   <nav class="bottomNav">
-    <button class="active" data-screen="home" onclick="showScreen('home')">Home</button>
-    <button data-screen="season" onclick="showScreen('season')">Season</button>
-    <button data-screen="spirit" onclick="showScreen('spirit')">Events</button>
-    <button data-screen="parents" onclick="showScreen('parents')">Parents</button>
-    <button data-screen="program" onclick="showScreen('program')">Program</button>
+    <button class="active" data-screen="home" onclick="showScreen('home')"><span class="navIcon">⌂</span><span>Home</span></button>
+    <button data-screen="season" onclick="showScreen('season')"><span class="navIcon">□</span><span>Season</span></button>
+    <button data-screen="spirit" onclick="showScreen('spirit')"><span class="navIcon">◇</span><span>Events</span></button>
+    <button data-screen="parents" onclick="showScreen('parents')"><span class="navIcon">○</span><span>Parents</span></button>
+    <button data-screen="program" onclick="showScreen('program')"><span class="navIcon">★</span><span>Program</span></button>
   </nav>
 
-  <script src="data.js?v=20260725-11"></script>
-  <script src="app.js?v=20260725-11"></script>
+  <script src="data.js?v=20260725-12"></script>
+  <script src="app.js?v=20260725-12"></script>
 </body>
 </html>

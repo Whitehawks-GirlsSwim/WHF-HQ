@@ -294,12 +294,13 @@ window.WHF_DATA = {
     "status": ""
   },
   "seasonRecord": {
-    "value": "",
-    "note": ""
+    "value": "0-0",
+    "note": "Season record will update as meet results are finalized."
   },
   "programHighlights": [],
   "photoLinks": [],
   "teamRecords": [],
   "accolades": []
 };
+
 

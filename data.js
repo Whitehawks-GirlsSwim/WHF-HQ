@@ -173,7 +173,7 @@ window.WHF_DATA = {
     {
       "accent": "red",
       "title": "Team Store",
-      "body": "Elsmore Team Store is open. Order Window #1: July 6 – July 12. Order Window #2: July 27 – August 2. Team suits and caps are required for varsity competition. Every athlete receives the captains-designed team shirt at no cost.",
+      "body": "Elsmore Team Store is open. Order Window #1: July 6 – July 12. Order Window #2: July 21 – July 28. Team suits and caps are required for varsity competition. Every athlete receives the captains-designed team shirt at no cost.",
       "linkText": "Shop Team Store",
       "linkUrl": "https://elsmoreswim.com/collections/mound-westonka-holy-family-hs-girls"
     },
@@ -330,7 +330,7 @@ window.WHF_DATA = {
     "status": "Open",
     "vendor": "Elsmore Swim Shop",
     "windowOne": "July 6 – July 12",
-    "windowTwo": "July 27 – August 2",
+    "windowTwo": "July 21 – July 28",
     "url": "https://elsmoreswim.com/collections/mound-westonka-holy-family-hs-girls"
   },
   "programSummary": {
@@ -347,6 +347,7 @@ window.WHF_DATA = {
   "teamRecords": [],
   "accolades": []
 };
+
 
 
 

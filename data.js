@@ -280,32 +280,8 @@ window.WHF_DATA = {
     {
       "accent": "split",
       "title": "Spirit of the Lakes Fundraiser",
-      "date": "",
-      "detail": "Spirit of the Lakes raised $1,335.47 for WHF Swim & Dive from the Hydration Station and Dunk Tank combined.",
-      "linkText": "",
-      "linkUrl": ""
-    },
-    {
-      "accent": "green",
-      "title": "Hydration Station",
       "date": "July 16–18",
-      "detail": "Water, pop, Gatorade, and Alani Energy Drinks. Thursday, July 16 • 4:00–10:00 PM. Friday, July 17 • 5:00–11:00 PM. Saturday, July 18 • 11:00 AM–11:00 PM.",
-      "linkText": "Hydration Station Sign Up",
-      "linkUrl": "https://www.signupgenius.com/go/5080F4BAFA62DA1FE3-63621451-2026"
-    },
-    {
-      "accent": "red",
-      "title": "Dunk Tank",
-      "date": "Saturday, July 18",
-      "detail": "Festival-goers buy balls to dunk participants and support the team. 4:30–6:30 PM.",
-      "linkText": "Dunk Tank Sign Up",
-      "linkUrl": "https://www.signupgenius.com/go/5080F4BAFA62DA1FE3-63624280-2026"
-    },
-    {
-      "accent": "green",
-      "title": "Athlete Reminders",
-      "date": "",
-      "detail": "Check the SignUpGenius, be on time, check in at the ticket booth when your shift begins, check out when finished, and represent the team well.",
+      "detail": "Spirit of the Lakes raised $1,335.47 for WHF Swim & Dive from the Hydration Station and Dunk Tank combined.",
       "linkText": "",
       "linkUrl": ""
     },
@@ -314,14 +290,6 @@ window.WHF_DATA = {
       "title": "Culver's Serve Night x 2",
       "date": "TBD",
       "detail": "Waiting on confirmation and available dates.",
-      "linkText": "",
-      "linkUrl": ""
-    },
-    {
-      "accent": "green",
-      "title": "Culvers Serve Night x 2",
-      "date": "TBD",
-      "detail": "Waiting for possible dates from Culvers.",
       "linkText": "",
       "linkUrl": ""
     }

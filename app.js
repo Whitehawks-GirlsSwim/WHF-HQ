@@ -232,9 +232,6 @@ function renderProgram() {
   if (recordNote) recordNote.textContent = record.note || 'Update from Admin when results are available.';
   if (statusValue) statusValue.textContent = summary.status || (DATA.season?.label || '2026 Season');
 
-  const highlights = document.getElementById('programHighlightsList');
-  if (highlights) highlights.innerHTML = (DATA.programHighlights || []).map(cardHtml).join('') || cardHtml({ accent:'split', title:'Highlights Coming Soon', body:'Add program highlights from Admin.' });
-
   const records = document.getElementById('teamRecordsList');
   if (records) {
     const rows = DATA.teamRecords || [];
@@ -400,16 +397,6 @@ function buildAdminForms() {
       <textarea id="adminSeasonRecordNote" placeholder="Season record note">${escapeHtml(DATA.seasonRecord?.note || '')}</textarea>
     </div>
 
-    <div class="card green adminPanel">
-      <h3>Program Highlights</h3>
-      <div id="adminProgramHighlights">${(DATA.programHighlights || []).map((item, i) => adminCardEditor('programHighlights', item, i, [
-        {key:'accent', label:'Accent: green, red, or split'},
-        {key:'title', label:'Title'},
-        {key:'body', label:'Body', type:'textarea'}
-      ])).join('')}</div>
-      <button onclick="addAdminItem('programHighlights')">Add Highlight</button>
-    </div>
-
     <div class="card red adminPanel">
       <h3>Team Records</h3>
       <div id="adminTeamRecords">${(DATA.teamRecords || []).map((item, i) => adminCardEditor('teamRecords', item, i, [
@@ -482,7 +469,7 @@ function getAdminFormData() {
 
   next.meetSchedule = (next.meetSchedule || []).filter(x => x.opponent || x.date).sort((a, b) => new Date(a.date) - new Date(b.date));
   next.keyDates = (next.keyDates || []).filter(x => x.title || x.date).sort((a, b) => new Date(a.date) - new Date(b.date));
-  ['parentCards','boosterCards','events','sponsors','programHighlights','photoLinks'].forEach(section => {
+  ['parentCards','boosterCards','events','sponsors','photoLinks'].forEach(section => {
     next[section] = (next[section] || []).filter(x => x.title || x.name || x.body || x.detail || x.linkUrl);
   });
   next.teamRecords = (next.teamRecords || []).filter(x => x.event || x.holder || x.mark);
@@ -509,7 +496,6 @@ function addAdminItem(section) {
     events: { accent: 'green', title: '', date: '', detail: '', linkText: '', linkUrl: '' },
     boosterCards: { accent: 'green', title: '', body: '' },
     sponsors: { name: '', note: '' },
-    programHighlights: { accent: 'green', title: '', body: '' },
     teamRecords: { event: '', holder: '', mark: '', year: '' },
     photoLinks: { accent: 'split', title: '', detail: '', linkText: '', linkUrl: '' }
   };
@@ -572,7 +558,6 @@ function getChangedSections(candidate = DATA) {
     ['boosterCards', 'Booster Club'],
     ['programSummary', 'Program Summary'],
     ['seasonRecord', 'Season Record'],
-    ['programHighlights', 'Program Highlights'],
     ['teamRecords', 'Team Records'],
     ['photoLinks', 'Photo Links'],
     ['sponsorIntro', 'Sponsor Intro'],

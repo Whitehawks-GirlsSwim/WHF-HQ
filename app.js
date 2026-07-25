@@ -7,12 +7,24 @@ let keyDates = DATA.keyDates || [];
 let initialSponsors = DATA.sponsors || [];
 
 function loadAdminPreviewData() {
+  const published = window.WHF_DATA || {};
   try {
     const preview = localStorage.getItem('whfAdminDataPreview');
-    return preview ? JSON.parse(preview) : (window.WHF_DATA || {});
+    if (!preview) return published;
+
+    const parsed = JSON.parse(preview);
+    const publishedSchedule = JSON.stringify([published.latestUpdate, published.keyDates, published.meetSchedule]);
+    const previewSchedule = JSON.stringify([parsed.latestUpdate, parsed.keyDates, parsed.meetSchedule]);
+
+    if (publishedSchedule !== previewSchedule) {
+      localStorage.removeItem('whfAdminDataPreview');
+      return published;
+    }
+
+    return parsed;
   } catch (error) {
     console.warn('Admin preview data could not be loaded. Falling back to data.js.', error);
-    return window.WHF_DATA || {};
+    return published;
   }
 }
 
@@ -135,28 +147,34 @@ function renderSchedule() {
   if (!list) return;
 
   const now = new Date();
-  const next = getNextMeet(now);
-  const nextKey = next ? `${next.date}|${next.level}|${next.opponent}` : null;
+  const seasonItems = getSeasonItems();
+  const next = getNextSeasonItem(now);
+  const itemKey = item => `${item.date}|${item.type}|${item.title || item.opponent}`;
+  const nextKey = next ? itemKey(next) : null;
 
-  list.innerHTML = meetSchedule.map((event, index) => {
+  list.innerHTML = seasonItems.map((event, index) => {
     const date = new Date(event.date);
-    const eventKey = `${event.date}|${event.level}|${event.opponent}`;
-    const isNext = nextKey === eventKey;
+    const isNext = nextKey === itemKey(event);
     const isPast = date.getTime() + 3 * 60 * 60 * 1000 < now.getTime();
     const accent = index % 2 === 0 ? 'greenAccent' : 'redAccent';
     const stateClass = isNext ? ' currentEvent' : isPast ? ' pastEvent' : '';
-    const label = isNext ? '<div class="scheduleBadge">NEXT UP</div>' : '';
+    const badge = isNext ? '<div class="scheduleBadge">NEXT UP</div>' : '';
+    const title = event.title || event.opponent;
+    const detail = event.type === 'keyDate'
+      ? `${event.label || 'IMPORTANT DATE'} • ${event.location || 'Details coming soon'}`
+      : `${event.level} • ${event.location}`;
+
     return `<div class="scheduleItem ${accent}${stateClass}">
       <div class="scheduleDate"><strong>${formatDate(date)}</strong><span>${formatTime(date)}</span></div>
-      <div class="scheduleInfo">${label}<h3>${escapeHtml(event.opponent)}</h3><p>${escapeHtml(event.level)} • ${escapeHtml(event.location)}</p></div>
+      <div class="scheduleInfo">${badge}<h3>${escapeHtml(title)}</h3><p>${escapeHtml(detail)}</p></div>
     </div>`;
   }).join('');
 
   if (status && next) {
     const date = new Date(next.date);
-    status.textContent = `Next meet: ${next.opponent} • ${formatDate(date)} at ${formatTime(date)}`;
+    status.textContent = `Next event: ${next.title || next.opponent} • ${formatDate(date)} at ${formatTime(date)}`;
   } else if (status) {
-    status.textContent = 'The 2026 meet schedule is complete.';
+    status.textContent = 'The 2026 season schedule is complete.';
   }
 }
 
@@ -573,3 +591,4 @@ renderFund();
 setupHomeTaps();
 buildAdminForms();
 renderAdminStatus();
+

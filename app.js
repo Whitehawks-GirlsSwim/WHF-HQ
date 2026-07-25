@@ -257,7 +257,18 @@ function renderProgram() {
   }
 
   const photos = document.getElementById('photoLinksList');
-  if (photos) photos.innerHTML = (DATA.photoLinks || []).map(cardHtml).join('') || cardHtml({accent:'split', title:'Photo Links Coming Soon', body:'Add upload and gallery links from Admin.'});
+  if (photos) {
+    const items = DATA.photoLinks || [];
+    photos.innerHTML = items.length ? `<div class="photoGallery">${items.map(item => {
+      const title = escapeHtml(item.title || 'WHF Swim & Dive');
+      const detail = escapeHtml(item.detail || item.body || '');
+      const imageUrl = escapeHtml(item.imageUrl || '');
+      const linkUrl = escapeHtml(item.linkUrl || '');
+      const image = imageUrl ? `<div class="photoImage"><img src="${imageUrl}" alt="${title}" loading="lazy"></div>` : `<div class="photoPlaceholder"><span>WHF</span></div>`;
+      const content = `${image}<div class="photoCaption"><h3>${title}</h3>${detail ? `<p>${detail}</p>` : ''}${item.linkText ? `<span class="photoLinkText">${escapeHtml(item.linkText)} →</span>` : ''}</div>`;
+      return linkUrl ? `<a class="photoGalleryCard" href="${linkUrl}" target="_blank" rel="noopener">${content}</a>` : `<article class="photoGalleryCard">${content}</article>`;
+    }).join('')}</div>` : cardHtml({accent:'split', title:'Photos Coming Soon', body:'Team photos and albums will appear here as they are added.'});
+  }
 }
 
 function updateFund() {
@@ -414,6 +425,7 @@ function buildAdminForms() {
         {key:'accent', label:'Accent: green, red, or split'},
         {key:'title', label:'Title'},
         {key:'detail', label:'Details', type:'textarea'},
+        {key:'imageUrl', label:'Photo file or image URL'},
         {key:'linkText', label:'Button text'},
         {key:'linkUrl', label:'Google Drive / gallery link'}
       ])).join('')}</div>
@@ -470,7 +482,7 @@ function getAdminFormData() {
   next.meetSchedule = (next.meetSchedule || []).filter(x => x.opponent || x.date).sort((a, b) => new Date(a.date) - new Date(b.date));
   next.keyDates = (next.keyDates || []).filter(x => x.title || x.date).sort((a, b) => new Date(a.date) - new Date(b.date));
   ['parentCards','boosterCards','events','sponsors','photoLinks'].forEach(section => {
-    next[section] = (next[section] || []).filter(x => x.title || x.name || x.body || x.detail || x.linkUrl);
+    next[section] = (next[section] || []).filter(x => x.title || x.name || x.body || x.detail || x.linkUrl || x.imageUrl);
   });
   next.teamRecords = (next.teamRecords || []).filter(x => x.event || x.holder || x.mark);
   return next;
@@ -497,7 +509,7 @@ function addAdminItem(section) {
     boosterCards: { accent: 'green', title: '', body: '' },
     sponsors: { name: '', note: '' },
     teamRecords: { event: '', holder: '', mark: '', year: '' },
-    photoLinks: { accent: 'split', title: '', detail: '', linkText: '', linkUrl: '' }
+    photoLinks: { accent: 'split', title: '', detail: '', imageUrl: '', linkText: '', linkUrl: '' }
   };
   next[section].push(templates[section] || {});
   setRuntimeData(next);

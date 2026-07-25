@@ -259,12 +259,6 @@ function renderProgram() {
       </div>` : `<div class="card green"><h3>Records Coming Soon</h3><p>Add team records from Admin.</p></div>`;
   }
 
-  const accolades = document.getElementById('accoladesList');
-  if (accolades) accolades.innerHTML = (DATA.accolades || []).map((item, idx) => {
-    const cls = idx % 2 === 0 ? 'green' : 'red';
-    return `<div class="recordRow ${cls}"><div><strong>${escapeHtml(item.name || 'Athlete')}</strong><span>${escapeHtml(item.honor || '')}</span></div><div><em>${escapeHtml(item.year || '')}</em></div></div>`;
-  }).join('') || `<div class="card red"><h3>Accolades Coming Soon</h3><p>Add individual honors from Admin.</p></div>`;
-
   const photos = document.getElementById('photoLinksList');
   if (photos) photos.innerHTML = (DATA.photoLinks || []).map(cardHtml).join('') || cardHtml({accent:'split', title:'Photo Links Coming Soon', body:'Add upload and gallery links from Admin.'});
 }
@@ -427,16 +421,6 @@ function buildAdminForms() {
       <button onclick="addAdminItem('teamRecords')">Add Record</button>
     </div>
 
-    <div class="card green adminPanel">
-      <h3>Individual Accolades</h3>
-      <div id="adminAccolades">${(DATA.accolades || []).map((item, i) => adminCardEditor('accolades', item, i, [
-        {key:'name', label:'Name'},
-        {key:'honor', label:'Honor / accolade'},
-        {key:'year', label:'Year'}
-      ])).join('')}</div>
-      <button onclick="addAdminItem('accolades')">Add Accolade</button>
-    </div>
-
     <div class="card split adminPanel">
       <h3>Photo Links</h3>
       <div id="adminPhotoLinks">${(DATA.photoLinks || []).map((item, i) => adminCardEditor('photoLinks', item, i, [
@@ -502,7 +486,6 @@ function getAdminFormData() {
     next[section] = (next[section] || []).filter(x => x.title || x.name || x.body || x.detail || x.linkUrl);
   });
   next.teamRecords = (next.teamRecords || []).filter(x => x.event || x.holder || x.mark);
-  next.accolades = (next.accolades || []).filter(x => x.name || x.honor);
   return next;
 }
 
@@ -528,7 +511,6 @@ function addAdminItem(section) {
     sponsors: { name: '', note: '' },
     programHighlights: { accent: 'green', title: '', body: '' },
     teamRecords: { event: '', holder: '', mark: '', year: '' },
-    accolades: { name: '', honor: '', year: '' },
     photoLinks: { accent: 'split', title: '', detail: '', linkText: '', linkUrl: '' }
   };
   next[section].push(templates[section] || {});
@@ -592,7 +574,6 @@ function getChangedSections(candidate = DATA) {
     ['seasonRecord', 'Season Record'],
     ['programHighlights', 'Program Highlights'],
     ['teamRecords', 'Team Records'],
-    ['accolades', 'Individual Accolades'],
     ['photoLinks', 'Photo Links'],
     ['sponsorIntro', 'Sponsor Intro'],
     ['sponsors', 'Sponsors'],

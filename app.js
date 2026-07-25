@@ -226,7 +226,7 @@ function renderProgram() {
   const recordValue = document.getElementById('seasonRecordValue');
   const recordNote = document.getElementById('seasonRecordNote');
   const statusValue = document.getElementById('programStatusValue');
-  if (headline) headline.textContent = summary.headline || 'Records & Accolades';
+  if (headline) headline.textContent = summary.headline || 'Team and Pool Records';
   if (intro) intro.textContent = summary.intro || 'Program history and honors live here.';
   if (recordValue) recordValue.textContent = record.value || 'Coming Soon';
   if (recordNote) recordNote.textContent = record.note || 'Update from Admin when results are available.';
@@ -611,4 +611,3 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden) refreshPublishedData();
 });
 setInterval(refreshPublishedData, 5 * 60 * 1000);
-

@@ -4,17 +4,52 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "Meet schedule loaded",
-    "body": "The 2026 meet schedule has been added. Practice information can be added once finalized.",
+    "title": "Opening week practice schedule",
+    "body": "Practice times are confirmed for August 17–22. Morning practice runs 7:00–9:00 AM each day, with additional 4:00–5:30 PM sessions August 17–20.",
     "updated": "July 2026"
   },
   "keyDates": [
     {
       "date": "2026-08-17T07:00:00-05:00",
-      "title": "Practice Begins",
-      "label": "PRACTICE BEGINS",
+      "title": "Practice",
+      "label": "PRACTICE",
       "meta": "Monday, August 17",
-      "location": "Practice details can be updated once Coach Ben finalizes the schedule."
+      "location": "7:00–9:00 AM & 4:00–5:30 PM"
+    },
+    {
+      "date": "2026-08-18T07:00:00-05:00",
+      "title": "Practice",
+      "label": "PRACTICE",
+      "meta": "Tuesday, August 18",
+      "location": "7:00–9:00 AM & 4:00–5:30 PM"
+    },
+    {
+      "date": "2026-08-19T07:00:00-05:00",
+      "title": "Practice",
+      "label": "PRACTICE",
+      "meta": "Wednesday, August 19",
+      "location": "7:00–9:00 AM & 4:00–5:30 PM"
+    },
+    {
+      "date": "2026-08-20T07:00:00-05:00",
+      "title": "Practice",
+      "label": "PRACTICE",
+      "meta": "Thursday, August 20",
+      "location": "7:00–9:00 AM & 4:00–5:30 PM"
+    },
+    {
+      "date": "2026-08-21T07:00:00-05:00",
+      "title": "Practice",
+      "label": "PRACTICE",
+      "meta": "Friday, August 21",
+      "location": "7:00–9:00 AM"
+    },
+    {
+      "date": "2026-08-22T07:00:00-05:00",
+      "title": "Practice",
+      "label": "PRACTICE",
+      "meta": "Saturday, August 22",
+      "location": "7:00–9:00 AM"
     }
   ],
   "meetSchedule": [
@@ -152,14 +187,14 @@ window.WHF_DATA = {
     {
       "accent": "red",
       "title": "First Practice",
-      "body": "Monday, August 17.",
+      "body": "Monday, August 17 • 7:00–9:00 AM & 4:00–5:30 PM.",
       "linkText": "",
       "linkUrl": ""
     },
     {
       "accent": "split",
-      "title": "Meet Schedule",
-      "body": "The 2026 meet schedule has been added to the Season page. Practice information can be added once finalized.",
+      "title": "Season Schedule",
+      "body": "The 2026 meet schedule and opening week practice times are available on the Season page.",
       "linkText": "",
       "linkUrl": ""
     }
@@ -267,3 +302,4 @@ window.WHF_DATA = {
   "teamRecords": [],
   "accolades": []
 };
+

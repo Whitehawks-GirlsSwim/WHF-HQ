@@ -148,6 +148,41 @@ function renderTodayPanel() {
   }
 }
 
+function renderHomeAlerts() {
+  const host = document.getElementById('homeAlerts');
+  if (!host) return;
+  const parentCards = DATA.parentCards || [];
+  const registration = parentCards.find(item => /registration/i.test(item.title || ''));
+  const storeCard = parentCards.find(item => /team store/i.test(item.title || ''));
+  const store = DATA.teamStore || {};
+  const alerts = [];
+  const storeDeadline = new Date('2026-07-29T00:00:00-05:00');
+
+  if (store.url && new Date() < storeDeadline) {
+    alerts.push({
+      accent: 'red',
+      eyebrow: 'CLOSING SOON',
+      title: `${store.vendor || 'Elsmore Team Store'} closes July 28`,
+      body: `Final ordering window: ${store.windowTwo || 'July 21 - July 28'}.`,
+      linkText: storeCard?.linkText || 'Shop Team Store',
+      linkUrl: store.url
+    });
+  }
+
+  if (registration?.linkUrl) {
+    alerts.push({
+      accent: 'green',
+      eyebrow: 'ACTION NEEDED',
+      title: registration.title || 'Registration Open',
+      body: 'Complete athlete registration before the season begins and confirm a current sports physical is on file.',
+      linkText: registration.linkText || 'Register Athlete',
+      linkUrl: registration.linkUrl
+    });
+  }
+
+  host.innerHTML = alerts.length ? `<div class="homeAlertsLabel">Important Dates</div><div class="homeAlertGrid">${alerts.map(item => `<article class="homeAlert ${item.accent}"><div><span>${escapeHtml(item.eyebrow)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.body)}</p></div><a href="${escapeHtml(item.linkUrl)}">${escapeHtml(item.linkText)}</a></article>`).join('')}</div>` : '';
+}
+
 function cardHtml(item, idx = 0) {
   const accent = item.accent || (idx % 2 === 0 ? 'green' : 'red');
   const cls = accent === 'split' ? 'split' : accent === 'red' ? 'red' : 'green';
@@ -690,6 +725,7 @@ function renderAdminStatus() {
 
 function refreshAppFromData() {
   renderTodayPanel();
+  renderHomeAlerts();
   renderSchedule();
   renderPageCards();
   renderSponsors();
@@ -700,6 +736,7 @@ function refreshAppFromData() {
 }
 
 renderTodayPanel();
+renderHomeAlerts();
 renderSchedule();
 renderPageCards();
 renderSponsors();

@@ -118,6 +118,7 @@ function renderTodayPanel() {
   const main = document.getElementById('todayMain');
   const meta = document.getElementById('todayMeta');
   const location = document.getElementById('todayLocation');
+  const button = document.getElementById('todayButton');
   if (!kicker || !main || !meta || !location) return;
 
   if (!next) {
@@ -136,9 +137,11 @@ function renderTodayPanel() {
   if (next.type === 'keyDate') {
     meta.textContent = next.meta || `${formatDate(date)} • ${formatTime(date)}`;
     location.textContent = next.location || 'Details will be updated here.';
+    if (button) button.textContent = 'Open Practice';
   } else {
     meta.textContent = `${next.level} • ${formatDate(date)} • ${formatTime(date)}`;
     location.textContent = next.location;
+    if (button) button.textContent = 'Open Meet Details';
   }
 }
 

@@ -330,7 +330,7 @@ window.WHF_DATA = {
       {
           "event": "200 Individual Medley",
           "boysMoundWestonka": "Josh Johnston — 1:55.75 ’21",
-          "girlsMoundWestonka": "Mia Dongoske — 2:14.35 ’24",
+          "girlsMoundWestonka": "Mia Dongoske — 2:13.97 ’25",
           "girlsHolyFamily": "Catherine Dueck — 2:03.22 ’23",
           "girlsPool": "Catherine Dueck (MWHF) — 2:07.47 ’23"
       },
@@ -407,7 +407,4 @@ window.WHF_DATA = {
   ],
   "accolades": []
 };
-
-
-
 

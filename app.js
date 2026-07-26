@@ -278,7 +278,7 @@ function renderSponsors() {
   wall.innerHTML = sponsors.length
     ? levels.map(title => {
       const group = sponsors.filter(sponsor => level(sponsor) === title);
-      return group.length ? `<section class="sponsorTier"><div class="sectionLabel">${title}</div><div class="sponsorTierGrid">${group.map(s => `<div class="sponsorCard"><div class="sponsorMark">WHF</div><div><h3>${escapeHtml(s.name)}</h3><p>${escapeHtml(s.note || 'Thank you for supporting WHF Swim & Dive.')}</p></div></div>`).join('')}</div></section>` : '';
+      return group.length ? `<section class="sponsorTier"><div class="sectionLabel">${title}</div><div class="sponsorTierGrid">${group.map(s => `<div class="sponsorCard">${s.logo ? `<div class="sponsorLogo"><img src="${escapeHtml(s.logo)}" alt="${escapeHtml(s.name)} logo" loading="lazy"></div>` : '<div class="sponsorMark">WHF</div>'}<div><h3>${escapeHtml(s.name)}</h3><p>${escapeHtml(s.note || 'Thank you for supporting WHF Swim & Dive.')}</p></div></div>`).join('')}</div></section>` : '';
     }).join('')
     : `<div class="card green"><h3>Sponsors Coming Soon</h3><p>Community partners will be added here as sponsorships are finalized.</p></div>`;
 }

@@ -8,8 +8,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
-  <link rel="manifest" href="manifest.json?v=20260725-13">
-  <link rel="stylesheet" href="styles.css?v=20260725-13">
+  <link rel="manifest" href="manifest.json?v=20260725-14">
+  <link rel="stylesheet" href="styles.css?v=20260725-14">
 </head>
 <body>
   <div class="app">
@@ -40,33 +40,8 @@
           <div class="todayMain" id="todayMain">Loading season...</div>
           <div class="todayMeta" id="todayMeta">2026 WHF Girls Swim &amp; Dive</div>
           <div class="todayLocation" id="todayLocation">Schedule updates automatically as the season moves.</div>
-          <div class="todayButton" aria-hidden="true">View Season Schedule</div>
+          <div class="todayButton" id="todayButton" aria-hidden="true">Open Details</div>
         </section>
-
-        <div class="quickLinks quickLinksThree" aria-label="Quick links">
-          <button onclick="showScreen('practice')"><span class="quickIcon">PRA</span><span><b>Practice</b><small>Times &amp; updates</small></span></button>
-          <button onclick="showScreen('meets')"><span class="quickIcon">MEET</span><span><b>Meets</b><small>Full meet schedule</small></span></button>
-          <button onclick="showScreen('parents')"><span class="quickIcon">INFO</span><span><b>Parent Hub</b><small>Team essentials</small></span></button>
-        </div>
-
-        <div class="homeActionsPremium">
-          <button class="primaryAction greenAccent" onclick="showScreen('parents')">
-            <h3>FOR PARENTS</h3>
-            <p>Registration • Team Store • Eligibility • Communications</p>
-          </button>
-
-          <button class="primaryAction redAccent" onclick="showScreen('meets')">
-            <h3>THIS SEASON</h3>
-            <p>Meet schedule, opponents, locations and championship dates</p>
-          </button>
-
-          <div class="actionGridPremium">
-            <button class="miniAction greenAccent" onclick="showScreen('spirit')"><h3>EVENTS</h3><p>Volunteer opportunities and team events</p></button>
-            <button class="miniAction redAccent" onclick="showScreen('parents')"><h3>TEAM STORE</h3><p>Apparel, suits, caps and order windows</p></button>
-            <button class="miniAction greenAccent" onclick="showScreen('booster')"><h3>BOOSTER CLUB</h3><p>Fees, leadership and meeting information</p></button>
-            <button class="miniAction redAccent" onclick="showScreen('program')"><h3>PROGRAM</h3><p>Team and pool records, photos and community</p></button>
-          </div>
-        </div>
       </section>
 
       <section class="screen" id="spirit">
@@ -100,8 +75,7 @@
         <div class="screenTitle">Meets</div>
         <div class="seasonLead">
           <div class="seasonLeadTop">MEET SCHEDULE</div>
-          <h2>WHF Girls Swim &amp; Dive</h2>
-          <p>Meet dates, opponents, levels and locations—all in one place.</p>
+          <h2>2026 Meet Schedule</h2>
         </div>
         <div class="scheduleTools">
           <div class="scheduleStatus" id="meetScheduleStatus">Meet schedule moves automatically based on the calendar.</div>
@@ -113,8 +87,7 @@
         <div class="screenTitle">Practice</div>
         <div class="seasonLead practiceLead">
           <div class="seasonLeadTop">PRACTICE SCHEDULE</div>
-          <h2>Pool Times &amp; Updates</h2>
-          <p>Practice times live here separately from the competitive meet schedule.</p>
+          <h2>Practice Schedule</h2>
         </div>
         <div class="scheduleTools">
           <div class="scheduleStatus" id="practiceScheduleStatus">Practice schedule moves automatically based on the calendar.</div>
@@ -220,7 +193,7 @@
     <button data-screen="program" onclick="showScreen('program')"><span class="navIcon">★</span><span>Program</span></button>
   </nav>
 
-  <script src="data.js?v=20260725-13"></script>
-  <script src="app.js?v=20260725-13"></script>
+  <script src="data.js?v=20260725-14"></script>
+  <script src="app.js?v=20260725-14"></script>
 </body>
 </html>

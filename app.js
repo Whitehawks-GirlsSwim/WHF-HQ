@@ -170,7 +170,7 @@ function renderPageCards() {
   if (sponsorIntro && DATA.sponsorIntro) sponsorIntro.innerHTML = cardHtml({ accent: 'split', title: DATA.sponsorIntro.title, body: DATA.sponsorIntro.body });
 }
 
-function renderSchedule() {
+function renderCombinedScheduleLegacy() {
   const list = document.getElementById('scheduleList');
   const status = document.getElementById('scheduleStatus');
   if (!list) return;
@@ -205,6 +205,46 @@ function renderSchedule() {
   } else if (status) {
     status.textContent = 'The 2026 season schedule is complete.';
   }
+}
+
+function renderSeparatedScheduleList(listId, statusId, scheduleItems, kind) {
+  const list = document.getElementById(listId);
+  const status = document.getElementById(statusId);
+  if (!list) return;
+  const now = new Date();
+  const sorted = [...scheduleItems].sort((a, b) => new Date(a.date) - new Date(b.date));
+  const next = sorted.find(item => new Date(item.date).getTime() + 3 * 60 * 60 * 1000 >= now.getTime()) || null;
+  const nextKey = next ? `${next.date}|${next.title || next.opponent}` : '';
+
+  list.innerHTML = sorted.map((event, index) => {
+    const date = new Date(event.date);
+    const isNext = nextKey === `${event.date}|${event.title || event.opponent}`;
+    const isPast = date.getTime() + 3 * 60 * 60 * 1000 < now.getTime();
+    const stateClass = isNext ? ' currentEvent' : isPast ? ' pastEvent' : '';
+    const badge = isNext ? `<div class="scheduleBadge">NEXT ${kind.toUpperCase()}</div>` : '';
+    const title = event.title || event.opponent;
+    const detail = kind === 'practice'
+      ? (event.location || 'Practice details coming soon')
+      : `${event.level} • ${event.location}`;
+    return `<div class="scheduleItem ${index % 2 === 0 ? 'greenAccent' : 'redAccent'}${stateClass}">
+      <div class="scheduleDate"><strong>${formatDate(date)}</strong><span>${formatTime(date)}</span></div>
+      <div class="scheduleInfo">${badge}<h3>${escapeHtml(title)}</h3><p>${escapeHtml(detail)}</p></div>
+    </div>`;
+  }).join('');
+
+  if (status && next) {
+    const date = new Date(next.date);
+    status.textContent = `Next ${kind}: ${next.title || next.opponent} • ${formatDate(date)} at ${formatTime(date)}`;
+  } else if (status) {
+    status.textContent = `The 2026 ${kind} schedule is complete.`;
+  }
+}
+
+function renderSchedule() {
+  const meets = meetSchedule.map(event => ({ ...event, title: event.opponent, type: 'meet' }));
+  const practices = keyDates.map(item => ({ ...item, opponent: item.title, type: 'practice' }));
+  renderSeparatedScheduleList('meetScheduleList', 'meetScheduleStatus', meets, 'meet');
+  renderSeparatedScheduleList('practiceScheduleList', 'practiceScheduleStatus', practices, 'practice');
 }
 
 function renderSponsors() {
@@ -295,11 +335,15 @@ function renderFund() {
 function setupHomeTaps() {
   const todayPanel = document.getElementById('todayPanel');
   if (!todayPanel) return;
-  todayPanel.addEventListener('click', () => showScreen('season'));
+  const openNextItem = () => {
+    const next = getNextSeasonItem(new Date());
+    showScreen(next?.type === 'meet' ? 'meets' : 'practice');
+  };
+  todayPanel.addEventListener('click', openNextItem);
   todayPanel.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      showScreen('season');
+      openNextItem();
     }
   });
 }

@@ -8,11 +8,12 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
-  <link rel="manifest" href="manifest.json?v=20260726-25">
-  <link rel="stylesheet" href="styles.css?v=20260726-25">
+  <link rel="manifest" href="manifest.json?v=20260726-26">
+  <link rel="stylesheet" href="styles.css?v=20260726-26">
   <link rel="icon" href="app-icon.svg" type="image/svg+xml">
 </head>
 <body>
+  <div class="connectionBanner" id="connectionBanner" role="status"></div>
   <div class="app">
     <header class="topBar">
       <div class="brandMark">WHF</div>
@@ -22,6 +23,12 @@
       </div>
       <div class="seasonPill"><i></i> 2026 SEASON</div>
     </header>
+
+    <div class="bootSkeleton" id="bootSkeleton" aria-hidden="true">
+      <div class="skeletonHero"></div>
+      <div class="skeletonCard"></div>
+      <div class="skeletonRow"><i></i><i></i></div>
+    </div>
 
     <main class="screens">
       <section class="screen active" id="home">
@@ -184,7 +191,26 @@
     </main>
   </div>
 
+  <div class="detailSheet" id="detailSheet" aria-hidden="true">
+    <button class="sheetBackdrop" type="button" data-close-sheet aria-label="Close details"></button>
+    <section class="sheetPanel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <div class="sheetHandle" aria-hidden="true"></div>
+      <button class="sheetClose" id="sheetClose" type="button" onclick="closeDetailSheet()" aria-label="Close details">×</button>
+      <span class="sheetEyebrow" id="sheetEyebrow">DETAILS</span>
+      <h2 id="sheetTitle">Details</h2>
+      <p class="sheetMeta" id="sheetMeta"></p>
+      <p class="sheetLocation" id="sheetLocation"></p>
+      <p class="sheetBody" id="sheetBody"></p>
+      <div class="sheetActions">
+        <a id="sheetAction" href="#" target="_blank" rel="noopener" data-toast="Opening link…">Open Link</a>
+        <button type="button" onclick="copySheetLink()">Copy Link</button>
+      </div>
+    </section>
+  </div>
+  <div class="appToast" id="appToast" role="status" aria-live="polite"></div>
+
   <nav class="bottomNav">
+    <div class="navIndicator" id="navIndicator" aria-hidden="true"></div>
     <button class="active" data-screen="home" onclick="showScreen('home')">Home</button>
     <button data-screen="meets" onclick="showScreen('meets')">Meets</button>
     <button data-screen="practice" onclick="showScreen('practice')">Practice</button>
@@ -193,7 +219,7 @@
     <button data-screen="program" onclick="showScreen('program')">Program</button>
   </nav>
 
-  <script src="data.js?v=20260726-25"></script>
-  <script src="app.js?v=20260726-25"></script>
+  <script src="data.js?v=20260726-26"></script>
+  <script src="app.js?v=20260726-26"></script>
 </body>
 </html>

@@ -2,9 +2,17 @@
   "name": "WHF HQ",
   "short_name": "WHF HQ",
   "id": "./",
-  "start_url": "./?v=20260725-4",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#030306",
   "theme_color": "#030306",
-  "icons": []
+  "icons": [
+    {
+      "src": "app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }

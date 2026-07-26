@@ -194,7 +194,7 @@ window.WHF_DATA = {
     {
       "accent": "split",
       "title": "Season Schedule",
-      "body": "The 2026 meet schedule and opening week practice times are available on the Season page.",
+      "body": "The 2026 meet schedule and opening week practice times are available in the Meets and Practice tabs.",
       "linkText": "",
       "linkUrl": ""
     }
@@ -228,7 +228,9 @@ window.WHF_DATA = {
   ],
   "sponsorIntro": {
     "title": "Total Raised: $16,785.47",
-    "body": "Thank you to the businesses and community organizations supporting WHF Girls Swim & Dive."
+    "body": "Thank you to the businesses and community organizations supporting WHF Girls Swim & Dive.",
+    "raised": 16785.47,
+    "goal": 30000
   },
   "sponsors": [
     {
@@ -282,6 +284,8 @@ window.WHF_DATA = {
       "title": "Spirit of the Lakes Fundraiser",
       "date": "July 16–18",
       "detail": "Spirit of the Lakes raised $1,335.47 for WHF Swim & Dive from the Hydration Station and Dunk Tank combined.",
+      "status": "completed",
+      "result": "$1,335.47 Raised",
       "linkText": "",
       "linkUrl": ""
     },
@@ -290,6 +294,7 @@ window.WHF_DATA = {
       "title": "Culver's Serve Night x 2",
       "date": "TBD",
       "detail": "Waiting on confirmation and available dates.",
+      "status": "upcoming",
       "linkText": "",
       "linkUrl": ""
     }
@@ -407,4 +412,3 @@ window.WHF_DATA = {
   ],
   "accolades": []
 };
-

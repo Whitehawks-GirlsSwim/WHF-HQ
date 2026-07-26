@@ -165,14 +165,16 @@ function openScheduleSheet(kind, index, trigger) {
   if (!event) return;
   const date = new Date(event.date);
   const title = event.title || event.opponent || (kind === 'practice' ? 'Practice' : 'Meet');
-  const location = event.location || 'Location details coming soon';
-  const directionsUrl = location && !/coming soon/i.test(location)
+  const isPractice = kind === 'practice';
+  const practiceDetails = event.location || 'Practice details coming soon';
+  const location = isPractice ? '' : (event.location || 'Location details coming soon');
+  const directionsUrl = !isPractice && location && !/coming soon/i.test(location)
     ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`
     : '';
   openDetailSheet({
-    eyebrow: kind === 'practice' ? 'PRACTICE DETAILS' : `${event.level || 'MEET'} DETAILS`,
+    eyebrow: isPractice ? 'PRACTICE DETAILS' : `${event.level || 'MEET'} DETAILS`,
     title,
-    body: kind === 'practice' ? 'Practice information from the current team schedule.' : `Meet information for ${event.opponent || title}.`,
+    body: isPractice ? practiceDetails : `Meet information for ${event.opponent || title}.`,
     meta: `${formatDate(date)} • ${formatTime(date)}`,
     location,
     linkText: directionsUrl ? 'Get Directions' : '',

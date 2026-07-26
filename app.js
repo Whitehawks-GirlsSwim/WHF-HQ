@@ -6,6 +6,11 @@ let meetSchedule = DATA.meetSchedule || [];
 let keyDates = DATA.keyDates || [];
 let initialSponsors = DATA.sponsors || [];
 let activeRecordGroup = 'girlsMoundWestonka';
+let homeAlertItems = [];
+let activeSheetLink = '';
+let lastSheetTrigger = null;
+const screenScrollPositions = new Map();
+const screenOrder = ['home', 'meets', 'practice', 'spirit', 'parents', 'program'];
 
 function loadAdminPreviewData() {
   const published = window.WHF_DATA || {};
@@ -59,6 +64,8 @@ async function refreshPublishedData() {
       window.WHF_DATA = fresh;
       setRuntimeData(fresh);
       refreshAppFromData();
+      updateNavBadges();
+      showToast('Team information updated');
     }
   } catch (error) {
     console.warn('Published schedule refresh will retry later.', error);
@@ -68,13 +75,169 @@ async function refreshPublishedData() {
 }
 
 function showScreen(id) {
-  screens.forEach(screen => screen.classList.toggle('active', screen.id === id));
-  navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.screen === id));
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  const current = document.querySelector('.screen.active');
+  if (current?.id === id) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    markScreenSeen(id);
+    return;
+  }
+  if (current) screenScrollPositions.set(current.id, window.scrollY);
+  const fromIndex = screenOrder.indexOf(current?.id || 'home');
+  const toIndex = screenOrder.indexOf(id);
+  document.documentElement.dataset.navDirection = toIndex >= fromIndex ? 'forward' : 'back';
+
+  const commit = () => {
+    screens.forEach(screen => screen.classList.toggle('active', screen.id === id));
+    navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.screen === id));
+    updateNavIndicator();
+    markScreenSeen(id);
+  };
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (document.startViewTransition && !reducedMotion) document.startViewTransition(commit);
+  else commit();
+
+  requestAnimationFrame(() => window.scrollTo({ top: screenScrollPositions.get(id) || 0, behavior: 'auto' }));
 }
 
 function escapeHtml(value) {
   return String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
+}
+
+function showToast(message) {
+  const toast = document.getElementById('appToast');
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+function openDetailSheet({ eyebrow = 'DETAILS', title = '', body = '', meta = '', location = '', linkText = '', linkUrl = '' }, trigger) {
+  const sheet = document.getElementById('detailSheet');
+  if (!sheet) return;
+  lastSheetTrigger = trigger || document.activeElement;
+  activeSheetLink = linkUrl;
+  document.getElementById('sheetEyebrow').textContent = eyebrow;
+  document.getElementById('sheetTitle').textContent = title;
+  document.getElementById('sheetBody').textContent = body;
+  document.getElementById('sheetMeta').textContent = meta;
+  document.getElementById('sheetMeta').hidden = !meta;
+  document.getElementById('sheetLocation').textContent = location;
+  document.getElementById('sheetLocation').hidden = !location;
+  const action = document.getElementById('sheetAction');
+  action.textContent = linkText || 'Open Link';
+  action.href = linkUrl || '#';
+  action.hidden = !linkUrl;
+  sheet.classList.add('open');
+  sheet.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('sheetOpen');
+  requestAnimationFrame(() => document.getElementById('sheetClose')?.focus());
+}
+
+function closeDetailSheet() {
+  const sheet = document.getElementById('detailSheet');
+  if (!sheet?.classList.contains('open')) return;
+  sheet.classList.remove('open');
+  sheet.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('sheetOpen');
+  lastSheetTrigger?.focus?.();
+}
+
+async function copySheetLink() {
+  if (!activeSheetLink) return;
+  try {
+    await navigator.clipboard.writeText(activeSheetLink);
+    showToast('Link copied');
+  } catch (error) {
+    showToast('Copy unavailable on this device');
+  }
+}
+
+function getScheduleForSheet(kind) {
+  return kind === 'practice'
+    ? [...keyDates].sort((a, b) => new Date(a.date) - new Date(b.date))
+    : [...meetSchedule].sort((a, b) => new Date(a.date) - new Date(b.date));
+}
+
+function openScheduleSheet(kind, index, trigger) {
+  const event = getScheduleForSheet(kind)[index];
+  if (!event) return;
+  const date = new Date(event.date);
+  const title = event.title || event.opponent || (kind === 'practice' ? 'Practice' : 'Meet');
+  const location = event.location || 'Location details coming soon';
+  const directionsUrl = location && !/coming soon/i.test(location)
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`
+    : '';
+  openDetailSheet({
+    eyebrow: kind === 'practice' ? 'PRACTICE DETAILS' : `${event.level || 'MEET'} DETAILS`,
+    title,
+    body: kind === 'practice' ? 'Practice information from the current team schedule.' : `Meet information for ${event.opponent || title}.`,
+    meta: `${formatDate(date)} • ${formatTime(date)}`,
+    location,
+    linkText: directionsUrl ? 'Get Directions' : '',
+    linkUrl: directionsUrl
+  }, trigger);
+}
+
+function openHomeAlertSheet(index, trigger) {
+  const item = homeAlertItems[index];
+  if (!item) return;
+  openDetailSheet({
+    eyebrow: item.eyebrow,
+    title: item.title,
+    body: item.body,
+    linkText: item.linkText,
+    linkUrl: item.linkUrl
+  }, trigger);
+}
+
+function contentKeyForScreen(id) {
+  const content = id === 'meets' ? meetSchedule : id === 'practice' ? keyDates : id === 'parents' ? DATA.parentCards : null;
+  if (!content) return '';
+  let hash = 0;
+  const text = JSON.stringify(content);
+  for (let i = 0; i < text.length; i += 1) hash = ((hash << 5) - hash + text.charCodeAt(i)) | 0;
+  return String(hash);
+}
+
+function updateNavBadges() {
+  ['meets', 'practice', 'parents'].forEach(id => {
+    const key = contentKeyForScreen(id);
+    const storageKey = `whfSeen-${id}`;
+    const seen = localStorage.getItem(storageKey);
+    if (seen === null) localStorage.setItem(storageKey, key);
+    const button = document.querySelector(`.bottomNav button[data-screen="${id}"]`);
+    button?.classList.toggle('hasUpdate', seen !== null && seen !== key);
+  });
+}
+
+function markScreenSeen(id) {
+  const key = contentKeyForScreen(id);
+  if (!key) return;
+  localStorage.setItem(`whfSeen-${id}`, key);
+  document.querySelector(`.bottomNav button[data-screen="${id}"]`)?.classList.remove('hasUpdate');
+}
+
+function updateNavIndicator() {
+  const indicator = document.getElementById('navIndicator');
+  const active = document.querySelector('.bottomNav button.active');
+  if (!indicator || !active) return;
+  indicator.style.width = `${active.offsetWidth}px`;
+  indicator.style.transform = `translateX(${active.offsetLeft}px)`;
+}
+
+function updateConnectionState() {
+  const banner = document.getElementById('connectionBanner');
+  if (!banner) return;
+  banner.textContent = navigator.onLine ? 'Back online — checking for updates…' : 'You are offline — viewing the latest saved information.';
+  banner.classList.toggle('show', !navigator.onLine);
+  banner.classList.toggle('online', navigator.onLine);
+  if (navigator.onLine) {
+    banner.classList.add('show');
+    setTimeout(() => banner.classList.remove('show'), 1800);
+    refreshPublishedData();
+  }
 }
 
 function formatDate(date) {
@@ -180,7 +343,8 @@ function renderHomeAlerts() {
     });
   }
 
-  host.innerHTML = alerts.length ? `<div class="homeAlertsLabel">Important Dates</div><div class="homeAlertGrid">${alerts.map(item => `<article class="homeAlert ${item.accent}"><div><span>${escapeHtml(item.eyebrow)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.body)}</p></div><a href="${escapeHtml(item.linkUrl)}">${escapeHtml(item.linkText)}</a></article>`).join('')}</div>` : '';
+  homeAlertItems = alerts;
+  host.innerHTML = alerts.length ? `<div class="homeAlertsLabel">Important Dates</div><div class="homeAlertGrid">${alerts.map((item, index) => `<button type="button" class="homeAlert ${item.accent}" onclick="openHomeAlertSheet(${index},this)"><div><span>${escapeHtml(item.eyebrow)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.body)}</p></div><b>View Details</b></button>`).join('')}</div>` : '';
 }
 
 function cardHtml(item, idx = 0) {
@@ -192,7 +356,7 @@ function cardHtml(item, idx = 0) {
   if (item.targetScreen) {
     link = `<button class="inlineLink" onclick="showScreen('${escapeHtml(item.targetScreen)}')">${escapeHtml(item.linkText || 'Open')}</button>`;
   } else if (item.linkUrl) {
-    link = `<a class="link" href="${escapeHtml(item.linkUrl)}">${escapeHtml(item.linkText || 'View Details')}</a>`;
+    link = `<a class="link" href="${escapeHtml(item.linkUrl)}" target="_blank" rel="noopener" data-toast="Opening link…">${escapeHtml(item.linkText || 'View Details')}</a>`;
   }
   return `<div class="card ${cls}"><h3>${escapeHtml(item.title || item.name || 'Untitled')}</h3>${date}<p>${escapeHtml(detail)}</p>${link}</div>`;
 }
@@ -281,10 +445,11 @@ function renderSeparatedScheduleList(listId, statusId, scheduleItems, kind) {
     const detail = kind === 'practice'
       ? (event.location || 'Practice details coming soon')
       : `${event.level} • ${event.location}`;
-    return `<div class="scheduleItem ${index % 2 === 0 ? 'greenAccent' : 'redAccent'}${stateClass}">
+    return `<button type="button" class="scheduleItem detailTrigger ${index % 2 === 0 ? 'greenAccent' : 'redAccent'}${stateClass}" onclick="openScheduleSheet('${kind}',${index},this)">
       <div class="scheduleDate"><strong>${formatDate(date)}</strong><span>${formatTime(date)}</span></div>
       <div class="scheduleInfo">${badge}<h3>${escapeHtml(title)}</h3><p>${escapeHtml(detail)}</p></div>
-    </div>`;
+      <span class="detailChevron" aria-hidden="true">›</span>
+    </button>`;
   }).join('');
 
   if (status && next) {
@@ -421,6 +586,30 @@ function setupHomeTaps() {
       openNextItem();
     }
   });
+}
+
+function setupNativeInteractions() {
+  updateNavIndicator();
+  updateNavBadges();
+  window.addEventListener('resize', updateNavIndicator);
+  window.addEventListener('offline', updateConnectionState);
+  window.addEventListener('online', updateConnectionState);
+  if (!navigator.onLine) updateConnectionState();
+
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    if (link) showToast(link.dataset.toast || 'Opening link…');
+    if (event.target.matches('[data-close-sheet]')) closeDetailSheet();
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeDetailSheet();
+  });
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.getElementById('bootSkeleton')?.classList.add('hide');
+    setTimeout(() => document.getElementById('bootSkeleton')?.remove(), 260);
+  }));
 }
 
 function toInputDate(value) {
@@ -743,6 +932,7 @@ renderSponsors();
 renderProgram();
 renderFund();
 setupHomeTaps();
+setupNativeInteractions();
 buildAdminForms();
 renderAdminStatus();
 refreshPublishedData();

@@ -517,11 +517,15 @@ body{background:radial-gradient(circle at 15% -5%,rgba(193,18,31,.20),transparen
 .todayPanel{position:relative;padding:18px 44px 16px 18px;overflow:hidden;transition:transform .18s ease}
 .todayPanel:after{content:"›";position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:30px;color:var(--soft)}
 .todayButton{display:inline-flex;margin-top:12px;color:#fff;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.9px;border-bottom:2px solid var(--green);padding-bottom:3px}
-.bottomNav{grid-template-columns:repeat(5,1fr) !important;padding:7px 9px calc(7px + env(safe-area-inset-bottom));gap:3px;box-shadow:0 -12px 36px rgba(0,0,0,.42)}
+.bottomNav{grid-template-columns:repeat(6,1fr) !important;padding:7px 7px calc(7px + env(safe-area-inset-bottom));gap:2px;box-shadow:0 -12px 36px rgba(0,0,0,.42)}
 .bottomNav button{display:flex;flex-direction:column;align-items:center;gap:4px;min-height:50px;padding:6px 3px 5px;font-size:9px;border:1px solid transparent}
 .navIcon{font-size:19px;line-height:20px;font-weight:500}.bottomNav button.active .navIcon{color:#fff;transform:translateY(-1px)}
 @media (max-width:430px){.seasonPill{font-size:9px;padding:7px 8px}.brandText strong{font-size:18px}}
 @media (max-width:350px){.seasonPill{display:none}.quickLinks{grid-template-columns:1fr}}
+.quickLinksThree{grid-template-columns:repeat(3,minmax(0,1fr))}
+.quickLinksThree button{padding:10px 9px;gap:8px}.quickLinksThree .quickIcon{flex-basis:32px;height:32px;font-size:8px}.quickLinksThree small{white-space:normal}
+.practiceLead{background:linear-gradient(#101015,#101015) padding-box,linear-gradient(90deg,var(--green),var(--red)) border-box !important}
+@media (max-width:560px){.quickLinksThree{grid-template-columns:1fr 1fr}.quickLinksThree button:last-child{grid-column:1/-1}}
 
 /* Flowing photo gallery */
 .photoGallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}

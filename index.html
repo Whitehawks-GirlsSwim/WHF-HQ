@@ -8,8 +8,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
-  <link rel="manifest" href="manifest.json?v=20260725-12">
-  <link rel="stylesheet" href="styles.css?v=20260725-12">
+  <link rel="manifest" href="manifest.json?v=20260725-13">
+  <link rel="stylesheet" href="styles.css?v=20260725-13">
 </head>
 <body>
   <div class="app">
@@ -43,8 +43,9 @@
           <div class="todayButton" aria-hidden="true">View Season Schedule</div>
         </section>
 
-        <div class="quickLinks" aria-label="Quick links">
-          <button onclick="showScreen('season')"><span class="quickIcon">CAL</span><span><b>Schedule</b><small>Practices &amp; meets</small></span></button>
+        <div class="quickLinks quickLinksThree" aria-label="Quick links">
+          <button onclick="showScreen('practice')"><span class="quickIcon">PRA</span><span><b>Practice</b><small>Times &amp; updates</small></span></button>
+          <button onclick="showScreen('meets')"><span class="quickIcon">MEET</span><span><b>Meets</b><small>Full meet schedule</small></span></button>
           <button onclick="showScreen('parents')"><span class="quickIcon">INFO</span><span><b>Parent Hub</b><small>Team essentials</small></span></button>
         </div>
 
@@ -54,9 +55,9 @@
             <p>Registration • Team Store • Eligibility • Communications</p>
           </button>
 
-          <button class="primaryAction redAccent" onclick="showScreen('season')">
+          <button class="primaryAction redAccent" onclick="showScreen('meets')">
             <h3>THIS SEASON</h3>
-            <p>Meet Schedule • Practice Info • Important Dates</p>
+            <p>Meet schedule, opponents, locations and championship dates</p>
           </button>
 
           <div class="actionGridPremium">
@@ -95,17 +96,30 @@
         <div id="sponsorWall"></div>
       </section>
 
-      <section class="screen" id="season">
-        <div class="screenTitle">2026 Season</div>
+      <section class="screen" id="meets">
+        <div class="screenTitle">Meets</div>
         <div class="seasonLead">
           <div class="seasonLeadTop">MEET SCHEDULE</div>
           <h2>WHF Girls Swim &amp; Dive</h2>
-          <p>Meet and practice schedules are listed below and update automatically as the season moves.</p>
+          <p>Meet dates, opponents, levels and locations—all in one place.</p>
         </div>
         <div class="scheduleTools">
-          <div class="scheduleStatus" id="scheduleStatus">Schedule moves automatically based on the calendar.</div>
+          <div class="scheduleStatus" id="meetScheduleStatus">Meet schedule moves automatically based on the calendar.</div>
         </div>
-        <div class="scheduleList" id="scheduleList"></div>
+        <div class="scheduleList" id="meetScheduleList"></div>
+      </section>
+
+      <section class="screen" id="practice">
+        <div class="screenTitle">Practice</div>
+        <div class="seasonLead practiceLead">
+          <div class="seasonLeadTop">PRACTICE SCHEDULE</div>
+          <h2>Pool Times &amp; Updates</h2>
+          <p>Practice times live here separately from the competitive meet schedule.</p>
+        </div>
+        <div class="scheduleTools">
+          <div class="scheduleStatus" id="practiceScheduleStatus">Practice schedule moves automatically based on the calendar.</div>
+        </div>
+        <div class="scheduleList" id="practiceScheduleList"></div>
       </section>
 
       <section class="screen" id="program">
@@ -199,13 +213,14 @@
 
   <nav class="bottomNav">
     <button class="active" data-screen="home" onclick="showScreen('home')"><span class="navIcon">⌂</span><span>Home</span></button>
-    <button data-screen="season" onclick="showScreen('season')"><span class="navIcon">□</span><span>Season</span></button>
+    <button data-screen="meets" onclick="showScreen('meets')"><span class="navIcon">◇</span><span>Meets</span></button>
+    <button data-screen="practice" onclick="showScreen('practice')"><span class="navIcon">≈</span><span>Practice</span></button>
     <button data-screen="spirit" onclick="showScreen('spirit')"><span class="navIcon">◇</span><span>Events</span></button>
     <button data-screen="parents" onclick="showScreen('parents')"><span class="navIcon">○</span><span>Parents</span></button>
     <button data-screen="program" onclick="showScreen('program')"><span class="navIcon">★</span><span>Program</span></button>
   </nav>
 
-  <script src="data.js?v=20260725-12"></script>
-  <script src="app.js?v=20260725-12"></script>
+  <script src="data.js?v=20260725-13"></script>
+  <script src="app.js?v=20260725-13"></script>
 </body>
 </html>

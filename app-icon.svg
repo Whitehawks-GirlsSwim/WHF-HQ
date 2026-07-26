@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#c1121f"/><stop offset="1" stop-color="#00843d"/></linearGradient></defs>
+  <rect width="512" height="512" rx="112" fill="#08080c"/>
+  <rect x="24" y="24" width="464" height="464" rx="96" fill="none" stroke="url(#g)" stroke-width="18"/>
+  <text x="256" y="290" fill="white" font-family="Arial,Helvetica,sans-serif" font-size="150" font-weight="900" text-anchor="middle">WHF</text>
+  <path d="M88 342h168" stroke="#c1121f" stroke-width="18"/><path d="M256 342h168" stroke="#00843d" stroke-width="18"/>
+</svg>

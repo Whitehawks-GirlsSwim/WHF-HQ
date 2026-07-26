@@ -310,7 +310,7 @@ function renderProgram() {
       const image = imageUrl ? `<div class="photoImage"><img src="${imageUrl}" alt="${title}" loading="lazy"></div>` : `<div class="photoPlaceholder"><span>WHF</span></div>`;
       const content = `${image}<div class="photoCaption"><h3>${title}</h3>${detail ? `<p>${detail}</p>` : ''}${item.linkText ? `<span class="photoLinkText">${escapeHtml(item.linkText)} →</span>` : ''}</div>`;
       return linkUrl ? `<a class="photoGalleryCard" href="${linkUrl}" target="_blank" rel="noopener">${content}</a>` : `<article class="photoGalleryCard">${content}</article>`;
-    }).join('')}</div>` : cardHtml({accent:'split', title:'Photos Coming Soon', body:'Team photos and albums will appear here as they are added.'});
+    }).join('')}</div>` : '';
   }
 }
 

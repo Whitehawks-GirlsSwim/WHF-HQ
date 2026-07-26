@@ -1,8 +1,21 @@
 const screens = document.querySelectorAll('.screen');
 const navButtons = document.querySelectorAll('.bottomNav button');
 
+function normalizeMeetSchedule(items = []) {
+  const unique = new Map();
+  [...items].sort((a, b) => new Date(a.date) - new Date(b.date)).forEach(item => {
+    const eventName = item.opponent || item.title || '';
+    const varsityOnly = /true team|section|state/i.test(eventName);
+    const normalized = { ...item, level: varsityOnly ? 'Varsity' : 'JV & Varsity' };
+    const key = `${normalized.date}|${eventName.trim().toLowerCase()}|${String(normalized.location || '').trim().toLowerCase()}`;
+    if (!unique.has(key)) unique.set(key, normalized);
+  });
+  return [...unique.values()];
+}
+
 let DATA = loadAdminPreviewData();
-let meetSchedule = DATA.meetSchedule || [];
+let meetSchedule = normalizeMeetSchedule(DATA.meetSchedule || []);
+DATA.meetSchedule = meetSchedule;
 let keyDates = DATA.keyDates || [];
 let initialSponsors = DATA.sponsors || [];
 let activeRecordGroup = 'girlsMoundWestonka';
@@ -38,7 +51,8 @@ function loadAdminPreviewData() {
 
 function setRuntimeData(nextData) {
   DATA = nextData || {};
-  meetSchedule = DATA.meetSchedule || [];
+  meetSchedule = normalizeMeetSchedule(DATA.meetSchedule || []);
+  DATA.meetSchedule = meetSchedule;
   keyDates = DATA.keyDates || [];
   initialSponsors = DATA.sponsors || [];
 }
@@ -822,7 +836,7 @@ function addAdminItem(section) {
   next[section] = next[section] || [];
   const templates = {
     keyDates: { date: '', title: '', label: 'NEXT UP', meta: '', location: '' },
-    meetSchedule: { date: '', level: 'Varsity', opponent: '', location: '' },
+    meetSchedule: { date: '', level: 'JV & Varsity', opponent: '', location: '' },
     parentCards: { accent: 'green', title: '', body: '', linkText: '', linkUrl: '' },
     events: { accent: 'green', title: '', date: '', detail: '', status: 'upcoming', result: '', linkText: '', linkUrl: '' },
     boosterCards: { accent: 'green', title: '', body: '' },

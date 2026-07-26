@@ -210,47 +210,58 @@ window.WHF_DATA = {
   "sponsors": [
     {
       "name": "Insurance Warehouse / Auto Owners Insurance",
-      "note": "$7,500"
+      "note": "$7,500",
+      "logo": "sponsor-logos/insurance-warehouse-auto-owners.png"
     },
     {
       "name": "Lions",
-      "note": "$2,000"
+      "note": "$2,000",
+      "logo": "sponsor-logos/lions.jpeg"
     },
     {
       "name": "Foss Swim School",
-      "note": "$1,500"
+      "note": "$1,500",
+      "logo": "sponsor-logos/foss-swim-school.png"
     },
     {
       "name": "Skin Rehab Aesthetics",
-      "note": "$1,000"
+      "note": "$1,000",
+      "logo": "sponsor-logos/skin-rehab.gif"
     },
     {
       "name": "Westside Auto",
-      "note": "$1,000"
+      "note": "$1,000",
+      "logo": "sponsor-logos/westside-auto.png"
     },
     {
       "name": "Dolder Plumbing",
-      "note": "$700"
+      "note": "$700",
+      "logo": "sponsor-logos/dolder-plumbing.png"
     },
     {
       "name": "Youngstedts Companies",
-      "note": "$500"
+      "note": "$500",
+      "logo": "sponsor-logos/youngstedts.png"
     },
     {
       "name": "Dock & Lift",
-      "note": "$500"
+      "note": "$500",
+      "logo": "sponsor-logos/dock-lift.jpg"
     },
     {
       "name": "West Lakes Dentistry",
-      "note": "$250"
+      "note": "$250",
+      "logo": "sponsor-logos/west-lakes-dentistry.png"
     },
     {
       "name": "True Value",
-      "note": "$250"
+      "note": "$250",
+      "logo": "sponsor-logos/true-value.png"
     },
     {
       "name": "Align",
-      "note": "$250"
+      "note": "$250",
+      "logo": "sponsor-logos/align.png"
     }
   ],
   "events": [

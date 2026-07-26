@@ -10,6 +10,34 @@ window.WHF_DATA = {
   },
   "keyDates": [
     {
+      "date": "2026-07-29T11:45:00-05:00",
+      "title": "All in One Fitness & Minnetonka Drive In",
+      "label": "CAPTAINS' PRACTICE",
+      "meta": "Wednesday, July 29",
+      "location": "Optional and highly encouraged. Meet for the All in One Fitness class at 11:45 AM. The Booster Club will provide funds for ice cream at the Minnetonka Drive In following the class."
+    },
+    {
+      "date": "2026-08-07T18:00:00-05:00",
+      "title": "Downtown Mound Scavenger Hunt & Lost Lake Creamery",
+      "label": "CAPTAINS' PRACTICE",
+      "meta": "Friday, August 7",
+      "location": "Optional and highly encouraged. Meet at Westonka High School at 6:00 PM. Upperclassmen will drive swimmers and divers around the Mound area for a scavenger hunt. Meet at Lost Lake Creamery afterward for optional ice cream."
+    },
+    {
+      "date": "2026-08-09T13:30:00-05:00",
+      "title": "Big Stone Mini Golf",
+      "label": "CAPTAINS' PRACTICE",
+      "meta": "Sunday, August 9",
+      "location": "Optional and highly encouraged. Meet at Big Stone Mini Golf at 1:30 PM. Everyone is responsible for paying for their own admission."
+    },
+    {
+      "date": "2026-08-14T19:00:00-05:00",
+      "title": "Beach Sunset, Games & Towel Decorating",
+      "label": "CAPTAINS' PRACTICE",
+      "meta": "Friday, August 14",
+      "location": "Optional and highly encouraged. Meet at Lake Waconia Regional Park at 7:00 PM. Snacks and beverages will be provided by the Booster Club."
+    },
+    {
       "date": "2026-08-17T07:00:00-05:00",
       "title": "Practice",
       "label": "PRACTICE",

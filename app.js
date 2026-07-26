@@ -5,9 +5,12 @@ let DATA = loadAdminPreviewData();
 let meetSchedule = DATA.meetSchedule || [];
 let keyDates = DATA.keyDates || [];
 let initialSponsors = DATA.sponsors || [];
+let activeRecordGroup = 'girlsMoundWestonka';
 
 function loadAdminPreviewData() {
   const published = window.WHF_DATA || {};
+  const previewRequested = new URLSearchParams(window.location.search).get('adminPreview') === '1';
+  if (!previewRequested) return published;
   try {
     const preview = localStorage.getItem('whfAdminDataPreview');
     if (!preview) return published;
@@ -167,10 +170,24 @@ function renderPageCards() {
   if (booster) booster.innerHTML = (DATA.boosterCards || []).map(cardHtml).join('');
 
   const events = document.getElementById('eventsList');
-  if (events) events.innerHTML = (DATA.events || []).map(cardHtml).join('');
+  if (events) {
+    const items = DATA.events || [];
+    const upcoming = items.filter(item => item.status !== 'completed');
+    const completed = items.filter(item => item.status === 'completed');
+    const group = (title, list) => list.length ? `<section class="eventGroup"><div class="sectionLabel">${title}</div>${list.map((item, index) => {
+      const result = item.result ? `<div class="eventResult">${escapeHtml(item.result)}</div>` : '';
+      return `<div class="eventCard ${item.status === 'completed' ? 'completedEvent' : 'upcomingEvent'}">${result}${cardHtml(item, index)}</div>`;
+    }).join('')}</section>` : '';
+    events.innerHTML = group('Upcoming', upcoming) + group('Completed Fundraisers', completed);
+  }
 
   const sponsorIntro = document.getElementById('sponsorIntro');
-  if (sponsorIntro && DATA.sponsorIntro) sponsorIntro.innerHTML = cardHtml({ accent: 'split', title: DATA.sponsorIntro.title, body: DATA.sponsorIntro.body });
+  if (sponsorIntro && DATA.sponsorIntro) {
+    const raised = Number(DATA.sponsorIntro.raised || 0);
+    const goal = Number(DATA.sponsorIntro.goal || 30000);
+    const progress = goal ? Math.min(100, Math.round((raised / goal) * 100)) : 0;
+    sponsorIntro.innerHTML = `<div class="sponsorProgressCard"><span class="sectionLabel">Timing Equipment Campaign</span><h2>${escapeHtml(DATA.sponsorIntro.title)}</h2><p>${escapeHtml(DATA.sponsorIntro.body)}</p><div class="sponsorProgress"><i style="width:${progress}%"></i></div><div class="sponsorProgressMeta"><strong>${progress}% funded</strong><span>Goal: $${goal.toLocaleString()}</span></div></div>`;
+  }
 }
 
 function renderCombinedScheduleLegacy() {
@@ -255,9 +272,22 @@ function renderSponsors() {
   if (!wall) return;
   const savedSponsors = JSON.parse(localStorage.getItem('whfSponsors') || '[]');
   const sponsors = [...initialSponsors, ...savedSponsors];
+  const amount = sponsor => Number(String(sponsor.note || '').replace(/[^0-9.]/g, '')) || 0;
+  const level = sponsor => amount(sponsor) >= 5000 ? 'Presenting Partners' : amount(sponsor) >= 1500 ? 'Gold Partners' : amount(sponsor) >= 500 ? 'Silver Partners' : 'Community Partners';
+  const levels = ['Presenting Partners', 'Gold Partners', 'Silver Partners', 'Community Partners'];
   wall.innerHTML = sponsors.length
-    ? sponsors.map(s => `<div class="card green"><h3>${escapeHtml(s.name)}</h3><p>${escapeHtml(s.note || 'Thank you for supporting WHF Swim & Dive.')}</p></div>`).join('')
+    ? levels.map(title => {
+      const group = sponsors.filter(sponsor => level(sponsor) === title);
+      return group.length ? `<section class="sponsorTier"><div class="sectionLabel">${title}</div><div class="sponsorTierGrid">${group.map(s => `<div class="sponsorCard"><div class="sponsorMark">WHF</div><div><h3>${escapeHtml(s.name)}</h3><p>${escapeHtml(s.note || 'Thank you for supporting WHF Swim & Dive.')}</p></div></div>`).join('')}</div></section>` : '';
+    }).join('')
     : `<div class="card green"><h3>Sponsors Coming Soon</h3><p>Community partners will be added here as sponsorships are finalized.</p></div>`;
+}
+
+function setRecordGroup(group) {
+  activeRecordGroup = group;
+  document.querySelectorAll('.recordFilter button').forEach(button => button.classList.toggle('active', button.dataset.group === group));
+  const shell = document.querySelector('.recordsTableShell');
+  if (shell) shell.dataset.activeGroup = group;
 }
 
 
@@ -278,22 +308,28 @@ function renderProgram() {
   const records = document.getElementById('teamRecordsList');
   if (records) {
     const rows = DATA.teamRecords || [];
-    records.innerHTML = rows.length ? `<div class="recordsTableHint">Swipe sideways to view every school and pool record.</div>
-      <div class="recordsTableShell" role="region" aria-label="White Hawk Swimming and Diving records" tabindex="0">
+    records.innerHTML = rows.length ? `<div class="recordsTableHint">Choose a record group on phones. The complete table remains available on larger screens.</div>
+      <div class="recordFilter" role="group" aria-label="Choose record group">
+        <button data-group="boysMoundWestonka" onclick="setRecordGroup('boysMoundWestonka')">Boys Westonka</button>
+        <button class="active" data-group="girlsMoundWestonka" onclick="setRecordGroup('girlsMoundWestonka')">Girls Westonka</button>
+        <button data-group="girlsHolyFamily" onclick="setRecordGroup('girlsHolyFamily')">Holy Family</button>
+        <button data-group="girlsPool" onclick="setRecordGroup('girlsPool')">Pool</button>
+      </div>
+      <div class="recordsTableShell" data-active-group="${activeRecordGroup}" role="region" aria-label="White Hawk Swimming and Diving records" tabindex="0">
         <table class="recordsTable">
           <thead><tr>
             <th scope="col">Event</th>
-            <th scope="col">Boys Mound Westonka School</th>
-            <th scope="col">Girls Mound Westonka School</th>
-            <th scope="col">Girls Holy Family School</th>
-            <th scope="col">Girls Pool</th>
+            <th scope="col" data-record-group="boysMoundWestonka">Boys Mound Westonka School</th>
+            <th scope="col" data-record-group="girlsMoundWestonka">Girls Mound Westonka School</th>
+            <th scope="col" data-record-group="girlsHolyFamily">Girls Holy Family School</th>
+            <th scope="col" data-record-group="girlsPool">Girls Pool</th>
           </tr></thead>
           <tbody>${rows.map(item => `<tr>
             <th scope="row">${escapeHtml(item.event || 'Event')}</th>
-            <td>${escapeHtml(item.boysMoundWestonka || '—')}</td>
-            <td>${escapeHtml(item.girlsMoundWestonka || '—')}</td>
-            <td>${escapeHtml(item.girlsHolyFamily || '—')}</td>
-            <td>${escapeHtml(item.girlsPool || '—')}</td>
+            <td data-record-group="boysMoundWestonka">${escapeHtml(item.boysMoundWestonka || '—')}</td>
+            <td data-record-group="girlsMoundWestonka">${escapeHtml(item.girlsMoundWestonka || '—')}</td>
+            <td data-record-group="girlsHolyFamily">${escapeHtml(item.girlsHolyFamily || '—')}</td>
+            <td data-record-group="girlsPool">${escapeHtml(item.girlsPool || '—')}</td>
           </tr>`).join('')}</tbody>
         </table>
       </div>` : `<div class="card green"><h3>Records Coming Soon</h3><p>Add team records from Admin.</p></div>`;
@@ -301,8 +337,9 @@ function renderProgram() {
 
   const photos = document.getElementById('photoLinksList');
   if (photos) {
-    const items = DATA.photoLinks || [];
-    photos.innerHTML = items.length ? `<div class="photoGallery">${items.map(item => {
+    const items = (DATA.photoLinks || []).filter(item => item.status !== 'pending');
+    const albums = [...new Set(items.map(item => item.album || 'Team Highlights'))];
+    photos.innerHTML = items.length ? albums.map(album => `<section class="photoAlbum"><div class="sectionLabel">${escapeHtml(album)}</div><div class="photoGallery">${items.filter(item => (item.album || 'Team Highlights') === album).map(item => {
       const title = escapeHtml(item.title || 'WHF Swim & Dive');
       const detail = escapeHtml(item.detail || item.body || '');
       const imageUrl = escapeHtml(item.imageUrl || '');
@@ -310,7 +347,7 @@ function renderProgram() {
       const image = imageUrl ? `<div class="photoImage"><img src="${imageUrl}" alt="${title}" loading="lazy"></div>` : `<div class="photoPlaceholder"><span>WHF</span></div>`;
       const content = `${image}<div class="photoCaption"><h3>${title}</h3>${detail ? `<p>${detail}</p>` : ''}${item.linkText ? `<span class="photoLinkText">${escapeHtml(item.linkText)} →</span>` : ''}</div>`;
       return linkUrl ? `<a class="photoGalleryCard" href="${linkUrl}" target="_blank" rel="noopener">${content}</a>` : `<article class="photoGalleryCard">${content}</article>`;
-    }).join('')}</div>` : '';
+    }).join('')}</div></section>`).join('') : `<div class="photoApprovalNote"><strong>Approved photos will appear here</strong><span>Submissions stay private until the team approves them for an album.</span></div>`;
   }
 }
 
@@ -430,6 +467,8 @@ function buildAdminForms() {
         {key:'title', label:'Title'},
         {key:'date', label:'Date label'},
         {key:'detail', label:'Details', type:'textarea'},
+        {key:'status', label:'Status: upcoming or completed'},
+        {key:'result', label:'Result badge, ex: $1,335.47 Raised'},
         {key:'linkText', label:'Button text'},
         {key:'linkUrl', label:'Button link'}
       ])).join('')}</div>
@@ -471,6 +510,8 @@ function buildAdminForms() {
       <div id="adminPhotoLinks">${(DATA.photoLinks || []).map((item, i) => adminCardEditor('photoLinks', item, i, [
         {key:'accent', label:'Accent: green, red, or split'},
         {key:'title', label:'Title'},
+        {key:'album', label:'Album name'},
+        {key:'status', label:'Status: approved or pending'},
         {key:'detail', label:'Details', type:'textarea'},
         {key:'imageUrl', label:'Photo file or image URL'},
         {key:'linkText', label:'Button text'},
@@ -483,6 +524,8 @@ function buildAdminForms() {
       <h3>Sponsors</h3>
       <input id="adminSponsorIntroTitle" value="${escapeHtml(DATA.sponsorIntro?.title || '')}" placeholder="Sponsor intro title">
       <textarea id="adminSponsorIntroBody" placeholder="Sponsor intro text">${escapeHtml(DATA.sponsorIntro?.body || '')}</textarea>
+      <input id="adminSponsorRaised" type="number" step="0.01" value="${escapeHtml(DATA.sponsorIntro?.raised || '')}" placeholder="Total raised">
+      <input id="adminSponsorGoal" type="number" step="0.01" value="${escapeHtml(DATA.sponsorIntro?.goal || '30000')}" placeholder="Campaign goal">
       <div id="adminSponsors">${(DATA.sponsors || []).map((item, i) => adminCardEditor('sponsors', item, i, [
         {key:'name', label:'Business name'},
         {key:'note', label:'Sponsor note / level'}
@@ -501,7 +544,9 @@ function getAdminFormData() {
   };
   next.sponsorIntro = {
     title: document.getElementById('adminSponsorIntroTitle')?.value.trim() || '',
-    body: document.getElementById('adminSponsorIntroBody')?.value.trim() || ''
+    body: document.getElementById('adminSponsorIntroBody')?.value.trim() || '',
+    raised: Number(document.getElementById('adminSponsorRaised')?.value || 0),
+    goal: Number(document.getElementById('adminSponsorGoal')?.value || 30000)
   };
   next.programSummary = {
     headline: document.getElementById('adminProgramHeadline')?.value.trim() || '',
@@ -552,11 +597,11 @@ function addAdminItem(section) {
     keyDates: { date: '', title: '', label: 'NEXT UP', meta: '', location: '' },
     meetSchedule: { date: '', level: 'Varsity', opponent: '', location: '' },
     parentCards: { accent: 'green', title: '', body: '', linkText: '', linkUrl: '' },
-    events: { accent: 'green', title: '', date: '', detail: '', linkText: '', linkUrl: '' },
+    events: { accent: 'green', title: '', date: '', detail: '', status: 'upcoming', result: '', linkText: '', linkUrl: '' },
     boosterCards: { accent: 'green', title: '', body: '' },
     sponsors: { name: '', note: '' },
     teamRecords: { event: '', holder: '', mark: '', year: '' },
-    photoLinks: { accent: 'split', title: '', detail: '', imageUrl: '', linkText: '', linkUrl: '' }
+    photoLinks: { accent: 'split', title: '', album: 'Team Highlights', status: 'approved', detail: '', imageUrl: '', linkText: '', linkUrl: '' }
   };
   next[section].push(templates[section] || {});
   setRuntimeData(next);

@@ -129,6 +129,7 @@ function openDetailSheet({ eyebrow = 'DETAILS', title = '', body = '', meta = ''
   action.textContent = linkText || 'Open Link';
   action.href = linkUrl || '#';
   action.hidden = !linkUrl;
+  document.querySelector('.sheetActions')?.toggleAttribute('hidden', !linkUrl);
   sheet.classList.add('open');
   sheet.setAttribute('aria-hidden', 'false');
   document.body.classList.add('sheetOpen');

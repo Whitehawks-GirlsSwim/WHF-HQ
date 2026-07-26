@@ -55,111 +55,93 @@ window.WHF_DATA = {
   "meetSchedule": [
     {
       "date": "2026-08-29T10:00:00-05:00",
-      "level": "Junior Varsity",
+      "level": "JV & Varsity",
       "opponent": "Tim Daly Invitational",
-      "location": "Orono Intermediate School Educational Link Pool"
-    },
-    {
-      "date": "2026-08-29T10:00:00-05:00",
-      "level": "Varsity",
-      "opponent": "Tim Daly Invitational",
-      "location": "Orono Intermediate School Educational Link Pool"
+      "location": "Orono Education Link Pool — 705 N Old Crystal Bay Road, Long Lake, MN 55356"
     },
     {
       "date": "2026-09-10T18:00:00-05:00",
-      "level": "Varsity",
+      "level": "JV & Varsity",
       "opponent": "vs Dassel-Cokato",
-      "location": "Westonka High School Westonka Activity Center Pool"
+      "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
     },
     {
       "date": "2026-09-17T18:00:00-05:00",
-      "level": "Varsity",
+      "level": "JV & Varsity",
       "opponent": "@ Watertown-Mayer/ML/SWC",
-      "location": "Watertown-Mayer High School"
+      "location": "Watertown-Mayer High School — 1001 Highway 25 NW, Watertown, MN 55388"
     },
     {
       "date": "2026-09-22T18:00:00-05:00",
-      "level": "Varsity",
+      "level": "JV & Varsity",
       "opponent": "vs Orono",
-      "location": "Westonka High School Westonka Activity Center Pool"
-    },
-    {
-      "date": "2026-09-22T18:00:00-05:00",
-      "level": "Junior Varsity",
-      "opponent": "vs Orono",
-      "location": "Westonka High School Westonka Activity Center Pool"
+      "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
     },
     {
       "date": "2026-09-24T18:00:00-05:00",
-      "level": "Varsity",
+      "level": "JV & Varsity",
       "opponent": "vs Litchfield",
-      "location": "Litchfield High School"
+      "location": "Litchfield High School — 901 N Gilman Ave, Litchfield, MN 55355"
     },
     {
       "date": "2026-10-01T18:00:00-05:00",
-      "level": "Varsity",
+      "level": "JV & Varsity",
       "opponent": "vs Hutchinson",
-      "location": "Westonka High School Westonka Activity Center Pool"
+      "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
     },
     {
       "date": "2026-10-08T18:00:00-05:00",
-      "level": "Junior Varsity",
+      "level": "JV & Varsity",
       "opponent": "@ Delano",
-      "location": "Delano High School Pool"
-    },
-    {
-      "date": "2026-10-08T18:00:00-05:00",
-      "level": "Varsity",
-      "opponent": "@ Delano",
-      "location": "Delano High School Pool"
+      "location": "Delano High School — 700 Elm Ave E, Delano, MN 55328"
     },
     {
       "date": "2026-10-10T09:00:00-05:00",
       "level": "Varsity",
       "opponent": "True Team Sections",
-      "location": "Willmar High School WHS Pool"
+      "location": "Willmar Senior High School — 2701 30th St NE, Willmar, MN 56201"
     },
     {
       "date": "2026-10-17T12:00:00-05:00",
       "level": "Varsity",
       "opponent": "True Team State",
-      "location": "University of Minnesota Jean K. Freeman Aquatic Center"
+      "location": "Jean K. Freeman Aquatic Center — 1910 University Ave SE, Minneapolis, MN 55455"
     },
     {
       "date": "2026-10-22T09:00:00-05:00",
       "level": "Varsity",
       "opponent": "True Team Sections",
-      "location": "Willmar High School WHS Pool"
+      "location": "Willmar Senior High School — 2701 30th St NE, Willmar, MN 56201"
     },
     {
       "date": "2026-11-05T18:00:00-06:00",
       "level": "Varsity",
       "opponent": "Section Prelims",
-      "location": "Hutchinson High School"
+      "location": "Hutchinson High School — 1200 Roberts Road, Hutchinson, MN 55350"
     },
     {
       "date": "2026-11-07T12:00:00-06:00",
       "level": "Varsity",
       "opponent": "Section Finals",
-      "location": "Hutchinson High School"
+      "location": "Hutchinson High School — 1200 Roberts Road, Hutchinson, MN 55350"
     },
     {
       "date": "2026-11-12T12:00:00-06:00",
       "level": "Varsity",
       "opponent": "State Dive Prelims",
-      "location": "Jean K. Freeman Aquatic Center - U of MN"
+      "location": "Jean K. Freeman Aquatic Center — 1910 University Ave SE, Minneapolis, MN 55455"
     },
     {
       "date": "2026-11-13T12:00:00-06:00",
       "level": "Varsity",
       "opponent": "State Swim Prelims",
-      "location": "Jean K. Freeman Aquatic Center - U of MN"
+      "location": "Jean K. Freeman Aquatic Center — 1910 University Ave SE, Minneapolis, MN 55455"
     },
     {
       "date": "2026-11-14T12:00:00-06:00",
       "level": "Varsity",
       "opponent": "State Swim/Dive Finals",
-      "location": "Jean K. Freeman Aquatic Center - U of MN"
+      "location": "Jean K. Freeman Aquatic Center — 1910 University Ave SE, Minneapolis, MN 55455"
     }
   ],
   "parentCards": [
@@ -188,13 +170,6 @@ window.WHF_DATA = {
       "accent": "red",
       "title": "First Practice",
       "body": "Monday, August 17 • 7:00–9:00 AM & 4:00–5:30 PM.",
-      "linkText": "",
-      "linkUrl": ""
-    },
-    {
-      "accent": "split",
-      "title": "Season Schedule",
-      "body": "The 2026 meet schedule and opening week practice times are available in the Meets and Practice tabs.",
       "linkText": "",
       "linkUrl": ""
     }
@@ -235,58 +210,47 @@ window.WHF_DATA = {
   "sponsors": [
     {
       "name": "Insurance Warehouse / Auto Owners Insurance",
-      "note": "$7,500",
-      "logo": "sponsor-logos/insurance-warehouse-auto-owners.png"
+      "note": "$7,500"
     },
     {
       "name": "Lions",
-      "note": "$2,000",
-      "logo": "sponsor-logos/lions.jpeg"
+      "note": "$2,000"
     },
     {
       "name": "Foss Swim School",
-      "note": "$1,500",
-      "logo": "sponsor-logos/foss-swim-school.png"
+      "note": "$1,500"
     },
     {
       "name": "Skin Rehab Aesthetics",
-      "note": "$1,000",
-      "logo": "sponsor-logos/skin-rehab.gif"
+      "note": "$1,000"
     },
     {
       "name": "Westside Auto",
-      "note": "$1,000",
-      "logo": "sponsor-logos/westside-auto.png"
+      "note": "$1,000"
     },
     {
       "name": "Dolder Plumbing",
-      "note": "$700",
-      "logo": "sponsor-logos/dolder-plumbing.png"
+      "note": "$700"
     },
     {
       "name": "Youngstedts Companies",
-      "note": "$500",
-      "logo": "sponsor-logos/youngstedts.png"
+      "note": "$500"
     },
     {
       "name": "Dock & Lift",
-      "note": "$500",
-      "logo": "sponsor-logos/dock-lift.jpg"
+      "note": "$500"
     },
     {
       "name": "West Lakes Dentistry",
-      "note": "$250",
-      "logo": "sponsor-logos/west-lakes-dentistry.png"
+      "note": "$250"
     },
     {
       "name": "True Value",
-      "note": "$250",
-      "logo": "sponsor-logos/true-value.png"
+      "note": "$250"
     },
     {
       "name": "Align",
-      "note": "$250",
-      "logo": "sponsor-logos/align.png"
+      "note": "$250"
     }
   ],
   "events": [

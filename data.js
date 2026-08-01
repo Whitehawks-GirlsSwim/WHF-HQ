@@ -4,9 +4,9 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "Opening week practice schedule",
-    "body": "Practice times are confirmed for August 17–22. Morning practice runs 7:00–9:00 AM each day, with additional 4:00–5:30 PM sessions August 17–20.",
-    "updated": "July 2026"
+    "title": "Team photo gallery upgraded",
+    "body": "Approved photos now open inside WHF HQ. Swipe left or right—or use the arrow buttons—to move through the full gallery.",
+    "updated": "July 31, 2026"
   },
   "keyDates": [
     {

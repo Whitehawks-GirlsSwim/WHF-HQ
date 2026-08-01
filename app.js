@@ -431,6 +431,46 @@ function renderHomeAlerts() {
   host.innerHTML = alerts.length ? `<div class="homeAlertsLabel">Important Dates</div><div class="homeAlertGrid">${alerts.map((item, index) => `<button type="button" class="homeAlert ${item.accent}" onclick="openHomeAlertSheet(${index},this)"><div><span>${escapeHtml(item.eyebrow)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.body)}</p></div><b>View Details</b></button>`).join('')}</div>` : '';
 }
 
+function latestUpdateKey(item = DATA.latestUpdate || {}) {
+  return [item.updated, item.title, item.body].map(value => String(value || '').trim()).join('|');
+}
+
+function renderLatestUpdate() {
+  const host = document.getElementById('latestUpdate');
+  if (!host) return;
+  const item = DATA.latestUpdate || {};
+  const key = latestUpdateKey(item);
+  if (!key.replace(/\|/g, '')) {
+    host.hidden = true;
+    host.innerHTML = '';
+    return;
+  }
+
+  const seen = localStorage.getItem('whfSeen-latestUpdate') === key;
+  host.hidden = false;
+  host.innerHTML = `<button type="button" class="latestUpdateCard${seen ? '' : ' isNew'}" onclick="openLatestUpdate(this)">
+    <span class="latestUpdateTop"><b class="latestUpdateBadge"${seen ? ' hidden' : ''}>NEW</b><time>${escapeHtml(item.updated || 'Recently updated')}</time></span>
+    <strong>${escapeHtml(item.title || 'WHF HQ update')}</strong>
+    <span class="latestUpdateBody">${escapeHtml(item.body || 'New team information is available.')}</span>
+    <span class="latestUpdateAction">See what changed <i aria-hidden="true">›</i></span>
+  </button>`;
+}
+
+function openLatestUpdate(trigger) {
+  const item = DATA.latestUpdate || {};
+  const key = latestUpdateKey(item);
+  if (!key.replace(/\|/g, '')) return;
+  localStorage.setItem('whfSeen-latestUpdate', key);
+  trigger?.classList.remove('isNew');
+  trigger?.querySelector('.latestUpdateBadge')?.setAttribute('hidden', '');
+  openDetailSheet({
+    eyebrow: 'WHAT\'S NEW',
+    title: item.title || 'WHF HQ update',
+    body: item.body || 'New team information is available.',
+    meta: item.updated ? `Published ${item.updated}` : ''
+  }, trigger);
+}
+
 function cardHtml(item, idx = 0) {
   const accent = item.accent || (idx % 2 === 0 ? 'green' : 'red');
   const cls = accent === 'split' ? 'split' : accent === 'red' ? 'red' : 'green';
@@ -1025,6 +1065,7 @@ function renderAdminStatus() {
 
 function refreshAppFromData() {
   renderTodayPanel();
+  renderLatestUpdate();
   renderHomeAlerts();
   renderSchedule();
   renderPageCards();
@@ -1036,6 +1077,7 @@ function refreshAppFromData() {
 }
 
 renderTodayPanel();
+renderLatestUpdate();
 renderHomeAlerts();
 renderSchedule();
 renderPageCards();

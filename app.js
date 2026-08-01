@@ -20,6 +20,9 @@ let keyDates = DATA.keyDates || [];
 let initialSponsors = DATA.sponsors || [];
 let approvedPhotoFeed = [];
 let approvedPhotoFeedInFlight = false;
+let photoViewerItems = [];
+let activePhotoIndex = 0;
+let photoSwipeStartX = null;
 let activeRecordGroup = 'girlsMoundWestonka';
 let homeAlertItems = [];
 let activeSheetLink = '';
@@ -187,15 +190,30 @@ function closeDetailSheet() {
   lastSheetTrigger?.focus?.();
 }
 
-function openPhotoViewer(imageUrl) {
-  const viewer = document.getElementById('photoViewer');
+function updatePhotoViewer() {
   const image = document.getElementById('photoViewerImage');
-  if (!viewer || !image || !imageUrl) return;
+  const counter = document.getElementById('photoViewerCounter');
+  const imageUrl = photoViewerItems[activePhotoIndex];
+  if (!image || !imageUrl) return;
   image.src = imageUrl;
+  if (counter) counter.textContent = `${activePhotoIndex + 1} / ${photoViewerItems.length}`;
+}
+
+function openPhotoViewer(index = 0) {
+  const viewer = document.getElementById('photoViewer');
+  if (!viewer || !photoViewerItems.length) return;
+  activePhotoIndex = Math.max(0, Math.min(photoViewerItems.length - 1, Number(index) || 0));
+  updatePhotoViewer();
   viewer.classList.add('open');
   viewer.setAttribute('aria-hidden', 'false');
   document.body.classList.add('photoViewerOpen');
   requestAnimationFrame(() => viewer.querySelector('.photoViewerClose')?.focus());
+}
+
+function stepPhotoViewer(direction) {
+  if (!photoViewerItems.length) return;
+  activePhotoIndex = (activePhotoIndex + direction + photoViewerItems.length) % photoViewerItems.length;
+  updatePhotoViewer();
 }
 
 function closePhotoViewer() {
@@ -611,6 +629,7 @@ function renderProgram() {
         if (!photoMap.has(key)) photoMap.set(key, item);
       });
     const items = [...photoMap.values()];
+    photoViewerItems = items.map(item => String(item.imageUrl || '').trim()).filter(Boolean);
     const albums = [...new Set(items.map(item => item.album || 'Team Highlights'))];
     const gallerySummary = document.getElementById('photoGallerySummary');
     if (gallerySummary) gallerySummary.textContent = items.length
@@ -618,8 +637,9 @@ function renderProgram() {
       : 'Approved team photos in one place.';
     photos.innerHTML = items.length ? albums.map(album => `<section class="photoAlbum"><div class="sectionLabel">${escapeHtml(album)}</div><div class="photoGallery">${items.filter(item => (item.album || 'Team Highlights') === album).map(item => {
       const imageUrl = escapeHtml(item.imageUrl || '');
+      const photoIndex = photoViewerItems.indexOf(String(item.imageUrl || '').trim());
       const image = imageUrl ? `<div class="photoImage"><img src="${imageUrl}" alt="Team photo" loading="lazy"></div>` : `<div class="photoPlaceholder"><span>WHF</span></div>`;
-      return imageUrl ? `<button class="photoGalleryCard" type="button" onclick="openPhotoViewer('${imageUrl}')" aria-label="Open team photo">${image}</button>` : `<article class="photoGalleryCard">${image}</article>`;
+      return imageUrl ? `<button class="photoGalleryCard" type="button" onclick="openPhotoViewer(${photoIndex})" aria-label="Open team photo">${image}</button>` : `<article class="photoGalleryCard">${image}</article>`;
     }).join('')}</div></section>`).join('') : `<div class="photoApprovalNote"><strong>Approved photos will appear here</strong><span>Submissions stay private until the team approves them for an album.</span></div>`;
   }
 }
@@ -680,7 +700,22 @@ function setupNativeInteractions() {
       closeDetailSheet();
       closePhotoViewer();
     }
+    if (document.getElementById('photoViewer')?.classList.contains('open')) {
+      if (event.key === 'ArrowLeft') stepPhotoViewer(-1);
+      if (event.key === 'ArrowRight') stepPhotoViewer(1);
+    }
   });
+
+  const photoViewer = document.getElementById('photoViewer');
+  photoViewer?.addEventListener('touchstart', event => {
+    if (event.touches.length === 1) photoSwipeStartX = event.touches[0].clientX;
+  }, { passive: true });
+  photoViewer?.addEventListener('touchend', event => {
+    if (photoSwipeStartX === null || !event.changedTouches.length) return;
+    const distance = event.changedTouches[0].clientX - photoSwipeStartX;
+    photoSwipeStartX = null;
+    if (Math.abs(distance) >= 45) stepPhotoViewer(distance < 0 ? 1 : -1);
+  }, { passive: true });
 
   requestAnimationFrame(() => requestAnimationFrame(() => {
     document.getElementById('bootSkeleton')?.classList.add('hide');

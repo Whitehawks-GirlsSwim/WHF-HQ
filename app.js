@@ -18,6 +18,8 @@ let meetSchedule = normalizeMeetSchedule(DATA.meetSchedule || []);
 DATA.meetSchedule = meetSchedule;
 let keyDates = DATA.keyDates || [];
 let initialSponsors = DATA.sponsors || [];
+let approvedPhotoFeed = [];
+let approvedPhotoFeedInFlight = false;
 let activeRecordGroup = 'girlsMoundWestonka';
 let homeAlertItems = [];
 let activeSheetLink = '';
@@ -85,6 +87,32 @@ async function refreshPublishedData() {
     console.warn('Published schedule refresh will retry later.', error);
   } finally {
     publishedRefreshInFlight = false;
+  }
+}
+
+async function refreshApprovedPhotoFeed() {
+  const feedUrl = String(DATA.photoFeedUrl || '').trim();
+  if (!feedUrl || approvedPhotoFeedInFlight) return;
+  approvedPhotoFeedInFlight = true;
+
+  try {
+    const separator = feedUrl.includes('?') ? '&' : '?';
+    const response = await fetch(`${feedUrl}${separator}refresh=${Date.now()}`, { cache: 'no-store' });
+    if (!response.ok) return;
+
+    const payload = await response.json();
+    const fresh = Array.isArray(payload.photoLinks)
+      ? payload.photoLinks.filter(item => item && item.status !== 'pending')
+      : [];
+
+    if (JSON.stringify(fresh) !== JSON.stringify(approvedPhotoFeed)) {
+      approvedPhotoFeed = fresh;
+      renderProgram();
+    }
+  } catch (error) {
+    console.warn('Approved photo feed will retry later.', error);
+  } finally {
+    approvedPhotoFeedInFlight = false;
   }
 }
 
@@ -554,7 +582,14 @@ function renderProgram() {
 
   const photos = document.getElementById('photoLinksList');
   if (photos) {
-    const items = (DATA.photoLinks || []).filter(item => item.status !== 'pending');
+    const photoMap = new Map();
+    [...(DATA.photoLinks || []), ...approvedPhotoFeed]
+      .filter(item => item && item.status !== 'pending')
+      .forEach((item, index) => {
+        const key = item.linkUrl || item.imageUrl || `${item.album || ''}|${item.title || ''}|${index}`;
+        if (!photoMap.has(key)) photoMap.set(key, item);
+      });
+    const items = [...photoMap.values()];
     const albums = [...new Set(items.map(item => item.album || 'Team Highlights'))];
     photos.innerHTML = items.length ? albums.map(album => `<section class="photoAlbum"><div class="sectionLabel">${escapeHtml(album)}</div><div class="photoGallery">${items.filter(item => (item.album || 'Team Highlights') === album).map(item => {
       const title = escapeHtml(item.title || 'WHF Swim & Dive');
@@ -953,9 +988,17 @@ setupNativeInteractions();
 buildAdminForms();
 renderAdminStatus();
 refreshPublishedData();
+refreshApprovedPhotoFeed();
 
-window.addEventListener('focus', refreshPublishedData);
+window.addEventListener('focus', () => {
+  refreshPublishedData();
+  refreshApprovedPhotoFeed();
+});
 document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) refreshPublishedData();
+  if (!document.hidden) {
+    refreshPublishedData();
+    refreshApprovedPhotoFeed();
+  }
 });
 setInterval(refreshPublishedData, 5 * 60 * 1000);
+setInterval(refreshApprovedPhotoFeed, 5 * 60 * 1000);

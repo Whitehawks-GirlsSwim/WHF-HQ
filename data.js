@@ -4,8 +4,8 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "Team photo gallery upgraded",
-    "body": "Approved photos now open inside WHF HQ. Swipe left or right—or use the arrow buttons—to move through the full gallery.",
+    "title": "Pull down to refresh",
+    "body": "From the top of any app screen, pull down and release to check for the latest schedules, announcements, and approved photos.",
     "updated": "July 31, 2026"
   },
   "keyDates": [

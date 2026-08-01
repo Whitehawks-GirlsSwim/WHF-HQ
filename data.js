@@ -4,8 +4,8 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "Pull down to refresh",
-    "body": "From the top of any app screen, pull down and release to check for the latest schedules, announcements, and approved photos.",
+    "title": "Follow WHF on social media",
+    "body": "Instagram and Facebook are now available in the Parent Hub Social Media section for team updates, photos, and highlights.",
     "updated": "July 31, 2026"
   },
   "keyDates": [
@@ -200,6 +200,20 @@ window.WHF_DATA = {
       "body": "Monday, August 17 • 7:00–9:00 AM & 4:00–5:30 PM.",
       "linkText": "",
       "linkUrl": ""
+    }
+  ],
+  "socialLinks": [
+    {
+      "platform": "Instagram",
+      "handle": "@whfswimanddive",
+      "body": "Team updates, photos, and highlights.",
+      "url": "https://www.instagram.com/whfswimanddive/"
+    },
+    {
+      "platform": "Facebook",
+      "handle": "WHF Girls Swim & Dive",
+      "body": "Follow the team page for news and highlights.",
+      "url": "https://www.facebook.com/share/187mhmtasu/?mibextid=wwxlfr"
     }
   ],
   "boosterCards": [

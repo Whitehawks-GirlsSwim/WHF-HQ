@@ -8,8 +8,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
-  <link rel="manifest" href="manifest.json?v=20260731-32">
-  <link rel="stylesheet" href="styles.css?v=20260731-32">
+  <link rel="manifest" href="manifest.json?v=20260731-33">
+  <link rel="stylesheet" href="styles.css?v=20260731-33">
   <link rel="icon" href="app-icon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -126,17 +126,33 @@
 
         <div class="programBlock">
           <div class="blockTitle">Photos</div>
-          <div class="photoSubmitCard">
-            <div><strong>Share Team Photos</strong><span>Upload photos from meets, practices, and team events. Every submission is reviewed before appearing here.</span></div>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfuqlWPKp7vHszCnDJZGEoHUlXA1Q0nKjz4XiTk5D_uzxZTKg/viewform?usp=publish-editor" target="_blank" rel="noopener">Submit Photos</a>
-          </div>
-          <div id="photoLinksList"></div>
+          <button class="photoGalleryLaunch" type="button" onclick="showScreen('photos')">
+            <span><strong>Team Photo Gallery</strong><small id="photoGallerySummary">Approved team photos in one place.</small></span>
+            <b>View Photos</b>
+          </button>
         </div>
 
         <div class="programLinks">
           <button class="primaryAction greenAccent" onclick="showScreen('sponsors')"><h3>SPONSORS &amp; COMMUNITY</h3><p>Community partners supporting WHF Swim &amp; Dive</p></button>
           <button class="primaryAction redAccent" onclick="showScreen('booster')"><h3>BOOSTER CLUB</h3><p>Leadership, roles and behind-the-scenes support</p></button>
         </div>
+      </section>
+
+      <section class="screen" id="photos">
+        <div class="photoScreenHeader">
+          <button type="button" onclick="showScreen('program')" aria-label="Back to Program">←</button>
+          <div class="screenTitle">Team Photos</div>
+        </div>
+        <div class="seasonLead photoLead">
+          <div class="seasonLeadTop">WHF GIRLS SWIM &amp; DIVE</div>
+          <h2>Team Photo Gallery</h2>
+          <p>Approved photos from meets, practices, and team events.</p>
+        </div>
+        <div class="photoSubmitCard">
+          <div><strong>Share Team Photos</strong><span>Every submission is reviewed before appearing in the gallery.</span></div>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfuqlWPKp7vHszCnDJZGEoHUlXA1Q0nKjz4XiTk5D_uzxZTKg/viewform?usp=publish-editor" target="_blank" rel="noopener">Submit Photos</a>
+        </div>
+        <div id="photoLinksList"></div>
       </section>
 
       <section class="screen" id="admin">
@@ -209,6 +225,14 @@
   </div>
   <div class="appToast" id="appToast" role="status" aria-live="polite"></div>
 
+  <div class="photoViewer" id="photoViewer" aria-hidden="true">
+    <button class="photoViewerBackdrop" type="button" onclick="closePhotoViewer()" aria-label="Close photo"></button>
+    <div class="photoViewerPanel" role="dialog" aria-modal="true" aria-label="Team photo">
+      <button class="photoViewerClose" type="button" onclick="closePhotoViewer()" aria-label="Close photo">×</button>
+      <img id="photoViewerImage" src="" alt="Team photo">
+    </div>
+  </div>
+
   <nav class="bottomNav">
     <div class="navIndicator" id="navIndicator" aria-hidden="true"></div>
     <button class="active" data-screen="home" onclick="showScreen('home')">Home</button>
@@ -219,7 +243,7 @@
     <button data-screen="program" onclick="showScreen('program')">Program</button>
   </nav>
 
-  <script src="data.js?v=20260731-32"></script>
-  <script src="app.js?v=20260731-32"></script>
+  <script src="data.js?v=20260731-33"></script>
+  <script src="app.js?v=20260731-33"></script>
 </body>
 </html>

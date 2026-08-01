@@ -23,6 +23,10 @@ let approvedPhotoFeedInFlight = false;
 let photoViewerItems = [];
 let activePhotoIndex = 0;
 let photoSwipeStartX = null;
+let pullRefreshStartX = null;
+let pullRefreshStartY = null;
+let pullRefreshDistance = 0;
+let pullRefreshInFlight = false;
 let activeRecordGroup = 'girlsMoundWestonka';
 let homeAlertItems = [];
 let activeSheetLink = '';
@@ -721,9 +725,91 @@ function setupHomeTaps() {
   });
 }
 
+function updatePullRefreshIndicator(distance = 0) {
+  const indicator = document.getElementById('pullRefresh');
+  const text = document.getElementById('pullRefreshText');
+  if (!indicator || pullRefreshInFlight) return;
+  const offset = Math.min(76, Math.max(0, distance));
+  indicator.style.setProperty('--pull-distance', `${offset}px`);
+  indicator.classList.toggle('visible', offset > 8);
+  indicator.classList.toggle('ready', offset >= 58);
+  if (text) text.textContent = offset >= 58 ? 'Release to refresh' : 'Pull to refresh';
+}
+
+async function performPullRefresh() {
+  if (pullRefreshInFlight) return;
+  const indicator = document.getElementById('pullRefresh');
+  const text = document.getElementById('pullRefreshText');
+  pullRefreshInFlight = true;
+  indicator?.classList.add('visible', 'refreshing');
+  indicator?.classList.remove('ready');
+  indicator?.style.setProperty('--pull-distance', '68px');
+  if (text) text.textContent = 'Refreshing WHF HQ';
+
+  await Promise.allSettled([refreshPublishedData(), refreshApprovedPhotoFeed()]);
+  refreshAppFromData();
+  updateNavBadges();
+  if (text) text.textContent = 'You’re up to date';
+  indicator?.classList.remove('refreshing');
+  indicator?.classList.add('complete');
+  showToast('WHF HQ is up to date');
+
+  setTimeout(() => {
+    pullRefreshInFlight = false;
+    pullRefreshDistance = 0;
+    indicator?.classList.remove('visible', 'complete');
+    indicator?.style.setProperty('--pull-distance', '0px');
+    if (text) text.textContent = 'Pull to refresh';
+  }, 850);
+}
+
+function setupPullToRefresh() {
+  document.addEventListener('touchstart', event => {
+    if (pullRefreshInFlight || event.touches.length !== 1 || window.scrollY > 1) return;
+    if (document.body.classList.contains('sheetOpen') || document.body.classList.contains('photoViewerOpen')) return;
+    pullRefreshStartX = event.touches[0].clientX;
+    pullRefreshStartY = event.touches[0].clientY;
+    pullRefreshDistance = 0;
+  }, { passive: true });
+
+  document.addEventListener('touchmove', event => {
+    if (pullRefreshStartY === null || !event.touches.length) return;
+    const horizontal = event.touches[0].clientX - pullRefreshStartX;
+    const vertical = event.touches[0].clientY - pullRefreshStartY;
+    if (Math.abs(horizontal) > Math.abs(vertical)) {
+      pullRefreshStartX = null;
+      pullRefreshStartY = null;
+      updatePullRefreshIndicator(0);
+      return;
+    }
+    if (vertical <= 0 || window.scrollY > 1) {
+      updatePullRefreshIndicator(0);
+      return;
+    }
+    pullRefreshDistance = Math.min(76, vertical * .55);
+    updatePullRefreshIndicator(pullRefreshDistance);
+    if (vertical > 8) event.preventDefault();
+  }, { passive: false });
+
+  const finishPull = () => {
+    if (pullRefreshStartY === null) return;
+    const shouldRefresh = pullRefreshDistance >= 58;
+    pullRefreshStartX = null;
+    pullRefreshStartY = null;
+    if (shouldRefresh) performPullRefresh();
+    else {
+      pullRefreshDistance = 0;
+      updatePullRefreshIndicator(0);
+    }
+  };
+  document.addEventListener('touchend', finishPull, { passive: true });
+  document.addEventListener('touchcancel', finishPull, { passive: true });
+}
+
 function setupNativeInteractions() {
   updateNavIndicator();
   updateNavBadges();
+  setupPullToRefresh();
   window.addEventListener('resize', updateNavIndicator);
   window.addEventListener('offline', updateConnectionState);
   window.addEventListener('online', updateConnectionState);

@@ -25,7 +25,7 @@ let homeAlertItems = [];
 let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
-const screenOrder = ['home', 'meets', 'practice', 'spirit', 'parents', 'program'];
+const screenOrder = ['home', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
 
 function loadAdminPreviewData() {
   const published = window.WHF_DATA || {};
@@ -185,6 +185,27 @@ function closeDetailSheet() {
   sheet.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('sheetOpen');
   lastSheetTrigger?.focus?.();
+}
+
+function openPhotoViewer(imageUrl) {
+  const viewer = document.getElementById('photoViewer');
+  const image = document.getElementById('photoViewerImage');
+  if (!viewer || !image || !imageUrl) return;
+  image.src = imageUrl;
+  viewer.classList.add('open');
+  viewer.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('photoViewerOpen');
+  requestAnimationFrame(() => viewer.querySelector('.photoViewerClose')?.focus());
+}
+
+function closePhotoViewer() {
+  const viewer = document.getElementById('photoViewer');
+  const image = document.getElementById('photoViewerImage');
+  if (!viewer) return;
+  viewer.classList.remove('open');
+  viewer.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('photoViewerOpen');
+  if (image) image.src = '';
 }
 
 async function copySheetLink() {
@@ -591,14 +612,14 @@ function renderProgram() {
       });
     const items = [...photoMap.values()];
     const albums = [...new Set(items.map(item => item.album || 'Team Highlights'))];
+    const gallerySummary = document.getElementById('photoGallerySummary');
+    if (gallerySummary) gallerySummary.textContent = items.length
+      ? `${items.length} approved photo${items.length === 1 ? '' : 's'}`
+      : 'Approved team photos in one place.';
     photos.innerHTML = items.length ? albums.map(album => `<section class="photoAlbum"><div class="sectionLabel">${escapeHtml(album)}</div><div class="photoGallery">${items.filter(item => (item.album || 'Team Highlights') === album).map(item => {
-      const title = escapeHtml(item.title || 'WHF Swim & Dive');
-      const detail = escapeHtml(item.detail || item.body || '');
       const imageUrl = escapeHtml(item.imageUrl || '');
-      const linkUrl = escapeHtml(item.linkUrl || '');
-      const image = imageUrl ? `<div class="photoImage"><img src="${imageUrl}" alt="${title}" loading="lazy"></div>` : `<div class="photoPlaceholder"><span>WHF</span></div>`;
-      const content = `${image}<div class="photoCaption"><h3>${title}</h3>${detail ? `<p>${detail}</p>` : ''}${item.linkText ? `<span class="photoLinkText">${escapeHtml(item.linkText)} →</span>` : ''}</div>`;
-      return linkUrl ? `<a class="photoGalleryCard" href="${linkUrl}" target="_blank" rel="noopener">${content}</a>` : `<article class="photoGalleryCard">${content}</article>`;
+      const image = imageUrl ? `<div class="photoImage"><img src="${imageUrl}" alt="Team photo" loading="lazy"></div>` : `<div class="photoPlaceholder"><span>WHF</span></div>`;
+      return imageUrl ? `<button class="photoGalleryCard" type="button" onclick="openPhotoViewer('${imageUrl}')" aria-label="Open team photo">${image}</button>` : `<article class="photoGalleryCard">${image}</article>`;
     }).join('')}</div></section>`).join('') : `<div class="photoApprovalNote"><strong>Approved photos will appear here</strong><span>Submissions stay private until the team approves them for an album.</span></div>`;
   }
 }
@@ -655,7 +676,10 @@ function setupNativeInteractions() {
   });
 
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') closeDetailSheet();
+    if (event.key === 'Escape') {
+      closeDetailSheet();
+      closePhotoViewer();
+    }
   });
 
   requestAnimationFrame(() => requestAnimationFrame(() => {

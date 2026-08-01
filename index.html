@@ -8,8 +8,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
-  <link rel="manifest" href="manifest.json?v=20260731-33">
-  <link rel="stylesheet" href="styles.css?v=20260731-33">
+  <link rel="manifest" href="manifest.json?v=20260731-34">
+  <link rel="stylesheet" href="styles.css?v=20260731-34">
   <link rel="icon" href="app-icon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -229,7 +229,11 @@
     <button class="photoViewerBackdrop" type="button" onclick="closePhotoViewer()" aria-label="Close photo"></button>
     <div class="photoViewerPanel" role="dialog" aria-modal="true" aria-label="Team photo">
       <button class="photoViewerClose" type="button" onclick="closePhotoViewer()" aria-label="Close photo">×</button>
+      <button class="photoViewerNav photoViewerPrevious" type="button" onclick="stepPhotoViewer(-1)" aria-label="Previous photo">‹</button>
       <img id="photoViewerImage" src="" alt="Team photo">
+      <button class="photoViewerNav photoViewerNext" type="button" onclick="stepPhotoViewer(1)" aria-label="Next photo">›</button>
+      <div class="photoViewerCounter" id="photoViewerCounter">1 / 1</div>
+      <div class="photoViewerHint">Swipe to browse</div>
     </div>
   </div>
 
@@ -243,7 +247,7 @@
     <button data-screen="program" onclick="showScreen('program')">Program</button>
   </nav>
 
-  <script src="data.js?v=20260731-33"></script>
-  <script src="app.js?v=20260731-33"></script>
+  <script src="data.js?v=20260731-34"></script>
+  <script src="app.js?v=20260731-34"></script>
 </body>
 </html>

@@ -281,7 +281,7 @@ function openHomeAlertSheet(index, trigger) {
 }
 
 function contentKeyForScreen(id) {
-  const content = id === 'meets' ? meetSchedule : id === 'practice' ? keyDates : id === 'parents' ? DATA.parentCards : null;
+  const content = id === 'meets' ? meetSchedule : id === 'practice' ? keyDates : id === 'parents' ? { cards: DATA.parentCards, socialLinks: DATA.socialLinks } : null;
   if (!content) return '';
   let hash = 0;
   const text = JSON.stringify(content);
@@ -515,6 +515,34 @@ function renderPageCards() {
     const progress = goal ? Math.min(100, Math.round((raised / goal) * 100)) : 0;
     sponsorIntro.innerHTML = `<div class="sponsorProgressCard"><span class="sectionLabel">Timing Equipment Campaign</span><h2>${escapeHtml(DATA.sponsorIntro.title)}</h2><p>${escapeHtml(DATA.sponsorIntro.body)}</p><div class="sponsorProgress"><i style="width:${progress}%"></i></div><div class="sponsorProgressMeta"><strong>${progress}% funded</strong><span>Goal: $${goal.toLocaleString()}</span></div></div>`;
   }
+}
+
+function renderSocialLinks() {
+  const host = document.getElementById('socialSection');
+  if (!host) return;
+  const links = (DATA.socialLinks || []).filter(item => item?.url);
+  if (!links.length) {
+    host.innerHTML = '';
+    host.hidden = true;
+    return;
+  }
+
+  host.hidden = false;
+  host.innerHTML = `<div class="sectionLabel">Social Media</div><div class="socialGrid">${links.map(item => {
+    const platform = item.platform || 'Social Media';
+    const isInstagram = /instagram/i.test(platform);
+    const isFacebook = /facebook/i.test(platform);
+    const icon = isInstagram
+      ? `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.4" cy="6.6" r="1"></circle></svg>`
+      : isFacebook
+        ? `<b class="facebookGlyph" aria-hidden="true">f</b>`
+        : `<b aria-hidden="true">${escapeHtml(platform.slice(0, 2).toUpperCase())}</b>`;
+    return `<a class="socialCard${isInstagram ? ' instagram' : isFacebook ? ' facebook' : ''}" href="${escapeHtml(item.url)}" target="_blank" rel="noopener" data-toast="Opening ${escapeHtml(platform)}…">
+      <span class="socialIcon">${icon}</span>
+      <span class="socialCopy"><strong>${escapeHtml(platform)}</strong><small>${escapeHtml(item.handle || '')}</small><em>${escapeHtml(item.body || 'Follow WHF Girls Swim & Dive.')}</em></span>
+      <span class="socialAction">Follow <i aria-hidden="true">›</i></span>
+    </a>`;
+  }).join('')}</div>`;
 }
 
 function renderCombinedScheduleLegacy() {
@@ -1119,6 +1147,7 @@ function getChangedSections(candidate = DATA) {
     ['keyDates', 'Key Dates / Practice Info'],
     ['meetSchedule', 'Meet Schedule'],
     ['parentCards', 'Parent Hub'],
+    ['socialLinks', 'Social Media'],
     ['events', 'Events'],
     ['boosterCards', 'Booster Club'],
     ['programSummary', 'Program Summary'],
@@ -1155,6 +1184,7 @@ function refreshAppFromData() {
   renderHomeAlerts();
   renderSchedule();
   renderPageCards();
+  renderSocialLinks();
   renderSponsors();
   renderProgram();
   renderFund();
@@ -1167,6 +1197,7 @@ renderLatestUpdate();
 renderHomeAlerts();
 renderSchedule();
 renderPageCards();
+renderSocialLinks();
 renderSponsors();
 renderProgram();
 renderFund();

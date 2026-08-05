@@ -4,8 +4,8 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "August 7 captains' practice cancelled",
-    "body": "The Downtown Mound Scavenger Hunt and Lost Lake Creamery captains' practice scheduled for Friday, August 7 has been cancelled.",
+    "title": "WHF team meeting still on August 12",
+    "body": "Westonka's official registration night has been cancelled, but WHF Girls Swim & Dive will still hold a team meeting Wednesday, August 12 at 5:00 PM in the pool.",
     "updated": "August 4, 2026"
   },
   "keyDates": [
@@ -22,6 +22,13 @@ window.WHF_DATA = {
       "label": "CAPTAINS' PRACTICE",
       "meta": "Sunday, August 9",
       "location": "Optional and highly encouraged. Meet at Big Stone Mini Golf at 1:30 PM. Everyone is responsible for paying for their own admission."
+    },
+    {
+      "date": "2026-08-12T17:00:00-05:00",
+      "title": "WHF Team Meeting",
+      "label": "TEAM MEETING",
+      "meta": "Wednesday, August 12",
+      "location": "5:00 PM in the pool. Westonka's official registration night has been cancelled, but WHF Girls Swim & Dive will still hold a team meeting."
     },
     {
       "date": "2026-08-14T19:00:00-05:00",
@@ -182,8 +189,8 @@ window.WHF_DATA = {
     },
     {
       "accent": "green",
-      "title": "Eligibility Meeting",
-      "body": "Wednesday, August 12 at 5:00 PM in the Performing Arts Center. Sport breakout sessions begin at 5:30 PM.",
+      "title": "WHF Team Meeting",
+      "body": "Wednesday, August 12 at 5:00 PM in the pool. Westonka's official registration night has been cancelled, but the WHF team meeting will still be held.",
       "linkText": "",
       "linkUrl": ""
     },

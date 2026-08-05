@@ -4,9 +4,9 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "Follow WHF on social media",
-    "body": "Instagram and Facebook are now available in the Parent Hub Social Media section for team updates, photos, and highlights.",
-    "updated": "July 31, 2026"
+    "title": "August 7 captains' practice cancelled",
+    "body": "The Downtown Mound Scavenger Hunt and Lost Lake Creamery captains' practice scheduled for Friday, August 7 has been cancelled.",
+    "updated": "August 4, 2026"
   },
   "keyDates": [
     {
@@ -15,13 +15,6 @@ window.WHF_DATA = {
       "label": "CAPTAINS' PRACTICE",
       "meta": "Wednesday, July 29",
       "location": "Optional and highly encouraged. Meet for the All in One Fitness class at 11:45 AM. The Booster Club will provide funds for ice cream at the Minnetonka Drive In following the class."
-    },
-    {
-      "date": "2026-08-07T18:00:00-05:00",
-      "title": "Downtown Mound Scavenger Hunt & Lost Lake Creamery",
-      "label": "CAPTAINS' PRACTICE",
-      "meta": "Friday, August 7",
-      "location": "Optional and highly encouraged. Meet at Westonka High School at 6:00 PM. Upperclassmen will drive swimmers and divers around the Mound area for a scavenger hunt. Meet at Lost Lake Creamery afterward for optional ice cream."
     },
     {
       "date": "2026-08-09T13:30:00-05:00",

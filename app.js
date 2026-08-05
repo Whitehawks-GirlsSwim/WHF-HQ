@@ -281,7 +281,7 @@ function openHomeAlertSheet(index, trigger) {
 }
 
 function contentKeyForScreen(id) {
-  const content = id === 'meets' ? meetSchedule : id === 'practice' ? keyDates : id === 'parents' ? { cards: DATA.parentCards, socialLinks: DATA.socialLinks } : null;
+  const content = id === 'meets' ? meetSchedule : id === 'practice' ? keyDates : id === 'parents' ? { cards: DATA.parentCards, socialLinks: DATA.socialLinks, teamContacts: DATA.teamContacts } : null;
   if (!content) return '';
   let hash = 0;
   const text = JSON.stringify(content);
@@ -542,6 +542,32 @@ function renderSocialLinks() {
       <span class="socialCopy"><strong>${escapeHtml(platform)}</strong><small>${escapeHtml(item.handle || '')}</small><em>${escapeHtml(item.body || 'Follow WHF Girls Swim & Dive.')}</em></span>
       <span class="socialAction">Follow <i aria-hidden="true">›</i></span>
     </a>`;
+  }).join('')}</div>`;
+}
+
+function renderTeamContacts() {
+  const host = document.getElementById('contactSection');
+  if (!host) return;
+  const contacts = (DATA.teamContacts || []).filter(item => item?.name && (item?.phone || item?.email));
+  if (!contacts.length) {
+    host.innerHTML = '';
+    host.hidden = true;
+    return;
+  }
+
+  host.hidden = false;
+  host.innerHTML = `<div class="sectionLabel">Team Contacts</div><div class="contactGrid">${contacts.map((item, index) => {
+    const phoneDigits = String(item.phone || '').replace(/[^0-9+]/g, '');
+    const email = String(item.email || '').trim();
+    const actions = [
+      phoneDigits ? `<a href="tel:${escapeHtml(phoneDigits)}" data-toast="Calling ${escapeHtml(item.name)}...">Call</a>` : '',
+      email ? `<a href="mailto:${escapeHtml(email)}" data-toast="Opening email...">Email</a>` : ''
+    ].join('');
+    return `<article class="contactCard ${index % 2 === 0 ? 'red' : 'green'}">
+      <div class="contactIdentity"><span class="contactInitials" aria-hidden="true">${escapeHtml(item.name.split(/\s+/).map(part => part[0] || '').slice(0, 2).join('').toUpperCase())}</span><div><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.role || '')}</small></div></div>
+      <div class="contactDetails">${item.phone ? `<a href="tel:${escapeHtml(phoneDigits)}">${escapeHtml(item.phone)}</a>` : ''}${email ? `<a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>` : ''}</div>
+      <div class="contactActions">${actions}</div>
+    </article>`;
   }).join('')}</div>`;
 }
 
@@ -1148,6 +1174,7 @@ function getChangedSections(candidate = DATA) {
     ['meetSchedule', 'Meet Schedule'],
     ['parentCards', 'Parent Hub'],
     ['socialLinks', 'Social Media'],
+    ['teamContacts', 'Team Contacts'],
     ['events', 'Events'],
     ['boosterCards', 'Booster Club'],
     ['programSummary', 'Program Summary'],
@@ -1185,6 +1212,7 @@ function refreshAppFromData() {
   renderSchedule();
   renderPageCards();
   renderSocialLinks();
+  renderTeamContacts();
   renderSponsors();
   renderProgram();
   renderFund();
@@ -1198,6 +1226,7 @@ renderHomeAlerts();
 renderSchedule();
 renderPageCards();
 renderSocialLinks();
+renderTeamContacts();
 renderSponsors();
 renderProgram();
 renderFund();

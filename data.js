@@ -216,6 +216,20 @@ window.WHF_DATA = {
       "url": "https://www.facebook.com/share/187mhmtasu/?mibextid=wwxlfr"
     }
   ],
+  "teamContacts": [
+    {
+      "name": "Bob Dongoske",
+      "role": "Booster President",
+      "phone": "952-261-2807",
+      "email": "mwhfswimdivegirls@gmail.com"
+    },
+    {
+      "name": "Ben Hanson",
+      "role": "Head Coach",
+      "phone": "612-965-1707",
+      "email": "coach.ben.hanson@gmail.com"
+    }
+  ],
   "boosterCards": [
     {
       "accent": "split",

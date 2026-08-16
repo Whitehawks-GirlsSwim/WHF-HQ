@@ -17,6 +17,7 @@ let DATA = loadAdminPreviewData();
 let meetSchedule = normalizeMeetSchedule(DATA.meetSchedule || []);
 DATA.meetSchedule = meetSchedule;
 let keyDates = DATA.keyDates || [];
+let divePracticeSchedule = DATA.divePracticeSchedule || [];
 let initialSponsors = DATA.sponsors || [];
 let approvedPhotoFeed = [];
 let approvedPhotoFeedInFlight = false;
@@ -43,8 +44,8 @@ function loadAdminPreviewData() {
     if (!preview) return published;
 
     const parsed = JSON.parse(preview);
-    const publishedSchedule = JSON.stringify([published.latestUpdate, published.keyDates, published.meetSchedule]);
-    const previewSchedule = JSON.stringify([parsed.latestUpdate, parsed.keyDates, parsed.meetSchedule]);
+    const publishedSchedule = JSON.stringify([published.latestUpdate, published.keyDates, published.divePracticeSchedule, published.meetSchedule]);
+    const previewSchedule = JSON.stringify([parsed.latestUpdate, parsed.keyDates, parsed.divePracticeSchedule, parsed.meetSchedule]);
 
     if (publishedSchedule !== previewSchedule) {
       localStorage.removeItem('whfAdminDataPreview');
@@ -63,6 +64,7 @@ function setRuntimeData(nextData) {
   meetSchedule = normalizeMeetSchedule(DATA.meetSchedule || []);
   DATA.meetSchedule = meetSchedule;
   keyDates = DATA.keyDates || [];
+  divePracticeSchedule = DATA.divePracticeSchedule || [];
   initialSponsors = DATA.sponsors || [];
 }
 
@@ -241,27 +243,30 @@ async function copySheetLink() {
 }
 
 function getScheduleForSheet(kind) {
-  return kind === 'practice'
-    ? [...keyDates].sort((a, b) => new Date(a.date) - new Date(b.date))
-    : [...meetSchedule].sort((a, b) => new Date(a.date) - new Date(b.date));
+  const source = kind === 'dive'
+    ? divePracticeSchedule
+    : kind === 'practice'
+      ? keyDates.filter(item => String(item.label || '').toUpperCase() === 'PRACTICE')
+      : meetSchedule;
+  return [...source].sort((a, b) => new Date(a.date) - new Date(b.date));
 }
 
 function openScheduleSheet(kind, index, trigger) {
   const event = getScheduleForSheet(kind)[index];
   if (!event) return;
   const date = new Date(event.date);
-  const title = event.title || event.opponent || (kind === 'practice' ? 'Practice' : 'Meet');
-  const isPractice = kind === 'practice';
+  const isPractice = kind === 'practice' || kind === 'dive';
+  const title = event.title || event.opponent || (kind === 'dive' ? 'Dive Practice' : kind === 'practice' ? 'Swim Practice' : 'Meet');
   const practiceDetails = event.location || 'Practice details coming soon';
   const location = isPractice ? '' : (event.location || 'Location details coming soon');
   const directionsUrl = !isPractice && location && !/coming soon/i.test(location)
     ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`
     : '';
   openDetailSheet({
-    eyebrow: isPractice ? 'PRACTICE DETAILS' : `${event.level || 'MEET'} DETAILS`,
+    eyebrow: kind === 'dive' ? 'DIVE PRACTICE' : isPractice ? 'SWIM PRACTICE' : `${event.level || 'MEET'} DETAILS`,
     title,
     body: isPractice ? practiceDetails : `Meet information for ${event.opponent || title}.`,
-    meta: `${formatDate(date)} • ${formatTime(date)}`,
+    meta: `${event.displayDate || formatDate(date)} • ${event.displayTime || formatTime(date)}`,
     location,
     linkText: directionsUrl ? 'Get Directions' : '',
     linkUrl: directionsUrl
@@ -284,7 +289,7 @@ function contentKeyForScreen(id) {
   const content = id === 'meets'
     ? meetSchedule
     : id === 'practice'
-      ? keyDates
+      ? { swim: keyDates, dive: divePracticeSchedule }
       : id === 'volunteers'
         ? DATA.volunteerCards
         : id === 'parents'
@@ -627,19 +632,22 @@ function renderSeparatedScheduleList(listId, statusId, scheduleItems, kind) {
   const sorted = [...scheduleItems].sort((a, b) => new Date(a.date) - new Date(b.date));
   const next = sorted.find(item => new Date(item.date).getTime() + 3 * 60 * 60 * 1000 >= now.getTime()) || null;
   const nextKey = next ? `${next.date}|${next.title || next.opponent}` : '';
+  const practiceKind = kind === 'practice' || kind === 'dive';
+  const kindLabel = kind === 'dive' ? 'dive practice' : kind === 'practice' ? 'swim practice' : 'meet';
 
   list.innerHTML = sorted.map((event, index) => {
     const date = new Date(event.date);
     const isNext = nextKey === `${event.date}|${event.title || event.opponent}`;
     const isPast = date.getTime() + 3 * 60 * 60 * 1000 < now.getTime();
     const stateClass = isNext ? ' currentEvent' : isPast ? ' pastEvent' : '';
-    const badge = isNext ? `<div class="scheduleBadge">NEXT ${kind.toUpperCase()}</div>` : '';
+    const badge = isNext ? `<div class="scheduleBadge">NEXT ${kindLabel.toUpperCase()}</div>` : '';
     const title = event.title || event.opponent;
-    const detail = kind === 'practice'
+    const detail = practiceKind
       ? (event.location || 'Practice details coming soon')
       : `${event.level} • ${event.location}`;
-    return `<button type="button" class="scheduleItem detailTrigger ${index % 2 === 0 ? 'greenAccent' : 'redAccent'}${stateClass}" onclick="openScheduleSheet('${kind}',${index},this)">
-      <div class="scheduleDate"><strong>${formatDate(date)}</strong><span>${formatTime(date)}</span></div>
+    const accent = kind === 'dive' ? 'diveAccent' : kind === 'practice' ? 'swimAccent' : (index % 2 === 0 ? 'greenAccent' : 'redAccent');
+    return `<button type="button" class="scheduleItem detailTrigger ${accent}${stateClass}" onclick="openScheduleSheet('${kind}',${index},this)">
+      <div class="scheduleDate"><strong>${escapeHtml(event.displayDate || formatDate(date))}</strong><span>${escapeHtml(event.displayTime || formatTime(date))}</span></div>
       <div class="scheduleInfo">${badge}<h3>${escapeHtml(title)}</h3><p>${escapeHtml(detail)}</p></div>
       <span class="detailChevron" aria-hidden="true">›</span>
     </button>`;
@@ -647,17 +655,23 @@ function renderSeparatedScheduleList(listId, statusId, scheduleItems, kind) {
 
   if (status && next) {
     const date = new Date(next.date);
-    status.textContent = `Next ${kind}: ${next.title || next.opponent} • ${formatDate(date)} at ${formatTime(date)}`;
+    status.textContent = `Next ${kindLabel}: ${next.title || next.opponent} • ${eventDateLabel(next, date)}`;
   } else if (status) {
-    status.textContent = `The 2026 ${kind} schedule is complete.`;
+    status.textContent = `The 2026 ${kindLabel} schedule is complete.`;
   }
+}
+
+function eventDateLabel(event, date) {
+  return `${event.displayDate || formatDate(date)} • ${event.displayTime || formatTime(date)}`;
 }
 
 function renderSchedule() {
   const meets = meetSchedule.map(event => ({ ...event, title: event.opponent, type: 'meet' }));
-  const practices = keyDates.map(item => ({ ...item, opponent: item.title, type: 'practice' }));
+  const practices = keyDates.filter(item => String(item.label || '').toUpperCase() === 'PRACTICE').map(item => ({ ...item, opponent: item.title, type: 'practice' }));
+  const dives = divePracticeSchedule.map(item => ({ ...item, opponent: item.title, type: 'dive' }));
   renderSeparatedScheduleList('meetScheduleList', 'meetScheduleStatus', meets, 'meet');
   renderSeparatedScheduleList('practiceScheduleList', 'practiceScheduleStatus', practices, 'practice');
+  renderSeparatedScheduleList('divePracticeScheduleList', 'divePracticeScheduleStatus', dives, 'dive');
 }
 
 function renderSponsors() {

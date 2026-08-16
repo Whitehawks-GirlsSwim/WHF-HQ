@@ -4,8 +4,8 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "Dive practice schedule added",
-    "body": "Swim and dive practices now have separate schedules in the Practice tab. Dive times are posted through the regular weekly schedule beginning September 7.",
+    "title": "September practice schedules are live",
+    "body": "Swim and dive practices are now listed day by day. There is no practice on Labor Day, Monday, September 7.",
     "updated": "August 16, 2026"
   },
   "keyDates": [
@@ -78,72 +78,388 @@ window.WHF_DATA = {
       "label": "PRACTICE",
       "meta": "Saturday, August 22",
       "location": "7:00–9:00 AM"
+    },
+    {
+      "date": "2026-09-07T12:00:00-05:00",
+      "title": "No Swim Practice — Labor Day",
+      "label": "PRACTICE",
+      "meta": "Monday, September 7",
+      "location": "No practice. Enjoy the holiday!",
+      "displayTime": "NO PRACTICE"
+    },
+    {
+      "date": "2026-09-08T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Tuesday, September 8",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-09T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Wednesday, September 9",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-10T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Thursday, September 10",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-11T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Friday, September 11",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-12T07:00:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Saturday, September 12",
+      "location": "7:00–10:00 AM"
+    },
+    {
+      "date": "2026-09-14T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Monday, September 14",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-15T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Tuesday, September 15",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-16T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Wednesday, September 16",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-17T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Thursday, September 17",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-18T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Friday, September 18",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-19T07:00:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Saturday, September 19",
+      "location": "7:00–10:00 AM"
+    },
+    {
+      "date": "2026-09-21T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Monday, September 21",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-22T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Tuesday, September 22",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-23T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Wednesday, September 23",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-24T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Thursday, September 24",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-25T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Friday, September 25",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-26T07:00:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Saturday, September 26",
+      "location": "7:00–10:00 AM"
+    },
+    {
+      "date": "2026-09-28T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Monday, September 28",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-29T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Tuesday, September 29",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-30T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Wednesday, September 30",
+      "location": "3:30–6:00 PM"
     }
   ],
   "divePracticeSchedule": [
     {
       "date": "2026-08-17T16:00:00-05:00",
-      "displayDate": "AUG 17",
-      "displayTime": "MONDAY",
-      "title": "First Week — Monday",
+      "title": "Dive Practice",
       "label": "DIVE PRACTICE",
+      "meta": "Monday, August 17",
       "location": "4:00–5:30 PM"
     },
     {
       "date": "2026-08-18T08:30:00-05:00",
-      "displayDate": "AUG 18–20",
-      "displayTime": "TUE–THU",
-      "title": "First Week — Tuesday through Thursday",
+      "title": "Dive Practice",
       "label": "DOUBLE PRACTICES",
+      "meta": "Tuesday, August 18",
+      "location": "8:30–10:30 AM & 4:00–5:30 PM • Double practices"
+    },
+    {
+      "date": "2026-08-19T08:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DOUBLE PRACTICES",
+      "meta": "Wednesday, August 19",
+      "location": "8:30–10:30 AM & 4:00–5:30 PM • Double practices"
+    },
+    {
+      "date": "2026-08-20T08:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DOUBLE PRACTICES",
+      "meta": "Thursday, August 20",
       "location": "8:30–10:30 AM & 4:00–5:30 PM • Double practices"
     },
     {
       "date": "2026-08-21T08:30:00-05:00",
-      "displayDate": "AUG 21",
-      "displayTime": "FRIDAY",
-      "title": "First Week — Friday",
+      "title": "Dive Practice",
       "label": "DIVE PRACTICE",
+      "meta": "Friday, August 21",
       "location": "8:30–10:30 AM"
     },
     {
       "date": "2026-08-24T15:30:00-05:00",
-      "displayDate": "AUG 24–27",
-      "displayTime": "MON–THU",
-      "title": "Second Week — Monday through Thursday",
+      "title": "Dive Practice",
       "label": "DIVE PRACTICE",
+      "meta": "Monday, August 24",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-08-25T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Tuesday, August 25",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-08-26T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Wednesday, August 26",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-08-27T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Thursday, August 27",
       "location": "3:30–6:00 PM"
     },
     {
       "date": "2026-08-28T08:30:00-05:00",
-      "displayDate": "AUG 28",
-      "displayTime": "FRIDAY",
-      "title": "Second Week — Friday",
+      "title": "Dive Practice",
       "label": "DIVE PRACTICE",
+      "meta": "Friday, August 28",
       "location": "8:30–10:30 AM"
     },
     {
       "date": "2026-08-31T15:30:00-05:00",
-      "displayDate": "AUG 31–SEP 3",
-      "displayTime": "MON–THU",
-      "title": "Third Week — Monday through Thursday",
+      "title": "Dive Practice",
       "label": "DIVE PRACTICE",
+      "meta": "Monday, August 31",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-01T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Tuesday, September 1",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-02T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Wednesday, September 2",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-03T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Thursday, September 3",
       "location": "3:30–6:00 PM"
     },
     {
       "date": "2026-09-04T08:30:00-05:00",
-      "displayDate": "SEP 4",
-      "displayTime": "FRIDAY",
-      "title": "Third Week — Friday",
+      "title": "Dive Practice",
       "label": "DIVE PRACTICE",
+      "meta": "Friday, September 4",
       "location": "8:30–10:30 AM"
     },
     {
-      "date": "2026-09-07T15:30:00-05:00",
-      "displayDate": "STARTS SEP 7",
-      "displayTime": "MON–FRI",
-      "title": "Regular Weekly Schedule",
-      "label": "ONGOING DIVE PRACTICE",
-      "location": "Monday–Friday • 3:30–6:00 PM"
+      "date": "2026-09-07T12:00:00-05:00",
+      "title": "No Dive Practice — Labor Day",
+      "label": "HOLIDAY CLOSURE",
+      "meta": "Monday, September 7",
+      "location": "No practice. Enjoy the holiday!",
+      "displayTime": "NO PRACTICE"
+    },
+    {
+      "date": "2026-09-08T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Tuesday, September 8",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-09T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Wednesday, September 9",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-10T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Thursday, September 10",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-11T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Friday, September 11",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-14T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Monday, September 14",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-15T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Tuesday, September 15",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-16T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Wednesday, September 16",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-17T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Thursday, September 17",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-18T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Friday, September 18",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-21T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Monday, September 21",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-22T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Tuesday, September 22",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-23T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Wednesday, September 23",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-24T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Thursday, September 24",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-25T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Friday, September 25",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-28T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Monday, September 28",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-29T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Tuesday, September 29",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-30T15:30:00-05:00",
+      "title": "Dive Practice",
+      "label": "DIVE PRACTICE",
+      "meta": "Wednesday, September 30",
+      "location": "3:30–6:00 PM"
     }
   ],
   "meetSchedule": [
@@ -447,97 +763,97 @@ window.WHF_DATA = {
   "photoLinks": [],
   "photoFeedUrl": "https://script.google.com/macros/s/AKfycbxhRaTiG44m4EUwc4_YFVJ9JiYK6zBB-sTq18a9VtJOmcIOnUMtSfsAzkPT6f-1hxA46Q/exec",
   "teamRecords": [
-      {
-          "event": "200 Medley Relay",
-          "boysMoundWestonka": "M. Moorhead, D. Urwyler, C. Anderson, R. Strother — 1:40.50 ’13",
-          "girlsMoundWestonka": "C. Dueck, K. Johnston, C. Ness, J. Storm — 1:47.42 ’22",
-          "girlsHolyFamily": "C. Dueck, K. Johnston, C. Ness, J. Storm — 1:47.42 ’22",
-          "girlsPool": "C. Dueck, K. Johnston, C. Ness, J. Storm — 1:49.49 ’22"
-      },
-      {
-          "event": "200 Freestyle",
-          "boysMoundWestonka": "Josh Johnston — 1:48.86 ’21",
-          "girlsMoundWestonka": "Annemarie Johnson — 1:55.38 ’24",
-          "girlsHolyFamily": "Mackenzie Braden — 1:53.87 ’12",
-          "girlsPool": "Emma Kern (Delano) — 1:53.22 ’21"
-      },
-      {
-          "event": "200 Individual Medley",
-          "boysMoundWestonka": "Josh Johnston — 1:55.75 ’21",
-          "girlsMoundWestonka": "Mia Dongoske — 2:13.97 ’25",
-          "girlsHolyFamily": "Catherine Dueck — 2:03.22 ’23",
-          "girlsPool": "Catherine Dueck (MWHF) — 2:07.47 ’23"
-      },
-      {
-          "event": "50 Freestyle",
-          "boysMoundWestonka": "Josh Johnston — 21.60 ’21",
-          "girlsMoundWestonka": "Jaylyn Storm — 23.85 ’22",
-          "girlsHolyFamily": "Catherine Dueck — 24.76 ’21",
-          "girlsPool": "Grace Hanson (Hutchinson) — 23.88 ’20"
-      },
-      {
-          "event": "Diving - 6",
-          "boysMoundWestonka": "Tyler Jordahl — 237.95 ’13",
-          "girlsMoundWestonka": "Erica Johnson — 238.95 ’24",
-          "girlsHolyFamily": "Bailey Monette — 225.20 ’22",
-          "girlsPool": "—"
-      },
-      {
-          "event": "Diving - 11",
-          "boysMoundWestonka": "Tyler Jordahl — 410.80 ’13",
-          "girlsMoundWestonka": "Erica Johnson — 393.45 ’24",
-          "girlsHolyFamily": "Bailey Monette — 355.90 ’22",
-          "girlsPool": "—"
-      },
-      {
-          "event": "100 Butterfly",
-          "boysMoundWestonka": "Josh Johnston — 53.90 ’21",
-          "girlsMoundWestonka": "Annie Springer — 59.71 ’20",
-          "girlsHolyFamily": "Zella Lucas — 56.16 ’19",
-          "girlsPool": "Emma Kern (Delano) — 55.49 ’21"
-      },
-      {
-          "event": "100 Freestyle",
-          "boysMoundWestonka": "Bryce Helms — 48.39 ’24",
-          "girlsMoundWestonka": "Ashley Storm — 53.55 ’18",
-          "girlsHolyFamily": "Clare Simon — 52.75 ’15",
-          "girlsPool": "Grace Hanson (Hutchinson) — 52.17 ’20"
-      },
-      {
-          "event": "500 Freestyle",
-          "boysMoundWestonka": "Josh Johnston — 5:07.39 ’21",
-          "girlsMoundWestonka": "Annemarie Johnson — 5:14.12 ’24",
-          "girlsHolyFamily": "Zella Lucas — 5:04.18 ’19",
-          "girlsPool": "Hailey Farrell (Hutchinson) — 5:07.55 ’20"
-      },
-      {
-          "event": "200 Freestyle Relay",
-          "boysMoundWestonka": "M. Moorhead, D. Urwyler, C. Anderson, R. Strother — 1:30.38 ’13",
-          "girlsMoundWestonka": "J. Storm, K. Johnston, G. Warden, C. Dueck — 1:37.56 ’22",
-          "girlsHolyFamily": "J. Storm, K. Johnston, G. Warden, C. Dueck — 1:37.56 ’22",
-          "girlsPool": "E. Kern, J. Strobl (Delano), H. Wadholm, S. Benker — 1:40.03 ’21"
-      },
-      {
-          "event": "100 Backstroke",
-          "boysMoundWestonka": "Josh Johnston — 55.89 ’21",
-          "girlsMoundWestonka": "Richelle Fischer — 1:00.93 ’06",
-          "girlsHolyFamily": "Annabelle Elsner — 59.57 ’19",
-          "girlsPool": "Emma Kern (Delano) — 58.17 ’19"
-      },
-      {
-          "event": "100 Breaststroke",
-          "boysMoundWestonka": "Josh Johnston — 57.54 ’20",
-          "girlsMoundWestonka": "Kate Johnston — 1:04.83 ’21",
-          "girlsHolyFamily": "Catherine Dueck — 1:02.99 ’23",
-          "girlsPool": "Jordyn Wentzel (Delano) — 1:05.78 ’17"
-      },
-      {
-          "event": "400 Freestyle Relay",
-          "boysMoundWestonka": "K. Zhang, E. Pressman, H. Ness, J. Johnston — 3:25.14 ’20",
-          "girlsMoundWestonka": "A. Kittelson, A. Springer, E. Ries, Z. Lucas — 3:37.85 ’19",
-          "girlsHolyFamily": "A. Kittelson, A. Springer, E. Ries, Z. Lucas — 3:37.85 ’19",
-          "girlsPool": "K. Georges, S. Benker (Delano), J. Strobl, E. Kern — 3:37.84"
-      }
+    {
+      "event": "200 Medley Relay",
+      "boysMoundWestonka": "M. Moorhead, D. Urwyler, C. Anderson, R. Strother — 1:40.50 ’13",
+      "girlsMoundWestonka": "C. Dueck, K. Johnston, C. Ness, J. Storm — 1:47.42 ’22",
+      "girlsHolyFamily": "C. Dueck, K. Johnston, C. Ness, J. Storm — 1:47.42 ’22",
+      "girlsPool": "C. Dueck, K. Johnston, C. Ness, J. Storm — 1:49.49 ’22"
+    },
+    {
+      "event": "200 Freestyle",
+      "boysMoundWestonka": "Josh Johnston — 1:48.86 ’21",
+      "girlsMoundWestonka": "Annemarie Johnson — 1:55.38 ’24",
+      "girlsHolyFamily": "Mackenzie Braden — 1:53.87 ’12",
+      "girlsPool": "Emma Kern (Delano) — 1:53.22 ’21"
+    },
+    {
+      "event": "200 Individual Medley",
+      "boysMoundWestonka": "Josh Johnston — 1:55.75 ’21",
+      "girlsMoundWestonka": "Mia Dongoske — 2:13.97 ’25",
+      "girlsHolyFamily": "Catherine Dueck — 2:03.22 ’23",
+      "girlsPool": "Catherine Dueck (MWHF) — 2:07.47 ’23"
+    },
+    {
+      "event": "50 Freestyle",
+      "boysMoundWestonka": "Josh Johnston — 21.60 ’21",
+      "girlsMoundWestonka": "Jaylyn Storm — 23.85 ’22",
+      "girlsHolyFamily": "Catherine Dueck — 24.76 ’21",
+      "girlsPool": "Grace Hanson (Hutchinson) — 23.88 ’20"
+    },
+    {
+      "event": "Diving - 6",
+      "boysMoundWestonka": "Tyler Jordahl — 237.95 ’13",
+      "girlsMoundWestonka": "Erica Johnson — 238.95 ’24",
+      "girlsHolyFamily": "Bailey Monette — 225.20 ’22",
+      "girlsPool": "—"
+    },
+    {
+      "event": "Diving - 11",
+      "boysMoundWestonka": "Tyler Jordahl — 410.80 ’13",
+      "girlsMoundWestonka": "Erica Johnson — 393.45 ’24",
+      "girlsHolyFamily": "Bailey Monette — 355.90 ’22",
+      "girlsPool": "—"
+    },
+    {
+      "event": "100 Butterfly",
+      "boysMoundWestonka": "Josh Johnston — 53.90 ’21",
+      "girlsMoundWestonka": "Annie Springer — 59.71 ’20",
+      "girlsHolyFamily": "Zella Lucas — 56.16 ’19",
+      "girlsPool": "Emma Kern (Delano) — 55.49 ’21"
+    },
+    {
+      "event": "100 Freestyle",
+      "boysMoundWestonka": "Bryce Helms — 48.39 ’24",
+      "girlsMoundWestonka": "Ashley Storm — 53.55 ’18",
+      "girlsHolyFamily": "Clare Simon — 52.75 ’15",
+      "girlsPool": "Grace Hanson (Hutchinson) — 52.17 ’20"
+    },
+    {
+      "event": "500 Freestyle",
+      "boysMoundWestonka": "Josh Johnston — 5:07.39 ’21",
+      "girlsMoundWestonka": "Annemarie Johnson — 5:14.12 ’24",
+      "girlsHolyFamily": "Zella Lucas — 5:04.18 ’19",
+      "girlsPool": "Hailey Farrell (Hutchinson) — 5:07.55 ’20"
+    },
+    {
+      "event": "200 Freestyle Relay",
+      "boysMoundWestonka": "M. Moorhead, D. Urwyler, C. Anderson, R. Strother — 1:30.38 ’13",
+      "girlsMoundWestonka": "J. Storm, K. Johnston, G. Warden, C. Dueck — 1:37.56 ’22",
+      "girlsHolyFamily": "J. Storm, K. Johnston, G. Warden, C. Dueck — 1:37.56 ’22",
+      "girlsPool": "E. Kern, J. Strobl (Delano), H. Wadholm, S. Benker — 1:40.03 ’21"
+    },
+    {
+      "event": "100 Backstroke",
+      "boysMoundWestonka": "Josh Johnston — 55.89 ’21",
+      "girlsMoundWestonka": "Richelle Fischer — 1:00.93 ’06",
+      "girlsHolyFamily": "Annabelle Elsner — 59.57 ’19",
+      "girlsPool": "Emma Kern (Delano) — 58.17 ’19"
+    },
+    {
+      "event": "100 Breaststroke",
+      "boysMoundWestonka": "Josh Johnston — 57.54 ’20",
+      "girlsMoundWestonka": "Kate Johnston — 1:04.83 ’21",
+      "girlsHolyFamily": "Catherine Dueck — 1:02.99 ’23",
+      "girlsPool": "Jordyn Wentzel (Delano) — 1:05.78 ’17"
+    },
+    {
+      "event": "400 Freestyle Relay",
+      "boysMoundWestonka": "K. Zhang, E. Pressman, H. Ness, J. Johnston — 3:25.14 ’20",
+      "girlsMoundWestonka": "A. Kittelson, A. Springer, E. Ries, Z. Lucas — 3:37.85 ’19",
+      "girlsHolyFamily": "A. Kittelson, A. Springer, E. Ries, Z. Lucas — 3:37.85 ’19",
+      "girlsPool": "K. Georges, S. Benker (Delano), J. Strobl, E. Kern — 3:37.84"
+    }
   ],
   "accolades": []
 };

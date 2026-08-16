@@ -8,8 +8,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
-  <link rel="manifest" href="manifest.json?v=20260816-43">
-  <link rel="stylesheet" href="styles.css?v=20260816-43">
+  <link rel="manifest" href="manifest.json?v=20260816-44">
+  <link rel="stylesheet" href="styles.css?v=20260816-44">
   <link rel="icon" href="app-icon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -100,14 +100,34 @@
 
       <section class="screen" id="practice">
         <div class="screenTitle">Practice</div>
-        <div class="seasonLead practiceLead">
-          <div class="seasonLeadTop">PRACTICE SCHEDULE</div>
-          <h2>Practice Schedule</h2>
+        <div class="practiceIntro">
+          <div class="seasonLeadTop">WHF GIRLS SWIM &amp; DIVE</div>
+          <h2>Choose Your Practice Schedule</h2>
+          <p>Swim and dive follow different training schedules. Each schedule is clearly separated below.</p>
         </div>
-        <div class="scheduleTools">
-          <div class="scheduleStatus" id="practiceScheduleStatus">Practice schedule moves automatically based on the calendar.</div>
-        </div>
-        <div class="scheduleList" id="practiceScheduleList"></div>
+
+        <section class="practiceTrack swimPracticeTrack" aria-labelledby="swimPracticeTitle">
+          <div class="practiceTrackHeader">
+            <span class="practiceTrackTag">SWIM</span>
+            <div><h2 id="swimPracticeTitle">Swim Practice</h2><p>Pool training schedule</p></div>
+          </div>
+          <div class="scheduleTools">
+            <div class="scheduleStatus" id="practiceScheduleStatus">Swim practice schedule moves automatically based on the calendar.</div>
+          </div>
+          <div class="scheduleList" id="practiceScheduleList"></div>
+        </section>
+
+        <section class="practiceTrack divePracticeTrack" aria-labelledby="divePracticeTitle">
+          <div class="practiceTrackHeader">
+            <span class="practiceTrackTag">DIVE</span>
+            <div><h2 id="divePracticeTitle">Dive Practice</h2><p>Coach Sarah Neve's diving schedule</p></div>
+          </div>
+          <div class="practiceNotice"><strong>No Saturday practices</strong><span>Divers follow the week-by-week schedule below.</span></div>
+          <div class="scheduleTools">
+            <div class="scheduleStatus" id="divePracticeScheduleStatus">Dive practice schedule moves automatically based on the calendar.</div>
+          </div>
+          <div class="scheduleList" id="divePracticeScheduleList"></div>
+        </section>
       </section>
 
       <section class="screen" id="program">
@@ -260,7 +280,7 @@
     <button data-screen="program" onclick="showScreen('program')">Program</button>
   </nav>
 
-  <script src="data.js?v=20260816-43"></script>
-  <script src="app.js?v=20260816-43"></script>
+  <script src="data.js?v=20260816-44"></script>
+  <script src="app.js?v=20260816-44"></script>
 </body>
 </html>

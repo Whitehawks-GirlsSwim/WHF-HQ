@@ -4,9 +4,9 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "WHF team meeting still on August 12",
-    "body": "Westonka's official registration night has been cancelled, but WHF Girls Swim & Dive will still hold a team meeting Wednesday, August 12 at 5:00 PM in the pool.",
-    "updated": "August 4, 2026"
+    "title": "Volunteer sign-ups are live",
+    "body": "Sign-ups are now available for Saturday team breakfasts and home-meet volunteer roles, including timers, concessions, and Chuck a Duck.",
+    "updated": "August 16, 2026"
   },
   "keyDates": [
     {
@@ -321,6 +321,24 @@ window.WHF_DATA = {
     }
   ],
   "events": [
+    {
+      "accent": "green",
+      "title": "Saturday Team Breakfasts",
+      "date": "2026 Season",
+      "detail": "Volunteer families provide a healthy Saturday breakfast for the athletes after practice. Choose a date and sign up to bring beverages and fruit or a main breakfast item.",
+      "status": "upcoming",
+      "linkText": "Sign Up for Saturday Breakfasts",
+      "linkUrl": "https://www.signupgenius.com/go/10C0E4DA5AC28A0FB6-52289320-2024"
+    },
+    {
+      "accent": "red",
+      "title": "Home Meet Volunteers",
+      "date": "2026 Season",
+      "detail": "Sign up to help with timers, backup timing, concessions, or Chuck a Duck at WHF home meets.",
+      "status": "upcoming",
+      "linkText": "Sign Up for Home Meets",
+      "linkUrl": "https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-57207588-2025"
+    },
     {
       "accent": "split",
       "title": "Spirit of the Lakes Fundraiser",

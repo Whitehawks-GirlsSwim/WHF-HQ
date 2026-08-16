@@ -4,8 +4,8 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "Volunteer sign-ups are live",
-    "body": "Sign-ups are now available for Saturday team breakfasts and home-meet volunteer roles, including timers, concessions, and Chuck a Duck.",
+    "title": "Dive practice schedule added",
+    "body": "Swim and dive practices now have separate schedules in the Practice tab. Dive times are posted through the regular weekly schedule beginning September 7.",
     "updated": "August 16, 2026"
   },
   "keyDates": [
@@ -78,6 +78,72 @@ window.WHF_DATA = {
       "label": "PRACTICE",
       "meta": "Saturday, August 22",
       "location": "7:00–9:00 AM"
+    }
+  ],
+  "divePracticeSchedule": [
+    {
+      "date": "2026-08-17T16:00:00-05:00",
+      "displayDate": "AUG 17",
+      "displayTime": "MONDAY",
+      "title": "First Week — Monday",
+      "label": "DIVE PRACTICE",
+      "location": "4:00–5:30 PM"
+    },
+    {
+      "date": "2026-08-18T08:30:00-05:00",
+      "displayDate": "AUG 18–20",
+      "displayTime": "TUE–THU",
+      "title": "First Week — Tuesday through Thursday",
+      "label": "DOUBLE PRACTICES",
+      "location": "8:30–10:30 AM & 4:00–5:30 PM • Double practices"
+    },
+    {
+      "date": "2026-08-21T08:30:00-05:00",
+      "displayDate": "AUG 21",
+      "displayTime": "FRIDAY",
+      "title": "First Week — Friday",
+      "label": "DIVE PRACTICE",
+      "location": "8:30–10:30 AM"
+    },
+    {
+      "date": "2026-08-24T15:30:00-05:00",
+      "displayDate": "AUG 24–27",
+      "displayTime": "MON–THU",
+      "title": "Second Week — Monday through Thursday",
+      "label": "DIVE PRACTICE",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-08-28T08:30:00-05:00",
+      "displayDate": "AUG 28",
+      "displayTime": "FRIDAY",
+      "title": "Second Week — Friday",
+      "label": "DIVE PRACTICE",
+      "location": "8:30–10:30 AM"
+    },
+    {
+      "date": "2026-08-31T15:30:00-05:00",
+      "displayDate": "AUG 31–SEP 3",
+      "displayTime": "MON–THU",
+      "title": "Third Week — Monday through Thursday",
+      "label": "DIVE PRACTICE",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-04T08:30:00-05:00",
+      "displayDate": "SEP 4",
+      "displayTime": "FRIDAY",
+      "title": "Third Week — Friday",
+      "label": "DIVE PRACTICE",
+      "location": "8:30–10:30 AM"
+    },
+    {
+      "date": "2026-09-07T15:30:00-05:00",
+      "displayDate": "STARTS SEP 7",
+      "displayTime": "MON–FRI",
+      "title": "Regular Weekly Schedule",
+      "label": "ONGOING DIVE PRACTICE",
+      "location": "Monday–Friday • 3:30–6:00 PM"
     }
   ],
   "meetSchedule": [

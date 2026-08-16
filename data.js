@@ -320,7 +320,7 @@ window.WHF_DATA = {
       "logo": "sponsor-logos/align.png"
     }
   ],
-  "events": [
+  "volunteerCards": [
     {
       "accent": "green",
       "title": "Saturday Team Breakfasts",
@@ -338,7 +338,9 @@ window.WHF_DATA = {
       "status": "upcoming",
       "linkText": "Sign Up for Home Meets",
       "linkUrl": "https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-57207588-2025"
-    },
+    }
+  ],
+  "events": [
     {
       "accent": "split",
       "title": "Spirit of the Lakes Fundraiser",

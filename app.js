@@ -34,7 +34,41 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260816-52';
+const APP_RELEASE_KEY = '20260816-53';
+const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
+let appUpdateCheckInFlight = false;
+let appReloadScheduled = false;
+
+function reloadLatestApp() {
+  if (appReloadScheduled) return;
+  appReloadScheduled = true;
+  const url = new URL(window.location.href);
+  url.searchParams.set('appRefresh', Date.now().toString());
+  window.location.replace(url.toString());
+}
+
+async function checkForAppUpdate() {
+  if (appUpdateCheckInFlight || appReloadScheduled) return false;
+  appUpdateCheckInFlight = true;
+
+  try {
+    const response = await fetch(`index.html?appCheck=${Date.now()}`, { cache: 'no-store' });
+    if (!response.ok) return false;
+    const html = await response.text();
+    const liveRelease = html.match(/app\.js\?v=([^"'&\s<]+)/i)?.[1] || '';
+    if (liveRelease && liveRelease !== APP_RELEASE_KEY) {
+      showToast('Loading the latest WHF HQ update');
+      reloadLatestApp();
+      return true;
+    }
+  } catch (error) {
+    console.warn('App version check will retry shortly.', error);
+  } finally {
+    appUpdateCheckInFlight = false;
+  }
+
+  return false;
+}
 
 function loadAdminPreviewData() {
   const published = window.WHF_DATA || {};
@@ -853,31 +887,48 @@ function updatePullRefreshIndicator(distance = 0) {
   if (text) text.textContent = offset >= 58 ? 'Release to refresh' : 'Pull to refresh';
 }
 
+function playRefreshSound() {
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      const context = new AudioContextClass();
+      const now = context.currentTime;
+      [880, 1175].forEach((frequency, index) => {
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        const start = now + index * 0.075;
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(frequency, start);
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(0.11, start + 0.012);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.14);
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+        oscillator.start(start);
+        oscillator.stop(start + 0.15);
+      });
+      setTimeout(() => context.close().catch(() => {}), 500);
+    }
+    navigator.vibrate?.(12);
+  } catch (error) {
+    console.warn('Refresh sound is unavailable on this device.', error);
+  }
+}
+
 async function performPullRefresh() {
   if (pullRefreshInFlight) return;
+  playRefreshSound();
   const indicator = document.getElementById('pullRefresh');
   const text = document.getElementById('pullRefreshText');
   pullRefreshInFlight = true;
   indicator?.classList.add('visible', 'refreshing');
   indicator?.classList.remove('ready');
   indicator?.style.setProperty('--pull-distance', '68px');
-  if (text) text.textContent = 'Refreshing WHF HQ';
+  if (text) text.textContent = 'Loading latest WHF HQ';
 
   await Promise.allSettled([refreshPublishedData(), refreshApprovedPhotoFeed()]);
-  refreshAppFromData();
-  updateNavBadges();
-  if (text) text.textContent = 'You’re up to date';
-  indicator?.classList.remove('refreshing');
-  indicator?.classList.add('complete');
-  showToast('WHF HQ is up to date');
-
-  setTimeout(() => {
-    pullRefreshInFlight = false;
-    pullRefreshDistance = 0;
-    indicator?.classList.remove('visible', 'complete');
-    indicator?.style.setProperty('--pull-distance', '0px');
-    if (text) text.textContent = 'Pull to refresh';
-  }, 850);
+  showToast('Loading the latest WHF HQ update');
+  setTimeout(reloadLatestApp, 300);
 }
 
 function setupPullToRefresh() {
@@ -1299,18 +1350,25 @@ setupHomeTaps();
 setupNativeInteractions();
 buildAdminForms();
 renderAdminStatus();
+checkForAppUpdate();
 refreshPublishedData();
 refreshApprovedPhotoFeed();
 
 window.addEventListener('focus', () => {
+  checkForAppUpdate();
   refreshPublishedData();
   refreshApprovedPhotoFeed();
 });
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) {
+    checkForAppUpdate();
     refreshPublishedData();
     refreshApprovedPhotoFeed();
   }
 });
-setInterval(refreshPublishedData, 5 * 60 * 1000);
-setInterval(refreshApprovedPhotoFeed, 5 * 60 * 1000);
+setInterval(() => {
+  if (document.hidden) return;
+  checkForAppUpdate();
+  refreshPublishedData();
+  refreshApprovedPhotoFeed();
+}, LIVE_SYNC_INTERVAL_MS);

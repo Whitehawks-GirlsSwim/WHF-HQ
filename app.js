@@ -34,6 +34,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
+const APP_RELEASE_KEY = '20260816-51';
 
 function loadAdminPreviewData() {
   const published = window.WHF_DATA || {};
@@ -312,9 +313,19 @@ function updateNavBadges() {
     const button = document.querySelector(`.bottomNav button[data-screen="${id}"]`);
     button?.classList.toggle('hasUpdate', seen !== null && seen !== key);
   });
+
+  const homeButton = document.querySelector('.bottomNav button[data-screen="home"]');
+  const seenRelease = localStorage.getItem('whfSeen-appRelease');
+  homeButton?.classList.toggle('hasUpdate', seenRelease !== APP_RELEASE_KEY);
 }
 
 function markScreenSeen(id) {
+  if (id === 'home') {
+    localStorage.setItem('whfSeen-appRelease', APP_RELEASE_KEY);
+    document.querySelector('.bottomNav button[data-screen="home"]')?.classList.remove('hasUpdate');
+    return;
+  }
+
   const key = contentKeyForScreen(id);
   if (!key) return;
   localStorage.setItem(`whfSeen-${id}`, key);
@@ -375,13 +386,23 @@ function getSeasonItems() {
   return [...dateItems, ...meetItems].sort((a, b) => new Date(a.date) - new Date(b.date));
 }
 
+function eventDayEnd(item) {
+  const end = new Date(item.date);
+  end.setHours(23, 59, 59, 999);
+  return end;
+}
+
+function isPastScheduleItem(item, now = new Date()) {
+  return eventDayEnd(item).getTime() < now.getTime();
+}
+
 function getNextSeasonItem(now = new Date()) {
-  return getSeasonItems().find(item => new Date(item.date).getTime() + 3 * 60 * 60 * 1000 >= now.getTime()) || null;
+  return getSeasonItems().find(item => !isPastScheduleItem(item, now)) || null;
 }
 
 function getNextMeet(now = new Date()) {
   const sorted = [...meetSchedule].sort((a, b) => new Date(a.date) - new Date(b.date));
-  return sorted.find(event => new Date(event.date).getTime() + 3 * 60 * 60 * 1000 >= now.getTime()) || null;
+  return sorted.find(event => !isPastScheduleItem(event, now)) || null;
 }
 
 function renderTodayPanel() {
@@ -426,14 +447,14 @@ function renderHomeAlerts() {
   const storeCard = parentCards.find(item => /team store/i.test(item.title || ''));
   const store = DATA.teamStore || {};
   const alerts = [];
-  const storeDeadline = new Date('2026-07-29T00:00:00-05:00');
+  const storeDeadline = new Date(store.deadline || '2026-10-16T00:00:00-05:00');
 
   if (store.url && new Date() < storeDeadline) {
     alerts.push({
       accent: 'red',
-      eyebrow: 'CLOSING SOON',
-      title: `${store.vendor || 'Elsmore Team Store'} closes July 28`,
-      body: `Final ordering window: ${store.windowTwo || 'July 21 - July 28'}.`,
+      eyebrow: 'TEAM STORE OPEN',
+      title: 'WHF spirit wear is available',
+      body: `Order from ${store.vendor || 'the team store'} through ${store.deadlineLabel || 'mid-October'}.`,
       linkText: storeCard?.linkText || 'Shop Team Store',
       linkUrl: store.url
     });
@@ -615,10 +636,10 @@ function renderCombinedScheduleLegacy() {
   list.innerHTML = seasonItems.map((event, index) => {
     const date = new Date(event.date);
     const isNext = nextKey === itemKey(event);
-    const isPast = date.getTime() + 3 * 60 * 60 * 1000 < now.getTime();
+    const isPast = isPastScheduleItem(event, now);
     const accent = index % 2 === 0 ? 'greenAccent' : 'redAccent';
     const stateClass = isNext ? ' currentEvent' : isPast ? ' pastEvent' : '';
-    const badge = isNext ? '<div class="scheduleBadge">NEXT UP</div>' : '';
+    const badge = isNext ? '<div class="scheduleBadge">NEXT UP</div>' : isPast ? '<div class="scheduleBadge completedBadge">COMPLETED</div>' : '';
     const title = event.title || event.opponent;
     const detail = event.type === 'keyDate'
       ? `${event.label || 'IMPORTANT DATE'} • ${event.location || 'Details coming soon'}`
@@ -644,7 +665,7 @@ function renderSeparatedScheduleList(listId, statusId, scheduleItems, kind) {
   if (!list) return;
   const now = new Date();
   const sorted = [...scheduleItems].sort((a, b) => new Date(a.date) - new Date(b.date));
-  const next = sorted.find(item => new Date(item.date).getTime() + 3 * 60 * 60 * 1000 >= now.getTime()) || null;
+  const next = sorted.find(item => !isPastScheduleItem(item, now)) || null;
   const nextKey = next ? `${next.date}|${next.title || next.opponent}` : '';
   const practiceKind = kind === 'practice' || kind === 'dive';
   const kindLabel = kind === 'dive' ? 'dive practice' : kind === 'practice' ? 'swim practice' : 'meet';
@@ -652,9 +673,9 @@ function renderSeparatedScheduleList(listId, statusId, scheduleItems, kind) {
   list.innerHTML = sorted.map((event, index) => {
     const date = new Date(event.date);
     const isNext = nextKey === `${event.date}|${event.title || event.opponent}`;
-    const isPast = date.getTime() + 3 * 60 * 60 * 1000 < now.getTime();
+    const isPast = isPastScheduleItem(event, now);
     const stateClass = isNext ? ' currentEvent' : isPast ? ' pastEvent' : '';
-    const badge = isNext ? `<div class="scheduleBadge">NEXT ${kindLabel.toUpperCase()}</div>` : '';
+    const badge = isNext ? `<div class="scheduleBadge">NEXT ${kindLabel.toUpperCase()}</div>` : isPast ? '<div class="scheduleBadge completedBadge">COMPLETED</div>' : '';
     const title = event.title || event.opponent;
     const detail = practiceKind
       ? (event.location || 'Practice details coming soon')

@@ -615,27 +615,28 @@ button:focus-visible,a:focus-visible,.tappablePanel:focus-visible{outline:3px so
 @media (max-width:460px){.practiceTrack{padding:12px}.practiceNotice{align-items:flex-start;flex-direction:column}.practiceNotice span{text-align:left}}
 
 
-/* Phone-safe bottom navigation: full labels remain readable and swipeable */
+/* Six-button phone navigation: every primary tab stays visible */
 @media (max-width:719px){
   .bottomNav{
-    display:flex !important;
-    grid-template-columns:none !important;
-    justify-content:flex-start;
-    overflow-x:auto;
-    overflow-y:hidden;
-    scroll-snap-type:x proximity;
-    scroll-padding-inline:8px;
-    overscroll-behavior-x:contain;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
+    display:grid !important;
+    grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+    overflow:hidden;
+    gap:2px;
   }
-  .bottomNav::-webkit-scrollbar{display:none}
   .bottomNav button{
-    flex:0 0 76px;
-    min-width:76px;
+    min-width:0;
+    width:auto;
     white-space:nowrap;
-    scroll-snap-align:center;
-    padding-left:4px;
-    padding-right:4px;
+    padding-left:1px;
+    padding-right:1px;
+    font-size:8px;
   }
 }
+
+/* Permanent Home volunteer entry point */
+.homeVolunteerCard{width:100%;margin-top:14px;padding:18px;text-align:left;color:#fff;border:1px solid transparent;border-radius:18px;background:linear-gradient(#101015,#101015) padding-box,linear-gradient(90deg,var(--red),var(--green)) border-box;box-shadow:0 10px 26px rgba(0,0,0,.24);cursor:pointer}
+.homeVolunteerCard:active{transform:scale(.985)}
+.homeVolunteerEyebrow{display:block;margin-bottom:8px;color:var(--muted);font-size:10px;font-weight:950;letter-spacing:1.25px}
+.homeVolunteerCard strong{display:block;font-size:20px;font-weight:950;letter-spacing:.2px}
+.homeVolunteerCard small{display:block;margin-top:6px;color:var(--muted);font-size:13px;line-height:1.4}
+.homeVolunteerAction{display:inline-block;margin-top:14px;padding:10px 13px;color:#050505;background:#fff;border-radius:11px;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.45px}

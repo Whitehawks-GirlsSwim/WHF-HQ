@@ -8,8 +8,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
-  <link rel="manifest" href="manifest.json?v=20260816-49">
-  <link rel="stylesheet" href="styles.css?v=20260816-49">
+  <link rel="manifest" href="manifest.json?v=20260816-50">
+  <link rel="stylesheet" href="styles.css?v=20260816-50">
   <link rel="icon" href="app-icon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -56,6 +56,12 @@
         </section>
         <section class="latestUpdate" id="latestUpdate" aria-label="Latest app update" hidden></section>
         <section class="homeAlerts" id="homeAlerts" aria-label="Important dates"></section>
+        <button class="homeVolunteerCard" type="button" onclick="showScreen('volunteers')" aria-label="Open volunteer sign-ups">
+          <span class="homeVolunteerEyebrow">VOLUNTEER SIGN-UPS</span>
+          <strong>Help the Team</strong>
+          <small>Saturday breakfasts and home-meet volunteer roles.</small>
+          <span class="homeVolunteerAction">View Sign-Ups</span>
+        </button>
       </section>
 
       <section class="screen" id="spirit">
@@ -64,7 +70,10 @@
       </section>
 
       <section class="screen" id="volunteers">
-        <div class="screenTitle">Volunteers</div>
+        <div class="photoScreenHeader">
+          <button type="button" onclick="showScreen('home')" aria-label="Back to Home">←</button>
+          <div class="screenTitle">Volunteers</div>
+        </div>
         <div id="volunteerCards"></div>
       </section>
 
@@ -274,13 +283,12 @@
     <button class="active" data-screen="home" onclick="showScreen('home')">Home</button>
     <button data-screen="meets" onclick="showScreen('meets')">Meets</button>
     <button data-screen="practice" onclick="showScreen('practice')">Practice</button>
-    <button data-screen="volunteers" onclick="showScreen('volunteers')">Volunteers</button>
     <button data-screen="spirit" onclick="showScreen('spirit')">Events</button>
     <button data-screen="parents" onclick="showScreen('parents')">Parents</button>
     <button data-screen="program" onclick="showScreen('program')">Program</button>
   </nav>
 
-  <script src="data.js?v=20260816-49"></script>
-  <script src="app.js?v=20260816-49"></script>
+  <script src="data.js?v=20260816-50"></script>
+  <script src="app.js?v=20260816-50"></script>
 </body>
 </html>

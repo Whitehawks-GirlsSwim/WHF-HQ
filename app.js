@@ -469,7 +469,7 @@ function renderLatestUpdate() {
     <span class="latestUpdateTop"><b class="latestUpdateBadge"${seen ? ' hidden' : ''}>NEW</b><time>${escapeHtml(item.updated || 'Recently updated')}</time></span>
     <strong>${escapeHtml(item.title || 'WHF HQ update')}</strong>
     <span class="latestUpdateBody">${escapeHtml(item.body || 'New team information is available.')}</span>
-    <span class="latestUpdateAction">See what changed <i aria-hidden="true">›</i></span>
+    <span class="latestUpdateAction">${escapeHtml(item.actionText || 'See what changed')} <i aria-hidden="true">›</i></span>
   </button>`;
 }
 
@@ -480,6 +480,10 @@ function openLatestUpdate(trigger) {
   localStorage.setItem('whfSeen-latestUpdate', key);
   trigger?.classList.remove('isNew');
   trigger?.querySelector('.latestUpdateBadge')?.setAttribute('hidden', '');
+  if (item.targetScreen) {
+    showScreen(item.targetScreen);
+    return;
+  }
   openDetailSheet({
     eyebrow: 'WHAT\'S NEW',
     title: item.title || 'WHF HQ update',

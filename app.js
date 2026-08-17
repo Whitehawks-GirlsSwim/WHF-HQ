@@ -34,7 +34,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260816-53';
+const APP_RELEASE_KEY = '20260816-54';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -887,29 +887,40 @@ function updatePullRefreshIndicator(distance = 0) {
   if (text) text.textContent = offset >= 58 ? 'Release to refresh' : 'Pull to refresh';
 }
 
+let refreshAudioContext = null;
+
+function scheduleRefreshChime(context) {
+  const now = context.currentTime + 0.02;
+  [880, 1175].forEach((frequency, index) => {
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    const start = now + index * 0.085;
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(frequency, start);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(0.18, start + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.17);
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+    oscillator.start(start);
+    oscillator.stop(start + 0.18);
+  });
+}
+
 function playRefreshSound() {
   try {
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     if (AudioContextClass) {
-      const context = new AudioContextClass();
-      const now = context.currentTime;
-      [880, 1175].forEach((frequency, index) => {
-        const oscillator = context.createOscillator();
-        const gain = context.createGain();
-        const start = now + index * 0.075;
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(frequency, start);
-        gain.gain.setValueAtTime(0.0001, start);
-        gain.gain.exponentialRampToValueAtTime(0.11, start + 0.012);
-        gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.14);
-        oscillator.connect(gain);
-        gain.connect(context.destination);
-        oscillator.start(start);
-        oscillator.stop(start + 0.15);
-      });
-      setTimeout(() => context.close().catch(() => {}), 500);
+      refreshAudioContext = refreshAudioContext || new AudioContextClass();
+      if (refreshAudioContext.state === 'suspended') {
+        refreshAudioContext.resume()
+          .then(() => scheduleRefreshChime(refreshAudioContext))
+          .catch(error => console.warn('Refresh sound could not start.', error));
+      } else {
+        scheduleRefreshChime(refreshAudioContext);
+      }
     }
-    navigator.vibrate?.(12);
+    navigator.vibrate?.([12, 35, 12]);
   } catch (error) {
     console.warn('Refresh sound is unavailable on this device.', error);
   }
@@ -1372,3 +1383,4 @@ setInterval(() => {
   refreshPublishedData();
   refreshApprovedPhotoFeed();
 }, LIVE_SYNC_INTERVAL_MS);
+

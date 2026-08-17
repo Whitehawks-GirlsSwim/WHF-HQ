@@ -33,7 +33,7 @@ let homeAlertItems = [];
 let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
-const screenOrder = ['home', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
+const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
 
 function loadAdminPreviewData() {
   const published = window.WHF_DATA || {};
@@ -139,7 +139,8 @@ function showScreen(id) {
 
   const commit = () => {
     screens.forEach(screen => screen.classList.toggle('active', screen.id === id));
-    navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.screen === id));
+    const navScreen = id === 'volunteers' ? 'home' : id;
+    navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.screen === navScreen));
     updateNavIndicator();
     markScreenSeen(id);
   };

@@ -4,8 +4,8 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "September practice schedules are live",
-    "body": "Swim and dive practices are now listed day by day. There is no practice on Labor Day, Monday, September 7.",
+    "title": "Crumbl fundraiser is live",
+    "body": "Support WHF Swim & Dive by purchasing a digital Crumbl gift card. A portion of every purchase helps fund team equipment and the new scoreboard.",
     "updated": "August 16, 2026"
   },
   "keyDates": [
@@ -723,6 +723,15 @@ window.WHF_DATA = {
     }
   ],
   "events": [
+    {
+      "accent": "green",
+      "title": "Crumbl Gift Card Fundraiser",
+      "date": "Open Now",
+      "detail": "Buy a digital Crumbl gift card and a portion of every purchase comes directly back to WHF Swim & Dive for equipment and the new scoreboard. Gift cards arrive by email immediately and work at any Crumbl location. Pay with Venmo, credit card, PayPal, or Apple Pay.",
+      "status": "upcoming",
+      "linkText": "Support the Team",
+      "linkUrl": "https://successfund.com/kyxwj"
+    },
     {
       "accent": "split",
       "title": "Spirit of the Lakes Fundraiser",

@@ -575,6 +575,7 @@ window.WHF_DATA = {
       "accent": "green",
       "title": "WHF Team Meeting",
       "body": "Wednesday, August 12 at 5:00 PM in the pool. Westonka's official registration night has been cancelled, but the WHF team meeting will still be held.",
+      "pastAfter": "2026-08-13T00:00:00-05:00",
       "linkText": "",
       "linkUrl": ""
     },
@@ -582,6 +583,7 @@ window.WHF_DATA = {
       "accent": "red",
       "title": "First Practice",
       "body": "Monday, August 17 • 7:00–9:00 AM & 4:00–5:30 PM.",
+      "pastAfter": "2026-08-18T00:00:00-05:00",
       "linkText": "",
       "linkUrl": ""
     }

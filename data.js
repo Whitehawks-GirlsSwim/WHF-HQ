@@ -6,7 +6,9 @@ window.WHF_DATA = {
   "latestUpdate": {
     "title": "Crumbl fundraiser is live",
     "body": "Support WHF Swim & Dive by purchasing a digital Crumbl gift card. A portion of every purchase helps fund team equipment and the new scoreboard.",
-    "updated": "August 16, 2026"
+    "updated": "August 16, 2026",
+    "actionText": "View Fundraiser",
+    "targetScreen": "spirit"
   },
   "keyDates": [
     {

@@ -326,6 +326,11 @@ function updateNavIndicator() {
   if (!indicator || !active) return;
   indicator.style.width = `${active.offsetWidth}px`;
   indicator.style.transform = `translateX(${active.offsetLeft}px)`;
+  const nav = active.closest('.bottomNav');
+  if (nav && nav.scrollWidth > nav.clientWidth) {
+    const centeredLeft = active.offsetLeft - (nav.clientWidth - active.offsetWidth) / 2;
+    nav.scrollTo({ left: Math.max(0, centeredLeft), behavior: 'smooth' });
+  }
 }
 
 function updateConnectionState() {
@@ -480,6 +485,11 @@ function openLatestUpdate(trigger) {
   localStorage.setItem('whfSeen-latestUpdate', key);
   trigger?.classList.remove('isNew');
   trigger?.querySelector('.latestUpdateBadge')?.setAttribute('hidden', '');
+  if (item.linkUrl) {
+    window.open(item.linkUrl, '_blank', 'noopener');
+    showToast('Opening Crumbl fundraiser…');
+    return;
+  }
   if (item.targetScreen) {
     showScreen(item.targetScreen);
     return;

@@ -613,3 +613,29 @@ button:focus-visible,a:focus-visible,.tappablePanel:focus-visible{outline:3px so
 .practiceNotice strong{color:#fff;font-size:12px;font-weight:950;text-transform:uppercase;letter-spacing:.6px}
 .practiceNotice span{color:var(--muted);font-size:11px;text-align:right;line-height:1.3}
 @media (max-width:460px){.practiceTrack{padding:12px}.practiceNotice{align-items:flex-start;flex-direction:column}.practiceNotice span{text-align:left}}
+
+
+/* Phone-safe bottom navigation: full labels remain readable and swipeable */
+@media (max-width:719px){
+  .bottomNav{
+    display:flex !important;
+    grid-template-columns:none !important;
+    justify-content:flex-start;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x proximity;
+    scroll-padding-inline:8px;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .bottomNav::-webkit-scrollbar{display:none}
+  .bottomNav button{
+    flex:0 0 76px;
+    min-width:76px;
+    white-space:nowrap;
+    scroll-snap-align:center;
+    padding-left:4px;
+    padding-right:4px;
+  }
+}

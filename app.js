@@ -19,8 +19,18 @@ DATA.meetSchedule = meetSchedule;
 let keyDates = DATA.keyDates || [];
 let divePracticeSchedule = DATA.divePracticeSchedule || [];
 let initialSponsors = DATA.sponsors || [];
-let approvedPhotoFeed = [];
+function loadSavedPhotoFeed() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('whfApprovedPhotoFeed') || '[]');
+    return Array.isArray(saved) ? saved.filter(item => item && item.status !== 'pending') : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+let approvedPhotoFeed = loadSavedPhotoFeed();
 let approvedPhotoFeedInFlight = false;
+let approvedPhotoFeedLoaded = approvedPhotoFeed.length > 0;
 let photoViewerItems = [];
 let activePhotoIndex = 0;
 let photoSwipeStartX = null;
@@ -35,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260816-55';
+const APP_RELEASE_KEY = '20260816-56';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -146,9 +156,10 @@ async function refreshApprovedPhotoFeed() {
     if (!response.ok) return;
 
     const payload = await response.json();
-    const fresh = Array.isArray(payload.photoLinks)
-      ? payload.photoLinks.filter(item => item && item.status !== 'pending')
-      : [];
+    if (!Array.isArray(payload.photoLinks)) throw new Error('Photo feed returned an invalid response.');
+    const fresh = payload.photoLinks.filter(item => item && item.status !== 'pending');
+    approvedPhotoFeedLoaded = true;
+    localStorage.setItem('whfApprovedPhotoFeed', JSON.stringify(fresh));
 
     if (JSON.stringify(fresh) !== JSON.stringify(approvedPhotoFeed)) {
       approvedPhotoFeed = fresh;
@@ -828,15 +839,18 @@ function renderProgram() {
     photoViewerItems = items.map(item => String(item.imageUrl || '').trim()).filter(Boolean);
     const albums = [...new Set(items.map(item => item.album || 'Team Highlights'))];
     const gallerySummary = document.getElementById('photoGallerySummary');
+    const photosLoading = !approvedPhotoFeedLoaded && !items.length;
     if (gallerySummary) gallerySummary.textContent = items.length
       ? `${items.length} approved photo${items.length === 1 ? '' : 's'}`
-      : 'Approved team photos in one place.';
+      : photosLoading ? 'Loading approved photos…' : 'Approved team photos in one place.';
     photos.innerHTML = items.length ? albums.map(album => `<section class="photoAlbum"><div class="sectionLabel">${escapeHtml(album)}</div><div class="photoGallery">${items.filter(item => (item.album || 'Team Highlights') === album).map(item => {
       const imageUrl = escapeHtml(item.imageUrl || '');
       const photoIndex = photoViewerItems.indexOf(String(item.imageUrl || '').trim());
       const image = imageUrl ? `<div class="photoImage"><img src="${imageUrl}" alt="Team photo" loading="lazy"></div>` : `<div class="photoPlaceholder"><span>WHF</span></div>`;
       return imageUrl ? `<button class="photoGalleryCard" type="button" onclick="openPhotoViewer(${photoIndex})" aria-label="Open team photo">${image}</button>` : `<article class="photoGalleryCard">${image}</article>`;
-    }).join('')}</div></section>`).join('') : `<div class="photoApprovalNote"><strong>Approved photos will appear here</strong><span>Submissions stay private until the team approves them for an album.</span></div>`;
+    }).join('')}</div></section>`).join('') : photosLoading
+      ? `<div class="photoApprovalNote"><strong>Loading approved photos</strong><span>Your last successful gallery stays saved on this device for future refreshes.</span></div>`
+      : `<div class="photoApprovalNote"><strong>Approved photos will appear here</strong><span>Submissions stay private until the team approves them for an album.</span></div>`;
   }
 }
 
@@ -1404,5 +1418,4 @@ setInterval(() => {
   refreshPublishedData();
   refreshApprovedPhotoFeed();
 }, LIVE_SYNC_INTERVAL_MS);
-
 

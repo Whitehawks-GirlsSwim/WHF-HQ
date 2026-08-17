@@ -650,3 +650,7 @@ button:focus-visible,a:focus-visible,.tappablePanel:focus-visible{outline:3px so
 
 .card.pastCard{opacity:.46;filter:grayscale(.45)}
 .cardStatus{display:inline-block;margin-bottom:9px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.1);color:var(--muted);font-size:9px;font-weight:950;letter-spacing:1px}
+
+/* Home pull-to-refresh support */
+#home,#home *{touch-action:pan-y!important}
+#home img{-webkit-user-drag:none;user-select:none}

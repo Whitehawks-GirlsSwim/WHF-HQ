@@ -28,13 +28,14 @@ let pullRefreshStartX = null;
 let pullRefreshStartY = null;
 let pullRefreshDistance = 0;
 let pullRefreshInFlight = false;
+let pullRefreshCuePlayed = false;
 let activeRecordGroup = 'girlsMoundWestonka';
 let homeAlertItems = [];
 let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260816-54';
+const APP_RELEASE_KEY = '20260816-55';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -889,6 +890,19 @@ function updatePullRefreshIndicator(distance = 0) {
 
 let refreshAudioContext = null;
 
+function unlockRefreshAudio() {
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    refreshAudioContext = refreshAudioContext || new AudioContextClass();
+    if (refreshAudioContext.state === 'suspended') {
+      refreshAudioContext.resume().catch(() => {});
+    }
+  } catch (error) {
+    console.warn('Refresh audio could not be unlocked.', error);
+  }
+}
+
 function scheduleRefreshChime(context) {
   const now = context.currentTime + 0.02;
   [880, 1175].forEach((frequency, index) => {
@@ -928,7 +942,7 @@ function playRefreshSound() {
 
 async function performPullRefresh() {
   if (pullRefreshInFlight) return;
-  playRefreshSound();
+  if (!pullRefreshCuePlayed) playRefreshSound();
   const indicator = document.getElementById('pullRefresh');
   const text = document.getElementById('pullRefreshText');
   pullRefreshInFlight = true;
@@ -949,6 +963,8 @@ function setupPullToRefresh() {
     pullRefreshStartX = event.touches[0].clientX;
     pullRefreshStartY = event.touches[0].clientY;
     pullRefreshDistance = 0;
+    pullRefreshCuePlayed = false;
+    unlockRefreshAudio();
   }, { passive: true });
 
   document.addEventListener('touchmove', event => {
@@ -967,6 +983,10 @@ function setupPullToRefresh() {
     }
     pullRefreshDistance = Math.min(76, vertical * .55);
     updatePullRefreshIndicator(pullRefreshDistance);
+    if (pullRefreshDistance >= 58 && !pullRefreshCuePlayed) {
+      pullRefreshCuePlayed = true;
+      playRefreshSound();
+    }
     if (vertical > 8) event.preventDefault();
   }, { passive: false });
 
@@ -978,6 +998,7 @@ function setupPullToRefresh() {
     if (shouldRefresh) performPullRefresh();
     else {
       pullRefreshDistance = 0;
+      pullRefreshCuePlayed = false;
       updatePullRefreshIndicator(0);
     }
   };
@@ -1383,4 +1404,5 @@ setInterval(() => {
   refreshPublishedData();
   refreshApprovedPhotoFeed();
 }, LIVE_SYNC_INTERVAL_MS);
+
 

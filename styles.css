@@ -647,3 +647,6 @@ button:focus-visible,a:focus-visible,.tappablePanel:focus-visible{outline:3px so
 .homeVolunteerAction{display:inline-block;margin-top:14px;padding:10px 13px;color:#050505;background:#fff;border-radius:11px;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.45px}
 
 .scheduleBadge.completedBadge{color:var(--muted);border-bottom-color:transparent;background:rgba(255,255,255,.08);padding:5px 8px;border-radius:999px}
+
+.card.pastCard{opacity:.46;filter:grayscale(.45)}
+.cardStatus{display:inline-block;margin-bottom:9px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.1);color:var(--muted);font-size:9px;font-weight:950;letter-spacing:1px}

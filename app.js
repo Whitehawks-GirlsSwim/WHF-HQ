@@ -486,8 +486,7 @@ function openLatestUpdate(trigger) {
   trigger?.classList.remove('isNew');
   trigger?.querySelector('.latestUpdateBadge')?.setAttribute('hidden', '');
   if (item.linkUrl) {
-    window.open(item.linkUrl, '_blank', 'noopener');
-    showToast('Opening Crumbl fundraiser…');
+    window.location.href = item.linkUrl;
     return;
   }
   if (item.targetScreen) {

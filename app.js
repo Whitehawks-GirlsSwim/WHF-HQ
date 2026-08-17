@@ -34,7 +34,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260816-51';
+const APP_RELEASE_KEY = '20260816-52';
 
 function loadAdminPreviewData() {
   const published = window.WHF_DATA || {};
@@ -526,6 +526,9 @@ function openLatestUpdate(trigger) {
 function cardHtml(item, idx = 0) {
   const accent = item.accent || (idx % 2 === 0 ? 'green' : 'red');
   const cls = accent === 'split' ? 'split' : accent === 'red' ? 'red' : 'green';
+  const isPast = item.pastAfter ? new Date(item.pastAfter).getTime() < Date.now() : false;
+  const pastClass = isPast ? ' pastCard' : '';
+  const pastBadge = isPast ? '<span class="cardStatus">COMPLETED</span>' : '';
   const detail = item.body || item.detail || '';
   const date = item.date ? `<p><b>${escapeHtml(item.date)}</b></p>` : '';
   let link = '';
@@ -534,7 +537,7 @@ function cardHtml(item, idx = 0) {
   } else if (item.linkUrl) {
     link = `<a class="link" href="${escapeHtml(item.linkUrl)}" target="_blank" rel="noopener" data-toast="Opening link…">${escapeHtml(item.linkText || 'View Details')}</a>`;
   }
-  return `<div class="card ${cls}"><h3>${escapeHtml(item.title || item.name || 'Untitled')}</h3>${date}<p>${escapeHtml(detail)}</p>${link}</div>`;
+  return `<div class="card ${cls}${pastClass}">${pastBadge}<h3>${escapeHtml(item.title || item.name || 'Untitled')}</h3>${date}<p>${escapeHtml(detail)}</p>${link}</div>`;
 }
 
 function renderPageCards() {

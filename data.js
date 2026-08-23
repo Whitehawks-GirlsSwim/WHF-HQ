@@ -4,11 +4,11 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "Crumbl fundraiser is live",
-    "body": "Support WHF Swim & Dive by purchasing a digital Crumbl gift card. A portion of every purchase helps fund team equipment and the new scoreboard.",
-    "updated": "August 16, 2026",
-    "actionText": "Support the Team",
-    "linkUrl": "https://successfund.com/kyxwj"
+    "title": "Complete swim practice schedule added",
+    "body": "The daily swim schedule now includes August 24 through September 30, with the correct Friday and Saturday morning times before Labor Day and the Labor Day closure clearly marked.",
+    "updated": "August 23, 2026",
+    "actionText": "View Practice Schedule",
+    "targetScreen": "practice"
   },
   "keyDates": [
     {
@@ -79,6 +79,90 @@ window.WHF_DATA = {
       "title": "Practice",
       "label": "PRACTICE",
       "meta": "Saturday, August 22",
+      "location": "7:00–9:00 AM"
+    },
+    {
+      "date": "2026-08-24T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Monday, August 24",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-08-25T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Tuesday, August 25",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-08-26T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Wednesday, August 26",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-08-27T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Thursday, August 27",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-08-28T07:00:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Friday, August 28",
+      "location": "7:00–9:00 AM"
+    },
+    {
+      "date": "2026-08-29T07:00:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Saturday, August 29",
+      "location": "7:00–9:00 AM"
+    },
+    {
+      "date": "2026-08-31T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Monday, August 31",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-01T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Tuesday, September 1",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-02T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Wednesday, September 2",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-03T15:30:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Thursday, September 3",
+      "location": "3:30–6:00 PM"
+    },
+    {
+      "date": "2026-09-04T07:00:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Friday, September 4",
+      "location": "7:00–9:00 AM"
+    },
+    {
+      "date": "2026-09-05T07:00:00-05:00",
+      "title": "Swim Practice",
+      "label": "PRACTICE",
+      "meta": "Saturday, September 5",
       "location": "7:00–9:00 AM"
     },
     {

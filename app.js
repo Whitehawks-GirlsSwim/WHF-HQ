@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260824-59';
+const APP_RELEASE_KEY = '20260824-60';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -864,9 +864,9 @@ function buildWeeklyEmailDraft(now = new Date()) {
 
 function emailWeeklyUpdate() {
   const draft = buildWeeklyEmailDraft();
-  const mailto = `mailto:?subject=${encodeURIComponent(draft.subject)}&body=${encodeURIComponent(draft.body)}`;
-  showToast('Opening your booster email draft…');
-  window.location.href = mailto;
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=${encodeURIComponent(draft.subject)}&body=${encodeURIComponent(draft.body)}`;
+  showToast('Opening your Gmail draft…');
+  window.location.assign(gmailUrl);
 }
 
 function renderSchedule() {

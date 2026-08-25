@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260824-60';
+const APP_RELEASE_KEY = '20260824-61';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -768,6 +768,43 @@ function weeklyEmailRangeLabel(start, end) {
   return `${startLabel}–${endLabel}`;
 }
 
+function cleanVolunteerNeed(value = '') {
+  const text = String(value).trim().replace(/\.$/, '');
+  if (/^both$/i.test(text)) return 'Beverages/fruit and a main breakfast item';
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+function formatVolunteerNeeds(detail = '') {
+  let text = String(detail).trim();
+  let updated = '';
+  const prefix = text.match(/^Open as of ([^:]+):\s*/i);
+  if (prefix) {
+    updated = prefix[1];
+    text = text.slice(prefix[0].length);
+  }
+
+  const lines = [];
+  text.split(';').map(item => item.trim()).filter(Boolean).forEach(item => {
+    const clause = item.replace(/\.$/, '');
+    const paired = clause.match(/^([A-Za-z]+ \d+) and ([A-Za-z]+ \d+) each need (.+)$/i);
+    if (paired) {
+      lines.push('• ' + paired[1] + ': ' + cleanVolunteerNeed(paired[3]));
+      lines.push('• ' + paired[2] + ': ' + cleanVolunteerNeed(paired[3]));
+      return;
+    }
+
+    const dated = clause.match(/^([A-Za-z]+ \d+) needs? (.+)$/i);
+    if (dated) {
+      lines.push('• ' + dated[1] + ': ' + cleanVolunteerNeed(dated[2]));
+      return;
+    }
+
+    lines.push('• ' + clause);
+  });
+
+  return { updated, lines };
+}
+
 function buildWeeklyEmailDraft(now = new Date()) {
   const { start, end } = getWeeklyEmailRange(now);
   const rangeLabel = weeklyEmailRangeLabel(start, end);
@@ -775,35 +812,58 @@ function buildWeeklyEmailDraft(now = new Date()) {
   const activeEvents = (DATA.events || []).filter(item => item.status !== 'completed' && item.title !== weekly.title);
   const volunteerNeeds = (DATA.volunteerCards || []).filter(item => item.status !== 'completed');
   const boosterContact = (DATA.teamContacts || []).find(item => /booster president/i.test(item.role || '')) || {};
-  const cleanAppUrl = `${window.location.origin}${window.location.pathname}`;
+  const cleanAppUrl = window.location.origin + window.location.pathname;
+  const divider = '━━━━━━━━━━━━━━━━━━━━';
+  const nextMeet = getNextMeet(now);
   const sections = [
     'Hello everyone,',
     '',
-    'I hope you all had a wonderful weekend!',
+    'I hope everyone is doing well!',
     '',
-    'I wanted to send out a few quick Booster Club reminders and updates for the week.',
+    'Here are the latest WHF Girls Swim & Dive Booster Club updates, upcoming events, and volunteer needs.',
     '',
-    '---',
-    '',
-    'BOOSTER CLUB UPDATE',
+    divider,
+    '📣 BOOSTER CLUB UPDATE',
+    divider,
     '',
     weekly.title || 'WHF Booster Club Update',
     '',
     weekly.body || 'Visit WHF-HQ for the latest Booster Club information.',
-    '',
-    '---',
-    '',
-    'UPCOMING EVENTS & FUNDRAISERS',
     ''
   ];
 
+  if (nextMeet) {
+    const meetDate = new Date(nextMeet.date);
+    const meetDay = meetDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    const meetTime = nextMeet.displayTime || meetDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    sections.push(
+      divider,
+      '🏊 NEXT MEET',
+      divider,
+      '',
+      nextMeet.opponent || nextMeet.title || 'Upcoming Meet',
+      '',
+      '📅 ' + meetDay + ' • ' + meetTime,
+      '🏅 ' + (nextMeet.level || 'JV & Varsity'),
+      '📍 ' + (nextMeet.location || 'Location details coming soon'),
+      ''
+    );
+  }
+
+  sections.push(
+    divider,
+    '💰 UPCOMING EVENTS & FUNDRAISERS',
+    divider,
+    ''
+  );
+
   if (activeEvents.length) {
     activeEvents.forEach(item => {
-      sections.push(item.title.toUpperCase());
-      if (item.date) sections.push(item.date);
+      sections.push('📌 ' + item.title);
+      if (item.date) sections.push('📅 ' + item.date);
       sections.push('');
       if (item.detail || item.body) sections.push(item.detail || item.body);
-      if (item.linkUrl) sections.push('', item.linkUrl);
+      if (item.linkUrl) sections.push('', '🔗 ' + (item.linkText || 'More information') + ': ' + item.linkUrl);
       sections.push('', '');
     });
   } else {
@@ -811,38 +871,42 @@ function buildWeeklyEmailDraft(now = new Date()) {
   }
 
   sections.push(
-    '---',
+    divider,
+    '🙋 VOLUNTEER SIGN-UPS',
+    divider,
     '',
-    'VOLUNTEER SIGN-UPS',
-    '',
-    'Parent volunteers are extremely important to running our home meets and team activities, and we truly appreciate everyone helping throughout the season.',
+    'Parent volunteers make our home meets and team activities possible. Thank you for helping wherever you can!',
     ''
   );
 
   if (volunteerNeeds.length) {
     volunteerNeeds.forEach(item => {
-      sections.push(item.title.toUpperCase(), '');
-      if (item.detail || item.body) sections.push(item.detail || item.body);
-      if (item.linkUrl) sections.push('', item.linkUrl);
+      const formatted = formatVolunteerNeeds(item.detail || item.body || '');
+      const icon = /breakfast/i.test(item.title || '') ? '🥞' : /meet/i.test(item.title || '') ? '⏱️' : '✅';
+      sections.push(icon + ' ' + item.title.toUpperCase());
+      if (formatted.updated) sections.push('Updated ' + formatted.updated);
+      sections.push('');
+      if (formatted.lines.length) sections.push(...formatted.lines);
+      if (item.linkUrl) sections.push('', '🔗 ' + (item.linkText || 'Sign up') + ': ' + item.linkUrl);
       sections.push('', '');
     });
-    sections.push('Please take a look at both sign-ups and grab any open spots that work for your schedule.', '');
+    sections.push('Please choose any open spots that work for your schedule. Every volunteer makes a difference!', '');
   } else {
     sections.push('There are no open volunteer needs currently listed.', '');
   }
 
   sections.push(
-    '---',
+    divider,
+    '📱 WHF-HQ',
+    divider,
     '',
-    'WHF-HQ',
+    'All of these updates and links are available in WHF-HQ throughout the season.',
     '',
-    'All of the information and links included in this email are also available in WHF-HQ for easy access throughout the season.',
+    'Open WHF-HQ: ' + cleanAppUrl,
     '',
-    `Please continue to use WHF-HQ as your central place for volunteer links, fundraising updates, Booster Club events, and other important team information: ${cleanAppUrl}`,
+    divider,
     '',
-    '---',
-    '',
-    'Thank you again for all of your support. As always, please reach out with any questions!',
+    'Thank you again for supporting our swimmers, divers, coaches, and team!',
     '',
     'Go White Hawks!',
     '',
@@ -857,7 +921,7 @@ function buildWeeklyEmailDraft(now = new Date()) {
   if (boosterContact.phone) sections.push(boosterContact.phone);
 
   return {
-    subject: `WHF Girls Swim & Dive Booster Update — ${rangeLabel}`,
+    subject: 'WHF Girls Swim & Dive Booster Update — ' + rangeLabel,
     body: sections.join('\n')
   };
 }

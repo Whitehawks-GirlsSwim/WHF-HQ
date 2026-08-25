@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260824-58';
+const APP_RELEASE_KEY = '20260824-59';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -750,6 +750,7 @@ function eventDateLabel(event, date) {
 }
 
 
+
 function getWeeklyEmailRange(now = new Date()) {
   const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const daysFromMonday = (start.getDay() + 6) % 7;
@@ -771,51 +772,92 @@ function buildWeeklyEmailDraft(now = new Date()) {
   const { start, end } = getWeeklyEmailRange(now);
   const rangeLabel = weeklyEmailRangeLabel(start, end);
   const weekly = DATA.weeklyUpdate || {};
-  const activeEvents = (DATA.events || []).filter(item => item.status !== 'completed');
+  const activeEvents = (DATA.events || []).filter(item => item.status !== 'completed' && item.title !== weekly.title);
   const volunteerNeeds = (DATA.volunteerCards || []).filter(item => item.status !== 'completed');
+  const boosterContact = (DATA.teamContacts || []).find(item => /booster president/i.test(item.role || '')) || {};
   const cleanAppUrl = `${window.location.origin}${window.location.pathname}`;
   const sections = [
-    'WHF GIRLS SWIM & DIVE BOOSTER CLUB',
-    `WEEKLY UPDATE — ${rangeLabel.toUpperCase()}`,
+    'Hello everyone,',
     '',
-    'BOOSTER NEWS',
-    weekly.title || 'WHF Booster Club update',
-    weekly.body || 'Visit WHF HQ for the latest booster information.'
+    'I hope you all had a wonderful weekend!',
+    '',
+    'I wanted to send out a few quick Booster Club reminders and updates for the week.',
+    '',
+    '---',
+    '',
+    'BOOSTER CLUB UPDATE',
+    '',
+    weekly.title || 'WHF Booster Club Update',
+    '',
+    weekly.body || 'Visit WHF-HQ for the latest Booster Club information.',
+    '',
+    '---',
+    '',
+    'UPCOMING EVENTS & FUNDRAISERS',
+    ''
   ];
 
-  sections.push('', 'EVENTS & FUNDRAISERS');
   if (activeEvents.length) {
     activeEvents.forEach(item => {
-      sections.push(`• ${item.title}${item.date ? ` — ${item.date}` : ''}`);
+      sections.push(item.title.toUpperCase());
+      if (item.date) sections.push(item.date);
+      sections.push('');
       if (item.detail || item.body) sections.push(item.detail || item.body);
-      if (item.linkUrl) sections.push(item.linkUrl);
+      if (item.linkUrl) sections.push('', item.linkUrl);
+      sections.push('', '');
     });
   } else {
-    sections.push('No booster events or fundraisers are currently listed.');
-  }
-
-  sections.push('', 'VOLUNTEER NEEDS');
-  if (volunteerNeeds.length) {
-    volunteerNeeds.forEach(item => {
-      sections.push(`• ${item.title}`);
-      if (item.detail || item.body) sections.push(item.detail || item.body);
-      if (item.linkUrl) sections.push(item.linkUrl);
-    });
-  } else {
-    sections.push('No open volunteer needs are currently listed.');
+    sections.push('There are no additional Booster Club events or fundraisers currently listed.', '');
   }
 
   sections.push(
+    '---',
     '',
-    'Practice schedules and changes will continue to come directly from the coaches.',
+    'VOLUNTEER SIGN-UPS',
     '',
-    `Full booster details, event links, and volunteer sign-ups: ${cleanAppUrl}`,
-    '',
-    'Go Whitehawks!'
+    'Parent volunteers are extremely important to running our home meets and team activities, and we truly appreciate everyone helping throughout the season.',
+    ''
   );
 
+  if (volunteerNeeds.length) {
+    volunteerNeeds.forEach(item => {
+      sections.push(item.title.toUpperCase(), '');
+      if (item.detail || item.body) sections.push(item.detail || item.body);
+      if (item.linkUrl) sections.push('', item.linkUrl);
+      sections.push('', '');
+    });
+    sections.push('Please take a look at both sign-ups and grab any open spots that work for your schedule.', '');
+  } else {
+    sections.push('There are no open volunteer needs currently listed.', '');
+  }
+
+  sections.push(
+    '---',
+    '',
+    'WHF-HQ',
+    '',
+    'All of the information and links included in this email are also available in WHF-HQ for easy access throughout the season.',
+    '',
+    `Please continue to use WHF-HQ as your central place for volunteer links, fundraising updates, Booster Club events, and other important team information: ${cleanAppUrl}`,
+    '',
+    '---',
+    '',
+    'Thank you again for all of your support. As always, please reach out with any questions!',
+    '',
+    'Go White Hawks!',
+    '',
+    '--',
+    '',
+    boosterContact.name || 'Bob Dongoske',
+    boosterContact.role || 'Booster President',
+    'Westonka Holy Family Girls Swim & Dive'
+  );
+
+  if (boosterContact.email) sections.push(boosterContact.email);
+  if (boosterContact.phone) sections.push(boosterContact.phone);
+
   return {
-    subject: `WHF Booster Weekly Update — ${rangeLabel}`,
+    subject: `WHF Girls Swim & Dive Booster Update — ${rangeLabel}`,
     body: sections.join('\n')
   };
 }
@@ -1474,6 +1516,7 @@ setupHomeTaps();
 setupNativeInteractions();
 buildAdminForms();
 renderAdminStatus();
+if (new URLSearchParams(window.location.search).get('admin') === '1') showScreen('admin');
 checkForAppUpdate();
 refreshPublishedData();
 refreshApprovedPhotoFeed();

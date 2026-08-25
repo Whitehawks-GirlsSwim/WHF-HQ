@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260824-61';
+const APP_RELEASE_KEY = '20260824-62';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -770,8 +770,16 @@ function weeklyEmailRangeLabel(start, end) {
 
 function cleanVolunteerNeed(value = '') {
   const text = String(value).trim().replace(/\.$/, '');
-  if (/^both$/i.test(text)) return 'Beverages/fruit and a main breakfast item';
-  return text.charAt(0).toUpperCase() + text.slice(1);
+  const expanded = /^both$/i.test(text) ? 'beverages/fruit and a main breakfast item' : text;
+  return expanded.charAt(0).toUpperCase() + expanded.slice(1);
+}
+
+function splitVolunteerNeedItems(value = '') {
+  return cleanVolunteerNeed(value)
+    .split(/,\s*(?:and\s+)?|\s+and\s+/i)
+    .map(item => item.trim())
+    .filter(Boolean)
+    .map(item => item.charAt(0).toUpperCase() + item.slice(1));
 }
 
 function formatVolunteerNeeds(detail = '') {
@@ -783,50 +791,54 @@ function formatVolunteerNeeds(detail = '') {
     text = text.slice(prefix[0].length);
   }
 
-  const lines = [];
+  const entries = [];
   text.split(';').map(item => item.trim()).filter(Boolean).forEach(item => {
     const clause = item.replace(/\.$/, '');
     const paired = clause.match(/^([A-Za-z]+ \d+) and ([A-Za-z]+ \d+) each need (.+)$/i);
     if (paired) {
-      lines.push('• ' + paired[1] + ': ' + cleanVolunteerNeed(paired[3]));
-      lines.push('• ' + paired[2] + ': ' + cleanVolunteerNeed(paired[3]));
+      entries.push({ date: paired[1], needs: splitVolunteerNeedItems(paired[3]) });
+      entries.push({ date: paired[2], needs: splitVolunteerNeedItems(paired[3]) });
       return;
     }
 
     const dated = clause.match(/^([A-Za-z]+ \d+) needs? (.+)$/i);
     if (dated) {
-      lines.push('• ' + dated[1] + ': ' + cleanVolunteerNeed(dated[2]));
+      entries.push({ date: dated[1], needs: splitVolunteerNeedItems(dated[2]) });
       return;
     }
 
-    lines.push('• ' + clause);
+    entries.push({ date: '', needs: [clause] });
   });
 
-  return { updated, lines };
+  return { updated, entries };
 }
 
 function buildWeeklyEmailDraft(now = new Date()) {
   const { start, end } = getWeeklyEmailRange(now);
   const rangeLabel = weeklyEmailRangeLabel(start, end);
   const weekly = DATA.weeklyUpdate || {};
-  const activeEvents = (DATA.events || []).filter(item => item.status !== 'completed' && item.title !== weekly.title);
+  const activeEvents = (DATA.events || []).filter(item =>
+    item.status !== 'completed' &&
+    item.title !== weekly.title &&
+    !/^TBD$/i.test(String(item.date || '').trim()) &&
+    !/waiting on confirmation/i.test(item.detail || item.body || '')
+  );
   const volunteerNeeds = (DATA.volunteerCards || []).filter(item => item.status !== 'completed');
   const boosterContact = (DATA.teamContacts || []).find(item => /booster president/i.test(item.role || '')) || {};
   const cleanAppUrl = window.location.origin + window.location.pathname;
-  const divider = '━━━━━━━━━━━━━━━━━━━━';
   const nextMeet = getNextMeet(now);
+  const firstScheduledMeet = [...meetSchedule].sort((a, b) => new Date(a.date) - new Date(b.date))[0] || null;
+  const isSeasonOpener = Boolean(nextMeet && firstScheduledMeet && nextMeet.date === firstScheduledMeet.date);
   const sections = [
     'Hello everyone,',
     '',
-    'I hope everyone is doing well!',
+    'I hope you’re all doing well!',
     '',
-    'Here are the latest WHF Girls Swim & Dive Booster Club updates, upcoming events, and volunteer needs.',
+    'I wanted to share a few important WHF Girls Swim & Dive reminders and Booster Club updates.',
     '',
-    divider,
-    '📣 BOOSTER CLUB UPDATE',
-    divider,
+    '---',
     '',
-    weekly.title || 'WHF Booster Club Update',
+    '📣 ' + (weekly.title || 'Booster Club Update'),
     '',
     weekly.body || 'Visit WHF-HQ for the latest Booster Club information.',
     ''
@@ -836,46 +848,54 @@ function buildWeeklyEmailDraft(now = new Date()) {
     const meetDate = new Date(nextMeet.date);
     const meetDay = meetDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
     const meetTime = nextMeet.displayTime || meetDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    const meetName = nextMeet.opponent || nextMeet.title || 'Upcoming Meet';
+
     sections.push(
-      divider,
-      '🏊 NEXT MEET',
-      divider,
+      '---',
       '',
-      nextMeet.opponent || nextMeet.title || 'Upcoming Meet',
-      '',
-      '📅 ' + meetDay + ' • ' + meetTime,
-      '🏅 ' + (nextMeet.level || 'JV & Varsity'),
-      '📍 ' + (nextMeet.location || 'Location details coming soon'),
+      (isSeasonOpener ? '🏊 First Meet of the Season – ' : '🏊 Next Meet – ') + meetName,
       ''
     );
+
+    if (isSeasonOpener) {
+      sections.push(
+        'The 2026 season officially kicks off this Saturday at the Tim Daly Invitational!',
+        '',
+        'Let’s fill the stands, bring the energy, and cheer on our swimmers and divers as they begin another exciting WHF season.',
+        ''
+      );
+    }
+
+    sections.push(
+      'Date: ' + meetDay,
+      'Time: ' + meetTime,
+      'Teams: ' + (nextMeet.level || 'JV & Varsity'),
+      'Location: ' + (nextMeet.location || 'Location details coming soon'),
+      ''
+    );
+
+    if (isSeasonOpener) sections.push('Let’s go White Hawks!', '');
   }
 
-  sections.push(
-    divider,
-    '💰 UPCOMING EVENTS & FUNDRAISERS',
-    divider,
-    ''
-  );
-
-  if (activeEvents.length) {
-    activeEvents.forEach(item => {
-      sections.push('📌 ' + item.title);
-      if (item.date) sections.push('📅 ' + item.date);
-      sections.push('');
-      if (item.detail || item.body) sections.push(item.detail || item.body);
-      if (item.linkUrl) sections.push('', '🔗 ' + (item.linkText || 'More information') + ': ' + item.linkUrl);
-      sections.push('', '');
-    });
-  } else {
-    sections.push('There are no additional Booster Club events or fundraisers currently listed.', '');
-  }
+  activeEvents.forEach(item => {
+    const eventIcon = /crumbl/i.test(item.title || '') ? '🍪' : /culver/i.test(item.title || '') ? '🍔' : '📅';
+    sections.push(
+      '---',
+      '',
+      eventIcon + ' ' + item.title,
+      ''
+    );
+    if (item.date) sections.push(item.date, '');
+    if (item.detail || item.body) sections.push(item.detail || item.body, '');
+    if (item.linkUrl) sections.push(item.linkUrl, '');
+  });
 
   sections.push(
-    divider,
-    '🙋 VOLUNTEER SIGN-UPS',
-    divider,
+    '---',
     '',
-    'Parent volunteers make our home meets and team activities possible. Thank you for helping wherever you can!',
+    '🙋 Volunteer Sign-Ups',
+    '',
+    'Our home meets and Saturday breakfasts depend on parent volunteers. Please review the open needs below and sign up for any spots that work for your family.',
     ''
   );
 
@@ -883,45 +903,53 @@ function buildWeeklyEmailDraft(now = new Date()) {
     volunteerNeeds.forEach(item => {
       const formatted = formatVolunteerNeeds(item.detail || item.body || '');
       const icon = /breakfast/i.test(item.title || '') ? '🥞' : /meet/i.test(item.title || '') ? '⏱️' : '✅';
-      sections.push(icon + ' ' + item.title.toUpperCase());
-      if (formatted.updated) sections.push('Updated ' + formatted.updated);
-      sections.push('');
-      if (formatted.lines.length) sections.push(...formatted.lines);
-      if (item.linkUrl) sections.push('', '🔗 ' + (item.linkText || 'Sign up') + ': ' + item.linkUrl);
-      sections.push('', '');
+      sections.push(icon + ' ' + item.title, '');
+      if (formatted.updated) sections.push('Open spots as of ' + formatted.updated + ':', '');
+
+      formatted.entries.forEach(entry => {
+        if (entry.date) sections.push('• ' + entry.date);
+        entry.needs.forEach(need => sections.push('  - ' + need));
+        sections.push('');
+      });
+
+      if (item.linkUrl) sections.push(item.linkUrl, '');
     });
-    sections.push('Please choose any open spots that work for your schedule. Every volunteer makes a difference!', '');
   } else {
     sections.push('There are no open volunteer needs currently listed.', '');
   }
 
   sections.push(
-    divider,
+    'Thank you to everyone who has already signed up. We truly appreciate your help!',
+    '',
+    '---',
+    '',
     '📱 WHF-HQ',
-    divider,
     '',
-    'All of these updates and links are available in WHF-HQ throughout the season.',
+    'All of the information and links included in this email are also available in WHF-HQ for easy access throughout the season.',
     '',
-    'Open WHF-HQ: ' + cleanAppUrl,
+    cleanAppUrl,
     '',
-    divider,
+    '---',
     '',
-    'Thank you again for supporting our swimmers, divers, coaches, and team!',
+    'Thank you again for all of your support. As always, please reach out with any questions!',
     '',
     'Go White Hawks!',
     '',
     '--',
     '',
     boosterContact.name || 'Bob Dongoske',
+    '',
     boosterContact.role || 'Booster President',
-    'Westonka Holy Family Girls Swim & Dive'
+    'Westonka Holy Family Girls Swim & Dive',
+    '',
+    boosterContact.email || 'mwhfswimdivegirls@gmail.com',
+    boosterContact.phone || '952-261-2807'
   );
 
-  if (boosterContact.email) sections.push(boosterContact.email);
-  if (boosterContact.phone) sections.push(boosterContact.phone);
-
   return {
-    subject: 'WHF Girls Swim & Dive Booster Update — ' + rangeLabel,
+    subject: isSeasonOpener
+      ? 'WHF Girls Swim & Dive — First Meet of the Season This Saturday!'
+      : 'WHF Girls Swim & Dive Booster Update — ' + rangeLabel,
     body: sections.join('\n')
   };
 }

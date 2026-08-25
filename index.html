@@ -8,8 +8,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
-  <link rel="manifest" href="manifest.json?v=20260824-58">
-  <link rel="stylesheet" href="styles.css?v=20260824-58">
+  <link rel="manifest" href="manifest.json?v=20260824-59">
+  <link rel="stylesheet" href="styles.css?v=20260824-59">
   <link rel="icon" href="app-icon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -86,15 +86,6 @@
 
       <section class="screen" id="booster">
         <div class="screenTitle">Booster Club</div>
-        <section aria-labelledby="weeklyEmailTitle">
-          <div class="sectionLabel">Weekly Parent Communication</div>
-          <div class="card split">
-            <h3 id="weeklyEmailTitle">Build This Week’s Booster Email</h3>
-            <p>Creates a ready-to-send draft with booster news, events, fundraisers, and current volunteer openings. Practice updates remain with the coaches.</p>
-            <button class="inlineLink" type="button" onclick="emailWeeklyUpdate()">Create Email Draft</button>
-            <p><small>The recipient line stays blank. No parent email addresses are stored in WHF HQ.</small></p>
-          </div>
-        </section>
         <div id="boosterCards"></div>
       </section>
 
@@ -208,6 +199,16 @@
       <section class="screen" id="admin">
         <div class="screenTitle">Admin</div>
 
+        <section aria-labelledby="weeklyEmailTitle">
+          <div class="sectionLabel">Weekly Parent Communication</div>
+          <div class="card split">
+            <h3 id="weeklyEmailTitle">Build This Week’s Booster Email</h3>
+            <p>Creates a ready-to-send email in Bob’s usual format using current Booster Club news, events, fundraisers, and volunteer openings.</p>
+            <button class="inlineLink" type="button" onclick="emailWeeklyUpdate()">Create Email Draft</button>
+            <p><small>The recipient line stays blank. No parent email addresses are stored in WHF-HQ.</small></p>
+          </div>
+        </section>
+
         <div class="adminDashboard" id="adminDashboard">
           <div class="adminDashCard splitAccent">
             <span>STATUS</span>
@@ -297,8 +298,8 @@
     <button data-screen="program" onclick="showScreen('program')">Program</button>
   </nav>
 
-  <script src="data.js?v=20260824-58"></script>
-  <script src="app.js?v=20260824-58"></script>
+  <script src="data.js?v=20260824-59"></script>
+  <script src="app.js?v=20260824-59"></script>
 </body>
 </html>
 

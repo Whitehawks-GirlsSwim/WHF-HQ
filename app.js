@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260823-57';
+const APP_RELEASE_KEY = '20260824-58';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -747,6 +747,84 @@ function renderSeparatedScheduleList(listId, statusId, scheduleItems, kind) {
 
 function eventDateLabel(event, date) {
   return `${event.displayDate || formatDate(date)} • ${event.displayTime || formatTime(date)}`;
+}
+
+
+function getWeeklyEmailRange(now = new Date()) {
+  const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const daysFromMonday = (start.getDay() + 6) % 7;
+  start.setDate(start.getDate() - daysFromMonday);
+  const end = new Date(start);
+  end.setDate(start.getDate() + 6);
+  end.setHours(23, 59, 59, 999);
+  return { start, end };
+}
+
+function weeklyEmailRangeLabel(start, end) {
+  const sameMonth = start.getMonth() === end.getMonth();
+  const startLabel = start.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+  const endLabel = end.toLocaleDateString('en-US', sameMonth ? { day: 'numeric' } : { month: 'long', day: 'numeric' });
+  return `${startLabel}–${endLabel}`;
+}
+
+function buildWeeklyEmailDraft(now = new Date()) {
+  const { start, end } = getWeeklyEmailRange(now);
+  const rangeLabel = weeklyEmailRangeLabel(start, end);
+  const weekly = DATA.weeklyUpdate || {};
+  const activeEvents = (DATA.events || []).filter(item => item.status !== 'completed');
+  const volunteerNeeds = (DATA.volunteerCards || []).filter(item => item.status !== 'completed');
+  const cleanAppUrl = `${window.location.origin}${window.location.pathname}`;
+  const sections = [
+    'WHF GIRLS SWIM & DIVE BOOSTER CLUB',
+    `WEEKLY UPDATE — ${rangeLabel.toUpperCase()}`,
+    '',
+    'BOOSTER NEWS',
+    weekly.title || 'WHF Booster Club update',
+    weekly.body || 'Visit WHF HQ for the latest booster information.'
+  ];
+
+  sections.push('', 'EVENTS & FUNDRAISERS');
+  if (activeEvents.length) {
+    activeEvents.forEach(item => {
+      sections.push(`• ${item.title}${item.date ? ` — ${item.date}` : ''}`);
+      if (item.detail || item.body) sections.push(item.detail || item.body);
+      if (item.linkUrl) sections.push(item.linkUrl);
+    });
+  } else {
+    sections.push('No booster events or fundraisers are currently listed.');
+  }
+
+  sections.push('', 'VOLUNTEER NEEDS');
+  if (volunteerNeeds.length) {
+    volunteerNeeds.forEach(item => {
+      sections.push(`• ${item.title}`);
+      if (item.detail || item.body) sections.push(item.detail || item.body);
+      if (item.linkUrl) sections.push(item.linkUrl);
+    });
+  } else {
+    sections.push('No open volunteer needs are currently listed.');
+  }
+
+  sections.push(
+    '',
+    'Practice schedules and changes will continue to come directly from the coaches.',
+    '',
+    `Full booster details, event links, and volunteer sign-ups: ${cleanAppUrl}`,
+    '',
+    'Go Whitehawks!'
+  );
+
+  return {
+    subject: `WHF Booster Weekly Update — ${rangeLabel}`,
+    body: sections.join('\n')
+  };
+}
+
+function emailWeeklyUpdate() {
+  const draft = buildWeeklyEmailDraft();
+  const mailto = `mailto:?subject=${encodeURIComponent(draft.subject)}&body=${encodeURIComponent(draft.body)}`;
+  showToast('Opening your booster email draft…');
+  window.location.href = mailto;
 }
 
 function renderSchedule() {

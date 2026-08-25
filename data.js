@@ -4,11 +4,16 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "Complete swim practice schedule added",
-    "body": "The daily swim schedule now includes August 24 through September 30, with the correct Friday and Saturday morning times before Labor Day and the Labor Day closure clearly marked.",
-    "updated": "August 23, 2026",
-    "actionText": "View Practice Schedule",
-    "targetScreen": "practice"
+    "title": "First Booster Club meeting — August 27",
+    "body": "Join us at 6:00 PM at Caribou Coffee in Navarre, Minnesota. Booster families are welcome.",
+    "updated": "August 24, 2026",
+    "actionText": "View Events",
+    "targetScreen": "spirit"
+  },
+  "weeklyUpdate": {
+    "title": "First Booster Club Meeting",
+    "body": "Our first booster meeting is Thursday, August 27 at 6:00 PM at Caribou Coffee in Navarre, Minnesota.",
+    "updated": "August 24, 2026"
   },
   "keyDates": [
     {
@@ -795,7 +800,7 @@ window.WHF_DATA = {
       "accent": "green",
       "title": "Saturday Team Breakfasts",
       "date": "2026 Season",
-      "detail": "Volunteer families provide a healthy Saturday breakfast for the athletes after practice. Choose a date and sign up to bring beverages and fruit or a main breakfast item.",
+      "detail": "Open as of August 24: September 5 needs beverages/fruit and a main breakfast item; September 12 needs beverages/fruit; September 19 and September 26 each need both; October 3 needs a main breakfast item.",
       "status": "upcoming",
       "linkText": "Sign Up for Saturday Breakfasts",
       "linkUrl": "https://www.signupgenius.com/go/10C0E4DA5AC28A0FB6-52289320-2024"
@@ -804,13 +809,22 @@ window.WHF_DATA = {
       "accent": "red",
       "title": "Home Meet Volunteers",
       "date": "2026 Season",
-      "detail": "Sign up to help with timers, backup timing, concessions, or Chuck a Duck at WHF home meets.",
+      "detail": "Open as of August 24: September 10 needs 10 timers and 2 Chuck A Duck volunteers; September 22 needs 10 timers, 1 swim-parent concessions volunteer, and 2 Chuck A Duck volunteers; October 1 needs 11 timers and 2 Chuck A Duck volunteers; October 22 needs 10 timers and 2 Chuck A Duck volunteers.",
       "status": "upcoming",
       "linkText": "Sign Up for Home Meets",
       "linkUrl": "https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-57207588-2025"
     }
   ],
   "events": [
+    {
+      "accent": "split",
+      "title": "First Booster Club Meeting",
+      "date": "Thursday, August 27 • 6:00 PM",
+      "detail": "Meet at Caribou Coffee in Navarre, Minnesota. Booster families are welcome.",
+      "status": "upcoming",
+      "linkText": "",
+      "linkUrl": ""
+    },
     {
       "accent": "green",
       "title": "Crumbl Gift Card Fundraiser",

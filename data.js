@@ -11,9 +11,9 @@ window.WHF_DATA = {
     "targetScreen": "spirit"
   },
   "weeklyUpdate": {
-    "title": "First Booster Club Meeting",
-    "body": "Our first booster meeting is Thursday, August 27 at 6:00 PM at Caribou Coffee in Navarre, Minnesota.",
-    "updated": "August 24, 2026"
+    "title": "Next Booster Club Meeting",
+    "body": "Our next booster meeting is Tuesday, September 15. Time and location are being finalized.",
+    "updated": "August 31, 2026"
   },
   "keyDates": [
     {
@@ -575,7 +575,7 @@ window.WHF_DATA = {
     {
       "date": "2026-09-22T18:00:00-05:00",
       "level": "JV & Varsity",
-      "opponent": "vs Orono",
+      "opponent": "Senior Night / Pack the Pool — vs Orono",
       "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
     },
     {
@@ -609,10 +609,10 @@ window.WHF_DATA = {
       "location": "Jean K. Freeman Aquatic Center — 1910 University Ave SE, Minneapolis, MN 55455"
     },
     {
-      "date": "2026-10-22T09:00:00-05:00",
-      "level": "Varsity",
-      "opponent": "True Team Sections",
-      "location": "Willmar Senior High School — 2701 30th St NE, Willmar, MN 56201"
+      "date": "2026-10-22T18:00:00-05:00",
+      "level": "JV & Varsity",
+      "opponent": "vs Breck",
+      "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
     },
     {
       "date": "2026-11-05T18:00:00-06:00",
@@ -821,6 +821,33 @@ window.WHF_DATA = {
       "title": "First Booster Club Meeting",
       "date": "Thursday, August 27 • 6:00 PM",
       "detail": "Meet at Caribou Coffee in Navarre, Minnesota. Booster families are welcome.",
+      "status": "completed",
+      "linkText": "",
+      "linkUrl": ""
+    },
+    {
+      "accent": "split",
+      "title": "Booster Club Meeting",
+      "date": "Tuesday, September 15 • Time TBD",
+      "detail": "Time and location are being finalized. Booster families are welcome.",
+      "status": "upcoming",
+      "linkText": "",
+      "linkUrl": ""
+    },
+    {
+      "accent": "split",
+      "title": "Booster Club Meeting",
+      "date": "Monday, October 12 • Time TBD",
+      "detail": "Time and location are being finalized. Booster families are welcome.",
+      "status": "upcoming",
+      "linkText": "",
+      "linkUrl": ""
+    },
+    {
+      "accent": "red",
+      "title": "Booster Club Meeting & Board Elections",
+      "date": "Tuesday, November 10 • Time TBD",
+      "detail": "This meeting will also serve as Booster Club election night. Time and location are being finalized.",
       "status": "upcoming",
       "linkText": "",
       "linkUrl": ""

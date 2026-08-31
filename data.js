@@ -647,13 +647,6 @@ window.WHF_DATA = {
   ],
   "parentCards": [
     {
-      "accent": "green",
-      "title": "Registration Open",
-      "body": "All athletes must complete Westonka Activities registration before the season begins and have a current sports physical on file.",
-      "linkText": "Register Athlete",
-      "linkUrl": "https://www.gobound.com/mn/schools/westonka"
-    },
-    {
       "accent": "red",
       "title": "Team Store",
       "body": "The Elsmore Team Store is open for WHF spirit wear through mid-October. Team suit and cap ordering windows have closed. Every athlete receives the captains-designed team shirt at no cost.",

@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260831-64';
+const APP_RELEASE_KEY = '20260831-65';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -601,11 +601,15 @@ function renderPageCards() {
     const items = DATA.events || [];
     const upcoming = items.filter(item => item.status !== 'completed');
     const completed = items.filter(item => item.status === 'completed');
+    const completedMeetings = completed.filter(item => /meeting/i.test(item.title || ''));
+    const completedFundraisers = completed.filter(item => !/meeting/i.test(item.title || ''));
     const group = (title, list) => list.length ? `<section class="eventGroup"><div class="sectionLabel">${title}</div>${list.map((item, index) => {
       const result = item.result ? `<div class="eventResult">${escapeHtml(item.result)}</div>` : '';
       return `<div class="eventCard ${item.status === 'completed' ? 'completedEvent' : 'upcomingEvent'}">${result}${cardHtml(item, index)}</div>`;
     }).join('')}</section>` : '';
-    events.innerHTML = group('Upcoming', upcoming) + group('Completed Fundraisers', completed);
+    events.innerHTML = group('Upcoming', upcoming)
+      + group('Completed Meetings', completedMeetings)
+      + group('Completed Fundraisers', completedFundraisers);
   }
 
   const sponsorIntro = document.getElementById('sponsorIntro');

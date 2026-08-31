@@ -4,9 +4,9 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "First Booster Club meeting — August 27",
-    "body": "Join us at 6:00 PM at Caribou Coffee in Navarre, Minnesota. Booster families are welcome.",
-    "updated": "August 24, 2026",
+    "title": "Next Booster Club Meeting — September 15",
+    "body": "Time and location are being finalized. Booster families are welcome.",
+    "updated": "August 31, 2026",
     "actionText": "View Events",
     "targetScreen": "spirit"
   },
@@ -861,15 +861,6 @@ window.WHF_DATA = {
       "detail": "Spirit of the Lakes raised $1,335.47 for WHF Swim & Dive from the Hydration Station and Dunk Tank combined.",
       "status": "completed",
       "result": "$1,335.47 Raised",
-      "linkText": "",
-      "linkUrl": ""
-    },
-    {
-      "accent": "red",
-      "title": "Culver's Serve Night x 2",
-      "date": "TBD",
-      "detail": "Waiting on confirmation and available dates.",
-      "status": "upcoming",
       "linkText": "",
       "linkUrl": ""
     }

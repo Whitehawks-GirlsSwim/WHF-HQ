@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260831-67';
+const APP_RELEASE_KEY = '20260831-68';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -290,7 +290,8 @@ async function copySheetLink() {
   }
 }
 
-function isCurrentOrFuturePractice(item, now = new Date()) {
+function isCurrentOrFuturePractice(item) {
+  const now = new Date();
   const practiceDate = new Date(item.date);
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   return !Number.isNaN(practiceDate.getTime()) && practiceDate >= today;

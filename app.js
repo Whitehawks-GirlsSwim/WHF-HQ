@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260831-66';
+const APP_RELEASE_KEY = '20260831-67';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -290,11 +290,17 @@ async function copySheetLink() {
   }
 }
 
+function isCurrentOrFuturePractice(item, now = new Date()) {
+  const practiceDate = new Date(item.date);
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return !Number.isNaN(practiceDate.getTime()) && practiceDate >= today;
+}
+
 function getScheduleForSheet(kind) {
   const source = kind === 'dive'
-    ? divePracticeSchedule
+    ? divePracticeSchedule.filter(isCurrentOrFuturePractice)
     : kind === 'practice'
-      ? keyDates.filter(item => String(item.label || '').toUpperCase() === 'PRACTICE')
+      ? keyDates.filter(item => String(item.label || '').toUpperCase() === 'PRACTICE').filter(isCurrentOrFuturePractice)
       : meetSchedule;
   return [...source].sort((a, b) => new Date(a.date) - new Date(b.date));
 }
@@ -494,6 +500,11 @@ function renderHomeAlerts() {
   const store = DATA.teamStore || {};
   const alerts = [];
   const storeDeadline = new Date(store.deadline || '2026-10-16T00:00:00-05:00');
+  const seniorNightMeet = meetSchedule.find(item =>
+    /senior night|pack the pool/i.test(item.opponent || item.title || '')
+  );
+  const seniorNightDeadline = seniorNightMeet ? new Date(seniorNightMeet.date) : null;
+  if (seniorNightDeadline) seniorNightDeadline.setHours(23, 59, 59, 999);
 
   if (store.url && new Date() < storeDeadline) {
     alerts.push({
@@ -503,6 +514,20 @@ function renderHomeAlerts() {
       body: `Order from ${store.vendor || 'the team store'} through ${store.deadlineLabel || 'mid-October'}.`,
       linkText: storeCard?.linkText || 'Shop Team Store',
       linkUrl: store.url
+    });
+  }
+
+  if (seniorNightMeet && new Date() <= seniorNightDeadline) {
+    const seniorDate = new Date(seniorNightMeet.date);
+    const seniorDateText = seniorNightMeet.displayDate || formatDate(seniorDate);
+    const seniorTimeText = seniorNightMeet.displayTime || formatTime(seniorDate);
+    alerts.push({
+      accent: 'green',
+      eyebrow: 'SENIOR NIGHT • PACK THE POOL',
+      title: 'WHF vs. Orono',
+      body: `${seniorDateText} at ${seniorTimeText} at ${seniorNightMeet.location}. Fill the stands and help us celebrate our seniors!`,
+      linkText: '',
+      linkUrl: ''
     });
   }
 
@@ -967,8 +992,13 @@ function emailWeeklyUpdate() {
 
 function renderSchedule() {
   const meets = meetSchedule.map(event => ({ ...event, title: event.opponent, type: 'meet' }));
-  const practices = keyDates.filter(item => String(item.label || '').toUpperCase() === 'PRACTICE').map(item => ({ ...item, opponent: item.title, type: 'practice' }));
-  const dives = divePracticeSchedule.map(item => ({ ...item, opponent: item.title, type: 'dive' }));
+  const practices = keyDates
+    .filter(item => String(item.label || '').toUpperCase() === 'PRACTICE')
+    .filter(isCurrentOrFuturePractice)
+    .map(item => ({ ...item, opponent: item.title, type: 'practice' }));
+  const dives = divePracticeSchedule
+    .filter(isCurrentOrFuturePractice)
+    .map(item => ({ ...item, opponent: item.title, type: 'dive' }));
   renderSeparatedScheduleList('meetScheduleList', 'meetScheduleStatus', meets, 'meet');
   renderSeparatedScheduleList('practiceScheduleList', 'practiceScheduleStatus', practices, 'practice');
   renderSeparatedScheduleList('divePracticeScheduleList', 'divePracticeScheduleStatus', dives, 'dive');
@@ -1635,4 +1665,3 @@ setInterval(() => {
   refreshPublishedData();
   refreshApprovedPhotoFeed();
 }, LIVE_SYNC_INTERVAL_MS);
-

@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260831-68';
+const APP_RELEASE_KEY = '20260903-69';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -1666,3 +1666,81 @@ setInterval(() => {
   refreshPublishedData();
   refreshApprovedPhotoFeed();
 }, LIVE_SYNC_INTERVAL_MS);
+
+const NOTIFICATION_WORKER_URL = 'notification-sw.js?v=20260903-69';
+
+function setNotificationTestStatus(message, tone = '') {
+  const status = document.getElementById('notificationTestStatus');
+  if (!status) return;
+  status.textContent = message;
+  status.dataset.tone = tone;
+}
+
+function isInstalledWhfApp() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+async function getNotificationWorker() {
+  const registration = await navigator.serviceWorker.register(NOTIFICATION_WORKER_URL, { scope: './' });
+  await navigator.serviceWorker.ready;
+  return registration;
+}
+
+async function enableAndTestNotifications() {
+  const isiPhoneOrIPad = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  if (!window.isSecureContext || !('Notification' in window) || !('serviceWorker' in navigator)) {
+    setNotificationTestStatus('This phone or browser does not support WHF-HQ notifications.', 'error');
+    return;
+  }
+
+  if (isiPhoneOrIPad && !isInstalledWhfApp()) {
+    setNotificationTestStatus('On iPhone, first add WHF-HQ to the Home Screen. Then open that saved app and try again.', 'error');
+    return;
+  }
+
+  try {
+    setNotificationTestStatus('Waiting for notification permission…');
+    const permission = Notification.permission === 'granted'
+      ? 'granted'
+      : await Notification.requestPermission();
+
+    if (permission !== 'granted') {
+      setNotificationTestStatus('Notifications were not allowed. You can enable them later in this phone’s notification settings.', 'error');
+      return;
+    }
+
+    const registration = await getNotificationWorker();
+    await registration.showNotification('WHF-HQ test notification', {
+      body: 'Phone notifications are working on this device. No parents were notified.',
+      icon: 'app-icon.svg',
+      badge: 'app-icon.svg',
+      tag: 'whf-hq-private-test',
+      renotify: true,
+      data: { url: './?admin=1&notificationTest=1' }
+    });
+
+    if ('setAppBadge' in navigator) {
+      await navigator.setAppBadge(1);
+      setNotificationTestStatus('Test sent to this phone. You should see an alert and a red app badge. No parents were notified.', 'success');
+    } else {
+      setNotificationTestStatus('Test notification sent. This phone controls whether an icon badge is displayed.', 'success');
+    }
+  } catch (error) {
+    console.warn('Notification test could not be completed.', error);
+    setNotificationTestStatus('The test could not be completed on this phone. Make sure WHF-HQ is saved to the Home Screen and notifications are allowed.', 'error');
+  }
+}
+
+async function clearNotificationBadge() {
+  try {
+    if ('clearAppBadge' in navigator) await navigator.clearAppBadge();
+    setNotificationTestStatus('The WHF-HQ app badge was cleared on this phone.', 'success');
+  } catch (error) {
+    setNotificationTestStatus('This phone manages the app badge automatically.');
+  }
+}
+
+if (new URLSearchParams(window.location.search).get('notificationTest') === '1') {
+  clearNotificationBadge();
+}

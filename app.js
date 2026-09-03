@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260903-69';
+const APP_RELEASE_KEY = '20260903-70';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -1667,7 +1667,7 @@ setInterval(() => {
   refreshApprovedPhotoFeed();
 }, LIVE_SYNC_INTERVAL_MS);
 
-const NOTIFICATION_WORKER_URL = 'notification-sw.js?v=20260903-69';
+const NOTIFICATION_WORKER_URL = 'notification-sw.js?v=20260903-70';
 
 function setNotificationTestStatus(message, tone = '') {
   const status = document.getElementById('notificationTestStatus');
@@ -1744,3 +1744,26 @@ async function clearNotificationBadge() {
 if (new URLSearchParams(window.location.search).get('notificationTest') === '1') {
   clearNotificationBadge();
 }
+
+
+function setupHiddenAdminShortcut() {
+  const brand = document.querySelector('.brandMark');
+  if (!brand) return;
+
+  let tapCount = 0;
+  let resetTimer = null;
+
+  brand.addEventListener('click', () => {
+    tapCount += 1;
+    clearTimeout(resetTimer);
+    resetTimer = setTimeout(() => { tapCount = 0; }, 2500);
+
+    if (tapCount < 7) return;
+    tapCount = 0;
+    clearTimeout(resetTimer);
+    showScreen('admin');
+    showToast('Private Admin opened');
+  });
+}
+
+setupHiddenAdminShortcut();

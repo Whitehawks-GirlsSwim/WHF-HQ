@@ -8,8 +8,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
-  <link rel="manifest" href="manifest.json?v=20260831-68">
-  <link rel="stylesheet" href="styles.css?v=20260831-68">
+  <link rel="manifest" href="manifest.json?v=20260903-69">
+  <link rel="stylesheet" href="styles.css?v=20260903-69">
   <link rel="icon" href="app-icon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -209,6 +209,18 @@
           </div>
         </section>
 
+        
+        <section aria-labelledby="notificationTestTitle">
+          <div class="sectionLabel">Phone Notifications — Private Test</div>
+          <div class="card red">
+            <h3 id="notificationTestTitle">Test This Phone</h3>
+            <p>This sends a notification only to the phone you are using. It will not notify parents or collect email addresses.</p>
+            <button class="inlineLink" type="button" onclick="enableAndTestNotifications()">Enable &amp; Send Test</button>
+            <button class="ghost" type="button" onclick="clearNotificationBadge()">Clear Red Badge</button>
+            <p id="notificationTestStatus" role="status"><small>For iPhone testing, open WHF-HQ from the saved Home Screen icon before tapping the test button.</small></p>
+          </div>
+        </section>
+
         <div class="adminDashboard" id="adminDashboard">
           <div class="adminDashCard splitAccent">
             <span>STATUS</span>
@@ -298,7 +310,7 @@
     <button data-screen="program" onclick="showScreen('program')">Program</button>
   </nav>
 
-  <script src="data.js?v=20260831-68"></script>
-  <script src="app.js?v=20260831-68"></script>
+  <script src="data.js?v=20260903-69"></script>
+  <script src="app.js?v=20260903-69"></script>
 </body>
 </html>

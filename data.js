@@ -4,11 +4,11 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "Next Booster Club Meeting — September 15",
-    "body": "Time and location are being finalized. Booster families are welcome.",
-    "updated": "August 31, 2026",
-    "actionText": "View Events",
-    "targetScreen": "spirit"
+    "title": "Meet Schedule Updated",
+    "body": "JV Champs has been added for October 12 at 5:00 PM at Westonka. Section and State meet dates have also been corrected.",
+    "updated": "September 3, 2026",
+    "actionText": "View Schedule",
+    "targetScreen": "season"
   },
   "weeklyUpdate": {
     "title": "Next Booster Club Meeting",
@@ -603,6 +603,12 @@ window.WHF_DATA = {
       "location": "Willmar Senior High School — 2701 30th St NE, Willmar, MN 56201"
     },
     {
+      "date": "2026-10-12T17:00:00-05:00",
+      "level": "JV",
+      "opponent": "JV Champs",
+      "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
+    },
+    {
       "date": "2026-10-17T12:00:00-05:00",
       "level": "Varsity",
       "opponent": "True Team State",
@@ -615,31 +621,31 @@ window.WHF_DATA = {
       "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
     },
     {
-      "date": "2026-11-05T18:00:00-06:00",
+      "date": "2026-11-12T18:00:00-06:00",
       "level": "Varsity",
       "opponent": "Section Prelims",
       "location": "Hutchinson High School — 1200 Roberts Road, Hutchinson, MN 55350"
     },
     {
-      "date": "2026-11-07T12:00:00-06:00",
+      "date": "2026-11-14T12:00:00-06:00",
       "level": "Varsity",
       "opponent": "Section Finals",
       "location": "Hutchinson High School — 1200 Roberts Road, Hutchinson, MN 55350"
     },
     {
-      "date": "2026-11-12T12:00:00-06:00",
+      "date": "2026-11-19T12:00:00-06:00",
       "level": "Varsity",
       "opponent": "State Dive Prelims",
       "location": "Jean K. Freeman Aquatic Center — 1910 University Ave SE, Minneapolis, MN 55455"
     },
     {
-      "date": "2026-11-13T12:00:00-06:00",
+      "date": "2026-11-20T12:00:00-06:00",
       "level": "Varsity",
       "opponent": "State Swim Prelims",
       "location": "Jean K. Freeman Aquatic Center — 1910 University Ave SE, Minneapolis, MN 55455"
     },
     {
-      "date": "2026-11-14T12:00:00-06:00",
+      "date": "2026-11-21T12:00:00-06:00",
       "level": "Varsity",
       "opponent": "State Swim/Dive Finals",
       "location": "Jean K. Freeman Aquatic Center — 1910 University Ave SE, Minneapolis, MN 55455"

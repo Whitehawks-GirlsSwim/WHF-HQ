@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260903-70';
+const APP_RELEASE_KEY = '20260903-71';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -1667,7 +1667,7 @@ setInterval(() => {
   refreshApprovedPhotoFeed();
 }, LIVE_SYNC_INTERVAL_MS);
 
-const NOTIFICATION_WORKER_URL = 'notification-sw.js?v=20260903-70';
+const NOTIFICATION_WORKER_URL = 'notification-sw.js?v=20260903-71';
 
 function setNotificationTestStatus(message, tone = '') {
   const status = document.getElementById('notificationTestStatus');
@@ -1745,6 +1745,108 @@ if (new URLSearchParams(window.location.search).get('notificationTest') === '1')
   clearNotificationBadge();
 }
 
+
+
+const ONE_SIGNAL_APP_ID = 'cc26f77d-7d78-400a-9d13-61406a7db12b';
+let whfOneSignal = null;
+
+function updateTeamAlertsCard(state, message) {
+  const title = document.getElementById('teamAlertsTitle');
+  const copy = document.getElementById('teamAlertsCopy');
+  const action = document.getElementById('teamAlertsAction');
+  if (!title || !copy || !action) return;
+
+  if (state === 'enabled') {
+    title.textContent = 'Team Alerts Are On';
+    copy.textContent = message || 'This phone will receive important WHF-HQ updates.';
+    action.textContent = 'Notifications Enabled';
+    return;
+  }
+
+  if (state === 'working') {
+    title.textContent = 'Turning On Alerts...';
+    copy.textContent = message || 'Please respond to the notification permission message.';
+    action.textContent = 'Working...';
+    return;
+  }
+
+  title.textContent = 'Turn On Notifications';
+  copy.textContent = message || 'Get important schedule changes and team updates on this phone.';
+  action.textContent = 'Turn On Alerts';
+}
+
+function isWhfHomeScreenApp() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+async function enableTeamAlerts() {
+  const isiPhoneOrIPad = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  if (isiPhoneOrIPad && !isWhfHomeScreenApp()) {
+    updateTeamAlertsCard('off', 'On iPhone, save WHF-HQ to the Home Screen and open the saved app before turning on alerts.');
+    showToast('Open the saved WHF-HQ app first');
+    return;
+  }
+
+  if (!whfOneSignal) {
+    updateTeamAlertsCard('working', 'The notification service is still loading. Please tap again in a moment.');
+    return;
+  }
+
+  try {
+    if (!whfOneSignal.Notifications.isPushSupported()) {
+      updateTeamAlertsCard('off', 'This browser does not support team alerts. Try the saved app or an updated browser.');
+      return;
+    }
+
+    updateTeamAlertsCard('working');
+    await whfOneSignal.User.PushSubscription.optIn();
+
+    if (whfOneSignal.Notifications.permission && whfOneSignal.User.PushSubscription.optedIn) {
+      updateTeamAlertsCard('enabled');
+      showToast('Team alerts are on');
+    } else {
+      updateTeamAlertsCard('off', 'Notifications were not enabled. Check this app in your phone’s notification settings, then try again.');
+    }
+  } catch (error) {
+    console.warn('WHF-HQ team alerts could not be enabled.', error);
+    updateTeamAlertsCard('off', 'Notifications could not be enabled yet. Please try again.');
+  }
+}
+
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+window.OneSignalDeferred.push(async function(OneSignal) {
+  try {
+    await OneSignal.init({
+      appId: ONE_SIGNAL_APP_ID,
+      serviceWorkerPath: '/WHF-HQ/push/onesignal/OneSignalSDKWorker.js',
+      serviceWorkerParam: { scope: '/WHF-HQ/push/onesignal/' },
+      notifyButton: { enable: false },
+      welcomeNotification: {
+        title: 'WHF-HQ Team Alerts',
+        message: 'Team alerts are now enabled on this phone.',
+        url: 'https://whitehawks-girlsswim.github.io/WHF-HQ/'
+      }
+    });
+
+    whfOneSignal = OneSignal;
+
+    if (OneSignal.Notifications.permission && OneSignal.User.PushSubscription.optedIn) {
+      updateTeamAlertsCard('enabled');
+    }
+
+    OneSignal.Notifications.addEventListener('permissionChange', function(permission) {
+      if (permission && OneSignal.User.PushSubscription.optedIn) updateTeamAlertsCard('enabled');
+    });
+
+    OneSignal.User.PushSubscription.addEventListener('change', function(event) {
+      if (event.current && event.current.optedIn) updateTeamAlertsCard('enabled');
+    });
+  } catch (error) {
+    console.warn('WHF-HQ team alerts are unavailable.', error);
+    updateTeamAlertsCard('off', 'Team alerts are temporarily unavailable. Please try again later.');
+  }
+});
 
 function setupHiddenAdminShortcut() {
   const brand = document.querySelector('.brandMark');

@@ -8,9 +8,10 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
-  <link rel="manifest" href="manifest.json?v=20260903-70">
-  <link rel="stylesheet" href="styles.css?v=20260903-70">
+  <link rel="manifest" href="manifest.json?v=20260903-71">
+  <link rel="stylesheet" href="styles.css?v=20260903-71">
   <link rel="icon" href="app-icon.svg" type="image/svg+xml">
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 </head>
 <body>
   <div class="connectionBanner" id="connectionBanner" role="status"></div>
@@ -59,6 +60,13 @@
           <strong>Help the Team</strong>
           <small>Saturday breakfasts and home-meet volunteer roles.</small>
           <span class="homeVolunteerAction">View Sign-Ups</span>
+        </button>
+
+        <button class="homeVolunteerCard" id="teamAlertsCard" type="button" onclick="enableTeamAlerts()" aria-label="Turn on WHF-HQ team notifications">
+          <span class="homeVolunteerEyebrow">TEAM ALERTS</span>
+          <strong id="teamAlertsTitle">Turn On Notifications</strong>
+          <small id="teamAlertsCopy">Get important schedule changes and team updates on this phone.</small>
+          <span class="homeVolunteerAction" id="teamAlertsAction">Turn On Alerts</span>
         </button>
         <section class="latestUpdate" id="latestUpdate" aria-label="Latest app update" hidden></section>
         <section class="homeAlerts" id="homeAlerts" aria-label="Important dates"></section>
@@ -310,7 +318,7 @@
     <button data-screen="program" onclick="showScreen('program')">Program</button>
   </nav>
 
-  <script src="data.js?v=20260903-70"></script>
-  <script src="app.js?v=20260903-70"></script>
+  <script src="data.js?v=20260903-71"></script>
+  <script src="app.js?v=20260903-71"></script>
 </body>
 </html>

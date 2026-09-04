@@ -28,7 +28,7 @@ jobs:
             exit 1
           fi
 
-          curl --fail-with-body \
+          response=$(curl --fail-with-body --silent --show-error \
             --request POST \
             --url https://api.onesignal.com/notifications \
             --header "Authorization: Key $ONESIGNAL_APP_API_KEY" \
@@ -36,8 +36,20 @@ jobs:
             --data '{
               "app_id": "cc26f77d-7d78-400a-9d13-61406a7db12b",
               "target_channel": "push",
-              "included_segments": ["Subscribed Users"],
+              "filters": [
+                {"field": "session_count", "relation": ">", "value": "0"}
+              ],
               "headings": {"en": "WHF-HQ Updated"},
               "contents": {"en": "A new WHF-HQ update is live. Tap to see what changed."},
               "url": "https://whitehawks-girlsswim.github.io/WHF-HQ/"
-            }'
+            }')
+
+          echo "$response"
+
+          message_id=$(printf '%s' "$response" | jq -r '.id // empty')
+          if [ -z "$message_id" ]; then
+            echo "OneSignal accepted the request but did not create a message."
+            exit 1
+          fi
+
+          echo "OneSignal message created: $message_id"

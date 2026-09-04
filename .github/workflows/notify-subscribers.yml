@@ -1,0 +1,43 @@
+name: Notify subscribers after deployment
+
+on:
+  workflow_run:
+    workflows:
+      - pages-build-deployment
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send WHF-HQ update notification
+        env:
+          ONESIGNAL_APP_API_KEY: ${{ secrets.ONESIGNAL_APP_API_KEY }}
+        run: |
+          if [ -z "$ONESIGNAL_APP_API_KEY" ]; then
+            echo "ONESIGNAL_APP_API_KEY is not configured."
+            exit 1
+          fi
+
+          curl --fail-with-body \
+            --request POST \
+            --url https://api.onesignal.com/notifications \
+            --header "Authorization: Key $ONESIGNAL_APP_API_KEY" \
+            --header "Content-Type: application/json" \
+            --data '{
+              "app_id": "cc26f77d-7d78-400a-9d13-61406a7db12b",
+              "target_channel": "push",
+              "included_segments": ["Subscribed Users"],
+              "headings": {"en": "WHF-HQ Updated"},
+              "contents": {"en": "A new WHF-HQ update is live. Tap to see what changed."},
+              "url": "https://whitehawks-girlsswim.github.io/WHF-HQ/"
+            }'

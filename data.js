@@ -4,11 +4,12 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "Meet Schedule Updated",
-    "body": "JV Champs has been added for October 12 at 5:00 PM at Westonka. Section and State meet dates have also been corrected.",
-    "updated": "September 3, 2026",
-    "actionText": "View Schedule",
-    "targetScreen": "season"
+    "title": "WHF Captures Fifth Tim Daly Invitational Title",
+    "summary": "WHF opened the 2026 season with a team championship against Delano, Orono, and Benilde-St. Margaret’s.",
+    "body": "The Westonka–Holy Family (WHF) girls swim and dive team opened the 2026 season Aug. 29 at the 10th Annual Tim Daly Invitational, competing against Delano, Orono, and Benilde-St. Margaret’s. For the fifth time in program history, WHF captured the overall team title, making the victory even more special with members of Tim Daly’s family in attendance.\n\nThe 200-yard medley relay team of C. Gadtke, M. Dongoske, J. Juras, and B. Treacy took first place, while the 200-yard freestyle relay team of R. Betts, M. Dongoske, A. Domingues, and A. Navidad finished second. In the meet’s final race, the 400-yard freestyle relay team of A. Navidad, C. Gadtke, B. Treacy, and R. Betts secured another first-place finish to help seal the team victory.\n\nSenior Rachel Betts led the way individually, taking first in the 200-yard freestyle and second in the 100-yard freestyle. Junior Mia Dongoske won the 100-yard breaststroke and finished second in the 200-yard IM. Senior Bailey Monette set a school record with her six-dive performance, while senior captain Jaylen Juras won the 100-yard butterfly and finished second in the 100-yard backstroke. Senior Charlotte Lake added a second-place finish in the 500-yard freestyle.\n\nOther notable performances included junior Ava Domingues, who finished fourth in both the 200- and 500-yard freestyle, and junior Carina Gadtke, who placed fifth in the 200-yard freestyle. Senior captain Chella Patterson finished sixth in the 200-yard IM and third in the 100-yard backstroke.\n\nSophomore Bridget Treacy placed third in both the 50- and 100-yard freestyle, while eighth-grader Alina Navidad finished fourth in the 50-yard freestyle and seventh in the 100-yard butterfly. Sophomore Anastasia Venikova added a sixth-place finish in the 50-yard freestyle. Senior Charlotte Lake placed seventh in the 200-yard IM, senior captain Jillian Schmitz finished sixth in diving, and senior Sadie Cline placed seventh in the 100-yard backstroke.\n\nHead coach Ben Hanson summed up the team’s performance simply: “Great team win at the Tim Daly invite. Proud of the whole team.”\n\nWith momentum from capturing their fifth Tim Daly Invitational championship, the WHF girls swim and dive team looks to carry that success into the rest of the season. After a historic 2025 season, the girls are determined to build on last year’s accomplishments and make the 2026 season even more memorable.",
+    "author": "Samantha Dongoske",
+    "updated": "September 4, 2026",
+    "actionText": "Read Full Story"
   },
   "weeklyUpdate": {
     "title": "Next Booster Club Meeting",

@@ -107,13 +107,6 @@ function loadAdminPreviewData() {
 
 function setRuntimeData(nextData) {
   DATA = nextData || {};
-  DATA.latestUpdate = {
-    updated: 'September 3, 2026',
-    title: 'Turn On Team Notifications',
-    body: 'Team notifications are now available. Tap the Team Alerts card on Home and select Turn On Notifications to receive important schedule changes and team announcements.',
-    actionText: 'Turn On Notifications',
-    targetAction: 'teamAlerts'
-  };
   meetSchedule = normalizeMeetSchedule(DATA.meetSchedule || []);
   DATA.meetSchedule = meetSchedule;
   keyDates = DATA.keyDates || [];
@@ -574,7 +567,7 @@ function renderLatestUpdate() {
   host.innerHTML = `<button type="button" class="latestUpdateCard${seen ? '' : ' isNew'}" onclick="openLatestUpdate(this)">
     <span class="latestUpdateTop"><b class="latestUpdateBadge"${seen ? ' hidden' : ''}>NEW</b><time>${escapeHtml(item.updated || 'Recently updated')}</time></span>
     <strong>${escapeHtml(item.title || 'WHF HQ update')}</strong>
-    <span class="latestUpdateBody">${escapeHtml(item.body || 'New team information is available.')}</span>
+    <span class="latestUpdateBody">${escapeHtml(item.summary || item.body || 'New team information is available.')}</span>
     <span class="latestUpdateAction">${escapeHtml(item.actionText || 'See what changed')} <i aria-hidden="true">›</i></span>
   </button>`;
 }
@@ -610,7 +603,7 @@ function openLatestUpdate(trigger) {
     eyebrow: 'WHAT\'S NEW',
     title: item.title || 'WHF HQ update',
     body: item.body || 'New team information is available.',
-    meta: item.updated ? `Published ${item.updated}` : ''
+    meta: [item.updated ? `Published ${item.updated}` : '', item.author ? `By ${item.author}` : ''].filter(Boolean).join(' • ')
   }, trigger);
 }
 

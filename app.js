@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260904-74';
+const APP_RELEASE_KEY = '20260904-75';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -129,6 +129,7 @@ async function refreshPublishedData() {
       .replace(/^\s*window\.WHF_DATA\s*=\s*/, '')
       .replace(/;\s*$/, '');
     const fresh = JSON.parse(jsonText);
+    fresh.meetSchedule = normalizeMeetSchedule(fresh.meetSchedule || []);
 
     if (JSON.stringify(fresh) !== JSON.stringify(DATA)) {
       localStorage.removeItem('whfAdminDataPreview');

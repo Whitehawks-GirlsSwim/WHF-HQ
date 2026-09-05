@@ -28,6 +28,9 @@ jobs:
             exit 1
           fi
 
+          echo "Waiting 5 seconds for the deployed site to settle."
+          sleep 5
+
           response=$(curl --fail-with-body --silent --show-error \
             --request POST \
             --url https://api.onesignal.com/notifications \

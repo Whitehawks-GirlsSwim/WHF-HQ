@@ -45,7 +45,7 @@ let activeSheetLink = '';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
-const APP_RELEASE_KEY = '20260904-75';
+const APP_RELEASE_KEY = new URL(document.currentScript.src).searchParams.get('v') || '20260904-75';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -342,6 +342,7 @@ function openHomeAlertSheet(index, trigger) {
 }
 
 function contentKeyForScreen(id) {
+  if (id === 'program') return JSON.stringify(DATA.seasonRecord || {});
   const content = id === 'meets'
     ? meetSchedule
     : id === 'practice'
@@ -359,13 +360,13 @@ function contentKeyForScreen(id) {
 }
 
 function updateNavBadges() {
-  ['meets', 'practice', 'volunteers', 'parents'].forEach(id => {
+  ['meets', 'practice', 'volunteers', 'parents', 'program'].forEach(id => {
     const key = contentKeyForScreen(id);
     const storageKey = `whfSeen-${id}`;
     const seen = localStorage.getItem(storageKey);
-    if (seen === null) localStorage.setItem(storageKey, key);
+    if (seen === null && id !== 'program') localStorage.setItem(storageKey, key);
     const button = document.querySelector(`.bottomNav button[data-screen="${id}"]`);
-    button?.classList.toggle('hasUpdate', seen !== null && seen !== key);
+    button?.classList.toggle('hasUpdate', (id === 'program' || seen !== null) && seen !== key);
   });
 
   const homeButton = document.querySelector('.bottomNav button[data-screen="home"]');

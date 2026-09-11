@@ -887,8 +887,8 @@ window.WHF_DATA = {
     "status": ""
   },
   "seasonRecord": {
-    "value": "0-0",
-    "note": "Season record will update as meet results are finalized."
+    "value": "1-0",
+    "note": "WHF is now 1-0 in dual meets."
   },
   "programHighlights": [],
   "photoLinks": [],

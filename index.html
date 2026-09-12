@@ -43,7 +43,7 @@
 
     <main class="screens">
       <section class="screen active" id="home">
-        <div class="programHero">
+        <div class="programHero homeDashboardHero">
           <div class="programPhoto">
             <img src="team-hero.jpg" alt="WHF Swim and Dive team">
           </div>
@@ -61,35 +61,22 @@
           <div class="todayLocation" id="todayLocation">Schedule updates automatically as the season moves.</div>
           <div class="todayButton" id="todayButton" aria-hidden="true">Open Details</div>
         </section>
-        <button class="homeVolunteerCard" type="button" onclick="showScreen('volunteers')" aria-label="Open volunteer sign-ups">
-          <span class="homeVolunteerEyebrow">VOLUNTEER SIGN-UPS</span>
-          <strong>Help the Team</strong>
-          <small>Saturday breakfasts and home-meet volunteer roles.</small>
-          <span class="homeVolunteerAction">View Sign-Ups</span>
-        </button>
-
-        <button class="homeVolunteerCard" id="teamAlertsCard" type="button" onclick="enableTeamAlerts()" aria-label="Turn on WHF-HQ team notifications">
-          <span class="homeVolunteerEyebrow">NEW • TEAM ALERTS</span>
-          <strong id="teamAlertsTitle">Turn On Notifications</strong>
-          <small id="teamAlertsCopy">Get important schedule changes and team updates on this phone.</small>
-          <span class="homeVolunteerAction" id="teamAlertsAction">Turn On Alerts</span>
-        </button>
-        <aside class="notificationGuide" aria-labelledby="notificationGuideTitle">
-          <span class="notificationGuideBadge">NEW FEATURE</span>
-          <h2 id="notificationGuideTitle">Get WHF-HQ alerts on your phone</h2>
-          <p>Notifications keep families informed when schedules or important team information changes.</p>
-          <ol>
-            <li><strong>iPhone:</strong> In Safari, tap Share, choose Add to Home Screen, then open WHF-HQ from the new icon.</li>
-            <li><strong>Android:</strong> Open WHF-HQ in Chrome or from your installed app.</li>
-            <li>Tap <strong>Turn On Notifications</strong> above and choose <strong>Allow</strong> when your phone asks.</li>
-          </ol>
-        </aside>
+        <nav class="homeQuickActions" aria-label="Quick actions">
+          <button type="button" onclick="showScreen('meets')"><span>CALENDAR</span><strong>Schedule</strong><small>Meets &amp; practice</small></button>
+          <button type="button" onclick="showScreen('volunteers')"><span>VOLUNTEER</span><strong id="homeVolunteerTitle">Volunteer Needs</strong><small id="homeVolunteerSummary">View open sign-ups</small><i id="homeVolunteerVerified"></i></button>
+          <button id="teamAlertsCard" type="button" onclick="enableTeamAlerts()" aria-label="Turn on WHF-HQ team notifications"><span>TEAM ALERTS</span><strong id="teamAlertsTitle">Notifications</strong><small id="teamAlertsCopy">Turn on alerts</small><i id="teamAlertsAction">Enable</i></button>
+        </nav>
         <section class="latestUpdate" id="latestUpdate" aria-label="Latest app update" hidden></section>
         <section class="homeAlerts" id="homeAlerts" aria-label="Important dates"></section>
       </section>
 
       <section class="screen" id="spirit">
         <div class="screenTitle">Events & Fundraisers</div>
+        <section class="teamNewsArchive" aria-labelledby="teamNewsArchiveTitle">
+          <div class="sectionLabel">TEAM NEWS</div>
+          <h2 id="teamNewsArchiveTitle">Updates &amp; Stories</h2>
+          <div id="teamNewsList"></div>
+        </section>
         <div id="eventsList"></div>
       </section>
 
@@ -120,46 +107,41 @@
       </section>
 
       <section class="screen" id="meets">
-        <div class="screenTitle">Meets</div>
+        <div class="screenTitle">Calendar</div>
         <div class="seasonLead">
-          <div class="seasonLeadTop">MEET SCHEDULE</div>
-          <h2>2026 Meet Schedule</h2>
-        </div>
-        <div class="scheduleTools">
-          <div class="scheduleStatus" id="meetScheduleStatus">Meet schedule moves automatically based on the calendar.</div>
-        </div>
-        <div class="scheduleList" id="meetScheduleList"></div>
-      </section>
-
-      <section class="screen" id="practice">
-        <div class="screenTitle">Practice</div>
-        <div class="practiceIntro">
-          <div class="seasonLeadTop">WHF GIRLS SWIM &amp; DIVE</div>
-          <h2>Practice Schedules</h2>
-          <p>Swim and dive schedules are listed separately below.</p>
+          <div class="seasonLeadTop">2026 SEASON</div>
+          <h2>Team Calendar</h2>
+          <p>Meets, swim practices, and dive practices—all in one place.</p>
         </div>
 
-        <section class="practiceTrack swimPracticeTrack" aria-labelledby="swimPracticeTitle">
+        <nav class="calendarFilters" aria-label="Filter calendar">
+          <button class="active" type="button" data-filter="all" onclick="setCalendarFilter('all',this)">All</button>
+          <button type="button" data-filter="meets" onclick="setCalendarFilter('meets',this)">Meets</button>
+          <button type="button" data-filter="swim" onclick="setCalendarFilter('swim',this)">Swim</button>
+          <button type="button" data-filter="dive" onclick="setCalendarFilter('dive',this)">Dive</button>
+        </nav>
+
+        <section class="practiceTrack meetCalendarTrack" aria-labelledby="meetCalendarTitle">
           <div class="practiceTrackHeader">
-            <span class="practiceTrackTag">SWIM</span>
-            <div><h2 id="swimPracticeTitle">Swim Practice</h2><p>Pool training schedule</p></div>
+            <span class="practiceTrackTag">MEETS</span>
+            <div><h2 id="meetCalendarTitle">Meet Schedule</h2><p>JV, Varsity, invitationals, and postseason</p></div>
           </div>
           <div class="scheduleTools">
-            <div class="scheduleStatus" id="practiceScheduleStatus">Swim practice schedule moves automatically based on the calendar.</div>
+            <div class="scheduleStatus" id="meetScheduleStatus">Meet schedule moves automatically based on the calendar.</div>
           </div>
-          <div class="scheduleList" id="practiceScheduleList"></div>
+          <div class="scheduleList" id="meetScheduleList"></div>
         </section>
 
-        <section class="practiceTrack divePracticeTrack" aria-labelledby="divePracticeTitle">
+        <section class="practiceTrack combinedPracticeTrack" aria-labelledby="practiceCalendarTitle">
           <div class="practiceTrackHeader">
-            <span class="practiceTrackTag">DIVE</span>
-            <div><h2 id="divePracticeTitle">Dive Practice</h2><p>Coach Sarah Neve's diving schedule</p></div>
+            <span class="practiceTrackTag">PRACTICE</span>
+            <div><h2 id="practiceCalendarTitle">Swim &amp; Dive Practice</h2><p>Schedules aligned by date</p></div>
           </div>
-          <div class="practiceNotice"><strong>No Saturday practices</strong><span>Divers follow the week-by-week schedule below.</span></div>
-          <div class="scheduleTools">
-            <div class="scheduleStatus" id="divePracticeScheduleStatus">Dive practice schedule moves automatically based on the calendar.</div>
+          <div class="practiceCompareHeader" aria-hidden="true">
+            <span>Date</span><strong>Swim</strong><strong>Dive</strong>
           </div>
-          <div class="scheduleList" id="divePracticeScheduleList"></div>
+          <div class="practiceCompareList" id="practiceCompareList"></div>
+          <div class="scheduleStatus" id="practiceScheduleStatus">Practice schedules move automatically based on the calendar.</div>
         </section>
       </section>
 
@@ -305,7 +287,8 @@
       <p class="sheetLocation" id="sheetLocation" hidden></p>
       <p class="sheetBody" id="sheetBody"></p>
       <div class="sheetActions">
-      <a id="sheetAction" href="#" target="_blank" rel="noopener" data-toast="Opening link…" hidden>Open Link</a>
+        <a id="sheetCalendarAction" href="#" download="WHF-event.ics" hidden>Add to Calendar</a>
+        <a id="sheetAction" href="#" target="_blank" rel="noopener" data-toast="Opening link…" hidden>Open Link</a>
         <button type="button" onclick="copySheetLink()">Copy Link</button>
       </div>
     </section>
@@ -327,8 +310,8 @@
   <nav class="bottomNav">
     <div class="navIndicator" id="navIndicator" aria-hidden="true"></div>
     <button class="active" data-screen="home" onclick="showScreen('home')">Home</button>
-    <button data-screen="meets" onclick="showScreen('meets')">Meets</button>
-    <button data-screen="practice" onclick="showScreen('practice')">Practice</button>
+    <button data-screen="meets" onclick="showScreen('meets')">Calendar</button>
+    <button data-screen="volunteers" onclick="showScreen('volunteers')">Volunteer</button>
     <button data-screen="spirit" onclick="showScreen('spirit')">Events</button>
     <button data-screen="parents" onclick="showScreen('parents')">Parents</button>
     <button data-screen="program" onclick="showScreen('program')">Program</button>

@@ -42,9 +42,10 @@ let pullRefreshCuePlayed = false;
 let activeRecordGroup = 'girlsMoundWestonka';
 let homeAlertItems = [];
 let activeSheetLink = '';
+let activeCalendarFilter = 'all';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
-const screenOrder = ['home', 'volunteers', 'meets', 'practice', 'spirit', 'parents', 'program', 'photos'];
+const screenOrder = ['home', 'meets', 'volunteers', 'spirit', 'parents', 'program', 'photos'];
 const APP_RELEASE_KEY = new URL(document.currentScript.src).searchParams.get('v') || '20260904-75';
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
@@ -174,6 +175,7 @@ async function refreshApprovedPhotoFeed() {
 }
 
 function showScreen(id) {
+  if (id === 'practice') id = 'meets';
   const current = document.querySelector('.screen.active');
   if (current?.id === id) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -187,8 +189,7 @@ function showScreen(id) {
 
   const commit = () => {
     whfScreens.forEach(screen => screen.classList.toggle('active', screen.id === id));
-    const navScreen = id === 'volunteers' ? 'home' : id;
-    navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.screen === navScreen));
+    navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.screen === id));
     updateNavIndicator();
     markScreenSeen(id);
   };
@@ -229,6 +230,8 @@ function openDetailSheet({ eyebrow = 'DETAILS', title = '', body = '', meta = ''
   action.textContent = linkText || 'Open Link';
   action.href = linkUrl || '#';
   action.hidden = !linkUrl;
+  const calendarAction = document.getElementById('sheetCalendarAction');
+  if (calendarAction) calendarAction.hidden = true;
   document.querySelector('.sheetActions')?.toggleAttribute('hidden', !linkUrl);
   sheet.classList.add('open');
   sheet.setAttribute('aria-hidden', 'false');
@@ -327,6 +330,26 @@ function openScheduleSheet(kind, index, trigger) {
     linkText: directionsUrl ? 'Get Directions' : '',
     linkUrl: directionsUrl
   }, trigger);
+  const calendarAction = document.getElementById('sheetCalendarAction');
+  if (calendarAction) {
+    calendarAction.href = buildCalendarDownload(event, kind);
+    calendarAction.download = `WHF-${String(title).replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'event'}.ics`;
+    calendarAction.hidden = false;
+    document.querySelector('.sheetActions')?.removeAttribute('hidden');
+  }
+}
+
+function calendarDateStamp(value) {
+  return new Date(value).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+}
+
+function buildCalendarDownload(event, kind) {
+  const start = new Date(event.date);
+  const end = new Date(start.getTime() + (kind === 'meet' ? 3 : 2.5) * 60 * 60 * 1000);
+  const title = event.title || event.opponent || (kind === 'dive' ? 'Dive Practice' : 'Swim Practice');
+  const description = kind === 'meet' ? `${event.level || 'WHF'} meet` : `${kind === 'dive' ? 'Dive' : 'Swim'} practice`;
+  const text = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//WHF HQ//Team Calendar//EN','BEGIN:VEVENT',`UID:${start.getTime()}-${kind}@whf-hq`,`DTSTAMP:${calendarDateStamp(new Date())}`,`DTSTART:${calendarDateStamp(start)}`,`DTEND:${calendarDateStamp(end)}`,`SUMMARY:${title}`,`DESCRIPTION:${description}`,`LOCATION:${event.location || ''}`,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  return `data:text/calendar;charset=utf-8,${encodeURIComponent(text)}`;
 }
 
 function openHomeAlertSheet(index, trigger) {
@@ -344,9 +367,7 @@ function openHomeAlertSheet(index, trigger) {
 function contentKeyForScreen(id) {
   if (id === 'program') return JSON.stringify(DATA.seasonRecord || {});
   const content = id === 'meets'
-    ? meetSchedule
-    : id === 'practice'
-      ? { swim: keyDates, dive: divePracticeSchedule }
+    ? { meets: meetSchedule, swim: keyDates, dive: divePracticeSchedule }
       : id === 'volunteers'
         ? DATA.volunteerCards
         : id === 'parents'
@@ -360,7 +381,7 @@ function contentKeyForScreen(id) {
 }
 
 function updateNavBadges() {
-  ['meets', 'practice', 'volunteers', 'parents', 'program'].forEach(id => {
+  ['meets', 'volunteers', 'parents', 'program'].forEach(id => {
     const key = contentKeyForScreen(id);
     const storageKey = `whfSeen-${id}`;
     const seen = localStorage.getItem(storageKey);
@@ -460,6 +481,11 @@ function getNextMeet(now = new Date()) {
   return sorted.find(event => !isPastScheduleItem(event, now)) || null;
 }
 
+function localDateKey(value) {
+  const date = new Date(value);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
 function renderTodayPanel() {
   const now = new Date();
   const next = getNextSeasonItem(now);
@@ -469,6 +495,27 @@ function renderTodayPanel() {
   const location = document.getElementById('todayLocation');
   const button = document.getElementById('todayButton');
   if (!kicker || !main || !meta || !location) return;
+
+  const todayKey = localDateKey(now);
+  const todayMeet = meetSchedule.find(item => localDateKey(item.date) === todayKey);
+  const todaySwim = keyDates.find(item => String(item.label || '').toUpperCase() === 'PRACTICE' && localDateKey(item.date) === todayKey);
+  const todayDive = divePracticeSchedule.find(item => localDateKey(item.date) === todayKey);
+  if (todayMeet) {
+    kicker.textContent = 'MEET DAY';
+    main.textContent = todayMeet.opponent || todayMeet.title || 'WHF Meet';
+    meta.textContent = `${todayMeet.level || 'WHF'} • ${todayMeet.displayTime || formatTime(new Date(todayMeet.date))}`;
+    location.textContent = todayMeet.location || 'Open Calendar for meet details.';
+    if (button) button.textContent = 'Open Meet Details';
+    return;
+  }
+  if (todaySwim || todayDive) {
+    kicker.textContent = 'TODAY';
+    main.textContent = todaySwim && todayDive ? 'Swim & Dive Practice' : todayDive ? 'Dive Practice' : 'Swim Practice';
+    meta.textContent = [todaySwim && `Swim ${todaySwim.displayTime || formatTime(new Date(todaySwim.date))}`, todayDive && `Dive ${todayDive.displayTime || formatTime(new Date(todayDive.date))}`].filter(Boolean).join(' • ');
+    location.textContent = 'Tap to compare today’s Swim and Dive schedules.';
+    if (button) button.textContent = 'Open Calendar';
+    return;
+  }
 
   if (!next) {
     kicker.textContent = 'SEASON COMPLETE';
@@ -609,6 +656,18 @@ function openLatestUpdate(trigger) {
   }, trigger);
 }
 
+function renderTeamNews() {
+  const host = document.getElementById('teamNewsList');
+  const item = DATA.latestUpdate || {};
+  if (!host || !item.title) return;
+  host.innerHTML = `<button type="button" class="latestUpdateCard" onclick="openLatestUpdate(this)">
+    <span class="latestUpdateTop"><time>${escapeHtml(item.updated || 'Recently updated')}</time></span>
+    <strong>${escapeHtml(item.title)}</strong>
+    <span class="latestUpdateBody">${escapeHtml(item.summary || item.body || '')}</span>
+    <span class="latestUpdateAction">${escapeHtml(item.actionText || 'Read update')} <i aria-hidden="true">›</i></span>
+  </button>`;
+}
+
 function cardHtml(item, idx = 0) {
   const accent = item.accent || (idx % 2 === 0 ? 'green' : 'red');
   const cls = accent === 'split' ? 'split' : accent === 'red' ? 'red' : 'green';
@@ -626,6 +685,21 @@ function cardHtml(item, idx = 0) {
   return `<div class="card ${cls}${pastClass}">${pastBadge}<h3>${escapeHtml(item.title || item.name || 'Untitled')}</h3>${date}<p>${escapeHtml(detail)}</p>${link}</div>`;
 }
 
+function volunteerCardForDisplay(item) {
+  const formatted = formatVolunteerNeeds(item.detail || item.body || '');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const current = formatted.entries.filter(entry => {
+    if (!entry.date) return true;
+    const date = new Date(`${entry.date}, ${today.getFullYear()} 12:00:00`);
+    return !Number.isNaN(date.getTime()) && date >= today;
+  });
+  const detail = current.length
+    ? `${formatted.updated ? `Open as of ${formatted.updated}: ` : ''}${current.map(entry => `${entry.date ? `${entry.date} needs ` : ''}${entry.needs.join(' and ')}`).join('; ')}.`
+    : `${formatted.updated ? `Checked ${formatted.updated}. ` : ''}No future openings are currently listed. Open SignUpGenius to verify the latest availability.`;
+  return { ...item, detail };
+}
+
 function renderPageCards() {
   const parent = document.getElementById('parentCards');
   if (parent) parent.innerHTML = (DATA.parentCards || []).map(cardHtml).join('');
@@ -634,7 +708,7 @@ function renderPageCards() {
   if (booster) booster.innerHTML = (DATA.boosterCards || []).map(cardHtml).join('');
 
   const volunteers = document.getElementById('volunteerCards');
-  if (volunteers) volunteers.innerHTML = (DATA.volunteerCards || []).map(cardHtml).join('');
+  if (volunteers) volunteers.innerHTML = (DATA.volunteerCards || []).map(volunteerCardForDisplay).map(cardHtml).join('');
 
   const events = document.getElementById('eventsList');
   if (events) {
@@ -760,27 +834,27 @@ function renderSeparatedScheduleList(listId, statusId, scheduleItems, kind) {
   const sorted = [...scheduleItems].sort((a, b) => new Date(a.date) - new Date(b.date));
   const next = sorted.find(item => !isPastScheduleItem(item, now)) || null;
   const nextKey = next ? `${next.date}|${next.title || next.opponent}` : '';
-  const practiceKind = kind === 'practice' || kind === 'dive';
   const kindLabel = kind === 'dive' ? 'dive practice' : kind === 'practice' ? 'swim practice' : 'meet';
-
-  list.innerHTML = sorted.map((event, index) => {
+  const cards = sorted.map((event, index) => {
     const date = new Date(event.date);
     const isNext = nextKey === `${event.date}|${event.title || event.opponent}`;
     const isPast = isPastScheduleItem(event, now);
     const stateClass = isNext ? ' currentEvent' : isPast ? ' pastEvent' : '';
     const badge = isNext ? `<div class="scheduleBadge">NEXT ${kindLabel.toUpperCase()}</div>` : isPast ? '<div class="scheduleBadge completedBadge">COMPLETED</div>' : '';
     const title = event.title || event.opponent;
-    const detail = practiceKind
-      ? (event.location || 'Practice details coming soon')
-      : `${event.level} • ${event.location}`;
+    const detail = kind === 'meet' ? `${event.level} • ${event.location}` : (event.location || 'Practice details coming soon');
     const accent = kind === 'dive' ? 'diveAccent' : kind === 'practice' ? 'swimAccent' : (index % 2 === 0 ? 'greenAccent' : 'redAccent');
     return `<button type="button" class="scheduleItem detailTrigger ${accent}${stateClass}" onclick="openScheduleSheet('${kind}',${index},this)">
       <div class="scheduleDate"><strong>${escapeHtml(event.displayDate || formatDate(date))}</strong><span>${escapeHtml(event.displayTime || formatTime(date))}</span></div>
       <div class="scheduleInfo">${badge}<h3>${escapeHtml(title)}</h3><p>${escapeHtml(detail)}</p></div>
       <span class="detailChevron" aria-hidden="true">›</span>
     </button>`;
-  }).join('');
-
+  });
+  const upcomingCards = cards.filter((card, index) => !isPastScheduleItem(sorted[index], now));
+  const pastCards = cards.filter((card, index) => isPastScheduleItem(sorted[index], now));
+  list.innerHTML = upcomingCards.join('') + (pastCards.length
+    ? `<details class="pastMeetArchive"><summary>Past Meets <span>${pastCards.length}</span></summary><div class="pastMeetList">${pastCards.reverse().join('')}</div></details>`
+    : '');
   if (status && next) {
     const date = new Date(next.date);
     status.textContent = `Next ${kindLabel}: ${next.title || next.opponent} • ${eventDateLabel(next, date)}`;
@@ -791,6 +865,39 @@ function renderSeparatedScheduleList(listId, statusId, scheduleItems, kind) {
 
 function eventDateLabel(event, date) {
   return `${event.displayDate || formatDate(date)} • ${event.displayTime || formatTime(date)}`;
+}
+
+function renderCombinedPracticeCalendar(practices, dives) {
+  const list = document.getElementById('practiceCompareList');
+  const status = document.getElementById('practiceScheduleStatus');
+  if (!list) return;
+  const swimByDate = new Map(practices.map((item, index) => [String(item.date).slice(0, 10), { item, index }]));
+  const diveByDate = new Map(dives.map((item, index) => [String(item.date).slice(0, 10), { item, index }]));
+  const dates = [...new Set([...swimByDate.keys(), ...diveByDate.keys()])].sort();
+  const practiceCell = (entry, kind) => {
+    if (!entry) return '<div class="practiceCompareEmpty">—</div>';
+    const { item, index } = entry;
+    const date = new Date(item.date);
+    const time = item.displayTime || formatTime(date);
+    const location = item.location || (kind === 'dive' ? 'Dive practice' : 'Swim practice');
+    return `<button type="button" class="practiceCompareCell ${kind}Accent" onclick="openScheduleSheet('${kind}',${index},this)"><strong>${escapeHtml(time)}</strong><span>${escapeHtml(location)}</span><i aria-hidden="true">›</i></button>`;
+  };
+  list.innerHTML = dates.map(dateKey => {
+    const swim = swimByDate.get(dateKey);
+    const dive = diveByDate.get(dateKey);
+    const item = swim?.item || dive?.item;
+    const date = new Date(item.date);
+    return `<div class="practiceCompareRow"><div class="practiceCompareDate"><strong>${escapeHtml(item.displayDate || formatDate(date))}</strong></div>${practiceCell(swim, 'practice')}${practiceCell(dive, 'dive')}</div>`;
+  }).join('');
+  if (status) status.textContent = dates.length ? 'Tap any Swim or Dive time for full practice details.' : 'The current practice schedule is complete.';
+}
+
+function setCalendarFilter(filter, trigger) {
+  activeCalendarFilter = ['all', 'meets', 'swim', 'dive'].includes(filter) ? filter : 'all';
+  const screen = document.getElementById('meets');
+  if (screen) screen.dataset.calendarFilter = activeCalendarFilter;
+  document.querySelectorAll('.calendarFilters button').forEach(button => button.classList.toggle('active', button.dataset.filter === activeCalendarFilter));
+  trigger?.blur?.();
 }
 
 
@@ -1005,6 +1112,14 @@ function emailWeeklyUpdate() {
   window.location.assign(gmailUrl);
 }
 
+function setCalendarFilter(filter, trigger) {
+  activeCalendarFilter = ['all', 'meets', 'swim', 'dive'].includes(filter) ? filter : 'all';
+  const screen = document.getElementById('meets');
+  if (screen) screen.dataset.calendarFilter = activeCalendarFilter;
+  document.querySelectorAll('.calendarFilters button').forEach(button => button.classList.toggle('active', button.dataset.filter === activeCalendarFilter));
+  trigger?.blur?.();
+}
+
 function renderSchedule() {
   const meets = meetSchedule.map(event => ({ ...event, title: event.opponent, type: 'meet' }));
   const practices = keyDates
@@ -1015,8 +1130,38 @@ function renderSchedule() {
     .filter(isCurrentOrFuturePractice)
     .map(item => ({ ...item, opponent: item.title, type: 'dive' }));
   renderSeparatedScheduleList('meetScheduleList', 'meetScheduleStatus', meets, 'meet');
-  renderSeparatedScheduleList('practiceScheduleList', 'practiceScheduleStatus', practices, 'practice');
-  renderSeparatedScheduleList('divePracticeScheduleList', 'divePracticeScheduleStatus', dives, 'dive');
+  renderCombinedPracticeCalendar(practices, dives);
+  setCalendarFilter(activeCalendarFilter);
+}
+
+function renderVolunteerHomeSummary() {
+  const title = document.getElementById('homeVolunteerTitle');
+  const summary = document.getElementById('homeVolunteerSummary');
+  const verified = document.getElementById('homeVolunteerVerified');
+  if (!title || !summary || !verified) return;
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  const candidates = [];
+  (DATA.volunteerCards || []).filter(item => item.status !== 'completed').forEach(item => {
+    const formatted = formatVolunteerNeeds(item.detail || item.body || '');
+    formatted.entries.forEach(entry => {
+      const parsed = new Date(`${entry.date}, ${now.getFullYear()} 12:00:00`);
+      if (Number.isNaN(parsed.getTime()) || parsed < now) return;
+      const count = entry.needs.reduce((total, need) => total + (Number(String(need).match(/^\d+/)?.[0]) || 1), 0);
+      candidates.push({ date: parsed, count, updated: formatted.updated });
+    });
+  });
+  candidates.sort((a, b) => a.date - b.date);
+  const next = candidates[0];
+  if (!next) {
+    title.textContent = 'Volunteer Sign-Ups';
+    summary.textContent = 'Check current opportunities';
+    verified.textContent = '';
+    return;
+  }
+  title.textContent = 'Volunteer Needs';
+  summary.textContent = `${next.count} open ${next.count === 1 ? 'position' : 'positions'} • ${next.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+  verified.textContent = next.updated ? `Verified ${next.updated}` : '';
 }
 
 function renderSponsors() {
@@ -1141,7 +1286,7 @@ function setupHomeTaps() {
   if (!todayPanel) return;
   const openNextItem = () => {
     const next = getNextSeasonItem(new Date());
-    showScreen(next?.type === 'meet' ? 'meets' : 'practice');
+    showScreen('meets');
   };
   todayPanel.addEventListener('click', openNextItem);
   todayPanel.addEventListener('keydown', (event) => {
@@ -1382,6 +1527,20 @@ function buildAdminForms() {
         {key:'location', label:'Location'}
       ])).join('')}</div>
       <button onclick="addAdminItem('meetSchedule')">Add Meet</button>
+    </div>
+
+    <div class="card red adminPanel">
+      <h3>Volunteer Needs</h3>
+      <p>Update the “Open as of” date and remaining positions after reviewing SignUpGenius.</p>
+      <div id="adminVolunteerCards">${(DATA.volunteerCards || []).map((item, i) => adminCardEditor('volunteerCards', item, i, [
+        {key:'title', label:'Signup title'},
+        {key:'date', label:'Season / date label'},
+        {key:'detail', label:'Open as of Month Day: date needs...', type:'textarea'},
+        {key:'status', label:'Status: upcoming or completed'},
+        {key:'linkText', label:'Button text'},
+        {key:'linkUrl', label:'SignUpGenius link'}
+      ])).join('')}</div>
+      <button onclick="addAdminItem('volunteerCards')">Add Volunteer Signup</button>
     </div>
 
     <div class="card green adminPanel">
@@ -1631,7 +1790,9 @@ function renderAdminStatus() {
 function refreshAppFromData() {
   renderTodayPanel();
   renderLatestUpdate();
+  renderTeamNews();
   renderHomeAlerts();
+  renderVolunteerHomeSummary();
   renderSchedule();
   renderPageCards();
   renderSocialLinks();
@@ -1645,7 +1806,9 @@ function refreshAppFromData() {
 
 renderTodayPanel();
 renderLatestUpdate();
+renderTeamNews();
 renderHomeAlerts();
+renderVolunteerHomeSummary();
 renderSchedule();
 renderPageCards();
 renderSocialLinks();
@@ -1784,6 +1947,13 @@ function updateTeamAlertsCard(state, message) {
     return;
   }
 
+  if (state === 'setup') {
+    title.textContent = 'Setup Instructions';
+    copy.textContent = message || 'Save WHF-HQ to your Home Screen, then open it from the new icon.';
+    action.textContent = 'View Setup';
+    return;
+  }
+
   title.textContent = 'Turn On Notifications';
   copy.textContent = message || 'Get important schedule changes and team updates on this phone.';
   action.textContent = 'Turn On Alerts';
@@ -1797,8 +1967,12 @@ async function enableTeamAlerts() {
   const isiPhoneOrIPad = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
   if (isiPhoneOrIPad && !isWhfHomeScreenApp()) {
-    updateTeamAlertsCard('off', 'On iPhone, save WHF-HQ to the Home Screen and open the saved app before turning on alerts.');
-    showToast('Open the saved WHF-HQ app first');
+    updateTeamAlertsCard('setup');
+    openDetailSheet({
+      eyebrow: 'IPHONE NOTIFICATION SETUP',
+      title: 'Add WHF-HQ to your Home Screen',
+      body: '1. Open WHF-HQ in Safari.\n2. Tap the Share button.\n3. Choose Add to Home Screen.\n4. Open WHF-HQ from the new icon.\n5. Tap Team Alerts again and choose Allow.'
+    });
     return;
   }
 

@@ -604,6 +604,44 @@ button:focus-visible,a:focus-visible,.tappablePanel:focus-visible{outline:3px so
 .swimPracticeTrack{border-top:4px solid var(--red)}
 .swimPracticeTrack .practiceTrackTag{background:var(--red);box-shadow:0 7px 18px rgba(193,18,31,.24)}
 .divePracticeTrack{border-top:4px solid var(--green)}
+.meetCalendarTrack{margin-top:16px;border-top:4px solid #fff}
+.meetCalendarTrack .practiceTrackTag{background:linear-gradient(135deg,var(--red),var(--green));box-shadow:0 7px 18px rgba(255,255,255,.12)}
+.combinedPracticeTrack{border-top:4px solid transparent;border-image:linear-gradient(90deg,var(--red) 0 50%,var(--green) 50% 100%) 1}
+.combinedPracticeTrack .practiceTrackTag{min-width:82px;background:linear-gradient(135deg,var(--red),var(--green))}
+.practiceCompareHeader,.practiceCompareRow{display:grid;grid-template-columns:minmax(74px,.68fr) minmax(0,1fr) minmax(0,1fr);gap:8px}
+.practiceCompareHeader{align-items:center;padding:0 4px 8px;color:var(--muted);font-size:10px;font-weight:950;letter-spacing:.8px;text-transform:uppercase}
+.practiceCompareHeader strong:nth-child(2){color:#ff7c86}.practiceCompareHeader strong:nth-child(3){color:#54d38c}
+.practiceCompareList{display:grid;gap:8px}
+.practiceCompareRow{align-items:stretch;padding-top:8px;border-top:1px solid var(--line)}
+.practiceCompareDate{display:flex;align-items:center;color:#fff;font-size:11px;line-height:1.3}
+.practiceCompareCell{position:relative;display:flex;min-width:0;flex-direction:column;justify-content:center;align-items:flex-start;padding:10px 22px 10px 10px;color:#fff;text-align:left;border:1px solid var(--line);border-left:3px solid;border-radius:11px;background:#15151c;font:inherit}
+.practiceCompareCell.practiceAccent{border-left-color:var(--red)}.practiceCompareCell.diveAccent{border-left-color:var(--green)}
+.practiceCompareCell strong{font-size:12px}.practiceCompareCell span{display:-webkit-box;overflow:hidden;margin-top:4px;color:var(--muted);font-size:9px;line-height:1.25;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.practiceCompareCell i{position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--soft);font-size:20px;font-style:normal}
+.practiceCompareEmpty{display:grid;place-items:center;min-height:58px;color:var(--soft);border:1px dashed var(--line);border-radius:11px}
+.combinedPracticeTrack>.scheduleStatus{margin-top:12px}
+@media (max-width:390px){.practiceCompareHeader,.practiceCompareRow{grid-template-columns:66px minmax(0,1fr) minmax(0,1fr);gap:5px}.practiceCompareCell{padding-left:8px;padding-right:17px}.practiceCompareCell i{right:5px}.practiceCompareDate{font-size:10px}}
+
+/* Streamlined Home dashboard preview */
+.homeDashboardHero{display:grid;grid-template-columns:42% 58%;position:relative;min-height:150px}
+.homeDashboardHero .programPhoto{padding:0;min-width:0}.homeDashboardHero .programPhoto img{width:100%;height:100%;min-height:150px;object-fit:cover;object-position:50% 38%;border-radius:0}
+.homeDashboardHero .programIdentity{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:18px;background:linear-gradient(135deg,#121218,#060607)}
+.homeDashboardHero .programIdentity:after{display:none}.homeDashboardHero .programIdentity h1{font-size:35px;line-height:.9}.homeDashboardHero .programIdentity h1 span{font-size:16px;line-height:1.05}.homeDashboardHero .seasonTag{font-size:9px;margin-bottom:8px}
+.homeDashboardHero .dualLine{position:absolute;left:0;right:0;bottom:0;height:4px}
+.homeQuickActions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:0 0 16px}
+.homeQuickActions button{display:flex;min-width:0;min-height:108px;flex-direction:column;align-items:flex-start;padding:13px 11px;color:#fff;text-align:left;border:1px solid transparent;border-radius:15px;background:linear-gradient(#101015,#101015) padding-box,linear-gradient(90deg,var(--red),var(--green)) border-box;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+.homeQuickActions span{color:var(--muted);font-size:8px;font-weight:950;letter-spacing:.8px}.homeQuickActions strong{margin-top:10px;font-size:15px;line-height:1.1}.homeQuickActions small{margin-top:5px;color:var(--muted);font-size:10px;line-height:1.25}.homeQuickActions i{margin-top:auto;padding-top:8px;color:#fff;font-size:9px;font-style:normal;font-weight:950;text-transform:uppercase}
+@media (max-width:390px){.homeDashboardHero{grid-template-columns:39% 61%;min-height:136px}.homeDashboardHero .programPhoto img{min-height:136px}.homeDashboardHero .programIdentity{padding:14px}.homeDashboardHero .programIdentity h1{font-size:30px}.homeDashboardHero .programIdentity h1 span{font-size:14px}.homeQuickActions{gap:6px}.homeQuickActions button{min-height:102px;padding:11px 8px}.homeQuickActions strong{font-size:13px}.homeQuickActions small{font-size:9px}}
+
+.calendarFilters{position:sticky;z-index:5;top:62px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0 16px;padding:6px;border:1px solid var(--line);border-radius:15px;background:rgba(8,8,12,.94);backdrop-filter:blur(12px)}
+.calendarFilters button{padding:10px 5px;color:var(--muted);border:0;border-radius:10px;background:transparent;font-size:11px;font-weight:950}.calendarFilters button.active{color:#050505;background:#fff}
+#meets[data-calendar-filter="meets"] .combinedPracticeTrack{display:none}#meets[data-calendar-filter="swim"] .meetCalendarTrack,#meets[data-calendar-filter="dive"] .meetCalendarTrack{display:none}
+#meets[data-calendar-filter="swim"] .practiceCompareHeader,#meets[data-calendar-filter="swim"] .practiceCompareRow,#meets[data-calendar-filter="dive"] .practiceCompareHeader,#meets[data-calendar-filter="dive"] .practiceCompareRow{grid-template-columns:minmax(74px,.68fr) minmax(0,2fr)}
+#meets[data-calendar-filter="swim"] .practiceCompareHeader>:nth-child(3),#meets[data-calendar-filter="swim"] .practiceCompareRow>:nth-child(3){display:none}#meets[data-calendar-filter="dive"] .practiceCompareHeader>:nth-child(2),#meets[data-calendar-filter="dive"] .practiceCompareRow>:nth-child(2){display:none}
+.pastMeetArchive{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:#09090d}.pastMeetArchive summary{display:flex;justify-content:space-between;padding:14px;color:var(--muted);cursor:pointer;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.7px}.pastMeetArchive summary span{display:grid;place-items:center;width:23px;height:23px;margin:-4px 0;border-radius:50%;background:#202027;color:#fff}.pastMeetList{display:grid;gap:9px;padding:0 10px 10px}.pastMeetList .scheduleItem{opacity:.68}
+.homeAlerts{margin-top:15px}.homeAlertGrid{display:grid;grid-template-columns:1fr!important;gap:7px}.homeAlert{display:grid!important;grid-template-columns:1fr auto;align-items:center;min-height:0!important;padding:13px 14px!important;gap:12px!important}.homeAlert p{display:-webkit-box;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:1}.homeAlert b{align-self:center!important;white-space:nowrap}.homeAlert span{margin-bottom:4px!important}.homeAlert h3{font-size:15px!important}
+.teamNewsArchive{margin-bottom:16px;padding:17px;border:1px solid var(--line);border-radius:18px;background:#101015}.teamNewsArchive h2{margin:5px 0 13px;font-size:22px}.teamNewsArchive .latestUpdateCard{margin-top:0;box-shadow:none}.teamNewsArchive .latestUpdateBadge{display:none}
+.sheetActions{grid-template-columns:repeat(3,minmax(0,1fr))}.sheetActions a,.sheetActions button{min-width:0}.sheetActions [hidden]{display:none!important}
 .divePracticeTrack .practiceTrackTag{background:var(--green);box-shadow:0 7px 18px rgba(0,132,61,.24)}
 .scheduleItem.swimAccent{border-left-color:var(--red)}
 .scheduleItem.diveAccent{border-left-color:var(--green)}
@@ -654,3 +692,220 @@ button:focus-visible,a:focus-visible,.tappablePanel:focus-visible{outline:3px so
 /* Home pull-to-refresh support */
 #home,#home *{touch-action:pan-y!important}
 #home img{-webkit-user-drag:none;user-select:none}
+
+/* College athletics visual direction — local preview */
+:root{--red:#d7192d;--green:#138a4b;--athletic-silver:#aeb4bd;--athletic-ink:#07080b}
+body{background:linear-gradient(180deg,rgba(215,25,45,.10),transparent 210px),#050609}
+.topBar{border-bottom:1px solid rgba(255,255,255,.08)}
+.brandMark{border-radius:5px;background:var(--red);border-color:rgba(255,255,255,.28);box-shadow:0 5px 18px rgba(215,25,45,.22)}
+.brandText strong,.screenTitle,.sectionLabel,.seasonLeadTop,.practiceTrackTag{font-family:Impact,"Arial Narrow",Arial,sans-serif;letter-spacing:.8px}
+.seasonPill{border-radius:5px;background:#111318;border-color:rgba(255,255,255,.16)}
+
+.homeDashboardHero{border:1px solid rgba(255,255,255,.16);border-radius:5px;overflow:hidden;box-shadow:0 16px 34px rgba(0,0,0,.45)}
+.homeDashboardHero .programIdentity{background:linear-gradient(145deg,#181a20,#08090c)}
+.homeDashboardHero .programIdentity h1{font-family:Impact,"Arial Narrow",Arial,sans-serif;font-weight:900;letter-spacing:1.2px}
+.homeDashboardHero .seasonTag{display:inline-flex;align-self:flex-start;padding:5px 8px;color:#fff;background:var(--red);border-radius:2px;letter-spacing:1.4px}
+.homeDashboardHero .dualLine{height:5px;background:var(--red)}
+
+.todayPanel{border:1px solid rgba(215,25,45,.55)!important;border-radius:5px!important;background:linear-gradient(115deg,rgba(215,25,45,.22),rgba(18,20,25,.98) 54%,#0b0c10)!important;box-shadow:0 15px 34px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.05)!important}
+.todayPanel::before{width:7px!important;background:var(--red)!important}
+.todayKicker{color:#ff8995!important;letter-spacing:1.8px!important}
+.todayMain{font-family:Impact,"Arial Narrow",Arial,sans-serif;font-size:27px!important;letter-spacing:.6px}
+.todayButton{padding:7px 10px!important;border:0!important;border-radius:3px;background:var(--red);letter-spacing:1px!important}
+
+.homeQuickActions button{border:1px solid rgba(255,255,255,.15);border-radius:5px;background:#111319;box-shadow:0 9px 20px rgba(0,0,0,.28)}
+.homeQuickActions button:nth-child(1){border-top:4px solid var(--athletic-silver)}
+.homeQuickActions button:nth-child(2){border-top:4px solid var(--red);background:linear-gradient(155deg,rgba(215,25,45,.19),#111319 54%)}
+.homeQuickActions button:nth-child(3){border-top:4px solid var(--green)}
+.homeQuickActions span{color:var(--athletic-silver);letter-spacing:1.15px}
+.homeQuickActions strong{font-family:Impact,"Arial Narrow",Arial,sans-serif;font-weight:900;letter-spacing:.45px}
+.homeQuickActions i{color:#fff}
+
+.homeAlert,.teamNewsArchive,.card,.scheduleItem,.practiceTrack,.pastMeetArchive{border-radius:5px!important}
+.homeAlert.red{border:1px solid rgba(215,25,45,.38);border-left:6px solid var(--red)}
+.homeAlert.green{border:1px solid rgba(19,138,75,.42);border-left:6px solid var(--green)}
+.homeAlert h3,.card h3,.practiceTrackHeader h2{font-family:Impact,"Arial Narrow",Arial,sans-serif;font-weight:900;letter-spacing:.45px}
+.homeAlert b,.homeAlert a{border-radius:3px;background:var(--red);color:#fff}
+.card{border-left-width:6px;background:linear-gradient(145deg,#17191f,#0c0d11)}
+.calendarFilters{border-radius:5px}.calendarFilters button{border-radius:3px}.calendarFilters button.active{color:#fff;background:var(--red)}
+.bottomNav{background:rgba(5,6,9,.97);border-top:3px solid var(--red)}
+.navIndicator{border-radius:4px;background:#1a1c22;border-color:rgba(255,255,255,.18);box-shadow:inset 0 -3px var(--red)}
+
+/* Refined collegiate direction — understated, premium, and warmer */
+:root{--red:#9f2430;--green:#246b4a;--athletic-silver:#a8abb2;--text:#f5f3ee;--muted:#bbbcc1;--soft:#85878e;--line:rgba(255,255,255,.105)}
+body{background:radial-gradient(circle at 15% -8%,rgba(159,36,48,.105),transparent 30%),linear-gradient(180deg,#08090c,#050609 420px)}
+.topBar{border-bottom-color:rgba(255,255,255,.06)}
+.brandMark{border-radius:10px;background:linear-gradient(145deg,#202229,#101116);border-color:rgba(255,255,255,.16);box-shadow:none}
+.brandText strong,.screenTitle,.sectionLabel,.seasonLeadTop,.practiceTrackTag{font-family:Inter,Arial,Helvetica,sans-serif;letter-spacing:initial}
+.screenTitle{letter-spacing:.15px}.sectionLabel,.seasonLeadTop{letter-spacing:1.25px}
+.seasonPill{border-radius:999px;background:rgba(20,21,26,.82);border-color:rgba(255,255,255,.1)}
+
+.homeDashboardHero{border-color:rgba(255,255,255,.11);border-radius:16px;box-shadow:0 20px 45px rgba(0,0,0,.36)}
+.homeDashboardHero .programIdentity{background:linear-gradient(145deg,#181a20,#0b0c10)}
+.homeDashboardHero .programIdentity h1{font-family:Inter,Arial,Helvetica,sans-serif;font-weight:950;letter-spacing:-.7px}
+.homeDashboardHero .seasonTag{padding:0;color:#c9c7c1;background:transparent;border-radius:0;letter-spacing:1.5px}
+.homeDashboardHero .dualLine{height:3px;background:linear-gradient(90deg,var(--red),#b7b4ad 50%,var(--green))}
+
+.todayPanel{border:1px solid rgba(255,255,255,.13)!important;border-radius:16px!important;background:linear-gradient(120deg,rgba(159,36,48,.11),rgba(20,21,27,.98) 52%,#0d0e12)!important;box-shadow:0 16px 38px rgba(0,0,0,.3)!important}
+.todayPanel::before{width:3px!important;background:linear-gradient(var(--red),var(--green))!important}
+.todayKicker{color:#c6a5aa!important;letter-spacing:1.45px!important}
+.todayMain{font-family:Inter,Arial,Helvetica,sans-serif;font-size:25px!important;font-weight:950;letter-spacing:-.25px}
+.todayButton{padding:0 0 3px!important;border:0!important;border-bottom:2px solid #9fbfae!important;border-radius:0;background:transparent;letter-spacing:.8px!important}
+
+.homeQuickActions button{border:1px solid rgba(255,255,255,.105);border-radius:14px;background:linear-gradient(150deg,#15171c,#0d0e12);box-shadow:0 10px 24px rgba(0,0,0,.22)}
+.homeQuickActions button:nth-child(1){border-top:1px solid rgba(255,255,255,.105);box-shadow:inset 0 2px rgba(168,171,178,.34),0 10px 24px rgba(0,0,0,.22)}
+.homeQuickActions button:nth-child(2){border-top:1px solid rgba(255,255,255,.105);background:linear-gradient(150deg,rgba(159,36,48,.105),#121318 58%);box-shadow:inset 0 2px rgba(159,36,48,.58),0 10px 24px rgba(0,0,0,.22)}
+.homeQuickActions button:nth-child(3){border-top:1px solid rgba(255,255,255,.105);box-shadow:inset 0 2px rgba(36,107,74,.62),0 10px 24px rgba(0,0,0,.22)}
+.homeQuickActions span{color:#9d9fa5;letter-spacing:1px}
+.homeQuickActions strong{font-family:Inter,Arial,Helvetica,sans-serif;font-weight:900;letter-spacing:-.1px}
+
+.homeAlert,.teamNewsArchive,.card,.scheduleItem,.practiceTrack,.pastMeetArchive{border-radius:14px!important}
+.homeAlert.red{border:1px solid rgba(255,255,255,.1);border-left:3px solid var(--red)}
+.homeAlert.green{border:1px solid rgba(255,255,255,.1);border-left:3px solid var(--green)}
+.homeAlert h3,.card h3,.practiceTrackHeader h2{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-weight:900;letter-spacing:-.15px}
+.homeAlert b,.homeAlert a{border-radius:9px;background:#edeae3;color:#111216}
+.card{border-left-width:3px;background:linear-gradient(145deg,#17191e,#0d0e12)}
+.calendarFilters{border-radius:14px}.calendarFilters button{border-radius:9px}.calendarFilters button.active{color:#111216;background:#edeae3}
+.bottomNav{background:rgba(7,8,11,.97);border-top:1px solid rgba(255,255,255,.11)}
+.navIndicator{border-radius:11px;background:linear-gradient(145deg,#202229,#15161b);border-color:rgba(255,255,255,.11);box-shadow:inset 0 2px rgba(159,36,48,.52),0 8px 20px rgba(0,0,0,.24)}
+
+/* NCAA-style editorial home canvas */
+body:has(#home.active){background:#e9e6de}
+body:has(#home.active) .app{background:#e9e6de}
+body:has(#home.active) .topBar{margin-left:-14px;margin-right:-14px;padding:10px 14px 12px;background:#0b0c10;border-bottom:3px solid var(--red);box-shadow:0 8px 24px rgba(16,17,20,.16)}
+body:has(#home.active) #home{margin:0 -14px;padding:14px 14px 26px;color:#15161a;background:#e9e6de}
+body:has(#home.active) .homeDashboardHero{margin-top:2px}
+body:has(#home.active) .todayPanel{background:#17191e!important;border-color:#242730!important;box-shadow:0 12px 24px rgba(28,29,33,.17)!important;color:#f5f3ee}
+body:has(#home.active) .todayPanel::before{background:var(--red)!important}
+body:has(#home.active) .todayKicker{color:#d6a8ad!important}
+body:has(#home.active) .todayMeta,body:has(#home.active) .todayLocation{color:#c2c3c7}
+body:has(#home.active) .todayButton{border-bottom-color:#d6a8ad!important}
+body:has(#home.active) .homeQuickActions button{background:#f7f5ef;color:#17181c;border-color:#d2cec5;box-shadow:0 8px 18px rgba(37,37,40,.09)}
+body:has(#home.active) .homeQuickActions button:nth-child(1){box-shadow:inset 0 3px #8a8d94,0 8px 18px rgba(37,37,40,.09)}
+body:has(#home.active) .homeQuickActions button:nth-child(2){background:#f7f5ef;box-shadow:inset 0 3px var(--red),0 8px 18px rgba(37,37,40,.09)}
+body:has(#home.active) .homeQuickActions button:nth-child(3){box-shadow:inset 0 3px var(--green),0 8px 18px rgba(37,37,40,.09)}
+body:has(#home.active) .homeQuickActions span,body:has(#home.active) .homeQuickActions small{color:#666970}
+body:has(#home.active) .homeQuickActions i{color:#7e202a}
+body:has(#home.active) .latestUpdateCard{border:0;background:#202228;box-shadow:0 11px 23px rgba(35,36,40,.16)}
+body:has(#home.active) .latestUpdateCard:before{width:5px;background:var(--red)}
+body:has(#home.active) .latestUpdateBadge{background:#f2efe8;color:#17181b}
+body:has(#home.active) .homeAlertsLabel{color:#55575d;font-size:11px;letter-spacing:1.5px}
+body:has(#home.active) .homeAlert{background:#f7f5ef;color:#17181c;border-color:#d2cec5;box-shadow:0 7px 15px rgba(37,37,40,.075)}
+body:has(#home.active) .homeAlert h3{color:#17181c}
+body:has(#home.active) .homeAlert span,body:has(#home.active) .homeAlert p{color:#666970}
+body:has(#home.active) .homeAlert b,body:has(#home.active) .homeAlert a{background:#17191e;color:#f5f3ee}
+
+/* Full-app Westonka palette preview — official red #DA2B1F */
+:root{--red:#DA2B1F;--green:#246b4a;--bg:#DA2B1F;--panel:#fff;--panel2:#f3f1ec;--text:#fff;--muted:#d8d4cc;--soft:#aaa79f;--line:rgba(255,255,255,.22)}
+html,body,body:has(#home.active),body:has(#home.active) .app{background:#DA2B1F}
+body{background:linear-gradient(155deg,#DA2B1F 0%,#c52319 52%,#a91d17 100%);background-attachment:fixed}
+.app{background:transparent}
+.topBar,body:has(#home.active) .topBar{margin-left:-14px;margin-right:-14px;padding:10px 14px 12px;background:#111216;border-bottom:3px solid #fff;box-shadow:0 8px 24px rgba(60,5,2,.2)}
+.brandMark{background:#DA2B1F;border-color:rgba(255,255,255,.42)}
+.seasonPill{background:#fff;color:#191a1e;border-color:#fff}.seasonPill i{background:var(--green)}
+.screenTitle{color:#fff;text-shadow:0 2px 10px rgba(65,5,3,.18)}
+.screenTitle:after{content:"";display:block;width:44px;height:3px;margin-top:7px;background:#fff;border-radius:2px}
+.sectionLabel,.homeAlertsLabel{color:#fff!important}
+
+body:has(#home.active) #home{margin:0 -14px;padding:14px 14px 26px;color:#fff;background:transparent}
+.homeDashboardHero{border-color:rgba(255,255,255,.5);box-shadow:0 16px 34px rgba(81,7,3,.25)}
+.homeDashboardHero .programIdentity{background:#111216}.homeDashboardHero .dualLine{height:4px;background:linear-gradient(90deg,#fff 0 50%,var(--green) 50%)}
+body:has(#home.active) .todayPanel,.todayPanel{background:#111216!important;border-color:rgba(255,255,255,.18)!important;box-shadow:0 12px 25px rgba(70,5,2,.24)!important}
+body:has(#home.active) .todayPanel::before,.todayPanel::before{background:var(--green)!important}
+body:has(#home.active) .todayKicker,.todayKicker{color:#efaaa3!important}
+body:has(#home.active) .todayButton,.todayButton{border-bottom-color:#fff!important}
+
+body:has(#home.active) .homeQuickActions button,.homeQuickActions button{background:#fff;color:#191a1e;border-color:rgba(82,10,6,.15);box-shadow:0 10px 22px rgba(76,7,3,.18)}
+body:has(#home.active) .homeQuickActions button:nth-child(1),.homeQuickActions button:nth-child(1){box-shadow:inset 0 3px #2C2A29,0 10px 22px rgba(76,7,3,.18)}
+body:has(#home.active) .homeQuickActions button:nth-child(2),.homeQuickActions button:nth-child(2){background:#fff;box-shadow:inset 0 3px var(--red),0 10px 22px rgba(76,7,3,.18)}
+body:has(#home.active) .homeQuickActions button:nth-child(3),.homeQuickActions button:nth-child(3){box-shadow:inset 0 3px var(--green),0 10px 22px rgba(76,7,3,.18)}
+body:has(#home.active) .homeQuickActions span,body:has(#home.active) .homeQuickActions small,.homeQuickActions span,.homeQuickActions small{color:#63636a}
+body:has(#home.active) .homeQuickActions i,.homeQuickActions i{color:#9e2018}
+body:has(#home.active) .latestUpdateCard,.latestUpdateCard{background:#111216;border:1px solid rgba(255,255,255,.14)}
+body:has(#home.active) .latestUpdateCard:before,.latestUpdateCard:before{background:var(--green)}
+body:has(#home.active) .homeAlert,.homeAlert{background:#fff;color:#191a1e;border-color:rgba(82,10,6,.16);box-shadow:0 8px 18px rgba(76,7,3,.14)}
+body:has(#home.active) .homeAlert h3,.homeAlert h3{color:#191a1e}
+body:has(#home.active) .homeAlert span,body:has(#home.active) .homeAlert p,.homeAlert span,.homeAlert p{color:#626269}
+
+.card,.teamNewsArchive,.practiceTrack,.pastMeetArchive,.sponsorProgressCard,.recordsTableShell{background:#fff;color:#191a1e;border-color:rgba(82,10,6,.18);box-shadow:0 10px 24px rgba(76,7,3,.16)}
+.card h3,.card h2,.practiceTrackHeader h2,.teamNewsArchive h2{color:#191a1e}.card p,.practiceTrackHeader p{color:#626269}
+.card.red{border-left-color:var(--red)}.card.green{border-left-color:var(--green)}.card.split{border-left-color:#2C2A29;background:#fff}
+.card .big{color:#191a1e}.card .link{color:#8f1b15;border-bottom-color:var(--red)}
+.scheduleItem,.practiceCompareCell{background:#fff;color:#191a1e;border-color:#d6d2ca;box-shadow:0 7px 16px rgba(76,7,3,.12)}
+.scheduleItem strong,.practiceCompareCell strong,.practiceCompareDate{color:#191a1e}.scheduleItem span,.practiceCompareCell span{color:#65666c}
+.practiceTrackHeader{border-bottom-color:#dedad2}.practiceCompareRow{border-top-color:#ddd9d1}.practiceCompareEmpty{color:#6e7076;border-color:#c7c3bb}
+.calendarFilters{background:#111216;border-color:rgba(255,255,255,.25);box-shadow:0 8px 20px rgba(76,7,3,.18)}.calendarFilters button{color:#d2d1ce}.calendarFilters button.active{background:#fff;color:#191a1e}
+.pastMeetArchive summary{color:#5d5e63}.pastMeetArchive summary span{background:#2C2A29}
+.practiceNotice{background:#e8f1eb;border-color:#a5c4b2}.practiceNotice strong{color:#174f37}.practiceNotice span{color:#446453}
+.card input,.card textarea,input,textarea{background:#f4f2ed;color:#191a1e;border-color:#c9c5bd}.card button{background:#111216;color:#fff}.card button.ghost{color:#191a1e;border-color:#aaa69e}
+.bottomNav{background:#111216;border-top:2px solid #fff}.navIndicator{background:#DA2B1F;border-color:rgba(255,255,255,.34);box-shadow:none}
+.sheet{background:#fff;color:#191a1e}.sheet p,.sheetMeta{color:#626269}.sheet button,.sheet a{border-color:#c9c5bd}
+
+/* Override the former split-border theme consistently on every application page */
+.card,.card.red,.card.green,.card.split,.primaryAction,.miniAction,.wideAction,.compactAction,.scheduleItem,.adminDashCard,.fundBox,.recordRow,.programFeature,.photoCard,.publishGuide,.stickyPublishPanel,.adminEditItem{background:#fff!important;color:#191a1e!important;border:1px solid rgba(82,10,6,.18)!important;box-shadow:0 9px 21px rgba(76,7,3,.15)!important}
+.card.red,.redAccent,.scheduleItem.swimAccent{border-left:4px solid var(--red)!important}
+.card.green,.greenAccent,.scheduleItem.diveAccent{border-left:4px solid var(--green)!important}
+.card.split,.splitAccent{border-left:4px solid #2C2A29!important}
+.scheduleItem.currentEvent{background:#fff!important;border:2px solid #2C2A29!important;box-shadow:0 12px 25px rgba(76,7,3,.2)!important}
+.scheduleDate strong,.scheduleDate span,.scheduleInfo h3,.scheduleInfo p,.scheduleItem .scheduleBadge{color:#191a1e}
+.scheduleInfo p,.scheduleDate span{color:#64656b}
+.scheduleItem .scheduleBadge{border-bottom-color:var(--red)}
+.primaryAction h3,.primaryAction p,.miniAction h3,.miniAction p,.wideAction h3,.wideAction p,.compactAction h3,.compactAction p,.programFeature h3,.programFeature p{color:#191a1e}
+.primaryAction>span,.wideAction>span{color:#8d1c15}
+.seasonLead,.nextPanel{background:#111216!important;color:#fff!important;border:1px solid rgba(255,255,255,.2)!important;box-shadow:0 10px 24px rgba(76,7,3,.18)!important}
+.seasonLead h2,.nextPanel h2,.nextPanel h3{color:#fff}.seasonLead p,.nextPanel p{color:#cbc9c5}
+.scheduleStatus{background:#111216;border-color:rgba(255,255,255,.18)}
+.practiceTrack{background:#fff!important}
+.programStat{background:#fff;color:#191a1e;border-color:rgba(82,10,6,.18)}.programStat strong{color:#191a1e}.programStat span{color:#65666c}
+.homeVolunteerCard{background:#fff;color:#191a1e;border:1px solid rgba(82,10,6,.18);box-shadow:0 9px 21px rgba(76,7,3,.15)}.homeVolunteerCard strong{color:#191a1e}.homeVolunteerEyebrow,.homeVolunteerCard small{color:#64656b}.homeVolunteerAction{background:#111216;color:#fff}
+.adminDashCard h3,.adminDashCard p,.fundBox h3,.fundBox p,.recordRow,.programFeature h3,.programFeature p,.photoCard h3,.photoCard p,.publishGuide h3,.publishGuide p,.adminEditItem{color:#191a1e}
+
+/* Red-band collegiate system — quiet content canvas, confident program header */
+html,body,body:has(#home.active){background:#ebe8e0}
+body{background:#ebe8e0;background-attachment:initial}
+.app,body:has(#home.active) .app{min-height:100vh;background:linear-gradient(180deg,#DA2B1F 0,#c9271d 238px,#ebe8e0 238px,#ebe8e0 100%)}
+.screen,body:has(#home.active) #home{background:transparent}
+.topBar,body:has(#home.active) .topBar{background:#111216;border-bottom:0;box-shadow:0 8px 22px rgba(24,25,29,.18)}
+.screenTitle{margin-top:18px;color:#fff;text-shadow:none}.screenTitle:after{width:36px;height:2px;margin-top:6px}
+
+.homeDashboardHero{border:0;box-shadow:0 16px 32px rgba(65,15,12,.22)}
+body:has(#home.active) .todayPanel,.todayPanel{border:0!important;box-shadow:0 10px 24px rgba(31,31,35,.14)!important}
+body:has(#home.active) .homeQuickActions button,.homeQuickActions button{border:0;box-shadow:0 5px 14px rgba(37,37,40,.085)}
+body:has(#home.active) .homeQuickActions button:nth-child(1),.homeQuickActions button:nth-child(1){box-shadow:inset 0 3px #7e8086,0 5px 14px rgba(37,37,40,.085)}
+body:has(#home.active) .homeQuickActions button:nth-child(2),.homeQuickActions button:nth-child(2){box-shadow:inset 0 3px var(--red),0 5px 14px rgba(37,37,40,.085)}
+body:has(#home.active) .homeQuickActions button:nth-child(3),.homeQuickActions button:nth-child(3){box-shadow:inset 0 3px var(--green),0 5px 14px rgba(37,37,40,.085)}
+body:has(#home.active) .latestUpdateCard,.latestUpdateCard{border:0;box-shadow:0 8px 19px rgba(31,31,35,.13)}
+body:has(#home.active) .homeAlert,.homeAlert{border:0;box-shadow:0 4px 12px rgba(37,37,40,.07)}
+
+.card,.card.red,.card.green,.card.split,.primaryAction,.miniAction,.wideAction,.compactAction,.adminDashCard,.fundBox,.recordRow,.programFeature,.photoCard,.publishGuide,.stickyPublishPanel,.adminEditItem{border:0!important;box-shadow:0 5px 15px rgba(37,37,40,.08)!important}
+.card.red,.redAccent{border-left:3px solid var(--red)!important}.card.green,.greenAccent{border-left:3px solid var(--green)!important}.card.split,.splitAccent{border-left:3px solid #2C2A29!important}
+.seasonLead,.nextPanel{border:0!important;box-shadow:0 9px 21px rgba(41,22,20,.15)!important}
+.practiceTrack,.teamNewsArchive,.pastMeetArchive,.sponsorProgressCard,.recordsTableShell{border:0!important;box-shadow:0 6px 16px rgba(37,37,40,.085)!important}
+.scheduleItem,.scheduleItem.currentEvent,.practiceCompareCell{border:0!important;background:#f8f7f3!important;box-shadow:none!important}
+.scheduleItem{border-left:3px solid #b9b5ad!important}.scheduleItem.currentEvent{border:1px solid #2C2A29!important}.scheduleItem.swimAccent{border-left:3px solid var(--red)!important}.scheduleItem.diveAccent{border-left:3px solid var(--green)!important}
+.calendarFilters{border:0;box-shadow:0 7px 17px rgba(37,37,40,.12)}
+.homeVolunteerCard{border:0;box-shadow:0 5px 15px rgba(37,37,40,.08)}
+.bottomNav{border-top:0;box-shadow:0 -8px 28px rgba(20,21,24,.18)}
+body:has(#home.active) .homeAlertsLabel{color:#55575d!important}
+@media (min-width:720px){.app,body:has(#home.active) .app{box-shadow:0 0 45px rgba(40,20,18,.12)}}
+
+/* Final polish */
+.app{position:relative;overflow:hidden}
+.app::before{content:"WHF";position:absolute;z-index:0;right:18px;top:86px;color:rgba(255,255,255,.055);font-size:112px;font-weight:950;line-height:1;letter-spacing:-7px;pointer-events:none;user-select:none}
+.topBar,.screens{position:relative;z-index:1}
+.homeDashboardHero{height:184px;min-height:0}
+.homeDashboardHero .programPhoto img{height:184px;min-height:0}
+.homeDashboardHero .dualLine{background:linear-gradient(90deg,#DA2B1F 0 82%,var(--green) 82% 100%)}
+.homeQuickActions button{min-height:116px;padding:15px 13px}
+.homeQuickActions span{font-size:9px}.homeQuickActions small{font-size:11px;line-height:1.32}.homeQuickActions i{font-size:10px}
+.todayMeta,.todayLocation,.latestUpdateBody,.card p,.scheduleInfo p,.practiceTrackHeader p{font-weight:700}
+.scheduleInfo p,.card p{line-height:1.42}
+.homeAlertsLabel{font-size:11px!important}
+@media (max-width:430px){
+  .app::before{top:82px;right:10px;font-size:86px}
+  .homeDashboardHero{height:140px;min-height:0}
+  .homeDashboardHero .programPhoto img{height:140px;min-height:0}
+  .homeDashboardHero .programIdentity{padding:14px}
+  .homeQuickActions button{min-height:112px;padding:13px 10px}
+  .homeQuickActions small{font-size:10px}
+}

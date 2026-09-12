@@ -1,51 +1,51 @@
 name: Notify subscribers after deployment
 
 on:
-  workflow_run:
-    workflows:
-      - pages-build-deployment
-    types:
-      - completed
   workflow_dispatch:
+    inputs:
+      description:
+        description: Brief description shown in the push notification
+        required: true
+        type: string
 
 permissions:
   contents: read
 
 jobs:
   notify:
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
 
     steps:
       - name: Send WHF-HQ update notification
         env:
           ONESIGNAL_APP_API_KEY: ${{ secrets.ONESIGNAL_APP_API_KEY }}
+          NOTIFICATION_DESCRIPTION: ${{ inputs.description }}
         run: |
           if [ -z "$ONESIGNAL_APP_API_KEY" ]; then
             echo "ONESIGNAL_APP_API_KEY is not configured."
             exit 1
           fi
 
-          echo "Waiting 5 seconds for the deployed site to settle."
-          sleep 5
+          if [ -z "$NOTIFICATION_DESCRIPTION" ]; then
+            echo "A brief notification description is required."
+            exit 1
+          fi
+
+          payload=$(jq -n --arg description "$NOTIFICATION_DESCRIPTION" '{
+            app_id: "cc26f77d-7d78-400a-9d13-61406a7db12b",
+            target_channel: "push",
+            filters: [{field: "session_count", relation: ">", value: "0"}],
+            headings: {en: "WHF-HQ Updated"},
+            contents: {en: $description},
+            url: "https://whitehawks-girlsswim.github.io/WHF-HQ/"
+          }')
 
           response=$(curl --fail-with-body --silent --show-error \
             --request POST \
             --url https://api.onesignal.com/notifications \
             --header "Authorization: Key $ONESIGNAL_APP_API_KEY" \
             --header "Content-Type: application/json" \
-            --data '{
-              "app_id": "cc26f77d-7d78-400a-9d13-61406a7db12b",
-              "target_channel": "push",
-              "filters": [
-                {"field": "session_count", "relation": ">", "value": "0"}
-              ],
-              "headings": {"en": "WHF-HQ Updated"},
-              "contents": {"en": "A new WHF-HQ update is live. Tap to see what changed."},
-              "url": "https://whitehawks-girlsswim.github.io/WHF-HQ/"
-            }')
+            --data "$payload")
 
           echo "$response"
 

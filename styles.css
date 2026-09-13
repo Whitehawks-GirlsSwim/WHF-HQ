@@ -909,3 +909,27 @@ body:has(#home.active) .homeAlertsLabel{color:#55575d!important}
   .homeQuickActions button{min-height:112px;padding:13px 10px}
   .homeQuickActions small{font-size:10px}
 }
+
+/* Program page readability on the light collegiate canvas */
+#program .programStat{background:#fff;color:#191a1e;border:0;box-shadow:0 5px 15px rgba(37,37,40,.08)}
+#program .programStat strong{color:#191a1e}
+#program .programStat span{color:#666970}
+#program .programStat p{color:#575960}
+#program .programBlock>.sectionLabel,#program .programBlock>.blockTitle,#program .recordsTableHint{color:#505158!important}
+#program .recordsTableHint{font-size:13px;line-height:1.45}
+#program .recordsTableShell{background:#fff;scrollbar-color:var(--red) #e0ddd6}
+#program .recordsTable{color:#191a1e}
+#program .recordsTable th,#program .recordsTable td{border-right-color:#d5d1c9;border-bottom-color:#d5d1c9}
+#program .recordsTable thead th{background:#b7241b;color:#fff}
+#program .recordsTable thead th:nth-child(4){background:#246b4a;color:#fff}
+#program .recordsTable tbody th{background:#24252a;color:#fff}
+#program .recordsTable tbody td{background:#fff;color:#202126}
+#program .recordsTable tbody td:nth-child(4){background:#e4f0e8;color:#173b29}
+#program .recordsTable tbody tr:nth-child(even) td{background:#f0ede7;color:#202126}
+#program .recordsTable tbody tr:nth-child(even) td:nth-child(4){background:#d5e8dc;color:#173b29}
+#program .recordsTable tbody tr:nth-child(even) th{background:#34353b;color:#fff}
+#program .recordFilter button{background:#fff;color:#34353b;border-color:#c9c5bd}
+#program .recordFilter button.active{background:#191a1e;color:#fff;border-color:#191a1e}
+#program .programLinks .programFeature,#program .programLinks .primaryAction{background:#fff!important;color:#191a1e!important}
+#program .programLinks h3,#program .programLinks strong{color:#191a1e}
+#program .programLinks p,#program .programLinks small{color:#5f6167}

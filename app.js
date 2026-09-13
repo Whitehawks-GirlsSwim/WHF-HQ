@@ -1205,7 +1205,7 @@ function renderProgram() {
   const records = document.getElementById('teamRecordsList');
   if (records) {
     const rows = DATA.teamRecords || [];
-    records.innerHTML = rows.length ? `<div class="recordsTableHint">Choose a record group on phones. The complete table remains available on larger whfScreens.</div>
+    records.innerHTML = rows.length ? `<div class="recordsTableHint">Choose a record group on phones. The complete table remains available on larger screens.</div>
       <div class="recordFilter" role="group" aria-label="Choose record group">
         <button data-group="boysMoundWestonka" onclick="setRecordGroup('boysMoundWestonka')">Boys Westonka</button>
         <button class="active" data-group="girlsMoundWestonka" onclick="setRecordGroup('girlsMoundWestonka')">Girls Westonka</button>

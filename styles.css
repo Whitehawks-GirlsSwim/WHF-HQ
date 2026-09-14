@@ -913,6 +913,8 @@ body:has(#home.active) .homeAlertsLabel{color:#55575d!important}
   .homeQuickActions button{min-height:112px;padding:13px 10px}
   .homeQuickActions small{font-size:10px}
 }
+.scheduleNotice{display:inline-block;margin:0 0 8px;padding:7px 10px;border-radius:8px;background:#ffd60a;color:#171300;font-size:11px;font-weight:950;letter-spacing:.55px;line-height:1.2;box-shadow:0 0 0 2px rgba(255,214,10,.25),0 6px 16px rgba(0,0,0,.28)}
+.scheduleItem:has(.scheduleNotice){background:linear-gradient(145deg,rgba(255,214,10,.13),#101015 42%) padding-box,linear-gradient(90deg,#ffd60a,#ff8c00) border-box!important;box-shadow:0 0 0 2px rgba(255,214,10,.12),0 14px 30px rgba(0,0,0,.34)!important}
 
 /* Program page readability on the light collegiate canvas */
 #program .programStat{background:#fff;color:#191a1e;border:0;box-shadow:0 5px 15px rgba(37,37,40,.08)}

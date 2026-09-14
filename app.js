@@ -324,7 +324,7 @@ function openScheduleSheet(kind, index, trigger) {
   openDetailSheet({
     eyebrow: kind === 'dive' ? 'DIVE PRACTICE' : isPractice ? 'SWIM PRACTICE' : `${event.level || 'MEET'} DETAILS`,
     title,
-    body: isPractice ? practiceDetails : `Meet information for ${event.opponent || title}.`,
+    body: isPractice ? practiceDetails : `${event.notice ? `${event.notice}. ` : ''}Meet information for ${event.opponent || title}.`,
     meta: `${event.displayDate || formatDate(date)} • ${event.displayTime || formatTime(date)}`,
     location,
     linkText: directionsUrl ? 'Get Directions' : '',
@@ -879,12 +879,13 @@ function renderSeparatedScheduleList(listId, statusId, scheduleItems, kind) {
     const isPast = isPastScheduleItem(event, now);
     const stateClass = isNext ? ' currentEvent' : isPast ? ' pastEvent' : '';
     const badge = isNext ? `<div class="scheduleBadge">NEXT ${kindLabel.toUpperCase()}</div>` : isPast ? '<div class="scheduleBadge completedBadge">COMPLETED</div>' : '';
+    const notice = event.notice ? `<div class="scheduleNotice">${escapeHtml(event.notice)}</div>` : '';
     const title = event.title || event.opponent;
     const detail = kind === 'meet' ? `${event.level} • ${event.location}` : (event.location || 'Practice details coming soon');
     const accent = kind === 'dive' ? 'diveAccent' : kind === 'practice' ? 'swimAccent' : (index % 2 === 0 ? 'greenAccent' : 'redAccent');
     return `<button type="button" class="scheduleItem detailTrigger ${accent}${stateClass}" onclick="openScheduleSheet('${kind}',${index},this)">
       <div class="scheduleDate"><strong>${escapeHtml(event.displayDate || formatDate(date))}</strong><span>${escapeHtml(event.displayTime || formatTime(date))}</span></div>
-      <div class="scheduleInfo">${badge}<h3>${escapeHtml(title)}</h3><p>${escapeHtml(detail)}</p></div>
+      <div class="scheduleInfo">${badge}${notice}<h3>${escapeHtml(title)}</h3><p>${escapeHtml(detail)}</p></div>
       <span class="detailChevron" aria-hidden="true">›</span>
     </button>`;
   });

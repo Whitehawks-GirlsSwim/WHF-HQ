@@ -576,10 +576,11 @@ window.WHF_DATA = {
       "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
     },
     {
-      "date": "2026-09-17T18:00:00-05:00",
+      "date": "2026-09-17T17:30:00-05:00",
       "level": "JV & Varsity",
       "opponent": "@ Watertown-Mayer/ML/SWC",
-      "location": "Watertown-Mayer High School — 1001 Highway 25 NW, Watertown, MN 55388"
+      "location": "Watertown-Mayer High School — 1001 Highway 25 NW, Watertown, MN 55388",
+      "notice": "TIME CHANGED — NEW START TIME: 5:30 PM"
     },
     {
       "date": "2026-09-22T18:00:00-05:00",

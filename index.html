@@ -9,7 +9,7 @@
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
   <link rel="manifest" href="manifest.json?v=20260903-72">
-  <link rel="stylesheet" href="styles.css?v=20260912-78">
+  <link rel="stylesheet" href="styles.css?v=20260912-79">
   <style>
     .notificationGuide{margin-top:12px;padding:18px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:linear-gradient(145deg,rgba(193,18,31,.14),#101015 48%,rgba(0,132,61,.13));box-shadow:0 10px 26px rgba(0,0,0,.22)}
     .notificationGuideBadge{display:inline-block;padding:5px 8px;border-radius:999px;background:#fff;color:#09090d;font-size:9px;font-weight:950;letter-spacing:1px}
@@ -90,9 +90,22 @@
 
       <section class="screen" id="parents">
         <div class="screenTitle">Parent Hub</div>
-        <section class="socialSection" id="socialSection" aria-label="Social media"></section>
+        <section class="parentHubIntro" aria-label="Parent resources">
+          <span class="sectionLabel">FAMILY RESOURCES</span>
+          <h2>Everything parents need, in one place.</h2>
+          <p>Jump to the latest schedule, open volunteer needs, or Booster Club information.</p>
+          <div class="parentQuickLinks">
+            <button type="button" onclick="showScreen('meets')"><strong>Calendar</strong><span>Meets &amp; practices</span></button>
+            <button type="button" onclick="showScreen('volunteers')"><strong>Volunteer</strong><span>Open sign-ups</span></button>
+            <button type="button" onclick="showScreen('booster')"><strong>Booster Club</strong><span>Fees &amp; leadership</span></button>
+          </div>
+        </section>
+        <section class="parentCurrentSection" id="parentCurrentSection" aria-label="Current parent information">
+          <div class="sectionLabel">CURRENT INFORMATION</div>
+          <div id="parentCards"></div>
+        </section>
         <section class="contactSection" id="contactSection" aria-label="Team contacts"></section>
-        <div id="parentCards"></div>
+        <section class="socialSection" id="socialSection" aria-label="Social media"></section>
       </section>
 
       <section class="screen" id="booster">
@@ -111,11 +124,11 @@
         <div class="seasonLead">
           <div class="seasonLeadTop">2026 SEASON</div>
           <h2>Team Calendar</h2>
-          <p>Meets, swim practices, and dive practices—all in one place.</p>
+          <p>Start with the next seven days, or choose a schedule below.</p>
         </div>
 
         <nav class="calendarFilters" aria-label="Filter calendar">
-          <button class="active" type="button" data-filter="all" onclick="setCalendarFilter('all',this)">All</button>
+          <button class="active" type="button" data-filter="week" onclick="setCalendarFilter('week',this)">Next 7 Days</button>
           <button type="button" data-filter="meets" onclick="setCalendarFilter('meets',this)">Meets</button>
           <button type="button" data-filter="swim" onclick="setCalendarFilter('swim',this)">Swim</button>
           <button type="button" data-filter="dive" onclick="setCalendarFilter('dive',this)">Dive</button>
@@ -198,6 +211,10 @@
         <div class="photoSubmitCard">
           <div><strong>Share Team Photos</strong><span>Every submission is reviewed before appearing in the gallery.</span></div>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSfuqlWPKp7vHszCnDJZGEoHUlXA1Q0nKjz4XiTk5D_uzxZTKg/viewform?usp=publish-editor" target="_blank" rel="noopener">Submit Photos</a>
+        </div>
+        <div class="photoSubmitCard">
+          <div><strong>Walter Jurus Team Photos</strong><span>Gallery password: MWHF26!</span></div>
+          <a href="https://walterjurus.smugmug.com/" target="_blank" rel="noopener">View Gallery</a>
         </div>
         <div id="photoLinksList"></div>
       </section>
@@ -317,7 +334,7 @@
     <button data-screen="program" onclick="showScreen('program')">Program</button>
   </nav>
 
-  <script src="data.js?v=20260911-75"></script>
-  <script src="app.js?v=20260911-76"></script>
+  <script src="data.js?v=20260913-80"></script>
+  <script src="app.js?v=20260912-79"></script>
 </body>
 </html>

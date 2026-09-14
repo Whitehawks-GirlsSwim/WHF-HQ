@@ -625,13 +625,13 @@ window.WHF_DATA = {
       "date": "2026-11-12T18:00:00-06:00",
       "level": "Varsity",
       "opponent": "Section Prelims",
-      "location": "Hutchinson High School — 1200 Roberts Road, Hutchinson, MN 55350"
+      "location": "Hutchinson Middle School — 1365 South Grade Road SW, Hutchinson, MN 55350"
     },
     {
       "date": "2026-11-14T12:00:00-06:00",
       "level": "Varsity",
       "opponent": "Section Finals",
-      "location": "Hutchinson High School — 1200 Roberts Road, Hutchinson, MN 55350"
+      "location": "Hutchinson Middle School — 1365 South Grade Road SW, Hutchinson, MN 55350"
     },
     {
       "date": "2026-11-19T12:00:00-06:00",

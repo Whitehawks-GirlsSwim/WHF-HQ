@@ -42,7 +42,7 @@ let pullRefreshCuePlayed = false;
 let activeRecordGroup = 'girlsMoundWestonka';
 let homeAlertItems = [];
 let activeSheetLink = '';
-let activeCalendarFilter = 'all';
+let activeCalendarFilter = 'week';
 let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'meets', 'volunteers', 'spirit', 'parents', 'program', 'photos'];
@@ -685,6 +685,32 @@ function cardHtml(item, idx = 0) {
   return `<div class="card ${cls}${pastClass}">${pastBadge}<h3>${escapeHtml(item.title || item.name || 'Untitled')}</h3>${date}<p>${escapeHtml(detail)}</p>${link}</div>`;
 }
 
+function boosterMeetingsHtml(meetings) {
+  if (!meetings.length) return '';
+  const rows = meetings.map(item => {
+    const completed = item.status === 'completed';
+    const title = /elections/i.test(item.title || '') ? 'Meeting & Board Elections' : 'Booster Club Meeting';
+    return `<div class="boosterMeetingRow${completed ? ' completedMeeting' : ''}">
+      <div class="boosterMeetingDate">${escapeHtml(item.date || 'Date TBD')}</div>
+      <div class="boosterMeetingInfo">
+        <strong>${escapeHtml(title)}</strong>
+        <p>${escapeHtml(item.detail || item.body || '')}</p>
+      </div>
+      <span class="boosterMeetingStatus">${completed ? 'Completed' : 'Upcoming'}</span>
+    </div>`;
+  }).join('');
+  return `<section class="eventGroup boosterMeetingGroup">
+    <div class="sectionLabel">Meeting Schedule</div>
+    <div class="card split boosterMeetingCard">
+      <div class="boosterMeetingHeading">
+        <div><span class="boosterMeetingEyebrow">WHF BOOSTER CLUB</span><h3>Booster Club Meetings</h3></div>
+        <span>${meetings.length} dates</span>
+      </div>
+      <div class="boosterMeetingList">${rows}</div>
+    </div>
+  </section>`;
+}
+
 function volunteerCardForDisplay(item) {
   const formatted = formatVolunteerNeeds(item.detail || item.body || '');
   const today = new Date();
@@ -702,7 +728,15 @@ function volunteerCardForDisplay(item) {
 
 function renderPageCards() {
   const parent = document.getElementById('parentCards');
-  if (parent) parent.innerHTML = (DATA.parentCards || []).map(cardHtml).join('');
+  if (parent) {
+    const currentParentCards = (DATA.parentCards || []).filter(item => {
+      if (!item.pastAfter) return true;
+      return new Date(item.pastAfter).getTime() >= Date.now();
+    });
+    parent.innerHTML = currentParentCards.map(cardHtml).join('');
+    const section = document.getElementById('parentCurrentSection');
+    if (section) section.hidden = currentParentCards.length === 0;
+  }
 
   const booster = document.getElementById('boosterCards');
   if (booster) booster.innerHTML = (DATA.boosterCards || []).map(cardHtml).join('');
@@ -713,16 +747,16 @@ function renderPageCards() {
   const events = document.getElementById('eventsList');
   if (events) {
     const items = DATA.events || [];
-    const upcoming = items.filter(item => item.status !== 'completed');
-    const completed = items.filter(item => item.status === 'completed');
-    const completedMeetings = completed.filter(item => /meeting/i.test(item.title || ''));
-    const completedFundraisers = completed.filter(item => !/meeting/i.test(item.title || ''));
+    const meetings = items.filter(item => /booster club meeting/i.test(item.title || ''));
+    const nonMeetings = items.filter(item => !/booster club meeting/i.test(item.title || ''));
+    const upcoming = nonMeetings.filter(item => item.status !== 'completed');
+    const completedFundraisers = nonMeetings.filter(item => item.status === 'completed');
     const group = (title, list) => list.length ? `<section class="eventGroup"><div class="sectionLabel">${title}</div>${list.map((item, index) => {
       const result = item.result ? `<div class="eventResult">${escapeHtml(item.result)}</div>` : '';
       return `<div class="eventCard ${item.status === 'completed' ? 'completedEvent' : 'upcomingEvent'}">${result}${cardHtml(item, index)}</div>`;
     }).join('')}</section>` : '';
-    events.innerHTML = group('Upcoming', upcoming)
-      + group('Completed Meetings', completedMeetings)
+    events.innerHTML = boosterMeetingsHtml(meetings)
+      + group('Upcoming', upcoming)
       + group('Completed Fundraisers', completedFundraisers);
   }
 
@@ -805,7 +839,11 @@ function renderCombinedScheduleLegacy() {
     const isNext = nextKey === itemKey(event);
     const isPast = isPastScheduleItem(event, now);
     const accent = index % 2 === 0 ? 'greenAccent' : 'redAccent';
-    const stateClass = isNext ? ' currentEvent' : isPast ? ' pastEvent' : '';
+    const weekEnd = new Date(now);
+    weekEnd.setDate(weekEnd.getDate() + 7);
+    weekEnd.setHours(23, 59, 59, 999);
+    const isWeekVisible = !isPast && (isNext || date <= weekEnd);
+    const stateClass = `${isNext ? ' currentEvent' : isPast ? ' pastEvent' : ''}${isWeekVisible ? ' weekVisible' : ''}`;
     const badge = isNext ? '<div class="scheduleBadge">NEXT UP</div>' : isPast ? '<div class="scheduleBadge completedBadge">COMPLETED</div>' : '';
     const title = event.title || event.opponent;
     const detail = event.type === 'keyDate'
@@ -887,13 +925,17 @@ function renderCombinedPracticeCalendar(practices, dives) {
     const dive = diveByDate.get(dateKey);
     const item = swim?.item || dive?.item;
     const date = new Date(item.date);
-    return `<div class="practiceCompareRow"><div class="practiceCompareDate"><strong>${escapeHtml(item.displayDate || formatDate(date))}</strong></div>${practiceCell(swim, 'practice')}${practiceCell(dive, 'dive')}</div>`;
+    const weekEnd = new Date();
+    weekEnd.setDate(weekEnd.getDate() + 7);
+    weekEnd.setHours(23, 59, 59, 999);
+    const weekClass = date <= weekEnd ? ' weekVisible' : '';
+    return `<div class="practiceCompareRow${weekClass}"><div class="practiceCompareDate"><strong>${escapeHtml(item.displayDate || formatDate(date))}</strong></div>${practiceCell(swim, 'practice')}${practiceCell(dive, 'dive')}</div>`;
   }).join('');
   if (status) status.textContent = dates.length ? 'Tap any Swim or Dive time for full practice details.' : 'The current practice schedule is complete.';
 }
 
 function setCalendarFilter(filter, trigger) {
-  activeCalendarFilter = ['all', 'meets', 'swim', 'dive'].includes(filter) ? filter : 'all';
+  activeCalendarFilter = ['week', 'meets', 'swim', 'dive'].includes(filter) ? filter : 'week';
   const screen = document.getElementById('meets');
   if (screen) screen.dataset.calendarFilter = activeCalendarFilter;
   document.querySelectorAll('.calendarFilters button').forEach(button => button.classList.toggle('active', button.dataset.filter === activeCalendarFilter));
@@ -1113,7 +1155,7 @@ function emailWeeklyUpdate() {
 }
 
 function setCalendarFilter(filter, trigger) {
-  activeCalendarFilter = ['all', 'meets', 'swim', 'dive'].includes(filter) ? filter : 'all';
+  activeCalendarFilter = ['week', 'meets', 'swim', 'dive'].includes(filter) ? filter : 'week';
   const screen = document.getElementById('meets');
   if (screen) screen.dataset.calendarFilter = activeCalendarFilter;
   document.querySelectorAll('.calendarFilters button').forEach(button => button.classList.toggle('active', button.dataset.filter === activeCalendarFilter));

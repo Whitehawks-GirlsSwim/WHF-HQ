@@ -800,7 +800,7 @@ window.WHF_DATA = {
       "accent": "green",
       "title": "Saturday Team Breakfasts",
       "date": "2026 Season",
-      "detail": "Open as of August 31: September 5 needs a main breakfast item; September 19 and September 26 each need beverages/fruit and a main breakfast item; October 3 needs a main breakfast item.",
+      "detail": "Open as of September 14: September 19, September 26, and October 3 each need a main breakfast item.",
       "status": "upcoming",
       "linkText": "Sign Up for Saturday Breakfasts",
       "linkUrl": "https://www.signupgenius.com/go/10C0E4DA5AC28A0FB6-52289320-2024"
@@ -809,7 +809,7 @@ window.WHF_DATA = {
       "accent": "red",
       "title": "Home Meet Volunteers",
       "date": "2026 Season",
-      "detail": "Open as of August 31: September 10 needs 7 timers and 2 Chuck A Duck volunteers; September 22 needs 9 timers, 1 swim-parent concessions volunteer, and 2 Chuck A Duck volunteers; October 1 needs 9 timers and 2 Chuck A Duck volunteers; October 22 needs 8 timers and 2 Chuck A Duck volunteers.",
+      "detail": "Open as of September 14: September 22 needs 6 timers, 1 swim-parent concessions volunteer, and 2 Chuck A Duck volunteers; October 1 needs 7 timers and 2 Chuck A Duck volunteers; October 22 needs 7 timers and 2 Chuck A Duck volunteers.",
       "status": "upcoming",
       "linkText": "Sign Up for Home Meets",
       "linkUrl": "https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-57207588-2025"

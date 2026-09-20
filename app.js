@@ -1978,7 +1978,7 @@ function updateTeamAlertsCard(state, message) {
 
   if (state === 'enabled') {
     title.textContent = 'Team Alerts Are On';
-    copy.textContent = message || 'This phone will receive important WHF-HQ updates.';
+    copy.textContent = message || 'This phone will receive live schedule changes and team updates.';
     action.textContent = 'Notifications Enabled';
     return;
   }
@@ -1998,8 +1998,8 @@ function updateTeamAlertsCard(state, message) {
   }
 
   title.textContent = 'Turn On Notifications';
-  copy.textContent = message || 'Get important schedule changes and team updates on this phone.';
-  action.textContent = 'Turn On Alerts';
+  copy.textContent = message || 'Get live schedule changes and team updates on this phone.';
+  action.textContent = 'Enable Live Alerts';
 }
 
 function isWhfHomeScreenApp() {

@@ -47,6 +47,11 @@ let lastSheetTrigger = null;
 const screenScrollPositions = new Map();
 const screenOrder = ['home', 'meets', 'volunteers', 'spirit', 'parents', 'program', 'photos'];
 const APP_RELEASE_KEY = new URL(document.currentScript.src).searchParams.get('v') || '20260904-75';
+const PUBLISHED_RELEASE_KEY = [
+  document.querySelector('link[href^="styles.css"]')?.href || '',
+  document.querySelector('script[src^="data.js"]')?.src || '',
+  document.currentScript.src
+].join('|');
 const LIVE_SYNC_INTERVAL_MS = 30 * 1000;
 let appUpdateCheckInFlight = false;
 let appReloadScheduled = false;
@@ -641,6 +646,7 @@ function openLatestUpdate(trigger) {
   const key = latestUpdateKey(item);
   if (!key.replace(/\|/g, '')) return;
   localStorage.setItem('whfSeen-latestUpdate', key);
+  if ('clearAppBadge' in navigator) navigator.clearAppBadge().catch(() => {});
   trigger?.classList.remove('isNew');
   trigger?.querySelector('.latestUpdateBadge')?.setAttribute('hidden', '');
   if (item.targetAction === 'teamAlerts') {
@@ -1982,6 +1988,17 @@ async function clearNotificationBadge() {
   }
 }
 
+async function syncPublishedUpdateBadge() {
+  if (!('setAppBadge' in navigator)) return;
+  if (localStorage.getItem('whfBadged-publishedRelease') === PUBLISHED_RELEASE_KEY) return;
+  try {
+    await navigator.setAppBadge(1);
+    localStorage.setItem('whfBadged-publishedRelease', PUBLISHED_RELEASE_KEY);
+  } catch (error) {
+    console.warn('This phone did not allow the WHF HQ icon badge.', error);
+  }
+}
+
 if (new URLSearchParams(window.location.search).get('notificationTest') === '1') {
   clearNotificationBadge();
 }
@@ -2121,3 +2138,4 @@ function setupHiddenAdminShortcut() {
 }
 
 setupHiddenAdminShortcut();
+syncPublishedUpdateBadge();

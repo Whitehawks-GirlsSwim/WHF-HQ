@@ -676,13 +676,19 @@ function cardHtml(item, idx = 0) {
   const pastBadge = isPast ? '<span class="cardStatus">COMPLETED</span>' : '';
   const detail = item.body || item.detail || '';
   const date = item.date ? `<p><b>${escapeHtml(item.date)}</b></p>` : '';
+  const media = item.image ? `<figure class="cardMedia">
+    <a href="${escapeHtml(item.image)}" target="_blank" rel="noopener" aria-label="Open ${escapeHtml(item.title || 'event')} image full size">
+      <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.imageAlt || item.title || 'Event image')}" loading="lazy">
+    </a>
+    ${item.imageCaption ? `<figcaption>${escapeHtml(item.imageCaption)} <strong>Tap the map to enlarge.</strong></figcaption>` : ''}
+  </figure>` : '';
   let link = '';
   if (item.targetScreen) {
     link = `<button class="inlineLink" onclick="showScreen('${escapeHtml(item.targetScreen)}')">${escapeHtml(item.linkText || 'Open')}</button>`;
   } else if (item.linkUrl) {
     link = `<a class="link" href="${escapeHtml(item.linkUrl)}" target="_blank" rel="noopener" data-toast="Opening link…">${escapeHtml(item.linkText || 'View Details')}</a>`;
   }
-  return `<div class="card ${cls}${pastClass}">${pastBadge}<h3>${escapeHtml(item.title || item.name || 'Untitled')}</h3>${date}<p>${escapeHtml(detail)}</p>${link}</div>`;
+  return `<div class="card ${cls}${pastClass}">${pastBadge}<h3>${escapeHtml(item.title || item.name || 'Untitled')}</h3>${date}<p>${escapeHtml(detail)}</p>${media}${link}</div>`;
 }
 
 function boosterMeetingsHtml(meetings) {

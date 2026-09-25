@@ -848,6 +848,9 @@ window.WHF_DATA = {
       "title": "Westonka Homecoming Parade",
       "date": "Friday, October 2 • Check-in 4:25 PM",
       "detail": "WHF Girls Swim & Dive is Float #15. Participants should check in at 4:25 p.m. and follow the parade staging instructions provided at arrival.",
+      "image": "homecoming-parade-map.png",
+      "imageAlt": "Westonka Homecoming Parade staging map showing WHF Girls Swim & Dive at Float 15, the 4:25 p.m. check-in area, parking lanes, and the parade route.",
+      "imageCaption": "WHF is Float #15 in the 4:25 p.m. check-in group. Follow the marked check-in and parking route.",
       "status": "upcoming",
       "linkText": "",
       "linkUrl": ""

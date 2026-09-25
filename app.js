@@ -260,12 +260,27 @@ function updatePhotoViewer() {
 function openPhotoViewer(index = 0) {
   const viewer = document.getElementById('photoViewer');
   if (!viewer || !photoViewerItems.length) return;
+  viewer.classList.remove('eventImageMode');
   activePhotoIndex = Math.max(0, Math.min(photoViewerItems.length - 1, Number(index) || 0));
   updatePhotoViewer();
   viewer.classList.add('open');
   viewer.setAttribute('aria-hidden', 'false');
   document.body.classList.add('photoViewerOpen');
   requestAnimationFrame(() => viewer.querySelector('.photoViewerClose')?.focus());
+}
+
+function openEventImage(imageUrl, imageAlt = 'Event image') {
+  const viewer = document.getElementById('photoViewer');
+  const image = document.getElementById('photoViewerImage');
+  if (!viewer || !image || !imageUrl) return;
+  photoViewerItems = [imageUrl];
+  activePhotoIndex = 0;
+  image.alt = imageAlt;
+  updatePhotoViewer();
+  viewer.classList.add('eventImageMode', 'open');
+  viewer.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('photoViewerOpen');
+  requestAnimationFrame(() => viewer.querySelector('.photoViewerBack')?.focus());
 }
 
 function stepPhotoViewer(direction) {
@@ -677,9 +692,9 @@ function cardHtml(item, idx = 0) {
   const detail = item.body || item.detail || '';
   const date = item.date ? `<p><b>${escapeHtml(item.date)}</b></p>` : '';
   const media = item.image ? `<figure class="cardMedia">
-    <a href="${escapeHtml(item.image)}" target="_blank" rel="noopener" aria-label="Open ${escapeHtml(item.title || 'event')} image full size">
+    <button type="button" data-event-image="${escapeHtml(item.image)}" onclick="openEventImage(this.dataset.eventImage, this.querySelector('img').alt)" aria-label="Open ${escapeHtml(item.title || 'event')} image full size">
       <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.imageAlt || item.title || 'Event image')}" loading="lazy">
-    </a>
+    </button>
     ${item.imageCaption ? `<figcaption>${escapeHtml(item.imageCaption)} <strong>Tap the map to enlarge.</strong></figcaption>` : ''}
   </figure>` : '';
   let link = '';

@@ -4,10 +4,10 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "White Hawks Move to 2–0 with Win Over Watertown!",
-    "summary": "WHF defeated Watertown to remain undefeated in dual meets and improve its season record to 2–0.",
-    "body": "The White Hawks earned another team victory over Watertown and are now 2–0 in dual meets this season. Congratulations to all of our swimmers and divers!",
-    "updated": "September 17, 2026",
+    "title": "White Hawks Move to 3–0 with Massive Win Over Orono!",
+    "summary": "WHF delivered a massive win over the Orono Spartans to remain undefeated and improve its dual-meet record to 3–0.",
+    "body": "The White Hawks delivered a massive Senior Night and Pack the Pool victory over the Orono Spartans and are now 3–0 in dual meets this season. Congratulations to all of our swimmers and divers on another outstanding team win!",
+    "updated": "September 22, 2026",
     "actionText": "View Season Record",
     "targetScreen": "program"
   },
@@ -896,8 +896,8 @@ window.WHF_DATA = {
     "status": ""
   },
   "seasonRecord": {
-    "value": "2-0",
-    "note": "WHF is now 2-0 in dual meets after defeating Watertown."
+    "value": "3-0",
+    "note": "WHF is now 3-0 in dual meets after a massive win over the Orono Spartans."
   },
   "programHighlights": [],
   "photoLinks": [],

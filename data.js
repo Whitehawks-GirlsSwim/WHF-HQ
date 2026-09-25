@@ -844,6 +844,15 @@ window.WHF_DATA = {
       "linkUrl": ""
     },
     {
+      "accent": "green",
+      "title": "Westonka Homecoming Parade",
+      "date": "Friday, October 2 • Check-in 4:25 PM",
+      "detail": "WHF Girls Swim & Dive is Float #15. Participants should check in at 4:25 p.m. and follow the parade staging instructions provided at arrival.",
+      "status": "upcoming",
+      "linkText": "",
+      "linkUrl": ""
+    },
+    {
       "accent": "split",
       "title": "Booster Club Meeting",
       "date": "Monday, October 12 • Time TBD",

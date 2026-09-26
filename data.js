@@ -4,12 +4,12 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "White Hawks Move to 4–0 with Win Over Litchfield!",
-    "summary": "WHF defeated Litchfield to remain undefeated and improve its dual-meet record to 4–0.",
-    "body": "The White Hawks earned another impressive team victory over Litchfield and are now 4–0 in dual meets this season. Congratulations to all of our swimmers and divers on keeping the undefeated season going!",
-    "updated": "September 24, 2026",
-    "actionText": "View Season Record",
-    "targetScreen": "program"
+    "title": "DATE CHANGE: Booster Meeting Moved to October 19",
+    "summary": "The October Booster Club meeting has moved from October 12 to Monday, October 19. Time and location are being finalized.",
+    "body": "Please update your calendar: the October Booster Club meeting will now be held Monday, October 19—not October 12. Time and location are being finalized and will be shared in WHF-HQ.",
+    "updated": "September 26, 2026",
+    "actionText": "View Meeting Schedule",
+    "targetScreen": "spirit"
   },
   "previousLatestUpdate": {
     "title": "WHF Girls Swim & Dive Rolls Out the Red with Dominant Performance",
@@ -21,7 +21,7 @@ window.WHF_DATA = {
   },
   "weeklyUpdate": {
     "title": "Next Booster Club Meeting",
-    "body": "Our next booster meeting is Monday, October 12. Time and location are being finalized.\n\nLOOKING AHEAD TO NEXT SEASON\nWe will need parents to step into Booster Club leadership roles for next year, including Treasurer, Secretary, and Volunteer Coordinator. Please begin considering where you may be able to help.\n\n⚠️ MANDATORY PARENT EQUIPMENT TRAINING NIGHT\nPending final communication from Coach Ben, a mandatory parent equipment-training night will be scheduled in the near future. Every family will need to attend and learn the meet equipment and operations. We are graduating many of the experienced families who currently perform these jobs, so all families must be trained to keep our home meets running successfully.",
+    "body": "Our next booster meeting is Monday, October 19. Time and location are being finalized.\n\nLOOKING AHEAD TO NEXT SEASON\nWe will need parents to step into Booster Club leadership roles for next year, including Treasurer, Secretary, and Volunteer Coordinator. Please begin considering where you may be able to help.\n\n⚠️ MANDATORY PARENT EQUIPMENT TRAINING NIGHT\nPending final communication from Coach Ben, a mandatory parent equipment-training night will be scheduled in the near future. Every family will need to attend and learn the meet equipment and operations. We are graduating many of the experienced families who currently perform these jobs, so all families must be trained to keep our home meets running successfully.",
     "updated": "September 18, 2026"
   },
   "keyDates": [
@@ -858,8 +858,8 @@ window.WHF_DATA = {
     {
       "accent": "split",
       "title": "Booster Club Meeting",
-      "date": "Monday, October 12 • Time TBD",
-      "detail": "Time and location are being finalized. Booster families are welcome.",
+      "date": "Monday, October 19 • Time TBD",
+      "detail": "DATE CHANGED: This meeting has moved from October 12 to Monday, October 19. Time and location are being finalized. Booster families are welcome.",
       "status": "upcoming",
       "linkText": "",
       "linkUrl": ""

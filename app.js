@@ -375,6 +375,10 @@ function buildCalendarDownload(event, kind) {
 function openHomeAlertSheet(index, trigger) {
   const item = homeAlertItems[index];
   if (!item) return;
+  if (item.targetScreen) {
+    showScreen(item.targetScreen);
+    return;
+  }
   openDetailSheet({
     eyebrow: item.eyebrow,
     title: item.title,
@@ -565,6 +569,7 @@ function renderHomeAlerts() {
   const host = document.getElementById('homeAlerts');
   if (!host) return;
   const parentCards = DATA.parentCards || [];
+  const parade = (DATA.events || []).find(item => /homecoming parade/i.test(item.title || ''));
   const registration = parentCards.find(item => /registration/i.test(item.title || ''));
   const storeCard = parentCards.find(item => /team store/i.test(item.title || ''));
   const store = DATA.teamStore || {};
@@ -575,6 +580,16 @@ function renderHomeAlerts() {
   );
   const seniorNightDeadline = seniorNightMeet ? new Date(seniorNightMeet.date) : null;
   if (seniorNightDeadline) seniorNightDeadline.setHours(23, 59, 59, 999);
+
+  if (parade && parade.status !== 'completed' && new Date() < new Date('2026-10-03T00:00:00-05:00')) {
+    alerts.push({
+      accent: parade.accent || 'green',
+      eyebrow: 'HOMECOMING PARADE • FLOAT #15',
+      title: parade.title || 'Westonka Homecoming Parade',
+      body: parade.detail || 'Check in at 4:25 p.m. and follow the staging map in Events.',
+      targetScreen: 'spirit'
+    });
+  }
 
   if (store.url && new Date() < storeDeadline) {
     alerts.push({

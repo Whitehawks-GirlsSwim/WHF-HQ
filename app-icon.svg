@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#c1121f"/><stop offset="1" stop-color="#00843d"/></linearGradient></defs>
-  <rect width="512" height="512" rx="112" fill="#08080c"/>
-  <rect x="24" y="24" width="464" height="464" rx="96" fill="none" stroke="url(#g)" stroke-width="18"/>
-  <text x="256" y="290" fill="white" font-family="Arial,Helvetica,sans-serif" font-size="150" font-weight="900" text-anchor="middle">WHF</text>
-  <path d="M88 342h168" stroke="#c1121f" stroke-width="18"/><path d="M256 342h168" stroke="#00843d" stroke-width="18"/>
+  <rect width="512" height="512" rx="108" fill="#F7F5EF"/>
+  <rect x="22" y="22" width="468" height="468" rx="88" fill="none" stroke="#202228" stroke-width="12"/>
+  <path d="M74 66h142l-48 82h66L103 277l42-96H75l61-71H74z" fill="#DA2B1F"/>
+  <path d="M438 446H296l48-82h-66l131-129-42 96h70l-61 71h62z" fill="#246B4A"/>
+  <rect x="67" y="179" width="378" height="154" rx="24" fill="#F7F5EF" stroke="#202228" stroke-width="9"/>
+  <text x="256" y="290" fill="#202228" font-family="Arial Black,Arial,Helvetica,sans-serif" font-size="136" font-weight="900" text-anchor="middle">WHF</text>
+  <rect x="187" y="332" width="138" height="72" rx="20" fill="#202228"/>
+  <text x="256" y="386" fill="#fff" font-family="Arial Black,Arial,Helvetica,sans-serif" font-size="58" font-weight="900" letter-spacing="5" text-anchor="middle">HQ</text>
 </svg>

@@ -159,7 +159,7 @@ Admin is intentionally not shown in the bottom navigation. It opens by tapping t
 - First Booster meeting (Aug 27) is completed and belongs with Booster/team events, not completed fundraisers.
 - Upcoming Booster meeting dates in data.js:
   - Sep 15 — time/location TBD
-  - Oct 12 — time/location TBD
+  - Oct 19 — time/location TBD
   - Nov 10 — time/location TBD; Board Elections
 
 ### Sponsors
@@ -348,7 +348,7 @@ Move the intended latest-update content into data.js and remove the app.js runti
 ### Priority 5 — Content confirmations
 
 - Confirm official season record after the Tim Daly win.
-- Confirm Booster meeting times/locations for Sep 15, Oct 12, and Nov 10.
+- Confirm Booster meeting times/locations for Sep 15, Oct 19, and Nov 10.
 - Confirm the mandatory parent equipment-training date from Coach Ben.
 - Add October practice dates only after coach confirmation.
 - End-of-season banquet was discussed for Nov 21 or 22 but was not finalized; do not publish it yet.

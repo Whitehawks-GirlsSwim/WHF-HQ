@@ -818,7 +818,7 @@ window.WHF_DATA = {
       "accent": "red",
       "title": "Home Meet Volunteers",
       "date": "2026 Season",
-      "detail": "Open as of September 19: September 22 needs 4 timers and 2 Chuck A Duck volunteers; October 1 needs 6 timers and 2 Chuck A Duck volunteers; October 22 needs 7 timers and 2 Chuck A Duck volunteers.",
+      "detail": "Open as of September 26: October 1 needs 7 timers and 2 Chuck A Duck volunteers; October 22 needs 6 timers and 2 Chuck A Duck volunteers.",
       "status": "upcoming",
       "linkText": "Sign Up for Home Meets",
       "linkUrl": "https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-57207588-2025"
@@ -829,10 +829,10 @@ window.WHF_DATA = {
       "accent": "green",
       "title": "Westonka Homecoming Parade",
       "date": "Friday, October 2 • Check-in 4:25 PM",
-      "detail": "WHF Girls Swim & Dive is Float #15. Participants should check in at 4:25 p.m. and follow the parade staging instructions provided at arrival.",
+      "detail": "WHF Girls Swim & Dive is Float #15. Check in at 4:25 p.m.; roads close promptly at 4:55 p.m. All athletes walking in the parade should wear their new captains’ shirt and follow the staging instructions shown on the map.",
       "image": "homecoming-parade-map.png",
       "imageAlt": "Westonka Homecoming Parade staging map showing WHF Girls Swim & Dive at Float 15, the 4:25 p.m. check-in area, parking lanes, and the parade route.",
-      "imageCaption": "WHF is Float #15 in the 4:25 p.m. check-in group. Follow the marked check-in and parking route.",
+      "imageCaption": "WHF is Float #15 in the 4:25 p.m. check-in group. Follow the marked check-in and parking route; roads close at 4:55 p.m.",
       "status": "upcoming",
       "linkText": "",
       "linkUrl": ""
@@ -860,6 +860,7 @@ window.WHF_DATA = {
       "title": "Booster Club Meeting",
       "date": "Monday, October 19 • Time TBD",
       "detail": "DATE CHANGED: This meeting has moved from October 12 to Monday, October 19. Time and location are being finalized. Booster families are welcome.",
+      "notice": "DATE CHANGED",
       "status": "upcoming",
       "linkText": "",
       "linkUrl": ""
@@ -912,7 +913,15 @@ window.WHF_DATA = {
     "note": "WHF is now 4-0 in dual meets after defeating Litchfield."
   },
   "programHighlights": [],
-  "photoLinks": [],
+  "photoLinks": [
+    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/team-lineup.jpg" },
+    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/team-three.jpg" },
+    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/mia-breaststroke.jpg" },
+    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/diving-action.jpg" },
+    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/team-poolside.jpg" },
+    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/juras-wall.jpg" },
+    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/dongoske-ready.jpg" }
+  ],
   "photoFeedUrl": "https://script.google.com/macros/s/AKfycbxhRaTiG44m4EUwc4_YFVJ9JiYK6zBB-sTq18a9VtJOmcIOnUMtSfsAzkPT6f-1hxA46Q/exec",
   "teamRecords": [
     {
@@ -926,7 +935,7 @@ window.WHF_DATA = {
       "event": "200 Freestyle",
       "boysMoundWestonka": "Josh Johnston — 1:48.86 ’21",
       "girlsMoundWestonka": "Annemarie Johnson — 1:55.38 ’24",
-      "girlsHolyFamily": "Mackenzie Braden — 1:53.87 ’12",
+      "girlsHolyFamily": "Laney Hendrickson — 1:53.59 ’25",
       "girlsPool": "Emma Kern (Delano) — 1:53.22 ’21"
     },
     {
@@ -946,15 +955,15 @@ window.WHF_DATA = {
     {
       "event": "Diving - 6",
       "boysMoundWestonka": "Tyler Jordahl — 237.95 ’13",
-      "girlsMoundWestonka": "Erica Johnson — 238.95 ’24",
-      "girlsHolyFamily": "Bailey Monette — 225.20 ’22",
-      "girlsPool": "—"
+      "girlsMoundWestonka": "Erica Johnson — 251.10 ’25",
+      "girlsHolyFamily": "Bailey Monette — 269.30 ’25",
+      "girlsPool": "Bailey Monette (MWHF) — 260.75 ’25"
     },
     {
       "event": "Diving - 11",
       "boysMoundWestonka": "Tyler Jordahl — 410.80 ’13",
-      "girlsMoundWestonka": "Erica Johnson — 393.45 ’24",
-      "girlsHolyFamily": "Bailey Monette — 355.90 ’22",
+      "girlsMoundWestonka": "Erica Johnson — 400.45 ’25",
+      "girlsHolyFamily": "Bailey Monette — 477.70 ’25",
       "girlsPool": "—"
     },
     {
@@ -987,7 +996,7 @@ window.WHF_DATA = {
     },
     {
       "event": "100 Backstroke",
-      "boysMoundWestonka": "Josh Johnston — 55.89 ’21",
+      "boysMoundWestonka": "Eren Alemdar — 55.45 ’26",
       "girlsMoundWestonka": "Richelle Fischer — 1:00.93 ’06",
       "girlsHolyFamily": "Annabelle Elsner — 59.57 ’19",
       "girlsPool": "Emma Kern (Delano) — 58.17 ’19"
@@ -1003,8 +1012,8 @@ window.WHF_DATA = {
       "event": "400 Freestyle Relay",
       "boysMoundWestonka": "K. Zhang, E. Pressman, H. Ness, J. Johnston — 3:25.14 ’20",
       "girlsMoundWestonka": "A. Kittelson, A. Springer, E. Ries, Z. Lucas — 3:37.85 ’19",
-      "girlsHolyFamily": "A. Kittelson, A. Springer, E. Ries, Z. Lucas — 3:37.85 ’19",
-      "girlsPool": "K. Georges, S. Benker (Delano), J. Strobl, E. Kern — 3:37.84"
+      "girlsHolyFamily": "L. Hendrickson, B. Treacy, C. Gadtke, R. Betts — 3:36.41 ’25",
+      "girlsPool": "K. Georges, S. Benker, J. Strobl, E. Kern (Delano) — 3:37.84 ’21"
     }
   ],
   "accolades": []

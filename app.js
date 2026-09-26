@@ -31,6 +31,8 @@ function loadSavedPhotoFeed() {
 let approvedPhotoFeed = loadSavedPhotoFeed();
 let approvedPhotoFeedInFlight = false;
 let approvedPhotoFeedLoaded = approvedPhotoFeed.length > 0;
+let homeHeroIndex = 0;
+let homeHeroTimer = null;
 let photoViewerItems = [];
 let activePhotoIndex = 0;
 let photoSwipeStartX = null;
@@ -171,6 +173,7 @@ async function refreshApprovedPhotoFeed() {
     if (JSON.stringify(fresh) !== JSON.stringify(approvedPhotoFeed)) {
       approvedPhotoFeed = fresh;
       renderProgram();
+      setupHomeHeroRotation();
     }
   } catch (error) {
     console.warn('Approved photo feed will retry later.', error);
@@ -272,6 +275,52 @@ function openPhotoViewer(index = 0) {
   viewer.setAttribute('aria-hidden', 'false');
   document.body.classList.add('photoViewerOpen');
   requestAnimationFrame(() => viewer.querySelector('.photoViewerClose')?.focus());
+}
+
+function homeHeroPhotos() {
+  const featured = (DATA.photoLinks || [])
+    .map(item => String(item?.imageUrl || '').trim())
+    .filter(Boolean);
+  const uploaded = approvedPhotoFeed
+    .map(item => String(item?.imageUrl || '').trim())
+    .filter(Boolean);
+  return [...new Set(['team-hero.jpg?v=20260917-85', ...featured, ...uploaded])];
+}
+
+function showHomeHeroPhoto(index, animate = true) {
+  const image = document.getElementById('homeHeroImage');
+  const dots = document.getElementById('homeHeroDots');
+  const photos = homeHeroPhotos();
+  if (!image || !photos.length) return;
+  homeHeroIndex = (Number(index) + photos.length) % photos.length;
+  const update = () => {
+    image.src = photos[homeHeroIndex];
+    image.alt = `WHF Girls Swim and Dive team photo ${homeHeroIndex + 1} of ${photos.length}`;
+    image.classList.remove('isChanging');
+  };
+  if (animate) {
+    image.classList.add('isChanging');
+    setTimeout(update, 160);
+  } else {
+    update();
+  }
+  if (dots) dots.innerHTML = photos.map((_, photoIndex) => `<i class="${photoIndex === homeHeroIndex ? 'active' : ''}"></i>`).join('');
+}
+
+function restartHomeHeroTimer() {
+  clearInterval(homeHeroTimer);
+  if (homeHeroPhotos().length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  homeHeroTimer = setInterval(() => showHomeHeroPhoto(homeHeroIndex + 1), 5500);
+}
+
+function stepHomeHero(direction) {
+  showHomeHeroPhoto(homeHeroIndex + Number(direction || 0));
+  restartHomeHeroTimer();
+}
+
+function setupHomeHeroRotation() {
+  showHomeHeroPhoto(Math.min(homeHeroIndex, homeHeroPhotos().length - 1), false);
+  restartHomeHeroTimer();
 }
 
 function openEventImage(imageUrl, imageAlt = 'Event image') {
@@ -513,12 +562,18 @@ function localDateKey(value) {
 function renderTodayPanel() {
   const now = new Date();
   const next = getNextSeasonItem(now);
+  const heroRecord = document.getElementById('homeHeroRecord');
+  const heroStatus = document.getElementById('homeHeroStatus');
   const kicker = document.getElementById('todayKicker');
   const main = document.getElementById('todayMain');
   const meta = document.getElementById('todayMeta');
   const location = document.getElementById('todayLocation');
   const button = document.getElementById('todayButton');
   if (!kicker || !main || !meta || !location) return;
+
+  const record = String(DATA.seasonRecord?.value || '—').trim();
+  if (heroRecord) heroRecord.textContent = record;
+  if (heroStatus) heroStatus.textContent = /^\d+-0$/.test(record) ? 'UNDEFEATED' : 'WHITE HAWKS';
 
   const todayKey = localDateKey(now);
   const todayMeet = meetSchedule.find(item => localDateKey(item.date) === todayKey);
@@ -562,6 +617,67 @@ function renderTodayPanel() {
     meta.textContent = `${next.level} • ${formatDate(date)} • ${formatTime(date)}`;
     location.textContent = next.location;
     if (button) button.textContent = 'Open Meet Details';
+  }
+}
+
+function renderHomeWeek() {
+  const host = document.getElementById('homeWeek');
+  if (!host) return;
+  const nextMeet = getNextMeet(new Date());
+  const nextEvent = (DATA.events || []).find(item => item.status !== 'completed' && !/booster club meeting/i.test(item.title || ''));
+  const volunteer = (DATA.volunteerCards || []).find(item => /home meet/i.test(item.title || ''));
+  const volunteerNeeds = volunteer ? formatVolunteerNeeds(volunteer.detail || volunteer.body || '') : { entries: [] };
+  const nextVolunteerNeed = volunteerNeeds.entries.find(entry => entry.date) || null;
+  const cards = [];
+
+  if (nextMeet) {
+    const meetDate = new Date(nextMeet.date);
+    cards.push({
+      eyebrow: 'NEXT MEET',
+      title: nextMeet.opponent || nextMeet.title || 'WHF Meet',
+      detail: `${nextMeet.displayDate || formatDate(meetDate)} • ${nextMeet.displayTime || formatTime(meetDate)}`,
+      action: "showScreen('meets')",
+      accent: 'red'
+    });
+  }
+  if (nextEvent) {
+    cards.push({
+      eyebrow: 'TEAM EVENT',
+      title: nextEvent.title || 'Upcoming Event',
+      detail: nextEvent.date || 'Open Events for details',
+      action: "showScreen('spirit')",
+      accent: 'green'
+    });
+  }
+  if (nextVolunteerNeed) {
+    cards.push({
+      eyebrow: 'HELP NEEDED',
+      title: nextVolunteerNeed.date,
+      detail: nextVolunteerNeed.needs.join(' • '),
+      action: "showScreen('volunteers')",
+      accent: 'dark'
+    });
+  }
+
+  host.innerHTML = cards.length ? `<div class="homeWeekHeading"><div><span>THIS WEEK AT WHF</span><strong>Don’t miss what’s next</strong></div><b>${cards.length} updates</b></div><div class="homeWeekRail">${cards.map(card => `<button type="button" class="homeWeekCard ${card.accent}" onclick="${card.action}"><span>${escapeHtml(card.eyebrow)}</span><strong>${escapeHtml(card.title)}</strong><small>${escapeHtml(card.detail)}</small><i aria-hidden="true">→</i></button>`).join('')}</div>` : '';
+}
+
+async function shareWhfApp() {
+  const shareData = {
+    title: 'WHF-HQ',
+    text: 'Follow Westonka–Holy Family Girls Swim & Dive schedules, events, volunteer needs, and team updates in WHF-HQ.',
+    url: 'https://whitehawks-girlsswim.github.io/WHF-HQ/'
+  };
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+      showToast('Thanks for sharing WHF-HQ');
+      return;
+    }
+    await navigator.clipboard.writeText(shareData.url);
+    showToast('WHF-HQ link copied');
+  } catch (error) {
+    if (error?.name !== 'AbortError') showToast('Could not open sharing on this device');
   }
 }
 
@@ -731,14 +847,15 @@ function boosterMeetingsHtml(meetings) {
   if (!meetings.length) return '';
   const rows = meetings.map(item => {
     const completed = item.status === 'completed';
+    const rescheduled = !completed && item.notice === 'DATE CHANGED';
     const title = /elections/i.test(item.title || '') ? 'Meeting & Board Elections' : 'Booster Club Meeting';
-    return `<div class="boosterMeetingRow${completed ? ' completedMeeting' : ''}">
+    return `<div class="boosterMeetingRow${completed ? ' completedMeeting' : ''}${rescheduled ? ' rescheduledMeeting' : ''}">
       <div class="boosterMeetingDate">${escapeHtml(item.date || 'Date TBD')}</div>
       <div class="boosterMeetingInfo">
         <strong>${escapeHtml(title)}</strong>
         <p>${escapeHtml(item.detail || item.body || '')}</p>
       </div>
-      <span class="boosterMeetingStatus">${completed ? 'Completed' : 'Upcoming'}</span>
+      <span class="boosterMeetingStatus">${completed ? 'Completed' : rescheduled ? 'Date Changed' : 'Upcoming'}</span>
     </div>`;
   }).join('');
   return `<section class="eventGroup boosterMeetingGroup">
@@ -797,8 +914,8 @@ function renderPageCards() {
       const result = item.result ? `<div class="eventResult">${escapeHtml(item.result)}</div>` : '';
       return `<div class="eventCard ${item.status === 'completed' ? 'completedEvent' : 'upcomingEvent'}">${result}${cardHtml(item, index)}</div>`;
     }).join('')}</section>` : '';
-    events.innerHTML = boosterMeetingsHtml(meetings)
-      + group('Upcoming', upcoming)
+    events.innerHTML = group('Upcoming', upcoming)
+      + boosterMeetingsHtml(meetings)
       + group('Completed Fundraisers', completedFundraisers);
   }
 
@@ -1874,6 +1991,7 @@ function renderAdminStatus() {
 
 function refreshAppFromData() {
   renderTodayPanel();
+  renderHomeWeek();
   renderLatestUpdate();
   renderTeamNews();
   renderHomeAlerts();
@@ -1890,6 +2008,7 @@ function refreshAppFromData() {
 }
 
 renderTodayPanel();
+renderHomeWeek();
 renderLatestUpdate();
 renderTeamNews();
 renderHomeAlerts();
@@ -1901,6 +2020,7 @@ renderTeamContacts();
 renderSponsors();
 renderProgram();
 renderFund();
+setupHomeHeroRotation();
 setupHomeTaps();
 setupNativeInteractions();
 buildAdminForms();

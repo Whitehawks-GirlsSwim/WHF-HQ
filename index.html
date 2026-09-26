@@ -9,7 +9,7 @@
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
   <link rel="manifest" href="manifest.json?v=20260924-95">
-  <link rel="stylesheet" href="styles.css?v=20260924-95">
+  <link rel="stylesheet" href="styles.css?v=20260926-97">
   <style>
     .notificationGuide{margin-top:12px;padding:18px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:linear-gradient(145deg,rgba(193,18,31,.14),#101015 48%,rgba(0,132,61,.13));box-shadow:0 10px 26px rgba(0,0,0,.22)}
     .notificationGuideBadge{display:inline-block;padding:5px 8px;border-radius:999px;background:#fff;color:#09090d;font-size:9px;font-weight:950;letter-spacing:1px}
@@ -46,13 +46,28 @@
       <section class="screen active" id="home">
         <div class="programHero homeDashboardHero">
           <div class="programPhoto">
-            <img src="team-hero.jpg?v=20260917-85" alt="WHF Swim and Dive team celebrating their Watertown win">
+            <img id="homeHeroImage" src="team-hero.jpg?v=20260917-85" alt="WHF Girls Swim and Dive team">
+            <div class="homeHeroControls" aria-label="Team photo controls">
+              <button type="button" onclick="stepHomeHero(-1)" aria-label="Previous team photo">‹</button>
+              <div id="homeHeroDots" aria-hidden="true"></div>
+              <button type="button" onclick="stepHomeHero(1)" aria-label="Next team photo">›</button>
+            </div>
           </div>
           <div class="programIdentity">
             <div class="seasonTag">2026 SEASON</div>
             <h1>WHF<br><span>GIRLS SWIM &amp; DIVE</span></h1>
           </div>
+          <div class="homeHeroRecord" aria-label="Current dual meet record">
+            <span>DUAL RECORD</span>
+            <strong id="homeHeroRecord">—</strong>
+            <small id="homeHeroStatus">WHITE HAWKS</small>
+          </div>
           <div class="dualLine"></div>
+        </div>
+
+        <div class="homeMomentum">
+          <div><span>WHITE HAWKS</span><strong>Built for the next race.</strong></div>
+          <button type="button" onclick="showScreen('program')">Season Story <i aria-hidden="true">→</i></button>
         </div>
 
         <section class="todayPanel tappablePanel" id="todayPanel" role="button" tabindex="0">
@@ -62,11 +77,17 @@
           <div class="todayLocation" id="todayLocation">Schedule updates automatically as the season moves.</div>
           <div class="todayButton" id="todayButton" aria-hidden="true">Open Details</div>
         </section>
+        <section class="homeWeek" id="homeWeek" aria-label="This week at WHF"></section>
+        <div class="homeSectionIntro"><span>TEAM COMMAND CENTER</span><strong>Everything you need this week</strong></div>
         <nav class="homeQuickActions" aria-label="Quick actions">
-          <button type="button" onclick="showScreen('meets')"><span>CALENDAR</span><strong>Schedule</strong><small>Meets &amp; practice</small></button>
-          <button type="button" onclick="showScreen('volunteers')"><span>VOLUNTEER</span><strong id="homeVolunteerTitle">Volunteer Needs</strong><small id="homeVolunteerSummary">View open sign-ups</small><i id="homeVolunteerVerified"></i></button>
-          <button id="teamAlertsCard" type="button" onclick="enableTeamAlerts()" aria-label="Turn on WHF-HQ notifications for live schedule changes and team updates"><span>LIVE TEAM ALERTS</span><strong id="teamAlertsTitle">Turn On Notifications</strong><small id="teamAlertsCopy">Schedule changes and team updates</small><i id="teamAlertsAction">Enable Live Alerts</i></button>
+          <button type="button" onclick="showScreen('meets')"><b class="homeActionIcon" aria-hidden="true">01</b><span>CALENDAR</span><strong>Schedule</strong><small>Meets, swim practice, and dive practice</small><i>Open Team Calendar →</i></button>
+          <button type="button" onclick="showScreen('volunteers')"><b class="homeActionIcon" aria-hidden="true">02</b><span>VOLUNTEER</span><strong id="homeVolunteerTitle">Volunteer Needs</strong><small id="homeVolunteerSummary">View open sign-ups</small><i id="homeVolunteerVerified"></i></button>
+          <button id="teamAlertsCard" type="button" onclick="enableTeamAlerts()" aria-label="Turn on WHF-HQ notifications for live schedule changes and team updates"><b class="homeActionIcon" aria-hidden="true">03</b><span>LIVE TEAM ALERTS</span><strong id="teamAlertsTitle">Turn On Notifications</strong><small id="teamAlertsCopy">Schedule changes and team updates</small><i id="teamAlertsAction">Enable Live Alerts</i></button>
         </nav>
+        <section class="homeInvite" aria-label="Share WHF-HQ">
+          <div><span>GROW THE TEAM HUB</span><strong>Know a WHF family who needs the app?</strong><small>Send them the official link in one tap.</small></div>
+          <button type="button" onclick="shareWhfApp()">Share WHF-HQ</button>
+        </section>
         <section class="latestUpdate" id="latestUpdate" aria-label="Latest app update" hidden></section>
         <section class="homeAlerts" id="homeAlerts" aria-label="Important dates"></section>
       </section>

@@ -305,6 +305,7 @@ function preloadHomeHeroPhoto(src) {
 
 async function showHomeHeroPhoto(index, animate = true) {
   const image = document.getElementById('homeHeroImage');
+  const nextImage = document.getElementById('homeHeroNextImage');
   const dots = document.getElementById('homeHeroDots');
   const photos = homeHeroPhotos();
   if (!image || !photos.length) return;
@@ -313,16 +314,28 @@ async function showHomeHeroPhoto(index, animate = true) {
   const nextSrc = photos[homeHeroIndex];
   await preloadHomeHeroPhoto(nextSrc);
   if (request !== homeHeroRequest) return;
-  const update = () => {
+  const nextAlt = `WHF Girls Swim and Dive team photo ${homeHeroIndex + 1} of ${photos.length}`;
+  if (!animate || !nextImage || image.currentSrc === new URL(nextSrc, window.location.href).href) {
     image.src = nextSrc;
-    image.alt = `WHF Girls Swim and Dive team photo ${homeHeroIndex + 1} of ${photos.length}`;
-    requestAnimationFrame(() => image.classList.remove('isChanging'));
-  };
-  if (animate) {
-    image.classList.add('isChanging');
-    setTimeout(update, 90);
+    image.alt = nextAlt;
+    if (nextImage) nextImage.classList.remove('isVisible');
   } else {
-    update();
+    nextImage.classList.add('isInstant');
+    nextImage.classList.remove('isVisible');
+    nextImage.src = nextSrc;
+    void nextImage.offsetWidth;
+    nextImage.classList.remove('isInstant');
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    if (request !== homeHeroRequest) return;
+    nextImage.classList.add('isVisible');
+    await new Promise(resolve => setTimeout(resolve, 720));
+    if (request !== homeHeroRequest) return;
+    image.src = nextSrc;
+    image.alt = nextAlt;
+    nextImage.classList.add('isInstant');
+    nextImage.classList.remove('isVisible');
+    void nextImage.offsetWidth;
+    nextImage.classList.remove('isInstant');
   }
   if (dots) dots.innerHTML = photos.map((_, photoIndex) => `<i class="${photoIndex === homeHeroIndex ? 'active' : ''}"></i>`).join('');
 }

@@ -33,6 +33,8 @@ let approvedPhotoFeedInFlight = false;
 let approvedPhotoFeedLoaded = approvedPhotoFeed.length > 0;
 let homeHeroIndex = 0;
 let homeHeroTimer = null;
+let homeHeroRequest = 0;
+const homeHeroPreloads = new Map();
 let photoViewerItems = [];
 let activePhotoIndex = 0;
 let photoSwipeStartX = null;
@@ -287,20 +289,38 @@ function homeHeroPhotos() {
   return [...new Set(['team-hero.jpg?v=20260917-85', ...featured, ...uploaded])];
 }
 
-function showHomeHeroPhoto(index, animate = true) {
+function preloadHomeHeroPhoto(src) {
+  if (!src) return Promise.resolve(false);
+  if (homeHeroPreloads.has(src)) return homeHeroPreloads.get(src);
+  const pending = new Promise(resolve => {
+    const loader = new Image();
+    loader.onload = () => resolve(true);
+    loader.onerror = () => resolve(false);
+    loader.src = src;
+    if (loader.complete) resolve(true);
+  });
+  homeHeroPreloads.set(src, pending);
+  return pending;
+}
+
+async function showHomeHeroPhoto(index, animate = true) {
   const image = document.getElementById('homeHeroImage');
   const dots = document.getElementById('homeHeroDots');
   const photos = homeHeroPhotos();
   if (!image || !photos.length) return;
   homeHeroIndex = (Number(index) + photos.length) % photos.length;
+  const request = ++homeHeroRequest;
+  const nextSrc = photos[homeHeroIndex];
+  await preloadHomeHeroPhoto(nextSrc);
+  if (request !== homeHeroRequest) return;
   const update = () => {
-    image.src = photos[homeHeroIndex];
+    image.src = nextSrc;
     image.alt = `WHF Girls Swim and Dive team photo ${homeHeroIndex + 1} of ${photos.length}`;
-    image.classList.remove('isChanging');
+    requestAnimationFrame(() => image.classList.remove('isChanging'));
   };
   if (animate) {
     image.classList.add('isChanging');
-    setTimeout(update, 160);
+    setTimeout(update, 90);
   } else {
     update();
   }
@@ -309,7 +329,9 @@ function showHomeHeroPhoto(index, animate = true) {
 
 function restartHomeHeroTimer() {
   clearInterval(homeHeroTimer);
-  if (homeHeroPhotos().length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const photos = homeHeroPhotos();
+  if (photos.length > 1) preloadHomeHeroPhoto(photos[(homeHeroIndex + 1) % photos.length]);
+  if (photos.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   homeHeroTimer = setInterval(() => showHomeHeroPhoto(homeHeroIndex + 1), 5500);
 }
 
@@ -660,6 +682,50 @@ function renderHomeWeek() {
   }
 
   host.innerHTML = cards.length ? `<div class="homeWeekHeading"><div><span>THIS WEEK AT WHF</span><strong>Don’t miss what’s next</strong></div><b>${cards.length} updates</b></div><div class="homeWeekRail">${cards.map(card => `<button type="button" class="homeWeekCard ${card.accent}" onclick="${card.action}"><span>${escapeHtml(card.eyebrow)}</span><strong>${escapeHtml(card.title)}</strong><small>${escapeHtml(card.detail)}</small><i aria-hidden="true">→</i></button>`).join('')}</div>` : '';
+  setupHomeWeekSwipe();
+}
+
+function setupHomeWeekSwipe() {
+  const rail = document.querySelector('.homeWeekRail');
+  if (!rail || rail.dataset.swipeReady === 'true') return;
+  rail.dataset.swipeReady = 'true';
+
+  let startX = null;
+  let startY = null;
+  let startScroll = 0;
+  let suppressClick = false;
+
+  rail.addEventListener('touchstart', event => {
+    if (event.touches.length !== 1) return;
+    startX = event.touches[0].clientX;
+    startY = event.touches[0].clientY;
+    startScroll = rail.scrollLeft;
+    suppressClick = false;
+  }, { passive: true });
+
+  rail.addEventListener('touchend', event => {
+    if (startX === null || !event.changedTouches.length) return;
+    const deltaX = event.changedTouches[0].clientX - startX;
+    const deltaY = event.changedTouches[0].clientY - startY;
+    startX = null;
+    startY = null;
+
+    if (Math.abs(deltaX) < 35 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+    suppressClick = true;
+    const card = rail.querySelector('.homeWeekCard');
+    const gap = Number.parseFloat(getComputedStyle(rail).columnGap) || 10;
+    const step = (card?.getBoundingClientRect().width || rail.clientWidth * 0.72) + gap;
+    const currentIndex = Math.round(startScroll / step);
+    const nextIndex = Math.max(0, currentIndex + (deltaX < 0 ? 1 : -1));
+    rail.scrollTo({ left: nextIndex * step, behavior: 'smooth' });
+  }, { passive: true });
+
+  rail.addEventListener('click', event => {
+    if (!suppressClick) return;
+    event.preventDefault();
+    event.stopPropagation();
+    suppressClick = false;
+  }, true);
 }
 
 async function shareWhfApp() {

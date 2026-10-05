@@ -4,12 +4,12 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "Week 7: Home Meet & Homecoming Parade",
-    "summary": "This week includes regular practice Monday–Wednesday, Thursday's home meet, Friday's Homecoming Parade, and Saturday morning practice.",
-    "body": "Monday, Tuesday & Wednesday: Practice from 3:30–6:00 PM.\n\nThursday, October 1 — HOME MEET VS. HUTCHINSON: All athletes must be at the pool by 4:15 PM. The meet starts at 6:00 PM.\n\nFriday, October 2 — WESTONKA HOMECOMING PARADE: WHF Girls Swim & Dive is Float #15. Check in at 4:25 PM wearing the new captains' shirt. Roads close promptly at 4:55 PM, so plan your arrival accordingly.\n\nSaturday, October 3: Practice from 7:00–10:00 AM.\n\nLooking ahead: JV Champs is Monday, October 12 at Westonka. The JV season concludes after JV Champs / True Team State week.",
-    "updated": "September 27, 2026",
-    "actionText": "Open Team Calendar",
-    "targetScreen": "meets"
+    "title": "BIG REMINDER: JV Champs — Monday, October 12",
+    "summary": "WHF is 5–0! JV Champs begins at 5:00 PM at Westonka. Varsity swimmers and divers should attend to volunteer and cheer on their teammates.",
+    "body": "JV CHAMPS — MONDAY, OCTOBER 12\nJV Champs begins at 5:00 PM at the Westonka Activity Center Pool. Varsity swimmers and divers should attend to volunteer and cheer on their teammates.\n\nOPEN JV CHAMPS VOLUNTEER NEEDS\n• 1 Dive Parent Concessions volunteer\n• 1 Swim Parent Concessions volunteer\n• 2 Chuck A Duck volunteers\n\nFINAL HOME MEET — THURSDAY, OCTOBER 22 VS. BRECK\n• 7 timers needed — arrive at the pool deck by 4:45 PM\n• 2 Chuck A Duck volunteers needed\n\nThese jobs are required to run successful home meets. Please sign up as soon as possible.",
+    "updated": "October 5, 2026",
+    "actionText": "View Volunteer Needs",
+    "targetScreen": "volunteers"
   },
   "previousLatestUpdate": {
     "title": "WHF Girls Swim & Dive Rolls Out the Red with Dominant Performance",
@@ -876,7 +876,7 @@ window.WHF_DATA = {
       "date": "2026-10-12T17:00:00-05:00",
       "level": "JV",
       "opponent": "JV Champs",
-      "notice": "JV SEASON CONCLUDES AFTER JV CHAMPS / TRUE TEAM STATE WEEK",
+      "notice": "BIG REMINDER — VARSITY SWIMMERS & DIVERS SHOULD ATTEND TO VOLUNTEER AND CHEER ON THEIR TEAMMATES • JV SEASON CONCLUDES AFTER JV CHAMPS / TRUE TEAM STATE WEEK",
       "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
     },
     {
@@ -1077,9 +1077,9 @@ window.WHF_DATA = {
     },
     {
       "accent": "red",
-      "title": "Home Meet Volunteers",
-      "date": "2026 Season",
-      "detail": "Open as of September 26: October 1 needs 7 timers and 2 Chuck A Duck volunteers; October 22 needs 6 timers and 2 Chuck A Duck volunteers.",
+      "title": "Required Home Meet Volunteers",
+      "date": "October 12 & October 22",
+      "detail": "Open as of October 5: JV Champs on October 12 needs 1 Dive Parent concessions volunteer, 1 Swim Parent concessions volunteer, and 2 Chuck A Duck volunteers. The October 22 home meet vs. Breck needs 7 timers (arrive by 4:45 PM) and 2 Chuck A Duck volunteers. These roles are required to run successful home meets—please sign up as soon as possible.",
       "status": "upcoming",
       "linkText": "Sign Up for Home Meets",
       "linkUrl": "https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-57207588-2025"
@@ -1170,8 +1170,8 @@ window.WHF_DATA = {
     "status": ""
   },
   "seasonRecord": {
-    "value": "4-0",
-    "note": "WHF is now 4-0 in dual meets after defeating Litchfield."
+    "value": "5-0",
+    "note": "WHF is now 5-0 in dual meets after defeating Hutchinson."
   },
   "programHighlights": [],
   "photoLinks": [

@@ -1129,7 +1129,7 @@ window.WHF_DATA = {
     {
       "accent": "red",
       "title": "Booster Club Meeting & Board Elections",
-      "date": "Tuesday, November 10 • Time TBD",
+      "date": "Monday, November 9 • Time TBD",
       "detail": "This meeting will also serve as Booster Club election night. Time and location are being finalized.",
       "status": "upcoming",
       "linkText": "",

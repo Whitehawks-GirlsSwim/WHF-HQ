@@ -34,7 +34,7 @@ jobs:
           payload=$(jq -n --arg description "$NOTIFICATION_DESCRIPTION" '{
             app_id: "cc26f77d-7d78-400a-9d13-61406a7db12b",
             target_channel: "push",
-            filters: [{field: "session_count", relation: ">", value: "0"}],
+            included_segments: ["Subscribed Users"],
             headings: {en: "WHF-HQ Updated"},
             contents: {en: $description},
             url: "https://whitehawks-girlsswim.github.io/WHF-HQ/"

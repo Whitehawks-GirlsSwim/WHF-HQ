@@ -1,0 +1,38 @@
+name: OneSignal status report
+
+on:
+  workflow_dispatch:
+    inputs:
+      message_id:
+        description: Optional OneSignal message ID to inspect
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read OneSignal totals
+        env:
+          ONESIGNAL_APP_API_KEY: ${{ secrets.ONESIGNAL_APP_API_KEY }}
+          MESSAGE_ID: ${{ inputs.message_id }}
+        run: |
+          set -euo pipefail
+
+          app_id="cc26f77d-7d78-400a-9d13-61406a7db12b"
+          app_response=$(curl --fail-with-body --silent --show-error \
+            --url "https://api.onesignal.com/apps/$app_id" \
+            --header "Authorization: Key $ONESIGNAL_APP_API_KEY")
+
+          echo "$app_response" | jq '{players, messageable_players}'
+
+          if [ -n "$MESSAGE_ID" ]; then
+            message_response=$(curl --fail-with-body --silent --show-error \
+              --url "https://api.onesignal.com/notifications/$MESSAGE_ID?app_id=$app_id" \
+              --header "Authorization: Key $ONESIGNAL_APP_API_KEY")
+
+            echo "$message_response" | jq '{id, recipients, successful, failed, converted, remaining, completed_at}'
+          fi

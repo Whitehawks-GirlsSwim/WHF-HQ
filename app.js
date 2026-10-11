@@ -6,7 +6,7 @@ function normalizeMeetSchedule(items = []) {
   [...items].sort((a, b) => new Date(a.date) - new Date(b.date)).forEach(item => {
     const eventName = item.opponent || item.title || '';
     const varsityOnly = /true team|section|state/i.test(eventName);
-    const normalized = { ...item, level: varsityOnly ? 'Varsity' : 'JV & Varsity' };
+    const normalized = { ...item, level: String(item.level || '').trim() || (varsityOnly ? 'Varsity' : 'JV & Varsity') };
     const key = `${normalized.date}|${eventName.trim().toLowerCase()}|${String(normalized.location || '').trim().toLowerCase()}`;
     if (!unique.has(key)) unique.set(key, normalized);
   });
@@ -48,8 +48,9 @@ let homeAlertItems = [];
 let activeSheetLink = '';
 let activeCalendarFilter = 'week';
 let lastSheetTrigger = null;
+let activeMeetDayIndex = -1;
 const screenScrollPositions = new Map();
-const screenOrder = ['home', 'meets', 'volunteers', 'spirit', 'parents', 'program', 'photos'];
+const screenOrder = ['home', 'meets', 'volunteers', 'spirit', 'parents', 'install', 'program', 'photos'];
 const APP_RELEASE_KEY = new URL(document.currentScript.src).searchParams.get('v') || '20260904-75';
 const PUBLISHED_RELEASE_KEY = [
   document.querySelector('link[href^="styles.css"]')?.href || '',
@@ -594,6 +595,64 @@ function localDateKey(value) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
+function renderSeasonPulse() {
+  const statusEl = document.getElementById('seasonPulseStatus');
+  const nextMetaEl = document.getElementById('seasonPulseNextMeta');
+  const isChampion = /conference champion/i.test(DATA.seasonRecord?.note || '');
+  if (statusEl) statusEl.textContent = isChampion ? '2026 Conference Champions' : (DATA.season?.label || '2026 Season');
+  if (nextMetaEl) nextMetaEl.textContent = isChampion ? 'A perfect conference dual season.' : 'Follow the season story and program records';
+}
+
+function meetDayCountdownLabel(eventDate, now) {
+  const difference = eventDate.getTime() - now.getTime();
+  if (difference <= 0) return 'MEET DAY';
+  const minutes = Math.max(1, Math.ceil(difference / 60000));
+  if (minutes < 60) return `STARTS IN ${minutes} MIN`;
+  if (minutes <= 1440) return `STARTS IN ${Math.floor(minutes / 60)}H ${minutes % 60}M`;
+  const days = daysUntil(eventDate, now);
+  return days === 1 ? 'TOMORROW' : `IN ${days} DAYS`;
+}
+
+function renderMeetDayMode() {
+  const host = document.getElementById('meetDayMode');
+  if (!host) return;
+  const now = new Date();
+  const sorted = [...meetSchedule].sort((a, b) => new Date(a.date) - new Date(b.date));
+  const today = sorted.find(item => localDateKey(item.date) === localDateKey(now));
+  const nextFuture = sorted.find(item => new Date(item.date).getTime() > now.getTime());
+  const withinDay = nextFuture && new Date(nextFuture.date).getTime() - now.getTime() <= 86400000;
+  const preview = new URLSearchParams(window.location.search).get('meetDayPreview') === '1';
+  const event = preview ? (nextFuture || today || getNextMeet(now)) : (today || (withinDay ? nextFuture : null));
+  if (!event) {
+    activeMeetDayIndex = -1;
+    host.hidden = true;
+    document.getElementById('todayPanel')?.removeAttribute('hidden');
+    return;
+  }
+
+  activeMeetDayIndex = sorted.indexOf(event);
+  const date = new Date(event.date);
+  const title = event.opponent || event.title || 'WHF Meet';
+  const venue = String(event.location || 'Location details coming soon').split('—')[0].trim();
+  host.hidden = false;
+  document.getElementById('todayPanel')?.setAttribute('hidden', '');
+  document.getElementById('meetDayEyebrow').textContent = preview ? 'MEET DAY PREVIEW' : (localDateKey(date) === localDateKey(now) ? 'MEET DAY' : 'NEXT UP');
+  document.getElementById('meetDayCountdown').textContent = meetDayCountdownLabel(date, now);
+  document.getElementById('meetDayTitle').textContent = title;
+  document.getElementById('meetDayMeta').textContent = `${event.level || 'WHF'} • ${event.displayDate || formatDate(date)} • ${event.displayTime || formatTime(date)}`;
+  document.getElementById('meetDayLocation').textContent = venue;
+  const calendar = document.getElementById('meetDayCalendar');
+  if (calendar) {
+    calendar.href = buildCalendarDownload(event, 'meet');
+    calendar.download = `WHF-${String(title).replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'meet'}.ics`;
+  }
+}
+
+function openMeetDayDetails(trigger) {
+  if (activeMeetDayIndex < 0) return;
+  openScheduleSheet('meet', activeMeetDayIndex, trigger);
+}
+
 function renderTodayPanel() {
   const now = new Date();
   const next = getNextSeasonItem(now);
@@ -665,7 +724,7 @@ function renderHomeWeek() {
   const nextVolunteerNeed = volunteerNeeds.entries.find(entry => entry.date) || null;
   const cards = [];
 
-  if (nextMeet) {
+  if (nextMeet && activeMeetDayIndex < 0) {
     const meetDate = new Date(nextMeet.date);
     cards.push({
       eyebrow: 'NEXT MEET',
@@ -757,6 +816,16 @@ async function shareWhfApp() {
     showToast('WHF-HQ link copied');
   } catch (error) {
     if (error?.name !== 'AbortError') showToast('Could not open sharing on this device');
+  }
+}
+
+async function copyWhfAppLink() {
+  const url = 'https://whitehawks-girlsswim.github.io/WHF-HQ/';
+  try {
+    await navigator.clipboard.writeText(url);
+    showToast('WHF HQ link copied');
+  } catch (error) {
+    showToast('Copy unavailable on this device');
   }
 }
 
@@ -2069,6 +2138,8 @@ function renderAdminStatus() {
 }
 
 function refreshAppFromData() {
+  renderSeasonPulse();
+  renderMeetDayMode();
   renderTodayPanel();
   renderHomeWeek();
   renderLatestUpdate();
@@ -2086,6 +2157,8 @@ function refreshAppFromData() {
   renderAdminStatus();
 }
 
+renderSeasonPulse();
+renderMeetDayMode();
 renderTodayPanel();
 renderHomeWeek();
 renderLatestUpdate();
@@ -2127,6 +2200,9 @@ setInterval(() => {
   refreshPublishedData();
   refreshApprovedPhotoFeed();
 }, LIVE_SYNC_INTERVAL_MS);
+setInterval(() => {
+  if (!document.hidden) renderMeetDayMode();
+}, 60000);
 
 const NOTIFICATION_WORKER_URL = 'notification-sw.js?v=20260903-72';
 

@@ -9,7 +9,7 @@
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
   <link rel="manifest" href="manifest.json?v=20261010-106">
-  <link rel="stylesheet" href="styles.css?v=20260926-101">
+  <link rel="stylesheet" href="styles.css?v=20261010-108">
   <style>
     .notificationGuide{margin-top:12px;padding:18px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:linear-gradient(145deg,rgba(193,18,31,.14),#101015 48%,rgba(0,132,61,.13));box-shadow:0 10px 26px rgba(0,0,0,.22)}
     .notificationGuideBadge{display:inline-block;padding:5px 8px;border-radius:999px;background:#fff;color:#09090d;font-size:9px;font-weight:950;letter-spacing:1px}
@@ -66,10 +66,22 @@
           <div class="dualLine"></div>
         </div>
 
-        <div class="homeMomentum">
-          <div><span>WHITE HAWKS</span><strong>Built for the next race.</strong></div>
-          <button type="button" onclick="showScreen('program')">Season Story <i aria-hidden="true">→</i></button>
-        </div>
+        <section class="seasonPulse" id="seasonPulse" aria-label="Season pulse">
+          <div><span>SEASON CELEBRATION</span><strong id="seasonPulseStatus">2026 Conference Champions</strong><small id="seasonPulseNextMeta">A perfect conference dual season.</small></div>
+          <button type="button" onclick="showScreen('program')">Season Results <i aria-hidden="true">→</i></button>
+        </section>
+
+        <section class="meetDayMode" id="meetDayMode" aria-label="Meet day information" hidden>
+          <div class="meetDayTop"><span id="meetDayEyebrow">MEET DAY</span><b id="meetDayCountdown">TODAY</b></div>
+          <h2 id="meetDayTitle">WHF Meet</h2>
+          <p id="meetDayMeta">Meet details</p>
+          <p id="meetDayLocation">Location</p>
+          <div class="meetDayActions">
+            <button type="button" onclick="openMeetDayDetails(this)">Details + Map</button>
+            <a id="meetDayCalendar" href="#" download="WHF-meet.ics">Add to Calendar</a>
+            <button type="button" onclick="showScreen('volunteers')">Volunteer</button>
+          </div>
+        </section>
 
         <section class="todayPanel tappablePanel" id="todayPanel" role="button" tabindex="0">
           <div class="todayKicker" id="todayKicker">NEXT EVENT</div>
@@ -87,7 +99,7 @@
         </nav>
         <section class="homeInvite" aria-label="Share WHF-HQ">
           <div><span>GROW THE TEAM HUB</span><strong>Know a WHF family who needs the app?</strong><small>Send them the official link in one tap.</small></div>
-          <button type="button" onclick="shareWhfApp()">Share WHF-HQ</button>
+          <button type="button" onclick="showScreen('install')">Install / Share</button>
         </section>
         <section class="latestUpdate" id="latestUpdate" aria-label="Latest app update" hidden></section>
         <section class="homeAlerts" id="homeAlerts" aria-label="Important dates"></section>
@@ -129,6 +141,30 @@
         </section>
         <section class="contactSection" id="contactSection" aria-label="Team contacts"></section>
         <section class="socialSection" id="socialSection" aria-label="Social media"></section>
+      </section>
+
+      <section class="screen" id="install">
+        <div class="photoScreenHeader">
+          <button type="button" onclick="showScreen('home')" aria-label="Back to Home">←</button>
+          <div class="screenTitle">Install WHF HQ</div>
+        </div>
+        <section class="installHero">
+          <div class="installHeroCopy">
+            <span>KEEP THE TEAM CLOSE</span>
+            <h2>Schedules, meet-day details and live updates—one tap away.</h2>
+            <p>Scan the code or share this page with another WHF family.</p>
+          </div>
+          <div class="installQr"><img src="whf-hq-install-qr.svg" alt="QR code linking to the WHF HQ app"><small>SCAN TO OPEN WHF HQ</small></div>
+        </section>
+        <div class="installActions">
+          <button type="button" onclick="shareWhfApp()">Share WHF HQ</button>
+          <button type="button" onclick="copyWhfAppLink()">Copy App Link</button>
+        </div>
+        <section class="installSteps" aria-label="Installation instructions">
+          <article><span>IPHONE</span><strong>Add to Home Screen</strong><ol><li>Open WHF HQ in Safari.</li><li>Tap the Share button.</li><li>Choose <b>Add to Home Screen</b>.</li><li>Open the new icon and enable Team Alerts.</li></ol></article>
+          <article><span>ANDROID</span><strong>Install the App</strong><ol><li>Open WHF HQ in Chrome.</li><li>Tap the browser menu.</li><li>Choose <b>Install app</b> or <b>Add to Home screen</b>.</li><li>Open the new icon and enable Team Alerts.</li></ol></article>
+        </section>
+        <section class="installWhy"><span>WHY INSTALL?</span><div><b>01</b><p><strong>Faster access</strong>Schedules and volunteer needs open like a regular app.</p></div><div><b>02</b><p><strong>Live alerts</strong>Opt in to important changes and meet reminders.</p></div><div><b>03</b><p><strong>Always current</strong>Pull down to load the latest team information.</p></div></section>
       </section>
 
       <section class="screen" id="booster">
@@ -359,6 +395,6 @@
   </nav>
 
   <script src="data.js?v=20261010-106"></script>
-  <script src="app.js?v=20260926-101"></script>
+  <script src="app.js?v=20261010-110"></script>
 </body>
 </html>

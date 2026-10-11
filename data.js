@@ -410,6 +410,15 @@ window.WHF_DATA = {
   ],
   "volunteerCards": [
     {
+      "accent": "green",
+      "title": "Saturday Team Breakfasts",
+      "date": "2026 Season",
+      "detail": "Open the signup to see current Saturday breakfast dates and available items.",
+      "status": "upcoming",
+      "linkText": "Sign Up for Saturday Breakfasts",
+      "linkUrl": "https://www.signupgenius.com/go/10C0E4DA5AC28A0FB6-52289320-2024"
+    },
+    {
       "accent": "red",
       "title": "Required Home Meet Volunteers",
       "date": "October 12 & October 22",

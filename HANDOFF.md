@@ -10,7 +10,7 @@ WHF-HQ is the public, mobile-first Westonka / Holy Family Girls Swim & Dive team
 - Production app: https://whitehawks-girlsswim.github.io/WHF-HQ/
 - Default branch: main
 - Current season: 2026
-- Current public season record in data.js: 0-0
+- Current public season record in data.js: 6-0 — 2026 Conference Champions
 - Current production baseline commit: 89939979f4395d265e3ebe1d9fbba5a24323403f (Restore clean app page)
 - Development preference from Bob: use the GitHub web editor, make small targeted changes, commit directly only after confirmation, wait for GitHub Pages, and verify the live app before reporting success.
 
@@ -179,7 +179,7 @@ Admin is intentionally not shown in the bottom navigation. It opens by tapping t
 - Individual Accolades was removed because it duplicated the records presentation.
 - The accolades data array remains present but empty.
 - Mia Dongoske's 200 IM record was updated to 2:13.97 '25.
-- Season record currently remains 0-0. Confirm whether the Tim Daly Invitational victory changes the official dual-meet record before editing it.
+- The official conference dual-meet record is 6-0 after the Delano win. The Tim Daly Invitational is not counted in the dual-meet record.
 
 ### Photos
 

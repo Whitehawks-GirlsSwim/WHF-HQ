@@ -4,10 +4,10 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "BIG REMINDER: JV Champs — Monday, October 12",
-    "summary": "WHF is 5–0! JV Champs begins at 5:00 PM at Westonka. Varsity swimmers and divers should attend to volunteer and cheer on their teammates.",
-    "body": "JV CHAMPS — MONDAY, OCTOBER 12\nJV Champs begins at 5:00 PM at the Westonka Activity Center Pool. Varsity swimmers and divers should attend to volunteer and cheer on their teammates.\n\nOPEN JV CHAMPS VOLUNTEER NEEDS\n• 1 Dive Parent Concessions volunteer\n• 1 Swim Parent Concessions volunteer\n• 2 Chuck A Duck volunteers\n\nFINAL HOME MEET — THURSDAY, OCTOBER 22 VS. BRECK\n• 7 timers needed — arrive at the pool deck by 4:45 PM\n• 2 Chuck A Duck volunteers needed\n\nThese jobs are required to run successful home meets. Please sign up as soon as possible.",
-    "updated": "October 5, 2026",
+    "title": "CONFERENCE CHAMPIONS — WHF Moves to 6–0!",
+    "summary": "WHF defeated Delano to finish 6–0 in conference dual meets and claim the conference championship! JV Champs is Monday, October 12 at 5:00 PM at Westonka.",
+    "body": "CONFERENCE CHAMPIONS\nThe White Hawks defeated Delano to finish 6–0 in conference dual meets and capture the conference championship! Congratulations to our swimmers, divers, and coaches on this incredible accomplishment.\n\nJV CHAMPS — MONDAY, OCTOBER 12\nJV Champs begins at 5:00 PM at the Westonka Activity Center Pool. Varsity swimmers and divers should attend to volunteer and cheer on their teammates.\n\nOPEN JV CHAMPS VOLUNTEER NEEDS\n• 1 Dive Parent Concessions volunteer\n• 1 Swim Parent Concessions volunteer\n• 2 Chuck A Duck volunteers\n\nFINAL HOME MEET — THURSDAY, OCTOBER 22 VS. BRECK\n• 7 timers needed — arrive at the pool between 5:15 and 5:30 PM\n• 2 Chuck A Duck volunteers needed\n\nThese jobs are required to run successful home meets. Please sign up as soon as possible.",
+    "updated": "October 10, 2026",
     "actionText": "View Volunteer Needs",
     "targetScreen": "volunteers"
   },
@@ -25,343 +25,6 @@ window.WHF_DATA = {
     "updated": "September 18, 2026"
   },
   "keyDates": [
-    {
-      "date": "2026-07-29T11:45:00-05:00",
-      "title": "All in One Fitness & Minnetonka Drive In",
-      "label": "CAPTAINS' PRACTICE",
-      "meta": "Wednesday, July 29",
-      "location": "Optional and highly encouraged. Meet for the All in One Fitness class at 11:45 AM. The Booster Club will provide funds for ice cream at the Minnetonka Drive In following the class."
-    },
-    {
-      "date": "2026-08-09T13:30:00-05:00",
-      "title": "Big Stone Mini Golf",
-      "label": "CAPTAINS' PRACTICE",
-      "meta": "Sunday, August 9",
-      "location": "Optional and highly encouraged. Meet at Big Stone Mini Golf at 1:30 PM. Everyone is responsible for paying for their own admission."
-    },
-    {
-      "date": "2026-08-12T17:00:00-05:00",
-      "title": "WHF Team Meeting",
-      "label": "TEAM MEETING",
-      "meta": "Wednesday, August 12",
-      "location": "5:00 PM in the pool. Westonka's official registration night has been cancelled, but WHF Girls Swim & Dive will still hold a team meeting."
-    },
-    {
-      "date": "2026-08-14T19:00:00-05:00",
-      "title": "Beach Sunset, Games & Towel Decorating",
-      "label": "CAPTAINS' PRACTICE",
-      "meta": "Friday, August 14",
-      "location": "Optional and highly encouraged. Meet at Lake Waconia Regional Park at 7:00 PM. Snacks and beverages will be provided by the Booster Club."
-    },
-    {
-      "date": "2026-08-17T07:00:00-05:00",
-      "title": "Practice",
-      "label": "PRACTICE",
-      "meta": "Monday, August 17",
-      "location": "7:00–9:00 AM & 4:00–5:30 PM"
-    },
-    {
-      "date": "2026-08-18T07:00:00-05:00",
-      "title": "Practice",
-      "label": "PRACTICE",
-      "meta": "Tuesday, August 18",
-      "location": "7:00–9:00 AM & 4:00–5:30 PM"
-    },
-    {
-      "date": "2026-08-19T07:00:00-05:00",
-      "title": "Practice",
-      "label": "PRACTICE",
-      "meta": "Wednesday, August 19",
-      "location": "7:00–9:00 AM & 4:00–5:30 PM"
-    },
-    {
-      "date": "2026-08-20T07:00:00-05:00",
-      "title": "Practice",
-      "label": "PRACTICE",
-      "meta": "Thursday, August 20",
-      "location": "7:00–9:00 AM & 4:00–5:30 PM"
-    },
-    {
-      "date": "2026-08-21T07:00:00-05:00",
-      "title": "Practice",
-      "label": "PRACTICE",
-      "meta": "Friday, August 21",
-      "location": "7:00–9:00 AM"
-    },
-    {
-      "date": "2026-08-22T07:00:00-05:00",
-      "title": "Practice",
-      "label": "PRACTICE",
-      "meta": "Saturday, August 22",
-      "location": "7:00–9:00 AM"
-    },
-    {
-      "date": "2026-08-24T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Monday, August 24",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-08-25T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Tuesday, August 25",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-08-26T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Wednesday, August 26",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-08-27T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Thursday, August 27",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-08-28T07:00:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Friday, August 28",
-      "location": "7:00–9:00 AM"
-    },
-    {
-      "date": "2026-08-29T07:00:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Saturday, August 29",
-      "location": "7:00–9:00 AM"
-    },
-    {
-      "date": "2026-08-31T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Monday, August 31",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-01T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Tuesday, September 1",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-02T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Wednesday, September 2",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-03T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Thursday, September 3",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-04T07:00:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Friday, September 4",
-      "location": "7:00–9:00 AM"
-    },
-    {
-      "date": "2026-09-05T07:00:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Saturday, September 5",
-      "location": "7:00–9:00 AM"
-    },
-    {
-      "date": "2026-09-07T12:00:00-05:00",
-      "title": "No Swim Practice — Labor Day",
-      "label": "PRACTICE",
-      "meta": "Monday, September 7",
-      "location": "No practice. Enjoy the holiday!",
-      "displayTime": "NO PRACTICE"
-    },
-    {
-      "date": "2026-09-08T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Tuesday, September 8",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-09T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Wednesday, September 9",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-10T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Thursday, September 10",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-11T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Friday, September 11",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-12T07:00:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Saturday, September 12",
-      "location": "7:00–10:00 AM"
-    },
-    {
-      "date": "2026-09-14T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Monday, September 14",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-15T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Tuesday, September 15",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-16T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Wednesday, September 16",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-17T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Thursday, September 17",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-18T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Friday, September 18",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-19T07:00:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Saturday, September 19",
-      "location": "7:00–10:00 AM"
-    },
-    {
-      "date": "2026-09-21T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Monday, September 21",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-22T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Tuesday, September 22",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-23T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Wednesday, September 23",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-24T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Thursday, September 24",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-25T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Friday, September 25",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-26T07:00:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Saturday, September 26",
-      "location": "7:00–10:00 AM"
-    },
-    {
-      "date": "2026-09-28T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Monday, September 28",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-29T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Tuesday, September 29",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-30T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Wednesday, September 30",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-10-03T07:00:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Saturday, October 3",
-      "location": "7:00–10:00 AM"
-    },
-    {
-      "date": "2026-10-05T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Monday, October 5",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-10-06T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Tuesday, October 6",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-10-07T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Wednesday, October 7",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-10-09T15:30:00-05:00",
-      "title": "Swim Practice",
-      "label": "PRACTICE",
-      "meta": "Friday, October 9",
-      "location": "3:30–6:00 PM"
-    },
     {
       "date": "2026-10-13T15:30:00-05:00",
       "title": "Swim Practice",
@@ -470,266 +133,6 @@ window.WHF_DATA = {
   ],
   "divePracticeSchedule": [
     {
-      "date": "2026-08-17T16:00:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Monday, August 17",
-      "location": "4:00–5:30 PM"
-    },
-    {
-      "date": "2026-08-18T08:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DOUBLE PRACTICES",
-      "meta": "Tuesday, August 18",
-      "location": "8:30–10:30 AM & 4:00–5:30 PM • Double practices"
-    },
-    {
-      "date": "2026-08-19T08:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DOUBLE PRACTICES",
-      "meta": "Wednesday, August 19",
-      "location": "8:30–10:30 AM & 4:00–5:30 PM • Double practices"
-    },
-    {
-      "date": "2026-08-20T08:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DOUBLE PRACTICES",
-      "meta": "Thursday, August 20",
-      "location": "8:30–10:30 AM & 4:00–5:30 PM • Double practices"
-    },
-    {
-      "date": "2026-08-21T08:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Friday, August 21",
-      "location": "8:30–10:30 AM"
-    },
-    {
-      "date": "2026-08-24T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Monday, August 24",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-08-25T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Tuesday, August 25",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-08-26T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Wednesday, August 26",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-08-27T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Thursday, August 27",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-08-28T08:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Friday, August 28",
-      "location": "8:30–10:30 AM"
-    },
-    {
-      "date": "2026-08-31T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Monday, August 31",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-01T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Tuesday, September 1",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-02T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Wednesday, September 2",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-03T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Thursday, September 3",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-04T08:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Friday, September 4",
-      "location": "8:30–10:30 AM"
-    },
-    {
-      "date": "2026-09-07T12:00:00-05:00",
-      "title": "No Dive Practice — Labor Day",
-      "label": "HOLIDAY CLOSURE",
-      "meta": "Monday, September 7",
-      "location": "No practice. Enjoy the holiday!",
-      "displayTime": "NO PRACTICE"
-    },
-    {
-      "date": "2026-09-08T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Tuesday, September 8",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-09T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Wednesday, September 9",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-10T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Thursday, September 10",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-11T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Friday, September 11",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-14T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Monday, September 14",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-15T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Tuesday, September 15",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-16T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Wednesday, September 16",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-17T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Thursday, September 17",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-18T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Friday, September 18",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-21T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Monday, September 21",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-22T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Tuesday, September 22",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-23T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Wednesday, September 23",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-24T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Thursday, September 24",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-25T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Friday, September 25",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-28T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Monday, September 28",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-29T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Tuesday, September 29",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-09-30T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Wednesday, September 30",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-10-05T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Monday, October 5",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-10-06T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Tuesday, October 6",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-10-07T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Wednesday, October 7",
-      "location": "3:30–6:00 PM"
-    },
-    {
-      "date": "2026-10-09T15:30:00-05:00",
-      "title": "Dive Practice",
-      "label": "DIVE PRACTICE",
-      "meta": "Friday, October 9",
-      "location": "3:30–6:00 PM"
-    },
-    {
       "date": "2026-10-13T15:30:00-05:00",
       "title": "Dive Practice",
       "label": "DIVE PRACTICE",
@@ -823,51 +226,7 @@ window.WHF_DATA = {
   ],
   "meetSchedule": [
     {
-      "date": "2026-08-29T10:00:00-05:00",
-      "level": "JV & Varsity",
-      "opponent": "Tim Daly Invitational",
-      "location": "Orono Education Link Pool — 705 N Old Crystal Bay Road, Long Lake, MN 55356"
-    },
-    {
-      "date": "2026-09-10T18:00:00-05:00",
-      "level": "JV & Varsity",
-      "opponent": "vs Dassel-Cokato",
-      "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
-    },
-    {
-      "date": "2026-09-17T17:30:00-05:00",
-      "level": "JV & Varsity",
-      "opponent": "@ Watertown-Mayer/ML/SWC",
-      "location": "Watertown-Mayer High School — 1001 Highway 25 NW, Watertown, MN 55388",
-      "notice": "TIME CHANGED — NEW START TIME: 5:30 PM"
-    },
-    {
-      "date": "2026-09-22T18:00:00-05:00",
-      "level": "JV & Varsity",
-      "opponent": "Senior Night / Pack the Pool — vs Orono",
-      "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
-    },
-    {
-      "date": "2026-09-24T18:00:00-05:00",
-      "level": "JV & Varsity",
-      "opponent": "vs Litchfield",
-      "location": "Litchfield High School — 901 N Gilman Ave, Litchfield, MN 55355"
-    },
-    {
-      "date": "2026-10-01T18:00:00-05:00",
-      "level": "JV & Varsity",
-      "opponent": "vs Hutchinson",
-      "notice": "ATHLETES ARRIVE BY 4:15 PM • MEET STARTS 6:00 PM",
-      "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
-    },
-    {
-      "date": "2026-10-08T18:00:00-05:00",
-      "level": "JV & Varsity",
-      "opponent": "@ Delano",
-      "location": "Delano High School — 700 Elm Ave E, Delano, MN 55328"
-    },
-    {
-      "date": "2026-10-10T09:00:00-05:00",
+      "date": "2026-10-10T12:00:00-05:00",
       "level": "Varsity",
       "opponent": "True Team Sections",
       "location": "Willmar Senior High School — 2701 30th St NE, Willmar, MN 56201"
@@ -929,22 +288,6 @@ window.WHF_DATA = {
       "body": "The Elsmore Team Store is open for WHF spirit wear through mid-October. Team suit and cap ordering windows have closed. Every athlete receives the captains-designed team shirt at no cost.",
       "linkText": "Shop Team Store",
       "linkUrl": "https://elsmoreswim.com/collections/mound-westonka-holy-family-hs-girls"
-    },
-    {
-      "accent": "green",
-      "title": "WHF Team Meeting",
-      "body": "Wednesday, August 12 at 5:00 PM in the pool. Westonka's official registration night has been cancelled, but the WHF team meeting will still be held.",
-      "pastAfter": "2026-08-13T00:00:00-05:00",
-      "linkText": "",
-      "linkUrl": ""
-    },
-    {
-      "accent": "red",
-      "title": "First Practice",
-      "body": "Monday, August 17 • 7:00–9:00 AM & 4:00–5:30 PM.",
-      "pastAfter": "2026-08-18T00:00:00-05:00",
-      "linkText": "",
-      "linkUrl": ""
     }
   ],
   "socialLinks": [
@@ -1067,55 +410,16 @@ window.WHF_DATA = {
   ],
   "volunteerCards": [
     {
-      "accent": "green",
-      "title": "Saturday Team Breakfasts",
-      "date": "2026 Season",
-      "detail": "Open as of September 14: September 19, September 26, and October 3 each need a main breakfast item.",
-      "status": "upcoming",
-      "linkText": "Sign Up for Saturday Breakfasts",
-      "linkUrl": "https://www.signupgenius.com/go/10C0E4DA5AC28A0FB6-52289320-2024"
-    },
-    {
       "accent": "red",
       "title": "Required Home Meet Volunteers",
       "date": "October 12 & October 22",
-      "detail": "Open as of October 5: JV Champs on October 12 needs 1 Dive Parent concessions volunteer, 1 Swim Parent concessions volunteer, and 2 Chuck A Duck volunteers. The October 22 home meet vs. Breck needs 7 timers (arrive by 4:45 PM) and 2 Chuck A Duck volunteers. These roles are required to run successful home meets—please sign up as soon as possible.",
+      "detail": "Open as of October 10: JV Champs on October 12 needs 1 Dive Parent concessions volunteer, 1 Swim Parent concessions volunteer, and 2 Chuck A Duck volunteers. The October 22 home meet vs. Breck needs 7 timers (arrive between 5:15 and 5:30 PM) and 2 Chuck A Duck volunteers. These roles are required to run successful home meets—please sign up as soon as possible.",
       "status": "upcoming",
       "linkText": "Sign Up for Home Meets",
       "linkUrl": "https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-57207588-2025"
     }
   ],
   "events": [
-    {
-      "accent": "green",
-      "title": "Westonka Homecoming Parade",
-      "date": "Friday, October 2 • Check-in 4:25 PM",
-      "detail": "WHF Girls Swim & Dive is Float #15. Check in at 4:25 p.m.; roads close promptly at 4:55 p.m. All athletes walking in the parade should wear their new captains’ shirt and follow the staging instructions shown on the map.",
-      "image": "homecoming-parade-map.png",
-      "imageAlt": "Westonka Homecoming Parade staging map showing WHF Girls Swim & Dive at Float 15, the 4:25 p.m. check-in area, parking lanes, and the parade route.",
-      "imageCaption": "WHF is Float #15 in the 4:25 p.m. check-in group. Follow the marked check-in and parking route; roads close at 4:55 p.m.",
-      "status": "upcoming",
-      "linkText": "",
-      "linkUrl": ""
-    },
-    {
-      "accent": "split",
-      "title": "First Booster Club Meeting",
-      "date": "Thursday, August 27 • 6:00 PM",
-      "detail": "Meet at Caribou Coffee in Navarre, Minnesota. Booster families are welcome.",
-      "status": "completed",
-      "linkText": "",
-      "linkUrl": ""
-    },
-    {
-      "accent": "split",
-      "title": "Booster Club Meeting",
-      "date": "Tuesday, September 15",
-      "detail": "This Booster Club meeting has been completed.",
-      "status": "completed",
-      "linkText": "",
-      "linkUrl": ""
-    },
     {
       "accent": "split",
       "title": "Booster Club Meeting",
@@ -1143,16 +447,6 @@ window.WHF_DATA = {
       "status": "upcoming",
       "linkText": "Support the Team",
       "linkUrl": "https://successfund.com/kyxwj"
-    },
-    {
-      "accent": "split",
-      "title": "Spirit of the Lakes Fundraiser",
-      "date": "July 16–18",
-      "detail": "Spirit of the Lakes raised $1,335.47 for WHF Swim & Dive from the Hydration Station and Dunk Tank combined.",
-      "status": "completed",
-      "result": "$1,335.47 Raised",
-      "linkText": "",
-      "linkUrl": ""
     }
   ],
   "teamStore": {
@@ -1170,18 +464,46 @@ window.WHF_DATA = {
     "status": ""
   },
   "seasonRecord": {
-    "value": "5-0",
-    "note": "WHF is now 5-0 in dual meets after defeating Hutchinson."
+    "value": "6-0",
+    "note": "WHF finished 6-0 in conference dual meets and is the 2026 conference champion after defeating Delano."
   },
   "programHighlights": [],
   "photoLinks": [
-    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/team-lineup.jpg" },
-    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/team-three.jpg" },
-    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/mia-breaststroke.jpg" },
-    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/diving-action.jpg" },
-    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/team-poolside.jpg" },
-    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/juras-wall.jpg" },
-    { "album": "Dassel-Cokato — September 10", "status": "approved", "imageUrl": "team-gallery/dongoske-ready.jpg" }
+    {
+      "album": "Dassel-Cokato — September 10",
+      "status": "approved",
+      "imageUrl": "team-gallery/team-lineup.jpg"
+    },
+    {
+      "album": "Dassel-Cokato — September 10",
+      "status": "approved",
+      "imageUrl": "team-gallery/team-three.jpg"
+    },
+    {
+      "album": "Dassel-Cokato — September 10",
+      "status": "approved",
+      "imageUrl": "team-gallery/mia-breaststroke.jpg"
+    },
+    {
+      "album": "Dassel-Cokato — September 10",
+      "status": "approved",
+      "imageUrl": "team-gallery/diving-action.jpg"
+    },
+    {
+      "album": "Dassel-Cokato — September 10",
+      "status": "approved",
+      "imageUrl": "team-gallery/team-poolside.jpg"
+    },
+    {
+      "album": "Dassel-Cokato — September 10",
+      "status": "approved",
+      "imageUrl": "team-gallery/juras-wall.jpg"
+    },
+    {
+      "album": "Dassel-Cokato — September 10",
+      "status": "approved",
+      "imageUrl": "team-gallery/dongoske-ready.jpg"
+    }
   ],
   "photoFeedUrl": "https://script.google.com/macros/s/AKfycbxhRaTiG44m4EUwc4_YFVJ9JiYK6zBB-sTq18a9VtJOmcIOnUMtSfsAzkPT6f-1hxA46Q/exec",
   "teamRecords": [

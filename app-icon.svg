@@ -1,10 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="108" fill="#F7F5EF"/>
-  <rect x="22" y="22" width="468" height="468" rx="88" fill="none" stroke="#202228" stroke-width="12"/>
-  <path d="M74 66h142l-48 82h66L103 277l42-96H75l61-71H74z" fill="#DA2B1F"/>
-  <path d="M438 446H296l48-82h-66l131-129-42 96h70l-61 71h62z" fill="#246B4A"/>
-  <rect x="67" y="179" width="378" height="154" rx="24" fill="#F7F5EF" stroke="#202228" stroke-width="9"/>
-  <text x="256" y="290" fill="#202228" font-family="Arial Black,Arial,Helvetica,sans-serif" font-size="136" font-weight="900" text-anchor="middle">WHF</text>
-  <rect x="187" y="332" width="138" height="72" rx="20" fill="#202228"/>
-  <text x="256" y="386" fill="#fff" font-family="Arial Black,Arial,Helvetica,sans-serif" font-size="58" font-weight="900" letter-spacing="5" text-anchor="middle">HQ</text>
+  <defs><clipPath id="appShape"><rect width="512" height="512" rx="112"/></clipPath></defs>
+  <g clip-path="url(#appShape)">
+    <rect width="512" height="512" fill="#111317"/>
+    <rect width="512" height="220" fill="#C92A24"/>
+    <rect y="292" width="512" height="220" fill="#24704D"/>
+  </g>
+  <rect x="22" y="22" width="468" height="468" rx="90" fill="none" stroke="#4B4D50" stroke-width="6"/>
+  <text x="256" y="286" fill="#FFFFFF" font-family="Arial Black,Arial,Helvetica,sans-serif" font-size="150" font-weight="900" text-anchor="middle">WHF</text>
+  <rect x="170" y="310" width="172" height="84" rx="22" fill="#FFFFFF"/>
+  <text x="256" y="374" fill="#111317" font-family="Arial Black,Arial,Helvetica,sans-serif" font-size="66" font-weight="900" letter-spacing="7" text-anchor="middle">HQ</text>
 </svg>

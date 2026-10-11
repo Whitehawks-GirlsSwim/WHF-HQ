@@ -304,6 +304,11 @@ function preloadHomeHeroPhoto(src) {
   return pending;
 }
 
+function applyHomeHeroFraming(image, src) {
+  if (!image) return;
+  image.classList.toggle('homeHeroPortraitFit', /(?:^|\/)dongoske-ready\.jpg(?:[?#]|$)/i.test(String(src || '')));
+}
+
 async function showHomeHeroPhoto(index, animate = true) {
   const image = document.getElementById('homeHeroImage');
   const nextImage = document.getElementById('homeHeroNextImage');
@@ -317,12 +322,14 @@ async function showHomeHeroPhoto(index, animate = true) {
   if (request !== homeHeroRequest) return;
   const nextAlt = `WHF Girls Swim and Dive team photo ${homeHeroIndex + 1} of ${photos.length}`;
   if (!animate || !nextImage || image.currentSrc === new URL(nextSrc, window.location.href).href) {
+    applyHomeHeroFraming(image, nextSrc);
     image.src = nextSrc;
     image.alt = nextAlt;
     if (nextImage) nextImage.classList.remove('isVisible');
   } else {
     nextImage.classList.add('isInstant');
     nextImage.classList.remove('isVisible');
+    applyHomeHeroFraming(nextImage, nextSrc);
     nextImage.src = nextSrc;
     void nextImage.offsetWidth;
     nextImage.classList.remove('isInstant');
@@ -331,6 +338,7 @@ async function showHomeHeroPhoto(index, animate = true) {
     nextImage.classList.add('isVisible');
     await new Promise(resolve => setTimeout(resolve, 720));
     if (request !== homeHeroRequest) return;
+    applyHomeHeroFraming(image, nextSrc);
     image.src = nextSrc;
     image.alt = nextAlt;
     nextImage.classList.add('isInstant');

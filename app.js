@@ -304,9 +304,21 @@ function preloadHomeHeroPhoto(src) {
   return pending;
 }
 
+function isHomeHeroPortrait(src) {
+  return /(?:^|\/)dongoske-ready\.jpg(?:[?#]|$)/i.test(String(src || ''));
+}
+
+function applyHomeHeroBackdrop(src) {
+  const photo = document.querySelector('.homeDashboardHero .programPhoto');
+  if (!photo) return;
+  const portrait = isHomeHeroPortrait(src);
+  photo.classList.toggle('hasPortraitHero', portrait);
+  photo.style.setProperty('--portrait-hero-image', portrait ? `url("${new URL(src, window.location.href).href}")` : 'none');
+}
+
 function applyHomeHeroFraming(image, src) {
   if (!image) return;
-  image.classList.toggle('homeHeroPortraitFit', /(?:^|\/)dongoske-ready\.jpg(?:[?#]|$)/i.test(String(src || '')));
+  image.classList.toggle('homeHeroPortraitFit', isHomeHeroPortrait(src));
 }
 
 async function showHomeHeroPhoto(index, animate = true) {
@@ -322,6 +334,7 @@ async function showHomeHeroPhoto(index, animate = true) {
   if (request !== homeHeroRequest) return;
   const nextAlt = `WHF Girls Swim and Dive team photo ${homeHeroIndex + 1} of ${photos.length}`;
   if (!animate || !nextImage || image.currentSrc === new URL(nextSrc, window.location.href).href) {
+    applyHomeHeroBackdrop(nextSrc);
     applyHomeHeroFraming(image, nextSrc);
     image.src = nextSrc;
     image.alt = nextAlt;
@@ -329,6 +342,7 @@ async function showHomeHeroPhoto(index, animate = true) {
   } else {
     nextImage.classList.add('isInstant');
     nextImage.classList.remove('isVisible');
+    if (isHomeHeroPortrait(nextSrc)) applyHomeHeroBackdrop(nextSrc);
     applyHomeHeroFraming(nextImage, nextSrc);
     nextImage.src = nextSrc;
     void nextImage.offsetWidth;
@@ -338,6 +352,7 @@ async function showHomeHeroPhoto(index, animate = true) {
     nextImage.classList.add('isVisible');
     await new Promise(resolve => setTimeout(resolve, 720));
     if (request !== homeHeroRequest) return;
+    applyHomeHeroBackdrop(nextSrc);
     applyHomeHeroFraming(image, nextSrc);
     image.src = nextSrc;
     image.alt = nextAlt;

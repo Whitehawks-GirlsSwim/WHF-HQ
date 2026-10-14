@@ -5,9 +5,9 @@ window.WHF_DATA = {
   },
   "latestUpdate": {
     "title": "CONFERENCE CHAMPIONS — WHF Moves to 6–0!",
-    "summary": "WHF defeated Delano to finish 6–0 in conference dual meets and claim the conference championship! JV Champs is Monday, October 12 at 5:00 PM at Westonka.",
-    "body": "CONFERENCE CHAMPIONS\nThe White Hawks defeated Delano to finish 6–0 in conference dual meets and capture the conference championship! Congratulations to our swimmers, divers, and coaches on this incredible accomplishment.\n\nJV CHAMPS — MONDAY, OCTOBER 12\nJV Champs begins at 5:00 PM at the Westonka Activity Center Pool. Varsity swimmers and divers should attend to volunteer and cheer on their teammates.\n\nOPEN JV CHAMPS VOLUNTEER NEEDS\n• 1 Dive Parent Concessions volunteer\n• 1 Swim Parent Concessions volunteer\n• 2 Chuck A Duck volunteers\n\nFINAL HOME MEET — THURSDAY, OCTOBER 22 VS. BRECK\n• 7 timers needed — arrive at the pool between 5:15 and 5:30 PM\n• 2 Chuck A Duck volunteers needed\n\nThese jobs are required to run successful home meets. Please sign up as soon as possible.",
-    "updated": "October 10, 2026",
+    "summary": "WHF defeated Delano to finish 6–0 in conference dual meets and claim the conference championship! The final home meet against Breck is Thursday, October 22.",
+    "body": "CONFERENCE CHAMPIONS\nThe White Hawks defeated Delano to finish 6–0 in conference dual meets and capture the conference championship! Congratulations to our swimmers, divers, and coaches on this incredible accomplishment.\n\nFINAL HOME MEET — THURSDAY, OCTOBER 22 VS. BRECK\n• 7 timers needed — arrive at the pool between 5:15 and 5:30 PM\n• 2 Chuck A Duck volunteers needed\n\nThese positions are essential to running the meet. Please sign up as soon as possible.",
+    "updated": "October 13, 2026",
     "actionText": "View Volunteer Needs",
     "targetScreen": "volunteers"
   },
@@ -232,13 +232,6 @@ window.WHF_DATA = {
       "location": "Willmar Senior High School — 2701 30th St NE, Willmar, MN 56201"
     },
     {
-      "date": "2026-10-12T17:00:00-05:00",
-      "level": "JV",
-      "opponent": "JV Champs",
-      "notice": "BIG REMINDER — VARSITY SWIMMERS & DIVERS SHOULD ATTEND TO VOLUNTEER AND CHEER ON THEIR TEAMMATES • JV SEASON CONCLUDES AFTER JV CHAMPS",
-      "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
-    },
-    {
       "date": "2026-10-22T18:00:00-05:00",
       "level": "JV & Varsity",
       "opponent": "vs Breck",
@@ -415,8 +408,8 @@ window.WHF_DATA = {
     {
       "accent": "red",
       "title": "Required Home Meet Volunteers",
-      "date": "October 12 & October 22",
-      "detail": "Open as of October 10: JV Champs on October 12 needs 1 Dive Parent concessions volunteer, 1 Swim Parent concessions volunteer, and 2 Chuck A Duck volunteers. The October 22 home meet vs. Breck needs 7 timers (arrive between 5:15 and 5:30 PM) and 2 Chuck A Duck volunteers. These roles are required to run successful home meets—please sign up as soon as possible.",
+      "date": "Thursday, October 22",
+      "detail": "Open as of October 13: The home meet vs. Breck needs 7 timers (arrive between 5:15 and 5:30 PM) and 2 Chuck A Duck volunteers. These roles are required to run the meet—please sign up as soon as possible.",
       "status": "upcoming",
       "linkText": "Sign Up for Home Meets",
       "linkUrl": "https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-57207588-2025"

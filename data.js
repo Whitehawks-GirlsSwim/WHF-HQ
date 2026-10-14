@@ -235,14 +235,8 @@ window.WHF_DATA = {
       "date": "2026-10-12T17:00:00-05:00",
       "level": "JV",
       "opponent": "JV Champs",
-      "notice": "BIG REMINDER — VARSITY SWIMMERS & DIVERS SHOULD ATTEND TO VOLUNTEER AND CHEER ON THEIR TEAMMATES • JV SEASON CONCLUDES AFTER JV CHAMPS / TRUE TEAM STATE WEEK",
+      "notice": "BIG REMINDER — VARSITY SWIMMERS & DIVERS SHOULD ATTEND TO VOLUNTEER AND CHEER ON THEIR TEAMMATES • JV SEASON CONCLUDES AFTER JV CHAMPS",
       "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
-    },
-    {
-      "date": "2026-10-17T12:00:00-05:00",
-      "level": "Varsity",
-      "opponent": "True Team State",
-      "location": "Jean K. Freeman Aquatic Center — 1910 University Ave SE, Minneapolis, MN 55455"
     },
     {
       "date": "2026-10-22T18:00:00-05:00",

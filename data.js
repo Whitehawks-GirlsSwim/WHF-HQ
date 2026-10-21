@@ -272,9 +272,13 @@ window.WHF_DATA = {
   "parentCards": [
     {
       "accent": "red",
-      "title": "Team Store",
-      "body": "The Elsmore Team Store is open for WHF spirit wear through mid-October. Team suit and cap ordering windows have closed. Every athlete receives the captains-designed team shirt at no cost.",
-      "linkText": "Shop Team Store",
+      "title": "Elsmore Tech Suit Savings",
+      "summary": "Save 30% on tech suits through November 20 with code 30!TECH!2026. See coupon for details.",
+      "body": "Championship season is here! Save 30% on tech suits with code 30!TECH!2026 through November 20, 2026. Not valid on prior purchases, clearance, or Mizuno. Other exclusions may apply; see store for details.",
+      "image": "elsmore-tech-suit-coupon-2026.png",
+      "imageAlt": "Elsmore Swim Shop coupon for 30% off tech suits through November 20, 2026, with code 30!TECH!2026",
+      "imageCaption": "Tech suit savings from Elsmore Swim Shop",
+      "linkText": "Shop Elsmore Tech Suits",
       "linkUrl": "https://elsmoreswim.com/collections/mound-westonka-holy-family-hs-girls"
     }
   ],
@@ -446,12 +450,12 @@ window.WHF_DATA = {
     }
   ],
   "teamStore": {
-    "status": "Open",
+    "status": "Coupon available",
     "vendor": "Elsmore Swim Shop",
-    "windowOne": "Suit and cap ordering closed",
-    "windowTwo": "Spirit wear open through mid-October",
-    "deadline": "2026-10-16T00:00:00-05:00",
-    "deadlineLabel": "mid-October",
+    "windowOne": "30% off full-price tech suits with code 30!TECH!2026",
+    "windowTwo": "Coupon valid through November 20, 2026; not valid on prior purchases, clearance, or Mizuno",
+    "deadline": "2026-11-21T00:00:00-06:00",
+    "deadlineLabel": "November 20, 2026",
     "url": "https://elsmoreswim.com/collections/mound-westonka-holy-family-hs-girls"
   },
   "programSummary": {

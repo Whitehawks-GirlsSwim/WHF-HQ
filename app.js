@@ -836,7 +836,7 @@ function renderHomeAlerts() {
   const parentCards = DATA.parentCards || [];
   const parade = (DATA.events || []).find(item => /homecoming parade/i.test(item.title || ''));
   const registration = parentCards.find(item => /registration/i.test(item.title || ''));
-  const storeCard = parentCards.find(item => /team store/i.test(item.title || ''));
+  const storeCard = parentCards.find(item => /team store|tech suit/i.test(item.title || ''));
   const store = DATA.teamStore || {};
   const alerts = [];
   const storeDeadline = new Date(store.deadline || '2026-10-16T00:00:00-05:00');
@@ -859,9 +859,9 @@ function renderHomeAlerts() {
   if (store.url && new Date() < storeDeadline) {
     alerts.push({
       accent: 'red',
-      eyebrow: 'TEAM STORE OPEN',
-      title: 'WHF spirit wear is available',
-      body: `Order from ${store.vendor || 'the team store'} through ${store.deadlineLabel || 'mid-October'}.`,
+      eyebrow: 'CHAMPIONSHIP SEASON SAVINGS',
+      title: storeCard?.title || 'Team Store Offer',
+      body: storeCard?.summary || `Order from ${store.vendor || 'the team store'} through ${store.deadlineLabel || 'mid-October'}.`,
       linkText: storeCard?.linkText || 'Shop Team Store',
       linkUrl: store.url
     });
@@ -981,7 +981,7 @@ function cardHtml(item, idx = 0) {
     <button type="button" data-event-image="${escapeHtml(item.image)}" onclick="openEventImage(this.dataset.eventImage, this.querySelector('img').alt)" aria-label="Open ${escapeHtml(item.title || 'event')} image full size">
       <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.imageAlt || item.title || 'Event image')}" loading="lazy">
     </button>
-    ${item.imageCaption ? `<figcaption>${escapeHtml(item.imageCaption)} <strong>Tap the map to enlarge.</strong></figcaption>` : ''}
+    ${item.imageCaption ? `<figcaption>${escapeHtml(item.imageCaption)} <strong>Tap to enlarge.</strong></figcaption>` : ''}
   </figure>` : '';
   let link = '';
   if (item.targetScreen) {

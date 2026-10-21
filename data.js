@@ -4,12 +4,11 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "CONFERENCE CHAMPIONS — WHF Moves to 6–0!",
-    "summary": "WHF defeated Delano to finish 6–0 in conference dual meets and claim the conference championship! The final home meet against Breck is Thursday, October 22.",
-    "body": "CONFERENCE CHAMPIONS\nThe White Hawks defeated Delano to finish 6–0 in conference dual meets and capture the conference championship! Congratulations to our swimmers, divers, and coaches on this incredible accomplishment.\n\nFINAL HOME MEET — THURSDAY, OCTOBER 22 VS. BRECK\n• 7 timers needed — arrive at the pool between 5:15 and 5:30 PM\n• 2 Chuck A Duck volunteers needed\n\nThese positions are essential to running the meet. Please sign up as soon as possible.",
-    "updated": "October 13, 2026",
-    "actionText": "View Volunteer Needs",
-    "targetScreen": "volunteers"
+    "title": "WEEK 10 — BRECK HOME MEET STARTS AT 5:00 PM",
+    "summary": "Athletes arrive at 3:30 PM for warm-ups. We need 7 timers arriving 4:30–4:45 PM and 2 Chuck A Duck volunteers. State meet dates and banquet details have also been updated.",
+    "body": "WEEK 10 — FINAL HOME MEET VS. BRECK\nThursday, October 22\nAthlete arrival: 3:30 PM for warm-ups\nMeet start: 5:00 PM\n\nHOME MEET VOLUNTEERS\n• 7 timers needed — arrive between 4:30 and 4:45 PM\n• 2 Chuck A Duck volunteers needed\nThese positions are essential to running the meet. Please sign up in the Volunteers section of WHF HQ.\n\nUPDATED HIGH SCHOOL STATE SCHEDULE\n• Wednesday, November 18: Dive prelims at noon\n• Thursday, November 19: Swim prelims at noon\n• Friday, November 20: Finals at noon\n\nEND-OF-SEASON BANQUET\nSunday, November 22, 5:30–7:30 PM at Medina Ballroom. A signup for non-athlete attendees will be shared in the next update.",
+    "updated": "October 20, 2026",
+    "actionText": "Read the Week 10 Update"
   },
   "previousLatestUpdate": {
     "title": "WHF Girls Swim & Dive Rolls Out the Red with Dominant Performance",
@@ -20,9 +19,9 @@ window.WHF_DATA = {
     "linkUrl": "https://whs.westonka.k12.mn.us/activities/white-hawks-news/sports-article/~board/white-hawks-news/post/whf-girls-swim-dive-rolls-out-the-red-with-dominant-performance"
   },
   "weeklyUpdate": {
-    "title": "Next Booster Club Meeting",
-    "body": "Our next booster meeting is Monday, October 19. Time and location are being finalized.\n\nLOOKING AHEAD TO NEXT SEASON\nWe will need parents to step into Booster Club leadership roles for next year, including Treasurer, Secretary, and Volunteer Coordinator. Please begin considering where you may be able to help.\n\n⚠️ MANDATORY PARENT EQUIPMENT TRAINING NIGHT\nPending final communication from Coach Ben, a mandatory parent equipment-training night will be scheduled in the near future. Every family will need to attend and learn the meet equipment and operations. We are graduating many of the experienced families who currently perform these jobs, so all families must be trained to keep our home meets running successfully.",
-    "updated": "September 18, 2026"
+    "title": "Week 10 Booster Club Update",
+    "body": "The final home meet of the season is Thursday, October 22, against Breck. Athletes arrive at 3:30 PM for warm-ups, and the meet begins at 5:00 PM.\n\nOur next Booster Club meeting and Board elections are Monday, November 9, at 6:00 PM in the Harrison Bay room at Westonka High School.\n\nThe end-of-season banquet is Sunday, November 22, from 5:30 to 7:30 PM at Medina Ballroom. A signup for non-athlete attendees will be shared in the next update.",
+    "updated": "October 20, 2026"
   },
   "keyDates": [
     {
@@ -232,10 +231,12 @@ window.WHF_DATA = {
       "location": "Willmar Senior High School — 2701 30th St NE, Willmar, MN 56201"
     },
     {
-      "date": "2026-10-22T18:00:00-05:00",
+      "date": "2026-10-22T17:00:00-05:00",
       "level": "JV & Varsity",
       "opponent": "vs Breck",
-      "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364"
+      "location": "Westonka Activity Center Pool — 5903 Sunnyfield Road E, Minnetrista, MN 55364",
+      "displayTime": "5:00 PM",
+      "notice": "ATHLETE ARRIVAL 3:30 PM • MEET START 5:00 PM"
     },
     {
       "date": "2026-11-12T18:00:00-06:00",
@@ -250,19 +251,19 @@ window.WHF_DATA = {
       "location": "Hutchinson Middle School — 1365 South Grade Road SW, Hutchinson, MN 55350"
     },
     {
-      "date": "2026-11-19T12:00:00-06:00",
+      "date": "2026-11-18T12:00:00-06:00",
       "level": "Varsity",
       "opponent": "State Dive Prelims",
       "location": "Jean K. Freeman Aquatic Center — 1910 University Ave SE, Minneapolis, MN 55455"
     },
     {
-      "date": "2026-11-20T12:00:00-06:00",
+      "date": "2026-11-19T12:00:00-06:00",
       "level": "Varsity",
       "opponent": "State Swim Prelims",
       "location": "Jean K. Freeman Aquatic Center — 1910 University Ave SE, Minneapolis, MN 55455"
     },
     {
-      "date": "2026-11-21T12:00:00-06:00",
+      "date": "2026-11-20T12:00:00-06:00",
       "level": "Varsity",
       "opponent": "State Swim/Dive Finals",
       "location": "Jean K. Freeman Aquatic Center — 1910 University Ave SE, Minneapolis, MN 55455"
@@ -409,7 +410,7 @@ window.WHF_DATA = {
       "accent": "red",
       "title": "Required Home Meet Volunteers",
       "date": "Thursday, October 22",
-      "detail": "Open as of October 13: The home meet vs. Breck needs 7 timers (arrive between 5:15 and 5:30 PM) and 2 Chuck A Duck volunteers. These roles are required to run the meet—please sign up as soon as possible.",
+      "detail": "Updated October 20: The home meet vs. Breck needs 7 timers (arrive between 4:30 and 4:45 PM) and 2 Chuck A Duck volunteers. Athletes arrive at 3:30 PM for warm-ups; the meet starts at 5:00 PM. These roles are required to run the meet—please sign up as soon as possible.",
       "status": "upcoming",
       "linkText": "Sign Up for Home Meets",
       "linkUrl": "https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-57207588-2025"
@@ -417,20 +418,19 @@ window.WHF_DATA = {
   ],
   "events": [
     {
-      "accent": "split",
-      "title": "Booster Club Meeting",
-      "date": "Monday, October 19 • Time TBD",
-      "detail": "DATE CHANGED: This meeting has moved from October 12 to Monday, October 19. Time and location are being finalized. Booster families are welcome.",
-      "notice": "DATE CHANGED",
+      "accent": "red",
+      "title": "Booster Club Meeting & Board Elections",
+      "date": "Monday, November 9 • 6:00 PM",
+      "detail": "Booster Club meeting and Board elections in the Harrison Bay room at Westonka High School. Booster families are welcome.",
       "status": "upcoming",
       "linkText": "",
       "linkUrl": ""
     },
     {
-      "accent": "red",
-      "title": "Booster Club Meeting & Board Elections",
-      "date": "Monday, November 9 • Time TBD",
-      "detail": "This meeting will also serve as Booster Club election night. Time and location are being finalized.",
+      "accent": "green",
+      "title": "End-of-Season Banquet",
+      "date": "Sunday, November 22 • 5:30–7:30 PM",
+      "detail": "Join us at Medina Ballroom to celebrate the season. A signup for non-athlete attendees will be shared in the next update.",
       "status": "upcoming",
       "linkText": "",
       "linkUrl": ""

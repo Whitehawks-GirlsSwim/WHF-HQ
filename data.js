@@ -4,11 +4,11 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "WEEK 10 — BRECK HOME MEET STARTS AT 5:00 PM",
-    "summary": "Athletes arrive at 3:30 PM for warm-ups. We need 7 timers arriving 4:30–4:45 PM and 2 Chuck A Duck volunteers. State meet dates and banquet details have also been updated.",
-    "body": "WEEK 10 — FINAL HOME MEET VS. BRECK\nThursday, October 22\nAthlete arrival: 3:30 PM for warm-ups\nMeet start: 5:00 PM\n\nHOME MEET VOLUNTEERS\n• 7 timers needed — arrive between 4:30 and 4:45 PM\n• 2 Chuck A Duck volunteers needed\nThese positions are essential to running the meet. Please sign up in the Volunteers section of WHF HQ.\n\nUPDATED HIGH SCHOOL STATE SCHEDULE\n• Wednesday, November 18: Dive prelims at noon\n• Thursday, November 19: Swim prelims at noon\n• Friday, November 20: Finals at noon\n\nEND-OF-SEASON BANQUET\nSunday, November 22, 5:30–7:30 PM at Medina Ballroom. A signup for non-athlete attendees will be shared in the next update.",
-    "updated": "October 20, 2026",
-    "actionText": "Read the Week 10 Update"
+    "title": "November Booster Update",
+    "summary": "November 9 board elections, banquet RSVP due November 15, team carb loads, State sendoff plans and the latest meet photos.",
+    "body": "BOOSTER BOARD ELECTIONS\n\nMonday, November 9, at 6:00 PM in the Halstead Bay Room at Westonka High School. All families are encouraged to attend and take part in the vote. Interested parents: Melissa Houck for Secretary, Adriana Haugen for Volunteer Coordinator, and Angela Gadtke for Treasurer. If you are interested in one of these roles, please let us know as soon as possible.\n\nEND OF SEASON BANQUET\n\nSunday, November 22, from 5:30 to 7:30 PM at Medina Ballroom. Taco dinner. Please RSVP by Sunday, November 15, and account for both athletes and family members attending.\n\nRSVP: https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-67235086-endofseason\n\nTEAM CARB LOADS\n\nWednesday, November 11, at the Gadtke home, ahead of Sections. Wednesday, November 18, at Laney’s, following State diving prelims. Olive Garden will be provided for both. Times and additional details will be shared once finalized.\n\nCHAMPIONSHIP MEETS\n\nSections at Hutchinson Middle School: November 12 prelims at 6:00 PM; November 14 finals at noon. State at Jean K. Freeman Aquatic Center: November 18 dive prelims at noon; November 19 swim prelims at noon; November 20 swim/dive finals at noon.\n\nSTATE FINALS SENDOFF\n\nWe are working on planning a police and fire escort for the State Swim & Dive Finals on November 20th. Everyone is encouraged to attend and cheer on the girls as they leave to compete. Time is TBD. Details will be shared once confirmed.\n\nLATEST MEET PHOTOS\n\nThe latest meet photos have been uploaded to Walter’s website. Thank you to Walter for capturing these moments! Gallery: https://walterjuras.smugmug.com/ Password: MWHF26! (letters in all capitals).",
+    "updated": "November 1, 2026",
+    "actionText": "Read the November Update"
   },
   "previousLatestUpdate": {
     "title": "WHF Girls Swim & Dive Rolls Out the Red with Dominant Performance",
@@ -19,9 +19,9 @@ window.WHF_DATA = {
     "linkUrl": "https://whs.westonka.k12.mn.us/activities/white-hawks-news/sports-article/~board/white-hawks-news/post/whf-girls-swim-dive-rolls-out-the-red-with-dominant-performance"
   },
   "weeklyUpdate": {
-    "title": "Week 10 Booster Club Update",
-    "body": "The final home meet of the season is Thursday, October 22, against Breck. Athletes arrive at 3:30 PM for warm-ups, and the meet begins at 5:00 PM.\n\nOur next Booster Club meeting and Board elections are Monday, November 9, at 6:00 PM in the Harrison Bay room at Westonka High School.\n\nThe end-of-season banquet is Sunday, November 22, from 5:30 to 7:30 PM at Medina Ballroom. A signup for non-athlete attendees will be shared in the next update.",
-    "updated": "October 20, 2026"
+    "title": "November Booster Club Update",
+    "body": "BOOSTER BOARD ELECTIONS\n\nMonday, November 9, at 6:00 PM in the Halstead Bay Room at Westonka High School. All families are encouraged to attend and take part in the vote. Interested parents: Melissa Houck for Secretary, Adriana Haugen for Volunteer Coordinator, and Angela Gadtke for Treasurer. If you are interested in one of these roles, please let us know as soon as possible.\n\nEND OF SEASON BANQUET\n\nSunday, November 22, from 5:30 to 7:30 PM at Medina Ballroom. Taco dinner. Please RSVP by Sunday, November 15, and account for both athletes and family members attending.\n\nRSVP: https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-67235086-endofseason\n\nTEAM CARB LOADS\n\nWednesday, November 11, at the Gadtke home, ahead of Sections. Wednesday, November 18, at Laney’s, following State diving prelims. Olive Garden will be provided for both. Times and additional details will be shared once finalized.\n\nCHAMPIONSHIP MEETS\n\nSections at Hutchinson Middle School: November 12 prelims at 6:00 PM; November 14 finals at noon. State at Jean K. Freeman Aquatic Center: November 18 dive prelims at noon; November 19 swim prelims at noon; November 20 swim/dive finals at noon.\n\nSTATE FINALS SENDOFF\n\nWe are working on planning a police and fire escort for the State Swim & Dive Finals on November 20th. Everyone is encouraged to attend and cheer on the girls as they leave to compete. Time is TBD. Details will be shared once confirmed.\n\nLATEST MEET PHOTOS\n\nThe latest meet photos have been uploaded to Walter’s website. Thank you to Walter for capturing these moments! Gallery: https://walterjuras.smugmug.com/ Password: MWHF26! (letters in all capitals).",
+    "updated": "November 1, 2026"
   },
   "keyDates": [
     {
@@ -280,6 +280,13 @@ window.WHF_DATA = {
       "imageCaption": "Tech suit savings from Elsmore Swim Shop",
       "linkText": "Shop Elsmore Tech Suits",
       "linkUrl": "https://elsmoreswim.com/collections/mound-westonka-holy-family-hs-girls"
+    },
+    {
+      "accent": "green",
+      "title": "Latest Meet Photos",
+      "body": "The latest meet photos have been uploaded to Walter’s website. Thank you to Walter for capturing these moments! Gallery: https://walterjuras.smugmug.com/ Password: MWHF26! (letters in all capitals).",
+      "linkText": "View Walter’s Meet Photos",
+      "linkUrl": "https://walterjuras.smugmug.com/"
     }
   ],
   "socialLinks": [
@@ -335,6 +342,11 @@ window.WHF_DATA = {
       "accent": "red",
       "title": "Volunteers Matter",
       "body": "Timing, concessions, hospitality, admissions, fundraising, and behind-the-scenes roles all make a difference."
+    },
+    {
+      "accent": "red",
+      "title": "November 9 Board Elections",
+      "body": "Monday, November 9, at 6:00 PM in the Halstead Bay Room at Westonka High School. All families are encouraged to attend and take part in the vote. Interested parents: Melissa Houck for Secretary, Adriana Haugen for Volunteer Coordinator, and Angela Gadtke for Treasurer. If you are interested in one of these roles, please let us know as soon as possible."
     }
   ],
   "sponsorIntro": {
@@ -405,8 +417,8 @@ window.WHF_DATA = {
       "accent": "green",
       "title": "Saturday Team Breakfasts",
       "date": "2026 Season",
-      "detail": "Open the signup to see current Saturday breakfast dates and available items.",
-      "status": "upcoming",
+      "detail": "Saturday team breakfasts are complete for the season. Thank you to all families who helped!",
+      "status": "completed",
       "linkText": "Sign Up for Saturday Breakfasts",
       "linkUrl": "https://www.signupgenius.com/go/10C0E4DA5AC28A0FB6-52289320-2024"
     },
@@ -414,8 +426,8 @@ window.WHF_DATA = {
       "accent": "red",
       "title": "Required Home Meet Volunteers",
       "date": "Thursday, October 22",
-      "detail": "Updated October 20: The home meet vs. Breck needs 7 timers (arrive between 4:30 and 4:45 PM) and 2 Chuck A Duck volunteers. Athletes arrive at 3:30 PM for warm-ups; the meet starts at 5:00 PM. These roles are required to run the meet—please sign up as soon as possible.",
-      "status": "upcoming",
+      "detail": "The final home meet on October 22 is complete. Thank you to all our meet volunteers!",
+      "status": "completed",
       "linkText": "Sign Up for Home Meets",
       "linkUrl": "https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-57207588-2025"
     }
@@ -425,19 +437,40 @@ window.WHF_DATA = {
       "accent": "red",
       "title": "Booster Club Meeting & Board Elections",
       "date": "Monday, November 9 • 6:00 PM",
-      "detail": "Booster Club meeting and Board elections in the Harrison Bay room at Westonka High School. Booster families are welcome.",
+      "detail": "Monday, November 9, at 6:00 PM in the Halstead Bay Room at Westonka High School. All families are encouraged to attend and take part in the vote. Interested parents: Melissa Houck for Secretary, Adriana Haugen for Volunteer Coordinator, and Angela Gadtke for Treasurer. If you are interested in one of these roles, please let us know as soon as possible.",
       "status": "upcoming",
       "linkText": "",
       "linkUrl": ""
     },
     {
       "accent": "green",
+      "title": "Team Carb Load at the Gadtke Home",
+      "date": "Wednesday, November 11 • Time TBD",
+      "detail": "Team carb load ahead of Sections. Olive Garden will be provided. Times and additional details will be shared once finalized.",
+      "status": "upcoming"
+    },
+    {
+      "accent": "green",
+      "title": "Team Carb Load at Laney’s",
+      "date": "Wednesday, November 18 • Following State diving prelims",
+      "detail": "Olive Garden will be provided. Time and additional details will be shared once finalized.",
+      "status": "upcoming"
+    },
+    {
+      "accent": "red",
+      "title": "State Finals Police and Fire Sendoff",
+      "date": "Friday, November 20 • Time TBD",
+      "detail": "We are working on planning a police and fire escort for the State Swim & Dive Finals on November 20th. Everyone is encouraged to attend and cheer on the girls as they leave to compete. Details will be shared once confirmed.",
+      "status": "upcoming"
+    },
+    {
+      "accent": "green",
       "title": "End-of-Season Banquet",
       "date": "Sunday, November 22 • 5:30–7:30 PM",
-      "detail": "Join us at Medina Ballroom to celebrate the season. A signup for non-athlete attendees will be shared in the next update.",
+      "detail": "Sunday, November 22, from 5:30 to 7:30 PM at Medina Ballroom. Taco dinner. Please RSVP by Sunday, November 15, and account for both athletes and family members attending.",
       "status": "upcoming",
-      "linkText": "",
-      "linkUrl": ""
+      "linkText": "RSVP by November 15",
+      "linkUrl": "https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-67235086-endofseason"
     },
     {
       "accent": "green",

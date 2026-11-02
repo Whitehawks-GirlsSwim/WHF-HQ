@@ -1009,3 +1009,14 @@ body:has(#home.active) .latestUpdate{margin-top:18px}.latestUpdateCard{border-ra
 .seasonPulse:after{display:none}.seasonPulse>div{display:flex;min-width:0;flex:1;flex-direction:column}.seasonPulse>div span{color:#fff;font-size:8px;font-weight:950;letter-spacing:1.5px}.seasonPulse>div strong{margin-top:3px;font-size:15px;line-height:1.15;letter-spacing:-.25px}.seasonPulse>div small{margin-top:3px;color:rgba(255,255,255,.76);font-size:8px;font-weight:800;line-height:1.25}.seasonPulse>button{margin:0;padding:8px 0;border:0;color:#fff;font-size:10px;white-space:nowrap}
 .todayPanel[hidden]{display:none!important}
 @media (max-width:430px){.seasonPulse{padding:12px 13px}.seasonPulse>div strong{font-size:14px}.seasonPulse>button{font-size:9px}}
+
+/* Prominent banquet signup, shown through the RSVP deadline. */
+.banquetRsvp{margin:0 0 18px;padding:22px;background:#fff3c4;color:#17191e;border:3px solid #a71824;border-radius:18px;box-shadow:0 8px 24px rgba(90,10,15,.22)}
+.banquetRsvp[hidden]{display:none}
+.banquetRsvpBadge{display:inline-block;padding:7px 10px;background:#a71824;color:#fff;border-radius:6px;font-size:12px;font-weight:900;letter-spacing:.5px}
+.banquetRsvp h2{margin:14px 0 10px;font-size:clamp(25px,6vw,34px);line-height:1.08;font-weight:950;letter-spacing:-.7px;color:#17191e}
+.banquetRsvp p{margin:8px 0;font-size:14px;line-height:1.45;color:#34332e}
+.banquetRsvp .banquetRsvpDate{font-weight:900;font-size:16px;color:#87121c}
+.banquetRsvp a{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:17px;padding:16px;background:#a71824;color:#fff;border-radius:10px;text-decoration:none;font-size:16px;font-weight:900;min-height:52px;box-sizing:border-box}
+.banquetRsvp a:hover{background:#84101a}.banquetRsvp a:focus-visible{outline:3px solid #17191e;outline-offset:4px}
+@media(max-width:380px){.banquetRsvp{padding:17px}.banquetRsvpBadge{font-size:11px}.banquetRsvp a{font-size:14px}}

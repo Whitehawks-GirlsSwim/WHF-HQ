@@ -831,6 +831,14 @@ async function copyWhfAppLink() {
 }
 
 function renderHomeAlerts() {
+  const banquetHost = document.getElementById('banquetRsvp');
+  const banquet = (DATA.events || []).find(item => /banquet/i.test(item.title || ''));
+  if (banquetHost) {
+    const showRsvp = Boolean(banquet?.linkUrl && banquet.status !== 'completed' && new Date() < new Date('2026-11-16T00:00:00-06:00'));
+    banquetHost.hidden = !showRsvp;
+    banquetHost.innerHTML = showRsvp ? `<div class="banquetRsvpBadge">ACTION NEEDED • RSVP BY NOVEMBER 15</div><h2>LET’S CELEBRATE OUR GIRLS!</h2><p class="banquetRsvpDate">TEAM BANQUET • NOVEMBER 22</p><p>5:30 to 7:30 PM • Medina Ballroom • Taco dinner</p><p>Please include your athlete and every family member attending.</p><a href="${escapeHtml(banquet.linkUrl)}" target="_blank" rel="noopener">RSVP FOR THE BANQUET <span aria-hidden="true">→</span></a>` : '';
+  }
+
   const host = document.getElementById('homeAlerts');
   if (!host) return;
   const parentCards = DATA.parentCards || [];

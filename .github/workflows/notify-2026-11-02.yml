@@ -1,0 +1,40 @@
+name: Send November 2 schedule correction
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/notify-2026-11-02.yml']
+permissions:
+  contents: read
+concurrency:
+  group: whf-notify-2026-11-02
+  cancel-in-progress: false
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send schedule correction through OneSignal
+        env:
+          ONESIGNAL_APP_API_KEY: ${{ secrets.ONESIGNAL_APP_API_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$ONESIGNAL_APP_API_KEY"
+          payload=$(jq -n '{
+            app_id: "cc26f77d-7d78-400a-9d13-61406a7db12b",
+            target_channel: "push",
+            filters: [{field: "session_count", relation: ">", value: "0"}],
+            idempotency_key: "c8992244-d39f-4f20-914d-8105213bf630",
+            headings: {en: "WHF HQ: Sections Schedule Corrected"},
+            contents: {en: "Sections: Thu. Nov. 12 diving at noon, swimming at 5 PM. Sat. Nov. 14 finals at 1 PM. Warm-up times and banquet RSVP are in WHF HQ."},
+            url: "https://whitehawks-girlsswim.github.io/WHF-HQ/"
+          }')
+          response=$(curl --fail-with-body --silent --show-error --request POST \
+            --url https://api.onesignal.com/notifications \
+            --header "Authorization: Key $ONESIGNAL_APP_API_KEY" \
+            --header "Content-Type: application/json" --data "$payload")
+          printf '%s\n' "$response"
+          message_id=$(printf '%s' "$response" | jq -r '.id // empty')
+          test -n "$message_id"
+          curl --fail-with-body --silent --show-error \
+            --url "https://api.onesignal.com/notifications/$message_id?app_id=cc26f77d-7d78-400a-9d13-61406a7db12b" \
+            --header "Authorization: Key $ONESIGNAL_APP_API_KEY" | \
+            jq '{id, recipients, successful, failed, remaining, completed_at}'

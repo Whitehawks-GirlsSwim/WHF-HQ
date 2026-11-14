@@ -1153,3 +1153,108 @@ body:has(#home.active) .app,.app{background:#090a0e!important}
 #home .latestUpdateCard{background:#23252c!important;color:#e7e8ed!important;border:1px solid #454752!important}
 #home .latestUpdateCard h3,#home .latestUpdateCard strong,#home .latestUpdateCard span{color:inherit}
 #home .homeWeekCard{color:#f0f0f2}
+
+
+/* WHF stable bottom navigation + app install card 2026
+   Reserve scrolling clearance below every screen; fixed bar never obscures last card. */
+html{scroll-padding-bottom:calc(138px + env(safe-area-inset-bottom))}
+body{padding-bottom:0}
+.app{overflow:visible!important}
+.screens{padding-bottom:calc(155px + env(safe-area-inset-bottom))!important}
+.screen{scroll-margin-bottom:calc(115px + env(safe-area-inset-bottom))}
+.bottomNav{
+  position:fixed!important;
+  inset:auto 0 0 0!important;
+  width:100%;max-width:860px;
+  margin:0 auto!important;
+  transform:none!important;
+  z-index:100!important;
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:4px!important;
+  overflow:visible!important;
+  box-sizing:border-box;
+  padding:9px 10px calc(10px + env(safe-area-inset-bottom))!important;
+  background:rgba(17,18,23,.98)!important;
+  border-top:1px solid #41434d!important;
+  box-shadow:0 -12px 28px rgba(0,0,0,.48)!important;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px)
+}
+.bottomNav .navIndicator{display:none!important}
+.bottomNav button,.bottomNav button.active{
+  position:relative;
+  min-width:0;
+  min-height:48px;
+  padding:10px 3px!important;
+  border:1px solid transparent!important;
+  border-radius:11px;
+  background:transparent!important;
+  color:#b5b7c0!important;
+  font-size:11px!important;
+  text-align:center;
+  letter-spacing:0;
+  transition:background-color .16s ease,color .16s ease
+}
+.bottomNav button.active{
+  color:#fff!important;
+  background:linear-gradient(140deg,#9b1c31,#4c1c29)!important;
+  border-color:#b94056!important;
+  box-shadow:0 4px 12px rgba(144,21,47,.28)
+}
+.bottomNav button:focus-visible{outline:2px solid #f1a8b7;outline-offset:2px}
+.bottomNav button:active{transform:none!important;filter:none!important}
+@media(min-width:720px){.bottomNav{left:0!important;right:0!important;transform:none!important;border-radius:18px 18px 0 0}}
+@media(max-width:390px){.bottomNav{padding-left:5px!important;padding-right:5px!important;gap:2px!important}.bottomNav button{font-size:10px!important}}
+
+/* App install/share feature. Dark metal, restrained red, bright legible copy. */
+#install .installHero{
+  position:relative;isolation:isolate;overflow:hidden;
+  grid-template-columns:minmax(0,1.35fr) minmax(100px,.65fr);
+  gap:16px;padding:24px 20px;
+  background:linear-gradient(125deg,#2c3039 0%,#191b23 60%,#431823 100%)!important;
+  border:1px solid #55505d;border-top:3px solid #d8203b;
+  border-radius:20px;box-shadow:0 18px 38px rgba(0,0,0,.3)
+}
+#install .installHero:after{
+  content:"WHF";position:absolute;z-index:-1;bottom:-26px;left:9px;
+  font-size:110px;font-weight:950;letter-spacing:-10px;
+  color:rgba(255,255,255,.035);pointer-events:none
+}
+#install .installHeroCopy>span{color:#fd8da1!important;font-size:10px;letter-spacing:1.6px}
+#install .installHero h2{font-size:clamp(21px,4vw,29px);line-height:1.07;color:#fff;letter-spacing:-.6px}
+#install .installHero p{font-size:12px;line-height:1.5;color:#c5c8d0}
+#install .installQr{background:#e0e1e5;border:1px solid #8a8d96;border-radius:13px;padding:9px;align-self:center;box-shadow:0 6px 20px rgba(0,0,0,.23)}
+#install .installQr img{background:#e0e1e5}
+#install .installQr small{color:#292b32;font-size:8px}
+#install .installActions button{
+  padding:15px 10px;border-radius:12px;font-size:12px;
+  background:#343742;color:#f5f5f7;border:1px solid #555966
+}
+#install .installActions button:first-child{
+  background:linear-gradient(125deg,#d8203b,#921c31)!important;
+  border-color:#d8203b;color:#fff
+}
+#install .installSteps article{background:#24262d!important;border:1px solid #464851!important;box-shadow:0 8px 19px rgba(0,0,0,.2)!important}
+#install .installSteps article>span{color:#f28a9e;font-size:10px}
+#install .installSteps article>strong{color:#f2f3f6!important}
+#install .installSteps ol,#install .installSteps li{color:#c7c9d1!important;font-size:12px}
+#install .installWhy{background:linear-gradient(135deg,#292c34,#17191f);border:1px solid #40434d}
+#install .installWhy>span{color:#f28a9e}
+#install .installWhy>div>b{background:#535763;color:#fff}
+#install .installWhy p{color:#bec1cb}
+#install .installWhy p strong{color:#f2f3f6}
+#parents .parentEssentials{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#292c34,#1d1f26)!important;
+  border:1px solid #494b55!important;border-top:3px solid #c5213d!important;
+  box-shadow:0 10px 25px rgba(0,0,0,.2)
+}
+#parents .parentEssentialLink{color:#f0f1f5!important;font-size:14px}
+#parents .parentEssentialLink:nth-of-type(2){color:#ffa7b7!important}
+@media(max-width:430px){
+  #install .installHero{padding:17px 14px;gap:10px;grid-template-columns:minmax(0,1.25fr) minmax(90px,.75fr)}
+  #install .installHero h2{font-size:20px}
+  #install .installQr{padding:6px}
+  #install .installQr small{font-size:7px}
+}

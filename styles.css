@@ -1436,3 +1436,55 @@ html,body,body:has(#home.active),.app,body:has(#home.active) .app{background:#10
 
 /* Explicit guard for old pseudo-element styling on installed iOS PWAs. */
 .app::before,#meets .seasonLead::after,#meets .practiceTrack::after,#meets .scheduleItem::after{content:none!important;display:none!important}
+
+
+/* Accessible varsity selectors: high-contrast tabs without adding card bulk. */
+.bottomNav{background:#111318!important;border-top:1px solid #575b66!important}
+.bottomNav button,
+.bottomNav button:not(.active){
+  background:#242731!important;
+  color:#f0f1f4!important;
+  border:1px solid #555b67!important;
+  border-radius:8px!important;
+  font-size:11px!important;
+  font-weight:850!important;
+  min-height:48px;
+  text-shadow:none!important
+}
+.bottomNav button.active{
+  background:#db263e!important;
+  color:#fff!important;
+  border:2px solid #ff8496!important;
+  font-weight:950!important;
+  box-shadow:0 0 0 1px rgba(219,38,62,.28),0 5px 13px rgba(219,38,62,.23)!important
+}
+.bottomNav button:focus-visible{outline:3px solid #ffd0d8!important;outline-offset:2px}
+#meets .calendarFilters{
+  background:#191b22!important;
+  border:1px solid #686c76!important;
+  border-radius:12px!important;
+  padding:5px!important;
+  gap:4px!important
+}
+#meets .calendarFilters button{
+  color:#ebedf1!important;
+  background:#2d3039!important;
+  border:1px solid #565b67!important;
+  border-radius:8px!important;
+  font-size:12px!important;
+  font-weight:850!important;
+  padding:11px 5px!important;
+  min-height:43px!important
+}
+#meets .calendarFilters button.active{
+  color:#fff!important;
+  background:#db263e!important;
+  border-color:#ff8496!important;
+  font-weight:950!important;
+  box-shadow:0 3px 10px rgba(219,38,62,.24)!important
+}
+#meets .calendarFilters button:focus-visible{outline:2px solid #ffd0d8!important;outline-offset:1px}
+@media(max-width:390px){
+  .bottomNav button,.bottomNav button:not(.active){font-size:10px!important}
+  #meets .calendarFilters button{font-size:11px!important;padding:10px 3px!important}
+}

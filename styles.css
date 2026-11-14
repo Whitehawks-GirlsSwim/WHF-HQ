@@ -1089,23 +1089,67 @@ body:has(#home.active) .app,.app{background:#090a0e!important}
 }
 
 
-/* WHF grey surfaces: replace bright white UI panels, preserve original photo colors. */
-:root{--whf-silver:#c8c9cf;--whf-slate:#aeb1ba;--whf-charcoal:#24262d;--whf-ink:#202127}
-.card,.card.red,.card.green,.card.split,.primaryAction,.miniAction,.wideAction,.compactAction,.scheduleItem,.adminDashCard,.fundBox,.recordRow,.programFeature,.photoCard,.publishGuide,.stickyPublishPanel,.adminEditItem,.practiceTrack,.teamNewsArchive,.pastMeetArchive,.sponsorProgressCard,.recordsTableShell,.scheduleItem.currentEvent,.practiceCompareCell,.programStat,#program .programStat,#program .programLinks .programFeature,#program .programLinks .primaryAction{background:#c8c9cf!important;color:#202127!important;border-color:#969aa4!important;box-shadow:0 7px 20px rgba(0,0,0,.17)!important}
-.card h3,.card p,.card strong,.scheduleItem h3,.scheduleItem strong,.programStat strong,.programFeature h3,.primaryAction h3,.miniAction h3,#program .programLinks h3,#program .programLinks strong{color:#202127!important}
-.card p,.scheduleItem p,.programStat p,.programFeature p,.primaryAction p,.miniAction p,#program .programLinks p,#program .programLinks small{color:#454852!important}
-.parentHubIntro,.installSteps article,.sheet,.rescheduledMeeting{background:#c8c9cf!important;color:#202127!important;border-color:#969aa4!important}
-.parentHubIntro p,.sheet p,.sheetMeta,.rescheduledMeeting p{color:#454852!important}
-.calendarFilters button.active{background:#aeb1ba!important;color:#202127!important}
-#program .recordsTableShell,#program .recordsTable tbody td{background:#c8c9cf!important;color:#202127!important}
-#program .recordsTable tbody tr:nth-child(even) td{background:#b4b6bf!important;color:#202127!important}
-#program .recordsTable tbody td:nth-child(4){background:#b2c6bc!important;color:#20352b!important}
-#program .recordsTable tbody tr:nth-child(even) td:nth-child(4){background:#a5b9b0!important;color:#20352b!important}
-#program .recordFilter button{background:#c8c9cf;color:#252731;border-color:#969aa4}
-#program .recordFilter button.active{background:#31333b;color:#f0f0f1}
-.card button:not(.ghost),.photoGalleryLaunch b,.photoViewer.eventImageMode .photoViewerBack,.meetDayActions a,.meetDayActions button:not(:last-child){background:#c8c9cf;color:#202127}
-.sponsorLogo{background:#d9dade} /* Neutral logo backing preserves sponsor marks. */
-.screenTitle:after{background:#b4b6bf}
-#home .latestUpdateCard{background:#24262d!important;color:#e3e4e8!important;border-color:#4a4c55!important}
-#home .latestUpdateCard strong,#home .latestUpdateCard p,#home .latestUpdateCard span{color:inherit}
-#home .homeWeekCard{color:#e8e8eb}
+
+/* WHF dark charcoal cards — November 13 correction.
+   No pale card surfaces; red accents and unfiltered team photographs remain. */
+:root{--whf-card:#23252c;--whf-card-alt:#2c2e36;--whf-card-border:#41434d;--whf-heading:#f1f2f5;--whf-muted:#bec0c9}
+.card,.card.red,.card.green,.card.split,.primaryAction,.miniAction,.wideAction,.compactAction,
+.scheduleItem,.scheduleItem.currentEvent,.adminDashCard,.fundBox,.recordRow,.programFeature,
+.photoCard,.publishGuide,.stickyPublishPanel,.adminEditItem,.practiceTrack,.teamNewsArchive,
+.pastMeetArchive,.sponsorProgressCard,.recordsTableShell,.practiceCompareCell,
+.programStat,#program .programStat,#program .programLinks .programFeature,
+#program .programLinks .primaryAction,.parentHubIntro,.installSteps article,
+.rescheduledMeeting,.homeVolunteerCard,.photoGalleryLaunch{
+  background:var(--whf-card)!important;color:var(--whf-heading)!important;
+  border:1px solid var(--whf-card-border)!important;
+  box-shadow:0 8px 22px rgba(0,0,0,.22)!important
+}
+.card.red,.redAccent,.scheduleItem.swimAccent{border-left:3px solid #d8203b!important}
+.card.green,.greenAccent,.scheduleItem.diveAccent{border-left:3px solid #777c88!important}
+.card.split,.splitAccent{border-left:3px solid #b2b4be!important}
+.card h2,.card h3,.card strong,.card .big,.scheduleItem h3,.scheduleItem strong,
+.scheduleInfo h3,.scheduleDate strong,.practiceCompareCell strong,.practiceCompareDate,
+.practiceTrackHeader h2,.teamNewsArchive h2,.programStat strong,
+.programFeature h3,.primaryAction h3,.miniAction h3,.wideAction h3,.compactAction h3,
+#program .programLinks h3,#program .programLinks strong,.homeVolunteerCard strong,
+.adminDashCard h3,.fundBox h3,.recordRow,.photoCard h3,.publishGuide h3,
+.adminEditItem,.parentHubIntro h2,.rescheduledMeeting strong{
+  color:var(--whf-heading)!important
+}
+.card p,.card small,.scheduleItem p,.scheduleInfo p,.scheduleInfo span,
+.scheduleDate span,.scheduleItem span,.practiceCompareCell span,
+.practiceTrackHeader p,.programStat p,.programStat span,.programFeature p,
+.primaryAction p,.miniAction p,.wideAction p,.compactAction p,
+#program .programLinks p,#program .programLinks small,.homeVolunteerCard small,
+.adminDashCard p,.fundBox p,.photoCard p,.publishGuide p,.parentHubIntro p,
+.rescheduledMeeting p,.pastMeetArchive summary{
+  color:var(--whf-muted)!important
+}
+.scheduleItem:has(.scheduleNotice){background:linear-gradient(125deg,#3b3030,#23252c 48%)!important;border-color:#7d5d30!important}
+.practiceTrackHeader,.practiceCompareRow{border-color:var(--whf-card-border)}
+.practiceCompareEmpty,.scheduleStatus{background:#1d1f26;color:var(--whf-muted);border-color:#454752}
+.calendarFilters button.active{background:#454852!important;color:#fff!important}
+#program .programStat,#program .programLinks .programFeature,#program .programLinks .primaryAction{background:#23252c!important}
+#program .programBlock>.sectionLabel,#program .programBlock>.blockTitle,#program .recordsTableHint{color:#c3c5ce!important}
+#program .recordsTableShell{background:#202229!important}
+#program .recordsTable{color:#f0f1f4}
+#program .recordsTable tbody td{background:#282a31!important;color:#f0f1f4!important}
+#program .recordsTable tbody tr:nth-child(even) td{background:#32343d!important;color:#f0f1f4!important}
+#program .recordsTable tbody td:nth-child(4){background:#35363f!important;color:#f0f1f4!important}
+#program .recordsTable tbody tr:nth-child(even) td:nth-child(4){background:#3c3e47!important;color:#f0f1f4!important}
+#program .recordsTable tbody th{background:#1a1b21!important;color:white!important}
+#program .recordFilter button{background:#2c2e36;color:#dadce3;border-color:#51545f}
+#program .recordFilter button.active{background:#a92137;color:#fff}
+.sheet{background:#24262e!important;color:#f0f1f4!important}
+.sheet p,.sheetMeta{color:#c2c4cc!important}
+.card input,.card textarea,input,textarea{background:#16171d!important;color:#f1f2f5!important;border-color:#51535f!important}
+.card button:not(.ghost),.photoGalleryLaunch b,.photoViewer.eventImageMode .photoViewerBack,
+.meetDayActions a,.meetDayActions button:not(:last-child){
+  background:#474a55!important;color:#fff!important
+}
+.card button.ghost{color:#f0f0f2!important;border-color:#666977!important}
+.sponsorLogo{background:#dedfe3} /* Neutral backing needed for original sponsor artwork. */
+.screenTitle:after{background:#b3b5be}
+#home .latestUpdateCard{background:#23252c!important;color:#e7e8ed!important;border:1px solid #454752!important}
+#home .latestUpdateCard h3,#home .latestUpdateCard strong,#home .latestUpdateCard span{color:inherit}
+#home .homeWeekCard{color:#f0f0f2}

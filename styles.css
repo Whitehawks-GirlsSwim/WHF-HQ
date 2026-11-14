@@ -1430,3 +1430,39 @@ html,body,body:has(#home.active),.app,body:has(#home.active) .app{background:#10
 .bottomNav button{color:#bac0ca!important}
 .bottomNav button.active{background:#b52139!important;border-color:#d34257!important;color:#fff!important}
 .navIndicator{display:none!important}
+
+
+/* Subtle WHF watermark on Calendar schedule cards. Keep event information readable. */
+#meets .scheduleItem,
+#meets .practiceCompareCell,
+#meets .seasonLead,
+#meets .practiceTrack{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden
+}
+#meets .scheduleItem::after,
+#meets .seasonLead::after,
+#meets .practiceTrack::after{
+  content:"WHF";
+  position:absolute;
+  z-index:-1;
+  pointer-events:none;
+  user-select:none;
+  right:11px;
+  top:50%;
+  transform:translateY(-50%);
+  color:rgba(230,234,242,.065);
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  font-weight:950;
+  font-size:clamp(42px,11vw,80px);
+  letter-spacing:-5px;
+  line-height:1;
+  white-space:nowrap
+}
+#meets .seasonLead::after{font-size:clamp(76px,16vw,132px);right:12px;color:rgba(230,234,242,.045)}
+#meets .practiceTrack::after{font-size:clamp(92px,17vw,170px);right:6px;color:rgba(230,234,242,.035)}
+#meets .scheduleItem > *,
+#meets .seasonLead > *,
+#meets .practiceTrack > *{position:relative;z-index:1}
+#meets .scheduleItem:focus-visible{outline:2px solid #db263e;outline-offset:2px}

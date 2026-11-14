@@ -1020,3 +1020,52 @@ body:has(#home.active) .latestUpdate{margin-top:18px}.latestUpdateCard{border-ra
 .banquetRsvp a{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:17px;padding:16px;background:#a71824;color:#fff;border-radius:10px;text-decoration:none;font-size:16px;font-weight:900;min-height:52px;box-sizing:border-box}
 .banquetRsvp a:hover{background:#84101a}.banquetRsvp a:focus-visible{outline:3px solid #17191e;outline-offset:4px}
 @media(max-width:380px){.banquetRsvp{padding:17px}.banquetRsvpBadge{font-size:11px}.banquetRsvp a{font-size:14px}}
+
+
+/* WHF 2026 Nov 13 approved red and charcoal homepage */
+:root{--bg:#090a0e;--panel:#17181e;--panel2:#202128;--text:#f7f7f9;--muted:#c1c1cb;--soft:#a7a8b4;--red:#d8203b;--line:rgba(255,255,255,.13)}
+html,body{background:#090a0e!important;color:#f7f7f9}
+body:has(#home.active) .app,.app{background:#090a0e!important}
+.topBar{background:rgba(17,18,23,.97)!important;border-bottom:1px solid #292a31;padding:12px 14px;margin:0 -7px 13px}
+.brandMark{background:#be1129!important;color:#fff;border-color:#be1129;border-radius:9px}
+.brandText strong{font-size:15px;letter-spacing:.6px}.brandText span{font-size:10px;letter-spacing:.9px;color:#bcbcc5}
+.seasonPill{color:#f1c9d0;border-color:#62313a;background:#25171c}.seasonPill i{background:#e52a46;box-shadow:none}
+#home{padding-top:3px!important}
+.homeDashboardHero{height:162px!important;margin:0 0 13px;border:1px solid #a62336;border-radius:15px;background:linear-gradient(112deg,#7f101f,#c91b34 65%,#480b14)!important;box-shadow:none}
+.homeDashboardHero .programPhoto{left:51%;opacity:.30;mix-blend-mode:screen}
+.homeDashboardHero .programPhoto:after{background:linear-gradient(90deg,#901226,rgba(144,18,38,.35),rgba(144,18,38,.15))}
+.homeDashboardHero .programPhoto img{height:162px!important;filter:grayscale(.3) saturate(.8)}
+.homeDashboardHero .programIdentity{top:16px;bottom:auto;left:0;width:75%;padding:14px 17px}
+.homeDashboardHero .programIdentity:after{display:none}
+.homeDashboardHero .seasonTag{font-size:10px;color:#ffd5db;letter-spacing:1.35px}
+.homeDashboardHero .programIdentity h1{font-size:27px;line-height:1.08;letter-spacing:-.8px;margin-top:8px;text-shadow:none}
+.homeDashboardHero .programIdentity h1 span{font-size:27px;letter-spacing:-.8px;margin-top:0;color:#fff}
+.homeHeroRecord{top:auto;bottom:11px;left:17px;min-width:0;flex-direction:row;align-items:center;gap:7px}
+.homeHeroRecord span{font-size:9px;color:#ffe1e5;letter-spacing:.8px}.homeHeroRecord strong{font-size:17px;letter-spacing:0}.homeHeroRecord small{font-size:9px;color:#fff;margin-top:0;letter-spacing:0}
+.homeDashboardHero .dualLine{display:none}.homeHeroControls{right:9px;bottom:9px;transform:scale(.86);transform-origin:right bottom}
+#home .seasonPulse,#home .todayPanel,#home .homeAlerts{display:none!important}
+#home .homeWeek{margin:21px 0 10px}
+#home .homeWeekHeading span{color:#f1788b}#home .homeWeekHeading strong{color:#fff;font-size:18px}#home .homeWeekHeading>b{color:#a7a8b4}
+#home .homeWeekCard{border:1px solid #37343a;background:#191a20;box-shadow:none;min-height:122px}
+#home .homeWeekCard.red{background:linear-gradient(145deg,#6c1524,#a82035)}
+#home .homeWeekCard.green{background:linear-gradient(145deg,#302028,#17181e)}
+#home .homeWeekCard.dark{background:#191a20}
+#home .latestUpdate{margin-top:23px}#home .latestUpdateCard{background:#17181e;color:#fff;border:1px solid #36343b;box-shadow:none}
+#home .homeQuickActions,#home .homeSectionIntro,#home .homeInvite{display:none}
+.banquetRsvp{margin:0 0 16px;border:1px solid #81404b;border-radius:14px;background:linear-gradient(145deg,#29161d,#17181e);box-shadow:none;padding:18px}
+.banquetRsvpBadge{font-size:10px;border-radius:5px;background:#cc1f36;padding:7px 9px}
+.banquetRsvp h2{font-size:27px;line-height:1.1;margin:12px 0;color:#fff}
+.banquetRsvp p{font-size:13px;color:#e0dce1;margin:7px 0}.banquetRsvp .banquetRsvpDate{font-size:14px;color:#ffd7de}
+.banquetRsvp a{font-size:13px;border-radius:9px;background:#e52540;min-height:49px;margin-top:15px;padding:14px}
+.banquetRsvp a:hover{background:#bc1831}
+.bottomNav{grid-template-columns:repeat(5,minmax(0,1fr))!important;background:rgba(17,18,23,.98);border-top-color:#393941;gap:3px}
+.bottomNav button{color:#aeb0b9;font-size:10px;min-height:51px;text-transform:none;letter-spacing:0;border-radius:9px}
+.bottomNav button.active{background:#491a24!important;border-color:transparent;color:#fff}
+#parents .parentEssentials{margin:16px 0;padding:14px;border:1px solid #35363f;background:#17181e;border-radius:14px}
+.parentEssentialLink{width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 8px;color:#fff;border:0;border-bottom:1px solid #383941;background:transparent;text-align:left;font-size:14px;font-weight:800}
+.parentEssentials #teamAlertsCard{margin-top:12px;width:100%;min-height:90px!important;padding:14px!important;border-radius:12px;background:linear-gradient(130deg,#3a1b25,#1c1d24)!important;border:1px solid #804151;color:#fff;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+.parentEssentials #teamAlertsCard .homeActionIcon{display:none}
+.parentEssentials #teamAlertsCard span{color:#f18b9b;font-size:10px;letter-spacing:.8px}
+.parentEssentials #teamAlertsCard strong{font-size:16px;color:white}
+.parentEssentials #teamAlertsCard small,.parentEssentials #teamAlertsCard i{font-size:12px;color:#dbd6dd;font-style:normal}
+@media(max-width:430px){.homeDashboardHero{height:150px!important}.homeDashboardHero .programPhoto img{height:150px!important}.homeDashboardHero .programIdentity h1,.homeDashboardHero .programIdentity h1 span{font-size:25px}.homeDashboardHero .programIdentity{padding:10px 16px}.homeHeroRecord{left:16px}.seasonPill{font-size:8px;padding:7px}}

@@ -4,11 +4,11 @@ window.WHF_DATA = {
     "programName": "WHF Girls Swim & Dive"
   },
   "latestUpdate": {
-    "title": "November Booster Update",
-    "summary": "November 9 board elections, banquet RSVP due November 15, team carb loads, State sendoff plans and the latest meet photos.",
-    "body": "BOOSTER BOARD ELECTIONS\n\nMonday, November 9, at 6:00 PM in the Halstead Bay Room at Westonka High School. All families are encouraged to attend and take part in the vote. Interested parents: Melissa Houck for Secretary, Adriana Haugen for Volunteer Coordinator, and Angela Gadtke for Treasurer. If you are interested in one of these roles, please let us know as soon as possible.\n\nEND OF SEASON BANQUET\n\nSunday, November 22, from 5:30 to 7:30 PM at Medina Ballroom. Taco dinner. Please RSVP by Sunday, November 15, and account for both athletes and family members attending.\n\nRSVP: https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-67235086-endofseason\n\nTEAM CARB LOADS\n\nWednesday, November 11, at Westonka High School, ahead of Sections. Wednesday, November 18, at Laney’s, following State diving prelims. Olive Garden will be provided for both. Times and additional details will be shared once finalized.\n\nCHAMPIONSHIP MEETS\n\nSection 3A Championships at Jerry Carlson Swimming Pool, Hutchinson Middle School: Thursday, November 12 diving prelims and semifinals at 12:00 PM (WHF dive warm-ups 10:45–11:30 AM; open board 11:30–11:50 AM), swimming prelims at 5:00 PM (swim warm-ups 3:30 PM). Saturday, November 14 swimming and diving finals at 1:00 PM (competitors and alternates warm-ups 11:30 AM). State at Jean K. Freeman Aquatic Center: November 18 dive prelims at noon; November 19 swim prelims at noon; November 20 swim/dive finals at noon.\n\nSTATE FINALS SENDOFF\n\nWe are working on planning a police and fire escort for the State Swim & Dive Finals on November 20th. Everyone is encouraged to attend and cheer on the girls as they leave to compete. Time is TBD. Details will be shared once confirmed.\n\nLATEST MEET PHOTOS\n\nThe latest meet photos have been uploaded to Walter’s website. Thank you to Walter for capturing these moments! Gallery: https://walterjuras.smugmug.com/ Password: MWHF26! (letters in all capitals).",
-    "updated": "November 1, 2026",
-    "actionText": "Read the November Update"
+    "title": "State Shirts, Sendoff & Banquet",
+    "summary": "State shirt orders close Saturday evening, November 14. Banquet RSVPs are due November 15. Confirmed carb-load and sendoff details, plus our newly elected board.",
+    "body": "STATE SHIRT STORE EXTENDED\n\nOrder WHF State Team shirts through Saturday evening, November 14. BSN confirmed the extended ordering window still allows the turnaround. Order here: https://bsnteamsports.com/shop/WHF26\n\nEND-OF-SEASON BANQUET\n\nSunday, November 22, 5:30–7:30 PM at Medina Ballroom. Taco buffet. $28 per person; athletes are already covered through booster fees. RSVP by Sunday, November 15, and include your athlete and everyone attending, even if the athlete’s meal is already paid.\n\nRSVP: https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-67235086-endofseason\n\nSTATE TEAM CARB LOAD\n\nWednesday, November 18 at the Hendrickson family’s home. Arrive anytime after 5:30 PM. State athletes, their parents, and coaches are invited. Please see the November 11 family email for the home address and Laura’s RSVP contact.\n\nSTATE TEAM SENDOFF\n\nFriday, November 20: gather at County Road 110 and Commerce Boulevard, near Wells Fargo. Arrive between 9:30 and 9:45 AM so you don’t miss the bus. The team bus is scheduled to leave Westonka High School at 9:45 AM. Varsity and JV athletes, parents, families, and friends are encouraged to join us!\n\nWELCOME OUR NEW BOARD MEMBERS\n\nWelcome our newly elected board members for next season: Angela Gadtke, Treasurer (one-year commitment); Melissa Houck, Secretary; and Kate Treacy, Volunteer Coordinator. Thank you for stepping up!\n\nTHANK YOU\n\nThank you to outgoing board members Leah, Nicole, and Tammy for the years of time and care you’ve given this team. A huge thank-you to Walter Juras, our team’s storyteller, for capturing the races, friendships, and celebrations. We’ll miss seeing you on deck with your camera!",
+    "updated": "November 13, 2026",
+    "actionText": "Read the Latest Team Update"
   },
   "previousLatestUpdate": {
     "title": "WHF Girls Swim & Dive Rolls Out the Red with Dominant Performance",
@@ -19,9 +19,9 @@ window.WHF_DATA = {
     "linkUrl": "https://whs.westonka.k12.mn.us/activities/white-hawks-news/sports-article/~board/white-hawks-news/post/whf-girls-swim-dive-rolls-out-the-red-with-dominant-performance"
   },
   "weeklyUpdate": {
-    "title": "November Booster Club Update",
-    "body": "BOOSTER BOARD ELECTIONS\n\nMonday, November 9, at 6:00 PM in the Halstead Bay Room at Westonka High School. All families are encouraged to attend and take part in the vote. Interested parents: Melissa Houck for Secretary, Adriana Haugen for Volunteer Coordinator, and Angela Gadtke for Treasurer. If you are interested in one of these roles, please let us know as soon as possible.\n\nEND OF SEASON BANQUET\n\nSunday, November 22, from 5:30 to 7:30 PM at Medina Ballroom. Taco dinner. Please RSVP by Sunday, November 15, and account for both athletes and family members attending.\n\nRSVP: https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-67235086-endofseason\n\nTEAM CARB LOADS\n\nWednesday, November 11, at Westonka High School, ahead of Sections. Wednesday, November 18, at Laney’s, following State diving prelims. Olive Garden will be provided for both. Times and additional details will be shared once finalized.\n\nCHAMPIONSHIP MEETS\n\nSection 3A Championships at Jerry Carlson Swimming Pool, Hutchinson Middle School: Thursday, November 12 diving prelims and semifinals at 12:00 PM (WHF dive warm-ups 10:45–11:30 AM; open board 11:30–11:50 AM), swimming prelims at 5:00 PM (swim warm-ups 3:30 PM). Saturday, November 14 swimming and diving finals at 1:00 PM (competitors and alternates warm-ups 11:30 AM). State at Jean K. Freeman Aquatic Center: November 18 dive prelims at noon; November 19 swim prelims at noon; November 20 swim/dive finals at noon.\n\nSTATE FINALS SENDOFF\n\nWe are working on planning a police and fire escort for the State Swim & Dive Finals on November 20th. Everyone is encouraged to attend and cheer on the girls as they leave to compete. Time is TBD. Details will be shared once confirmed.\n\nLATEST MEET PHOTOS\n\nThe latest meet photos have been uploaded to Walter’s website. Thank you to Walter for capturing these moments! Gallery: https://walterjuras.smugmug.com/ Password: MWHF26! (letters in all capitals).",
-    "updated": "November 1, 2026"
+    "title": "State Week & Banquet Update",
+    "body": "STATE SHIRT STORE EXTENDED\n\nOrder WHF State Team shirts through Saturday evening, November 14. BSN confirmed the extended ordering window still allows the turnaround. Order here: https://bsnteamsports.com/shop/WHF26\n\nEND-OF-SEASON BANQUET\n\nSunday, November 22, 5:30–7:30 PM at Medina Ballroom. Taco buffet. $28 per person; athletes are already covered through booster fees. RSVP by Sunday, November 15, and include your athlete and everyone attending, even if the athlete’s meal is already paid.\n\nRSVP: https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-67235086-endofseason\n\nSTATE TEAM CARB LOAD\n\nWednesday, November 18 at the Hendrickson family’s home. Arrive anytime after 5:30 PM. State athletes, their parents, and coaches are invited. Please see the November 11 family email for the home address and Laura’s RSVP contact.\n\nSTATE TEAM SENDOFF\n\nFriday, November 20: gather at County Road 110 and Commerce Boulevard, near Wells Fargo. Arrive between 9:30 and 9:45 AM so you don’t miss the bus. The team bus is scheduled to leave Westonka High School at 9:45 AM. Varsity and JV athletes, parents, families, and friends are encouraged to join us!\n\nWELCOME OUR NEW BOARD MEMBERS\n\nWelcome our newly elected board members for next season: Angela Gadtke, Treasurer (one-year commitment); Melissa Houck, Secretary; and Kate Treacy, Volunteer Coordinator. Thank you for stepping up!\n\nTHANK YOU\n\nThank you to outgoing board members Leah, Nicole, and Tammy for the years of time and care you’ve given this team. A huge thank-you to Walter Juras, our team’s storyteller, for capturing the races, friendships, and celebrations. We’ll miss seeing you on deck with your camera!",
+    "updated": "November 13, 2026"
   },
   "keyDates": [
     {
@@ -276,6 +276,14 @@ window.WHF_DATA = {
   "parentCards": [
     {
       "accent": "red",
+      "title": "State Team Shirts • Order by November 14",
+      "summary": "Order WHF State Team shirts through Saturday evening, November 14. BSN confirmed the extended ordering window still allows the turnaround. Order here: https://bsnteamsports.com/shop/WHF26",
+      "body": "Order WHF State Team shirts through Saturday evening, November 14. BSN confirmed the extended ordering window still allows the turnaround. Order here: https://bsnteamsports.com/shop/WHF26",
+      "linkText": "Order State Shirts",
+      "linkUrl": "https://bsnteamsports.com/shop/WHF26"
+    },
+    {
+      "accent": "red",
       "title": "Elsmore Tech Suit Savings",
       "summary": "Save 30% on tech suits through November 20 with code 30!TECH!2026. See coupon for details.",
       "body": "Championship season is here! Save 30% on tech suits with code 30!TECH!2026 through November 20, 2026. Not valid on prior purchases, clearance, or Mizuno. Other exclusions may apply; see store for details.",
@@ -338,19 +346,19 @@ window.WHF_DATA = {
       "body": "The President and Vice President will continue serving until the conclusion of their athlete’s senior year so the current leadership team can fulfill the timing equipment commitment before transitioning roles."
     },
     {
-      "accent": "green",
-      "title": "Open After Season",
-      "body": "At the conclusion of this season, Treasurer, Secretary, and Volunteer Coordinator will be open for election."
-    },
-    {
       "accent": "red",
       "title": "Volunteers Matter",
       "body": "Timing, concessions, hospitality, admissions, fundraising, and behind-the-scenes roles all make a difference."
     },
     {
-      "accent": "red",
-      "title": "November 9 Board Elections",
-      "body": "Monday, November 9, at 6:00 PM in the Halstead Bay Room at Westonka High School. All families are encouraged to attend and take part in the vote. Interested parents: Melissa Houck for Secretary, Adriana Haugen for Volunteer Coordinator, and Angela Gadtke for Treasurer. If you are interested in one of these roles, please let us know as soon as possible."
+      "accent": "green",
+      "title": "Newly Elected Board for Next Season",
+      "body": "Welcome our newly elected board members for next season: Angela Gadtke, Treasurer (one-year commitment); Melissa Houck, Secretary; and Kate Treacy, Volunteer Coordinator. Thank you for stepping up!"
+    },
+    {
+      "accent": "split",
+      "title": "Thank You to Our Volunteers",
+      "body": "Thank you to outgoing board members Leah, Nicole, and Tammy for the years of time and care you’ve given this team. A huge thank-you to Walter Juras, our team’s storyteller, for capturing the races, friendships, and celebrations. We’ll miss seeing you on deck with your camera!"
     }
   ],
   "sponsorIntro": {
@@ -439,39 +447,48 @@ window.WHF_DATA = {
   "events": [
     {
       "accent": "red",
-      "title": "Booster Club Meeting & Board Elections",
-      "date": "Monday, November 9 • 6:00 PM",
-      "detail": "Monday, November 9, at 6:00 PM in the Halstead Bay Room at Westonka High School. All families are encouraged to attend and take part in the vote. Interested parents: Melissa Houck for Secretary, Adriana Haugen for Volunteer Coordinator, and Angela Gadtke for Treasurer. If you are interested in one of these roles, please let us know as soon as possible.",
+      "title": "State Team Shirt Store",
+      "date": "Orders close Saturday evening, November 14",
+      "detail": "Order WHF State Team shirts through Saturday evening, November 14. BSN confirmed the extended ordering window still allows the turnaround. Order here: https://bsnteamsports.com/shop/WHF26",
       "status": "upcoming",
+      "linkText": "Order State Shirts",
+      "linkUrl": "https://bsnteamsports.com/shop/WHF26"
+    },
+    {
+      "accent": "red",
+      "title": "Booster Board Elections Complete",
+      "date": "Monday, November 9 • 6:00 PM",
+      "detail": "Welcome our newly elected board members for next season: Angela Gadtke, Treasurer (one-year commitment); Melissa Houck, Secretary; and Kate Treacy, Volunteer Coordinator. Thank you for stepping up!",
+      "status": "completed",
       "linkText": "",
       "linkUrl": ""
     },
     {
       "accent": "green",
       "title": "Team Carb Load at Westonka High School",
-      "date": "Wednesday, November 11 • Time TBD",
-      "detail": "Team carb load ahead of Sections. Olive Garden will be provided. Times and additional details will be shared once finalized.",
-      "status": "upcoming"
+      "date": "Wednesday, November 11",
+      "detail": "Sections team carb load at Westonka High School.",
+      "status": "completed"
     },
     {
       "accent": "green",
-      "title": "Team Carb Load at Laney’s",
-      "date": "Wednesday, November 18 • Following State diving prelims",
-      "detail": "Olive Garden will be provided. Time and additional details will be shared once finalized.",
+      "title": "State Team Carb Load",
+      "date": "Wednesday, November 18 • After 5:30 PM",
+      "detail": "Wednesday, November 18 at the Hendrickson family’s home. Arrive anytime after 5:30 PM. State athletes, their parents, and coaches are invited. Please see the November 11 family email for the home address and Laura’s RSVP contact.",
       "status": "upcoming"
     },
     {
       "accent": "red",
-      "title": "State Finals Police and Fire Sendoff",
-      "date": "Friday, November 20 • Time TBD",
-      "detail": "We are working on planning a police and fire escort for the State Swim & Dive Finals on November 20th. Everyone is encouraged to attend and cheer on the girls as they leave to compete. Details will be shared once confirmed.",
+      "title": "State Team Sendoff",
+      "date": "Friday, November 20 • Arrive 9:30–9:45 AM",
+      "detail": "Friday, November 20: gather at County Road 110 and Commerce Boulevard, near Wells Fargo. Arrive between 9:30 and 9:45 AM so you don’t miss the bus. The team bus is scheduled to leave Westonka High School at 9:45 AM. Varsity and JV athletes, parents, families, and friends are encouraged to join us!",
       "status": "upcoming"
     },
     {
       "accent": "green",
       "title": "End-of-Season Banquet",
       "date": "Sunday, November 22 • 5:30–7:30 PM",
-      "detail": "Sunday, November 22, from 5:30 to 7:30 PM at Medina Ballroom. Taco dinner. Please RSVP by Sunday, November 15, and account for both athletes and family members attending.",
+      "detail": "Sunday, November 22, 5:30–7:30 PM at Medina Ballroom. Taco buffet. $28 per person; athletes are already covered through booster fees. RSVP by Sunday, November 15, and include your athlete and everyone attending, even if the athlete’s meal is already paid.",
       "status": "upcoming",
       "linkText": "RSVP by November 15",
       "linkUrl": "https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-67235086-endofseason"

@@ -1,0 +1,40 @@
+name: Separate November 13 team reminders
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/notify-2026-11-13.yml']
+permissions:
+  contents: read
+concurrency:
+  group: whf-notify-2026-11-13
+  cancel-in-progress: false
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send separate banquet and State week reminders
+        env:
+          ONESIGNAL_APP_API_KEY: ${{ secrets.ONESIGNAL_APP_API_KEY }}
+        shell: python
+        run: |
+          import json, os, time, urllib.request
+          app_id = "cc26f77d-7d78-400a-9d13-61406a7db12b"
+          headers = {"Authorization": "Key " + os.environ["ONESIGNAL_APP_API_KEY"], "Content-Type": "application/json"}
+          messages = json.loads(r'''[["BANQUET RSVP DUE SUNDAY!","Please RSVP by Nov. 15 and include your athlete! Nov. 22, 5:30–7:30 PM at Medina Ballroom. $28/person; athletes covered.","https://www.signupgenius.com/go/20F0F4BA9A723A2FB6-67235086-endofseason","banquet","45ad48c1-4138-4c76-975d-d4944568a6e2"],["State Shirts: Saturday Deadline","Order WHF State shirts by Saturday evening, Nov. 14. BSN extended the store deadline. Tap to order.","https://bsnteamsports.com/shop/WHF26","shirts","e9177053-16fc-427b-bd20-0e7c80bb3949"],["State Team Carb Load • Nov. 18","Arrive after 5:30 PM at the Hendricksons. State athletes, parents and coaches welcome. See the Nov. 11 email for address and RSVP.","https://whitehawks-girlsswim.github.io/WHF-HQ/","carbload","ddc5bb58-5629-481c-97f7-a38ef1e72876"],["State Send-off • Friday, Nov. 20","Meet near Wells Fargo at County Rd. 110 & Commerce Blvd., 9:30–9:45 AM. Bus leaves WHS at 9:45. Come cheer on the girls!","https://whitehawks-girlsswim.github.io/WHF-HQ/","sendoff","c89b9910-d6d7-42cb-9f8c-3ece87191350"]]''')
+          sent = []
+          for title, body, url, topic, key in messages:
+              payload = {"app_id": app_id, "target_channel": "push", "filters": [{"field": "session_count", "relation": ">", "value": "0"}], "headings": {"en": title}, "contents": {"en": body}, "url": url, "web_push_topic": "whf-20261113-" + topic, "idempotency_key": key}
+              req = urllib.request.Request("https://api.onesignal.com/notifications", data=json.dumps(payload).encode(), headers=headers, method="POST")
+              with urllib.request.urlopen(req) as response:
+                  result = json.load(response)
+              print(json.dumps({"title": title, "result": result}), flush=True)
+              if not result.get("id"):
+                  raise RuntimeError("No notification ID returned")
+              sent.append((title, result["id"]))
+          time.sleep(10)
+          for title, message_id in sent:
+              req = urllib.request.Request("https://api.onesignal.com/notifications/" + message_id + "?app_id=" + app_id, headers=headers)
+              with urllib.request.urlopen(req) as response:
+                  result = json.load(response)
+              print(json.dumps({"title": title, **{k: result.get(k) for k in ["id", "successful", "failed", "remaining", "completed_at"]}}), flush=True)
+          

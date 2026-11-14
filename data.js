@@ -455,22 +455,6 @@ window.WHF_DATA = {
       "linkUrl": "https://bsnteamsports.com/shop/WHF26"
     },
     {
-      "accent": "red",
-      "title": "Booster Board Elections Complete",
-      "date": "Monday, November 9 • 6:00 PM",
-      "detail": "Welcome our newly elected board members for next season: Angela Gadtke, Treasurer (one-year commitment); Melissa Houck, Secretary; and Kate Treacy, Volunteer Coordinator. Thank you for stepping up!",
-      "status": "completed",
-      "linkText": "",
-      "linkUrl": ""
-    },
-    {
-      "accent": "green",
-      "title": "Team Carb Load at Westonka High School",
-      "date": "Wednesday, November 11",
-      "detail": "Sections team carb load at Westonka High School.",
-      "status": "completed"
-    },
-    {
       "accent": "green",
       "title": "State Team Carb Load",
       "date": "Wednesday, November 18 • After 5:30 PM",

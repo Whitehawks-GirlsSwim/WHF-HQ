@@ -1364,3 +1364,69 @@ body{padding-bottom:0}
   #home .homeWeekCard{padding:10px 12px!important}
   .programGrid{grid-template-columns:1fr 1fr!important}
 }
+
+
+/* WHF VARSITY BLACK PALETTE V1 — November 2026 */
+:root{--bg:#101115;--panel:#1e2026;--panel2:#272a32;--panel3:#30333c;--red:#db263e;--green:#747b87;--text:#f1f2f4;--muted:#c8cbd2;--soft:#a9aeb8;--line:#3d404a;--college-red:#db263e;--college-slate:#1e2026;--college-border:#3d404a;--whf-card:#1e2026;--whf-card-alt:#30333c;--whf-card-border:#3d404a;--whf-heading:#f1f2f4;--whf-muted:#c8cbd2}
+html,body,body:has(#home.active),.app,body:has(#home.active) .app{background:#101115!important;color:#f1f2f4!important}
+.screen,body:has(#home.active) #home{background:transparent!important;color:#f1f2f4!important}
+.topBar,body:has(#home.active) .topBar{background:#14151a!important;border-bottom:1px solid #353640!important;box-shadow:none!important}
+.brandMark{background:#c51e39!important;border-color:#c51e39!important}
+.seasonPill{background:#27232a!important;border-color:#56333d!important;color:#dcdde3!important}
+.seasonPill i{background:#db263e!important;box-shadow:none!important}
+.screenTitle,.sectionLabel,.blockTitle,#program .programBlock>.sectionLabel,#program .programBlock>.blockTitle,#program .recordsTableHint,#home .homeWeekHeading strong{color:#f1f2f4!important}
+.screenTitle:after{background:#db263e!important}
+#home .homeDashboardHero{border-color:#703140!important}
+#home .homeDashboardHero .programPhoto{opacity:1!important;mix-blend-mode:normal!important}
+#home .homeDashboardHero .programPhoto img{filter:none!important}
+#home .banquetRsvp{background:linear-gradient(120deg,#2c2028,#1e2026 60%,#22232a)!important;border:1px solid #68404a!important;border-left:4px solid #db263e!important}
+#home .banquetRsvpBadge,#home .banquetRsvp a{background:#db263e!important;color:#fff!important}
+#home .homeWeekCard,#home .homeWeekCard.red,#home .homeWeekCard.green,#home .homeWeekCard.dark{background:#1e2026!important;color:#f1f2f4!important;border-color:#3d404a!important;box-shadow:none!important}
+#home .homeWeekCard.red{border-left-color:#db263e!important}
+#home .homeWeekCard.green{border-left-color:#7a808e!important}
+#home .homeWeekCard span{color:#e49aab!important}
+#home .homeWeekCard small{color:#c8cbd2!important}
+#home .homeWeekCard i{color:#ed879a!important}
+#home .latestUpdateCard,body:has(#home.active) .latestUpdateCard,.latestUpdateCard{background:#1e2026!important;border:1px solid #3d404a!important;border-left:3px solid #db263e!important;box-shadow:none!important;color:#f1f2f4!important}
+.latestUpdateCard>strong{color:#f1f2f4!important}
+.latestUpdateCard .latestUpdateBody{color:#c8cbd2!important}
+.latestUpdateAction{color:#f18fa0!important}
+.card,.card.red,.card.green,.card.split,.primaryAction,.miniAction,.wideAction,.compactAction,.scheduleItem,.scheduleItem.currentEvent,.practiceCompareCell,.programStat,#program .programStat,.programFeature,#program .programLinks .programFeature,#program .programLinks .primaryAction,.teamNewsArchive,.practiceTrack,.pastMeetArchive,.sponsorProgressCard,.recordsTableShell,.adminDashCard,.fundBox,.recordRow,.photoCard,.publishGuide,.stickyPublishPanel,.adminEditItem,.parentHubIntro,.installSteps article,.rescheduledMeeting,.homeVolunteerCard{background:#1e2026!important;color:#f1f2f4!important;border-color:#3d404a!important;box-shadow:none!important}
+.card.red,.scheduleItem.swimAccent{border-left-color:#db263e!important}
+.card.green,.scheduleItem.diveAccent{border-left-color:#737986!important}
+.card h2,.card h3,.card strong,.card .big,.card .link,.card .inlineLink,.scheduleItem strong,.scheduleItem h3,.scheduleInfo h3,.scheduleDate strong,.practiceCompareCell strong,.practiceCompareDate,.practiceTrackHeader h2,.teamNewsArchive h2,.programStat strong,.programFeature h3,.primaryAction h3,.miniAction h3,.wideAction h3,.compactAction h3,#program .programLinks h3,#program .programLinks strong,.parentHubIntro h2,.installSteps article>strong,.homeVolunteerCard strong{color:#f1f2f4!important}
+.card p,.card small,.scheduleItem p,.scheduleInfo p,.scheduleDate span,.scheduleItem span,.practiceTrackHeader p,.programStat p,.programStat span,.programFeature p,.primaryAction p,.miniAction p,.wideAction p,.compactAction p,#program .programLinks p,#program .programLinks small,.parentHubIntro p,.homeVolunteerCard small,.installSteps ol,.installSteps li{color:#c8cbd2!important}
+#program .recordsTableShell{background:#1a1c22!important}
+#program .recordsTable tbody td{background:#272a32!important;color:#f1f2f4!important}
+#program .recordsTable tbody tr:nth-child(even) td{background:#30333c!important;color:#f1f2f4!important}
+#program .recordsTable tbody td:nth-child(4){background:#30333c!important;color:#f1f2f4!important}
+#program .recordsTable tbody tr:nth-child(even) td:nth-child(4){background:#373a43!important;color:#f1f2f4!important}
+#program .recordsTable tbody th{background:#171920!important;color:#f1f2f4!important}
+#program .recordFilter button{background:#272a32!important;color:#f1f2f4!important;border-color:#444752!important}
+#program .recordFilter button.active{background:#a82139!important;color:#fff!important}
+.calendarFilters{background:#1b1d24!important;border:1px solid #3d404a!important}
+.calendarFilters button{color:#d2d3d9!important}
+.calendarFilters button.active{background:#db263e!important;color:#fff!important}
+.practiceNotice{background:#302933!important;border-color:#694854!important}
+.practiceNotice strong,.practiceNotice span{color:#ece3e7!important}
+.scheduleStatus,.practiceCompareEmpty{background:#1b1d24!important;color:#bdc0c8!important;border-color:#444753!important}
+.parentHubIntro button{background:#30333c!important;color:#f1f2f4!important}
+#parents .parentEssentials{background:linear-gradient(145deg,#262830,#1e2026)!important;border-color:#41434d!important;border-top-color:#db263e!important}
+#parents .parentEssentialLink{color:#f1f2f4!important}
+#parents .parentEssentials #teamAlertsCard{background:linear-gradient(140deg,#34242d,#22242b)!important;border-color:#65414b!important}
+#install .installHero{background:linear-gradient(135deg,#30333c,#1e2026 70%,#3a1e29)!important;border-top-color:#db263e!important}
+#install .installHeroCopy>span,#install .installSteps article>span,#install .installWhy>span{color:#f093a4!important}
+#install .installActions button:first-child{background:#db263e!important;border-color:#db263e!important}
+#install .installActions button:not(:first-child){background:#30333c!important;color:#f1f2f4!important}
+#install .installWhy{background:#1e2026!important;border-color:#3d404a!important}
+#install .installQr{background:#e4e5e9!important} /* QR needs a light ground to remain scannable */
+#install .installQr small{color:#25262c!important}
+.sheet,.sheetPanel{background:#22242b!important;color:#f1f2f4!important}
+.sheet p,.sheetMeta,.sheetBody,.sheetLocation{color:#c8cbd2!important}
+.card input,.card textarea,input,textarea{background:#16181d!important;color:#f1f2f4!important;border-color:#494c56!important}
+.card button:not(.ghost),.photoGalleryLaunch b,.photoViewer.eventImageMode .photoViewerBack{background:#30333c!important;color:#f1f2f4!important}
+.sponsorLogo{background:#e3e4e8!important} /* Original sponsor artwork remains unchanged */
+.bottomNav{background:rgba(16,17,21,.98)!important;border-top-color:#353842!important}
+.bottomNav button{color:#bac0ca!important}
+.bottomNav button.active{background:#b52139!important;border-color:#d34257!important;color:#fff!important}
+.navIndicator{display:none!important}

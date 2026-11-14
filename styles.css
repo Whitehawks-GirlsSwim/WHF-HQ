@@ -1087,3 +1087,25 @@ body:has(#home.active) .app,.app{background:#090a0e!important}
 .homeDashboardHero .programIdentity{width:62%;top:15px;padding:10px 15px}
 .homeDashboardHero .programIdentity h1,.homeDashboardHero .programIdentity h1 span{font-size:24px}
 }
+
+
+/* WHF grey surfaces: replace bright white UI panels, preserve original photo colors. */
+:root{--whf-silver:#c8c9cf;--whf-slate:#aeb1ba;--whf-charcoal:#24262d;--whf-ink:#202127}
+.card,.card.red,.card.green,.card.split,.primaryAction,.miniAction,.wideAction,.compactAction,.scheduleItem,.adminDashCard,.fundBox,.recordRow,.programFeature,.photoCard,.publishGuide,.stickyPublishPanel,.adminEditItem,.practiceTrack,.teamNewsArchive,.pastMeetArchive,.sponsorProgressCard,.recordsTableShell,.scheduleItem.currentEvent,.practiceCompareCell,.programStat,#program .programStat,#program .programLinks .programFeature,#program .programLinks .primaryAction{background:#c8c9cf!important;color:#202127!important;border-color:#969aa4!important;box-shadow:0 7px 20px rgba(0,0,0,.17)!important}
+.card h3,.card p,.card strong,.scheduleItem h3,.scheduleItem strong,.programStat strong,.programFeature h3,.primaryAction h3,.miniAction h3,#program .programLinks h3,#program .programLinks strong{color:#202127!important}
+.card p,.scheduleItem p,.programStat p,.programFeature p,.primaryAction p,.miniAction p,#program .programLinks p,#program .programLinks small{color:#454852!important}
+.parentHubIntro,.installSteps article,.sheet,.rescheduledMeeting{background:#c8c9cf!important;color:#202127!important;border-color:#969aa4!important}
+.parentHubIntro p,.sheet p,.sheetMeta,.rescheduledMeeting p{color:#454852!important}
+.calendarFilters button.active{background:#aeb1ba!important;color:#202127!important}
+#program .recordsTableShell,#program .recordsTable tbody td{background:#c8c9cf!important;color:#202127!important}
+#program .recordsTable tbody tr:nth-child(even) td{background:#b4b6bf!important;color:#202127!important}
+#program .recordsTable tbody td:nth-child(4){background:#b2c6bc!important;color:#20352b!important}
+#program .recordsTable tbody tr:nth-child(even) td:nth-child(4){background:#a5b9b0!important;color:#20352b!important}
+#program .recordFilter button{background:#c8c9cf;color:#252731;border-color:#969aa4}
+#program .recordFilter button.active{background:#31333b;color:#f0f0f1}
+.card button:not(.ghost),.photoGalleryLaunch b,.photoViewer.eventImageMode .photoViewerBack,.meetDayActions a,.meetDayActions button:not(:last-child){background:#c8c9cf;color:#202127}
+.sponsorLogo{background:#d9dade} /* Neutral logo backing preserves sponsor marks. */
+.screenTitle:after{background:#b4b6bf}
+#home .latestUpdateCard{background:#24262d!important;color:#e3e4e8!important;border-color:#4a4c55!important}
+#home .latestUpdateCard strong,#home .latestUpdateCard p,#home .latestUpdateCard span{color:inherit}
+#home .homeWeekCard{color:#e8e8eb}

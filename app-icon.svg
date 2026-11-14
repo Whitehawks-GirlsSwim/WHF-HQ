@@ -1,12 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <defs><clipPath id="appShape"><rect width="512" height="512" rx="112"/></clipPath></defs>
-  <g clip-path="url(#appShape)">
-    <rect width="512" height="512" fill="#111317"/>
-    <rect width="512" height="220" fill="#C92A24"/>
-    <rect y="292" width="512" height="220" fill="#24704D"/>
-  </g>
-  <rect x="22" y="22" width="468" height="468" rx="90" fill="none" stroke="#4B4D50" stroke-width="6"/>
-  <text x="256" y="286" fill="#FFFFFF" font-family="Arial Black,Arial,Helvetica,sans-serif" font-size="150" font-weight="900" text-anchor="middle">WHF</text>
-  <rect x="170" y="310" width="172" height="84" rx="22" fill="#FFFFFF"/>
-  <text x="256" y="374" fill="#111317" font-family="Arial Black,Arial,Helvetica,sans-serif" font-size="66" font-weight="900" letter-spacing="7" text-anchor="middle">HQ</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="WHF HQ Varsity Black app icon">
+<polygon fill="#101115" points="0,0 512,0 512,512 0,512"/>
+<polygon fill="#db263e" points="0,0 512,0 512,18 0,18"/>
+<polygon fill="#30333c" points="42,42 470,42 470,470 42,470"/>
+<polygon fill="#1e2026" points="47,47 465,47 465,465 47,465"/>
+<polygon fill="#f1f2f4" points="75,169 104,169 122,248 141,169 168,169 187,248 205,169 234,169 202,293 175,293 154,216 134,293 107,293"/>
+<polygon fill="#f1f2f4" points="247,169 275,169 275,216 317,216 317,169 345,169 345,293 317,293 317,242 275,242 275,293 247,293"/>
+<polygon fill="#f1f2f4" points="359,169 440,169 440,196 387,196 387,220 430,220 430,247 387,247 387,293 359,293"/>
+<polygon fill="#db263e" points="167,323 345,323 354,332 354,398 345,407 167,407 158,398 158,332"/>
+<polygon fill="#f1f2f4" points="194,341 206,341 206,360 224,360 224,341 236,341 236,389 224,389 224,371 206,371 206,389 194,389"/>
+<polygon fill="#f1f2f4" points="254,341 286,341 294,349 294,377 287,384 296,394 280,394 275,389 254,389 246,381 246,349"/>
+<polygon fill="#db263e" points="258,353 282,353 282,373 279,375 272,368 260,368 270,378 258,378"/>
 </svg>

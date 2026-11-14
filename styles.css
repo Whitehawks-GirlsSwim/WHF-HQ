@@ -898,7 +898,7 @@ body:has(#home.active) .homeAlertsLabel{color:#55575d!important}
 
 /* Final polish */
 .app{position:relative;overflow:hidden}
-.app::before{content:"WHF";position:absolute;z-index:0;right:18px;top:86px;color:rgba(255,255,255,.055);font-size:112px;font-weight:950;line-height:1;letter-spacing:-7px;pointer-events:none;user-select:none}
+/* Removed oversized global WHF watermark: it overlapped calendar headings and cards. */
 .topBar,.screens{position:relative;z-index:1}
 .homeDashboardHero{height:184px;min-height:0}
 .homeDashboardHero .programPhoto img{height:184px;min-height:0}
@@ -909,7 +909,7 @@ body:has(#home.active) .homeAlertsLabel{color:#55575d!important}
 .scheduleInfo p,.card p{line-height:1.42}
 .homeAlertsLabel{font-size:11px!important}
 @media (max-width:430px){
-  .app::before{top:82px;right:10px;font-size:86px}
+  /* No global watermark on mobile. */
   .homeDashboardHero{height:140px;min-height:0}
   .homeDashboardHero .programPhoto img{height:140px;min-height:0}
   .homeDashboardHero .programIdentity{padding:14px}
@@ -1432,4 +1432,7 @@ html,body,body:has(#home.active),.app,body:has(#home.active) .app{background:#10
 .navIndicator{display:none!important}
 
 /* Keep the Calendar clean: no extra watermarks or stacked overlays. */
-body:has(#meets.active) .app::before{display:none!important}
+/* Global watermark removed at source, not just hidden on Calendar. */
+
+/* Explicit guard for old pseudo-element styling on installed iOS PWAs. */
+.app::before,#meets .seasonLead::after,#meets .practiceTrack::after,#meets .scheduleItem::after{content:none!important;display:none!important}

@@ -9,7 +9,7 @@
   <meta http-equiv="Expires" content="0">
   <title>WHF HQ</title>
   <link rel="manifest" href="manifest.json?v=20261114-132">
-  <link rel="stylesheet" href="styles.css?v=20261113-131">
+  <link rel="stylesheet" href="styles.css?v=20261114-133">
   <style>
     .notificationGuide{margin-top:12px;padding:18px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:linear-gradient(145deg,rgba(193,18,31,.14),#101015 48%,rgba(0,132,61,.13));box-shadow:0 10px 26px rgba(0,0,0,.22)}
     .notificationGuideBadge{display:inline-block;padding:5px 8px;border-radius:999px;background:#fff;color:#09090d;font-size:9px;font-weight:950;letter-spacing:1px}
@@ -219,19 +219,47 @@
           <p id="programIntroText">Program history, season record, team and pool records, and photo links live here.</p>
         </div>
 
-        <div class="programBlock" style="border-top:4px solid #c8102e">
+        <section class="programBlock sectionsRecap" aria-labelledby="sectionsRecapTitle">
           <div class="blockTitle">NOVEMBER 14, 2026 • SECTION CHAMPIONS</div>
-          <h2>History Made. State Bound.</h2>
-          <p>For the first time in program history, the Westonka/Holy Family White Hawks are section champions! Three event titles, a record-breaking diving performance and nine athletes headed to state.</p>
-          <h3>Section Champions</h3>
-          <p>Mia Dongoske • 100 Breaststroke<br>Bailey Monette • Diving (record-breaking performance)<br>Rachel Betts, Bridget Treacy, Carina Gadtke &amp; Laney Hendrickson • 400 Freestyle Relay</p>
-          <h3>Individual State Qualifiers</h3>
-          <p>Rachel Betts • 200 Free, 100 Free<br>Mia Dongoske • 200 IM, 100 Breast<br>Laney Hendrickson • 100 Fly<br>Jaylen Juras • 100 Fly<br>Charlotte Lake • 500 Free<br>Bailey Monette • Diving<br>Bridget Treacy • 200 Free</p>
-          <h3>State-Qualifying Relays</h3>
-          <p><strong>200 Medley Relay • 2nd</strong><br>Carina Gadtke, Mia Dongoske, Jaylen Juras &amp; Alina Navidad</p>
-          <p><strong>200 Freestyle Relay • 2nd</strong><br>Bridget Treacy, Alina Navidad, Laney Hendrickson &amp; Rachel Betts</p>
-          <p><strong>400 Freestyle Relay • 1st</strong><br>Rachel Betts, Bridget Treacy, Carina Gadtke &amp; Laney Hendrickson</p>
-        </div>
+          <div class="seasonLead sectionsLead">
+            <div class="seasonLeadTop">2026 POSTSEASON</div>
+            <h2 id="sectionsRecapTitle">History Made. State Bound.</h2>
+            <p>For the first time in program history, the Westonka/Holy Family White Hawks are section champions! Three event titles, a record-breaking diving performance and nine athletes headed to State.</p>
+          </div>
+          <div class="sectionsStats">
+            <div class="programStat"><span>SECTION FINISH</span><strong>1st</strong><p>Team champions</p></div>
+            <div class="programStat"><span>EVENT TITLES</span><strong>3</strong><p>Section champions</p></div>
+            <div class="programStat"><span>STATE TEAM</span><strong>9</strong><p>8 swimmers • 1 diver</p></div>
+          </div>
+          <div class="blockTitle sectionsSubheading">Section Champions</div>
+          <div class="recordRow"><div><strong>Mia Dongoske</strong><span>100 Breaststroke</span></div><div><b>1st</b></div></div>
+          <div class="recordRow"><div><strong>Bailey Monette</strong><span>Diving • record-breaking performance</span></div><div><b>1st</b></div></div>
+          <div class="recordRow"><div><strong>400 Freestyle Relay</strong><span>Rachel Betts • Bridget Treacy • Carina Gadtke • Laney Hendrickson</span></div><div><b>1st</b></div></div>
+          <details class="sectionsDetails" open><summary>Individual State Qualifiers</summary>
+          <div class="recordRow"><div><strong>Rachel Betts</strong><span>200 Free • 100 Free</span></div></div>
+          <div class="recordRow"><div><strong>Mia Dongoske</strong><span>200 IM • 100 Breast</span></div></div>
+          <div class="recordRow"><div><strong>Laney Hendrickson</strong><span>100 Fly</span></div></div>
+          <div class="recordRow"><div><strong>Jaylen Juras</strong><span>100 Fly</span></div></div>
+          <div class="recordRow"><div><strong>Charlotte Lake</strong><span>500 Free</span></div></div>
+          <div class="recordRow"><div><strong>Bridget Treacy</strong><span>200 Free</span></div></div>
+          <div class="blockTitle sectionsSubheading">Diving</div>
+          <div class="recordRow"><div><strong>Bailey Monette</strong><span>Diving</span></div></div>
+          </details>
+          <details class="sectionsDetails" open><summary>State-Qualifying Relays</summary>
+          <div class="recordRow"><div><strong>200 Medley Relay</strong><span>Carina Gadtke • Mia Dongoske • Jaylen Juras • Alina Navidad</span></div><div><b>2nd</b></div></div>
+          <div class="recordRow"><div><strong>200 Freestyle Relay</strong><span>Bridget Treacy • Alina Navidad • Laney Hendrickson • Rachel Betts</span></div><div><b>2nd</b></div></div>
+          <div class="recordRow"><div><strong>400 Freestyle Relay</strong><span>Rachel Betts • Bridget Treacy • Carina Gadtke • Laney Hendrickson</span></div><div><b>1st</b></div></div>
+          </details>
+          <div class="blockTitle sectionsSubheading">Sections Photos</div>
+          <p class="sectionsPhotoHint">Tap any photo to view full size.</p>
+          <div class="sectionsPhotoGrid"><button type="button" class="sectionPhoto" data-event-image="team-gallery/sections-2026-1.jpg" onclick="openEventImage(this.dataset.eventImage, this.querySelector('img').alt)" aria-label="Enlarge Sections photo 1"><img src="team-gallery/sections-2026-1.jpg" alt="2026 WHF Sections photo 1" loading="lazy"></button>
+<button type="button" class="sectionPhoto" data-event-image="team-gallery/sections-2026-2.jpg" onclick="openEventImage(this.dataset.eventImage, this.querySelector('img').alt)" aria-label="Enlarge Sections photo 2"><img src="team-gallery/sections-2026-2.jpg" alt="2026 WHF Sections photo 2" loading="lazy"></button>
+<button type="button" class="sectionPhoto" data-event-image="team-gallery/sections-2026-3.jpg" onclick="openEventImage(this.dataset.eventImage, this.querySelector('img').alt)" aria-label="Enlarge Sections photo 3"><img src="team-gallery/sections-2026-3.jpg" alt="2026 WHF Sections photo 3" loading="lazy"></button>
+<button type="button" class="sectionPhoto" data-event-image="team-gallery/sections-2026-4.jpg" onclick="openEventImage(this.dataset.eventImage, this.querySelector('img').alt)" aria-label="Enlarge Sections photo 4"><img src="team-gallery/sections-2026-4.jpg" alt="2026 WHF Sections photo 4" loading="lazy"></button>
+<button type="button" class="sectionPhoto" data-event-image="team-gallery/sections-2026-5.jpg" onclick="openEventImage(this.dataset.eventImage, this.querySelector('img').alt)" aria-label="Enlarge Sections photo 5"><img src="team-gallery/sections-2026-5.jpg" alt="2026 WHF Sections photo 5" loading="lazy"></button>
+<button type="button" class="sectionPhoto" data-event-image="team-gallery/sections-2026-6.jpg" onclick="openEventImage(this.dataset.eventImage, this.querySelector('img').alt)" aria-label="Enlarge Sections photo 6"><img src="team-gallery/sections-2026-6.jpg" alt="2026 WHF Sections photo 6" loading="lazy"></button>
+<button type="button" class="sectionPhoto" data-event-image="team-gallery/sections-2026-7.jpg" onclick="openEventImage(this.dataset.eventImage, this.querySelector('img').alt)" aria-label="Enlarge Sections photo 7"><img src="team-gallery/sections-2026-7.jpg" alt="2026 WHF Sections photo 7" loading="lazy"></button></div>
+        </section>
 
         <div class="programGrid">
           <div class="programStat greenAccent">

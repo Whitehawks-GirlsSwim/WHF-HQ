@@ -202,7 +202,7 @@ function freshProduct(product,barcode){
  const servingQuantity=num(product?.serving_quantity);
  let amount=(servingQuantity&&servingQuantity>0)?servingQuantity:100;
  if(amount>2000)amount=100;
- return {barcode,name:product?.product_name||"Packaged food",brand:product?.brands||"",amount,serving:product?.serving_size||"",
+ return {barcode,name:product?.product_name||product?.product_name_en||"Packaged food",brand:product?.brands||"",amount,serving:product?.serving_size||"",
   calories:energy,protein:nval("proteins_100g"),carbs:nval("carbohydrates_100g"),fat:nval("fat_100g")};
 }
 function results(product,barcode,message){

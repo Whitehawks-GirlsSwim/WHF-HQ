@@ -41,7 +41,7 @@ root.innerHTML=
 '<label class="foodscan-full">MEAL <select id="foodManualMeal" aria-label="Choose meal for manual food">'+mealOptions(selectedMeal)+'</select></label>'+
 '<label class="foodscan-full">FOOD NAME <input id="foodManualName" type="text" autocomplete="off" maxlength="100" required placeholder="e.g. Homemade turkey sandwich"></label>'+
 (teen?'<label class="foodscan-full">OPTIONAL NOTE <input id="foodManualNote" type="text" maxlength="140" placeholder="e.g. After practice, with fruit"></label>':
-'<label>SERVINGS EATEN <input id="foodManualServings" type="number" inputmode="decimal" value="1" step=".25" min=".1" max="100" required></label>'+
+'<label>SERVINGS EATEN <input id="foodManualServings" type="number" inputmode="decimal" value="1" step="any" min=".1" max="100" required></label>'+
 '<div class="foodscan-manual-note">Enter nutrition <b>per serving</b> from the label or your own estimate. Leave unknown values blank.</div>'+
 '<label>CALORIES / SERVING <input id="foodManualCal" type="number" inputmode="decimal" min="0" max="5000" step="1" placeholder="Optional"></label>'+
 '<label>PROTEIN (g) / SERVING <input id="foodManualProtein" type="number" inputmode="decimal" min="0" max="300" step=".1" placeholder="Optional"></label>'+

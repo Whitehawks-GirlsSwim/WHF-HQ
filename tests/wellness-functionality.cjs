@@ -121,6 +121,7 @@ async function verify(browser,cfg){
  assert.equal(await scanner.locator("#foodWaterTotal").innerText(),"20 fl oz");
  await scanner.locator("#foodWaterUndo").click();
  assert.equal(await scanner.locator("#foodWaterTotal").innerText(),"8 fl oz");
+ if(cfg.mode!=="mia")await scanner.locator(".foodscan-water-extra summary").click();
  await scanner.locator("#foodWaterCustom").fill("7.5");
  await scanner.locator('#foodWaterForm button[type="submit"]').click();
  assert.equal(await scanner.locator("#foodWaterTotal").innerText(),"15.5 fl oz");

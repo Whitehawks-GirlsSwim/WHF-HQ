@@ -54,6 +54,16 @@ a{color:#2d7152}.app{max-width:550px;min-height:100vh;margin:auto;padding:20px 1
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#345744;color:#fff;border-radius:12px;padding:11px 15px;font-size:12px;font-weight:800;z-index:20;display:none;white-space:nowrap}
 [hidden]{display:none!important}
 @media(max-width:360px){.app{padding:17px 11px 125px}.brand h1{font-size:22px}.hero{padding:19px;min-height:310px}.hero h2{font-size:41px}.habits-grid{gap:7px}.habit{padding:11px 8px}.nutri-form{gap:7px}.weight-row{grid-template-columns:1fr 94px}}
+
+/* Sam-only beginner wellness movement plan */
+.walk-card{display:flex;align-items:flex-start;gap:12px;background:linear-gradient(115deg,#e3f4e1,#fcf0dc);border:1px solid #c8e3c3;border-radius:17px;padding:15px;margin:13px 0 17px}
+.walk-icon{background:#fff;border-radius:13px;padding:9px;font-size:26px;box-shadow:0 5px 13px #6e8f6a14}
+.walk-card>div:last-child{flex:1;min-width:0}
+.walk-card span{font-size:9px;font-weight:950;letter-spacing:1.1px;color:#50866c}
+.walk-card h3{color:#315641;font-size:16px;line-height:1.2;margin:5px 0}
+.walk-card p{font-size:12px;color:#4d7257;line-height:1.45;margin:6px 0}
+.walk-card small{display:block;color:#69836b;font-size:11px;line-height:1.35;margin-top:8px}
+
 </style></head><body>
 <div class="app">
 <header class="top"><div class="brand"><div class="mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="none" stroke="#f7ead2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M24 39C12 30 13 16 28 9c9 10 8 24-4 30Zm0 0c1-11 4-17 11-22M23 39c-12-9-14-17-11-26"/></svg></div><div><small>WELLNESS FOR REAL LIFE</small><h1>SAM <span>/ WELLNESS</span></h1></div></div><div class="version">YOUR ROUTINE</div></header>
@@ -67,7 +77,7 @@ a{color:#2d7152}.app{max-width:550px;min-height:100vh;margin:auto;padding:20px 1
 </section>
 <section id="move" class="view">
 <div class="section-head"><span class="eyebrow">BEGINNER STRENGTH</span><h2>Move your way.</h2><p class="muted">About 25–35 minutes. Start with two sets and keep 2–3 comfortable reps left at the end of each set.</p></div>
-<div class="segment"><button id="homeMode" data-mode="home">At home</button><button id="gymMode" data-mode="gym">At the gym</button></div>
+<div class="walk-card"><div class="walk-icon">🚶</div><div><span>YOUR EVERYDAY CARDIO</span><h3>Walk your way to healthier.</h3><p>Start with 10–15 minutes of comfortable walking, 3 days a week. Build time gradually as it gets easier. Short walks count, too.</p><small>A long-term goal for most adults is 150 minutes of moderate activity weekly, plus 2 strength days.</small></div></div><div class="segment"><button id="homeMode" data-mode="home">At home</button><button id="gymMode" data-mode="gym">At the gym</button></div>
 <div class="segment"><button id="pickA" data-work="A">Workout A</button><button id="pickB" data-work="B">Workout B</button></div>
 <div class="workout-top"><small>TODAY'S PLAN</small><h3 id="workoutTitle">Full Body Basics</h3><p id="workoutDesc"></p><div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:8px;font-size:11px"><span>PROGRESS</span><b id="setCount">0 / 10 sets</b></div><div class="bar"><i id="setBar" style="width:0"></i></div></div>
 <div class="move-label"><span id="moveCounter">EXERCISE 1 OF 5</span><span>Tap to jump ahead</span></div><div class="move-dots" id="moveDots"></div><div id="exerciseCard"></div>
@@ -139,41 +149,41 @@ function renderHabits(){
 document.addEventListener("click",e=>{let el=e.target.closest("[data-habit]");if(!el)return;const d=localDay();if(!s.habits[d])s.habits[d]={};s.habits[d][el.dataset.habit]=!s.habits[d][el.dataset.habit];persist();renderHabits();});
 const item=(name,reps,unit,weight,steps,tip)=>({name,reps,unit,weight,steps,tip});
 const plans={
- home:{
-  A:{title:"Full Body Basics",desc:"Strength you can build in your living room.",items:[
-   item("Chair Squat","8–10 reps","Bodyweight",0,["Stand in front of a stable chair, feet comfortable apart.","Sit back slowly until you lightly touch the chair.","Press through your feet to stand tall."],"Keep the movement slow. Use the chair for confidence."),
-   item("Countertop Push-Up","8 reps","Bodyweight",0,["Place hands on a stable counter, wider than shoulders.","Step feet back and form a straight line.","Lower chest toward the counter, then push away."],"The higher the surface, the easier it is."),
-   item("Glute Bridge","10–12 reps","Bodyweight",0,["Lie on your back with knees bent, feet planted.","Squeeze glutes to lift hips, keeping ribs down.","Lower smoothly without arching your lower back."],"Think glutes, not lower back."),
-   item("Supported Reverse Lunge","6–8 per leg","Bodyweight",0,["Stand beside a stable countertop for balance.","Step one foot back and bend both knees gently.","Push through your front foot to stand, then switch sides."],"Shorter steps are fine. If knees hurt, choose another squat."),
-   item("Bird Dog","8 per side","Bodyweight",0,["Begin on hands and knees, spine neutral.","Extend opposite arm and leg without tipping your hips.","Return slowly and alternate."],"Keep the reach small enough to stay steady.")
-  ]},
-  B:{title:"Strong & Steady",desc:"Balance, posture and everyday strength.",items:[
-   item("Low Step-Up","8 per leg","Bodyweight",0,["Use a low stable step with a rail or wall nearby.","Place your entire foot on the step.","Stand tall and lower slowly, alternating legs."],"Start with the lowest safe step."),
-   item("Resistance Band Row","10 reps","Light band",0,["Secure a light resistance band to a stable anchor.","Pull elbows back toward ribs.","Slowly reach forward without shrugging."],"If no safe band setup is available, do gentle wall slides instead."),
-   item("Wall Push-Up","10 reps","Bodyweight",0,["Stand arm's length from a wall, hands at shoulder level.","Bend elbows to bring chest toward wall.","Push back to standing."],"Keep your body straight from head to heels."),
-   item("Standing Hip Hinge","10 reps","Bodyweight",0,["Stand tall, feet hip-width, knees soft.","Push hips back while keeping spine neutral.","Stand by squeezing glutes."],"Practice the movement before holding weights."),
-   item("Dead Bug","8 per side","Bodyweight",0,["Lie on back with arms up and knees bent.","Reach one arm and opposite leg away without arching back.","Return, then switch sides."],"Slow and controlled beats big movements.")
-  ]}
- },
- gym:{
-  A:{title:"Gym Foundations",desc:"Simple machines to build whole-body strength.",items:[
-   item("Leg Press","10 reps","lb on machine",20,["Adjust the seat so hips and back stay supported.","Press platform steadily with feet shoulder width.","Return slowly without locking your knees."],"Start at the machine's easiest comfortable resistance."),
-   item("Seated Row","10 reps","lb",15,["Sit tall with feet supported.","Pull handles toward lower ribs, elbows near sides.","Return slowly without rocking."],"Set the machine for smooth, comfortable reps."),
-   item("Chest Press","8–10 reps","lb",10,["Set the seat so handles align near mid-chest.","Press forward smoothly, keeping shoulders relaxed.","Return with control."],"Avoid any painful shoulder range."),
-   item("Leg Curl Machine","10 reps","lb",10,["Adjust machine pads to fit your legs.","Bend knees against light resistance.","Return slowly without kicking."],"Begin light; machine weights vary."),
-   item("Dead Bug","8 per side","Bodyweight",0,["Lie down with arms over shoulders and knees bent.","Extend opposite arm and leg without arching.","Return and repeat the other side."],"Control your breathing while moving.")
-  ]},
-  B:{title:"Build Your Strength",desc:"Learn a few versatile movements at your own pace.",items:[
-   item("Goblet Squat","8 reps","lb single weight",5,["Hold one light dumbbell at your chest.","Sit down and back into a comfortable squat.","Stand tall, keeping feet planted."],"Start bodyweight if new to squats."),
-   item("Lat Pulldown","10 reps","lb",15,["Adjust thigh pad, sit tall and take a comfortable grip.","Pull bar toward your upper chest.","Return slowly without swinging."],"Don't pull the bar behind your head."),
-   item("Dumbbell Hip Hinge","8 reps","lb each hand",5,["Hold two light dumbbells near thighs.","Push hips back with soft knees and flat back.","Squeeze glutes to return to standing."],"Ask an instructor to check your form initially."),
-   item("Seated Shoulder Press","8 reps","lb per hand",5,["Sit supported and hold light dumbbells near shoulders.","Press upward within a comfortable pain-free range.","Lower slowly."],"If overhead movement is uncomfortable, use a gentle incline press."),
-   item("Pallof Press","8 per side","lb cable",5,["Hold a light cable at chest height, facing sideways.","Press hands forward without rotating.","Return and repeat each side."],"Choose very light resistance.")
-  ]}
- }
+home:{
+ A:{title:"Everyday Strength",desc:"No gym required. Build confidence with movements that make daily life easier.",items:[
+  item("Chair Sit-to-Stand","8–12 reps","Bodyweight",0,["Sit toward the front of a sturdy chair, feet flat under your knees.","Lean forward slightly and push through both feet to stand.","Sit back down slowly, using your hands for support if you need."],"A chair makes this easier to learn; keep a pace that feels steady."),
+  item("Wall Push-Up","8–12 reps","Bodyweight",0,["Stand facing a solid wall with hands at chest height.","Step feet back, bend elbows and bring chest toward the wall.","Push back, keeping your body long and shoulders comfortable."],"Step closer to the wall to make it easier."),
+  item("Standing Side Leg Lift","10 per leg","Bodyweight",0,["Stand tall beside a countertop or sturdy chair for balance.","Keep toes facing forward and lift one leg a short distance sideways.","Lower slowly, then switch legs."],"Keep hips facing forward; avoid leaning sideways."),
+  item("Water-Bottle Biceps Curl","10–12 reps","lb per hand",0,["Hold a small water bottle in each hand, elbows close to your sides.","Bend your elbows, lifting the bottles toward shoulders.","Lower slowly without swinging."],"Start with empty hands or light bottles. The arm movement matters more than weight."),
+  item("Countertop Plank","20–30 seconds","Bodyweight",0,["Place forearms or hands on a sturdy counter with feet a step back.","Keep shoulders, hips and heels in a comfortable straight line.","Breathe steadily, keeping your middle gently braced."],"Use a higher surface if the position feels challenging.")
+ ]},
+ B:{title:"Move & Feel Good",desc:"Gentle full-body strength with balance, posture and core control.",items:[
+  item("Side Steps with Mini Squat","8 each way","Bodyweight",0,["Stand with feet comfortable apart and bend knees slightly.","Take a small step to the side, then bring the other foot in.","Continue for eight steps, then reverse direction."],"Keep the bend shallow and steady; hold a counter if you need balance."),
+  item("Standing Band Row","10–12 reps","Light band",0,["Attach a light resistance band to a secure anchor at chest height.","Stand tall and pull elbows back toward your ribs.","Release slowly while keeping shoulders relaxed."],"Check the anchor before pulling. If no band is available, do shoulder-blade squeezes."),
+  item("Standing Calf Raise","12–15 reps","Bodyweight",0,["Stand beside a sturdy chair with feet hip-width.","Rise onto the balls of your feet without rolling ankles.","Lower heels slowly to the floor."],"Use support and pause at the top. No bouncing needed."),
+  item("Water-Bottle Shoulder Press","8–10 reps","lb per hand",0,["Hold light bottles near shoulder height with palms facing forward or inward.","Press upward only as far as feels comfortable.","Lower smoothly, keeping your ribs down."],"If overhead motion is uncomfortable, do front raises below shoulder height."),
+  item("Standing March with Pause","30 seconds","Bodyweight",0,["Stand upright near a countertop for support.","Lift one knee comfortably and pause for a moment.","Lower, switch sides and keep breathing."],"Small, controlled knee lifts are enough; aim for balance.")
+ ]}
+},
+gym:{
+ A:{title:"Gym Confidence",desc:"Easy-to-learn machines and functional strength, without high-intensity pressure.",items:[
+  item("Leg Extension Machine","10–12 reps","lb machine",10,["Adjust the seat so knees line up with the machine pivot.","Slowly straighten knees against light resistance.","Lower the weight with control, without swinging."],"Start with the machine's lightest setting; machine weights vary."),
+  item("Seated Hamstring Curl","10–12 reps","lb machine",10,["Adjust the pad and seat to fit the backs of your legs.","Bend your knees against the resistance.","Return slowly and keep your hips against the seat."],"Choose a weight you can move smoothly through a comfortable range."),
+  item("Pec Fly Machine","10 reps","lb machine",10,["Adjust the handles so elbows stay around chest height.","Bring handles toward the middle of your chest.","Let your arms open slowly without stretching too far."],"Keep shoulders relaxed and stop if there's discomfort."),
+  item("Cable Biceps Curl","10–12 reps","lb cable",5,["Set a straight or rope handle at a low cable position.","Keep elbows near your sides and bend arms to bring handle upward.","Lower slowly without rocking your body."],"Start light and keep wrists comfortable."),
+  item("Dumbbell Farmer Carry","20–30 seconds","lb per hand",5,["Pick up a light dumbbell in each hand and stand tall.","Walk slowly over clear, level ground while breathing normally.","Set weights down carefully after the timed walk."],"Choose weights that allow upright posture and easy control.")
+ ]},
+ B:{title:"Strength & Balance",desc:"Train hips, upper back, arms, calves and everyday trunk strength.",items:[
+  item("Seated Hip Abduction","12 reps","lb machine",10,["Adjust the machine pads against the outside of your knees.","Push knees gently outward against light resistance.","Return slowly without forcing the stretch."],"Use a comfortable range rather than trying to go wide."),
+  item("Reverse Pec Deck","10 reps","lb machine",10,["Face the machine pad and adjust handles around shoulder height.","Pull handles backward gently, bringing shoulder blades closer.","Return slowly, keeping your neck relaxed."],"Aim for upper-back control, not heavy weight."),
+  item("Cable Triceps Pressdown","10–12 reps","lb cable",5,["Stand close to a cable machine with a rope attachment.","Keep elbows at your sides as you extend arms downward.","Bend elbows slowly to return."],"Only your forearms should move; avoid swinging."),
+  item("Calf Raise Machine","12–15 reps","lb machine",10,["Set up the machine according to its instructions.","Press through the balls of both feet to rise gently.","Lower heels slowly, staying in control."],"Begin with very light resistance; machine types vary."),
+  item("Cable Wood Chop","8 per side","lb cable",5,["Set a light cable handle just above chest height.","Stand sideways to the cable and hold the handle with both hands.","Rotate slowly through a small, comfortable range and return, then switch sides."],"Avoid jerking the torso; ask an instructor to demonstrate the setup.")
+ ]}
+}
 };
 function plan(){return plans[s.mode][s.day]}
-function workoutKey(){return s.mode+"-"+s.day}
+function workoutKey(){return "v2-"+s.mode+"-"+s.day}
 function moveIndex(){let k=workoutKey(),n=Number(s.index[k]||0);return Math.max(0,Math.min(plan().items.length-1,n))}
 function countSets(){let k=workoutKey();return plan().items.reduce((n,it,i)=>n+(s.sets[k+"-"+i+"-1"]?1:0)+(s.sets[k+"-"+i+"-2"]?1:0),0)}
 function moveTo(i){s.index[workoutKey()]=Math.max(0,Math.min(plan().items.length-1,i));persist();renderWorkout();$("moveCounter").scrollIntoView({behavior:"smooth",block:"start"})}

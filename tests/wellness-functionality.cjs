@@ -3,9 +3,9 @@ const assert=require("node:assert/strict");
 const BASE="https://whitehawks-girlsswim.github.io/WHF-HQ/";
 const APPS=[
  {file:"mia.html",mode:"mia",tab:"fuel",key:"mia-food-meals-v1",release:"foodscan-20261121-4"},
- {file:"sam.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-10"},
- {file:"sam-signature.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-10"},
- {file:"forge.html",mode:"forge",tab:"fuel",key:"forge-food-diary-v1",release:"2026112107"}
+ {file:"sam.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-11"},
+ {file:"sam-signature.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-11"},
+ {file:"forge.html",mode:"forge",tab:"fuel",key:"forge-food-diary-v1",release:"2026112108"}
 ];
 const sleep=ms=>new Promise(ok=>setTimeout(ok,ms));
 async function run(){
@@ -20,10 +20,14 @@ async function verify(browser,cfg){
  const page=await ctx.newPage(),errors=[];
  page.on("pageerror",e=>errors.push(String(e).slice(0,700)));
  page.on("dialog",d=>d.accept());
- await page.route(url=>url.hostname==="world.openfoodfacts.org" && url.pathname==="/cgi/search.pl",route=>route.fulfill({
-  status:200,contentType:"application/json",headers:{"access-control-allow-origin":"*"},
-  body:JSON.stringify({count:1,products:[{code:"880001987654",product_name:"Greek yogurt, plain",brands:"Test dairy",serving_size:"170 g",serving_quantity:170,nutriments:{"energy-kcal_100g":59,"proteins_100g":10,"carbohydrates_100g":3.6,"fat_100g":0.2}}]})
- }));
+ await page.route(url=>url.hostname==="world.openfoodfacts.org" && url.pathname==="/cgi/search.pl",route=>{
+  const query=new URL(route.request().url()).searchParams.get("search_terms")||"";
+  if(/ketchup/i.test(query))return route.fulfill({status:503,contentType:"text/plain",headers:{"access-control-allow-origin":"*"},body:"Temporarily unavailable"});
+  return route.fulfill({
+   status:200,contentType:"application/json",headers:{"access-control-allow-origin":"*"},
+   body:JSON.stringify({count:1,products:[{code:"880001987654",product_name:"Greek yogurt, plain",brands:"Test dairy",serving_size:"170 g",serving_quantity:170,nutriments:{"energy-kcal_100g":59,"proteins_100g":10,"carbohydrates_100g":3.6,"fat_100g":0.2}}]})
+  });
+ });
  await page.route("**/api/v2/product/**",route=>route.fulfill({
   status:200,contentType:"application/json",headers:{"access-control-allow-origin":"*"},
   body:JSON.stringify({status:1,product:{product_name:"Test canned beans",brands:"Test kitchen",serving_size:"50 g",serving_quantity:50,nutriments:{"energy-kcal_100g":120,"proteins_100g":8,"carbohydrates_100g":18,"fat_100g":2}}})
@@ -32,7 +36,7 @@ async function verify(browser,cfg){
  for(let attempt=0;attempt<17;attempt++){
   const response=await page.goto(BASE+cfg.file+"?e2e="+Date.now()+"-"+attempt,{waitUntil:"domcontentloaded",timeout:30000});
   const html=await page.content();
-  if(response?.status()===200 && html.includes(cfg.release) && html.includes(cfg.mode==="mia"?"food-scanner.js?v=20261121-4":"food-scanner.js?v=20261121-7")){
+  if(response?.status()===200 && html.includes(cfg.release) && html.includes(cfg.mode==="mia"?"food-scanner.js?v=20261121-4":"food-scanner.js?v=20261121-8")){
    loaded=true;break;
   }
   console.log(cfg.file+": awaiting live release, attempt "+(attempt+1));
@@ -186,6 +190,8 @@ async function verify(browser,cfg){
  // Adult food-name search: calories are previewed for the serving, but not logged until save.
  if(cfg.mode!=="mia"){
   await scanner.locator("#foodQuickAdd").click();
+  assert.equal(await scanner.locator("#foodManualPanel").getAttribute("open"),null,"manual entry does not auto-open when searching");
+  assert.equal(await scanner.locator("#foodAddPanel .foodscan-head").count(),0,"redundant food search heading removed");
   await scanner.locator("#foodNameSearchInput").fill("Greek yogurt");
   await scanner.locator("#foodNameSearchForm button[type=submit]").click();
   const results=scanner.locator("#foodNameSearchResults");
@@ -203,6 +209,23 @@ async function verify(browser,cfg){
   assert(await scanner.locator("#foodAddPanel").isHidden(),"search save closes Add Food panel");
   assert.equal(await scanner.locator("#foodTotals > div").first().locator("strong").innerText(),"440.3","calories increase once only, on save");
   assert((await scanner.locator(".foodscan-meal-group").nth(2).innerText()).includes("Greek yogurt"),"search entry saved to selected Dinner meal");
+  // Exact screenshot regression: the legacy provider fails on 'Ketchup' (HTTP 503).
+  // Built-in generic estimate must still appear and be loggable without double counting.
+  await scanner.locator("#foodQuickAdd").click();
+  await scanner.locator("#foodNameSearchInput").fill("Ketchup");
+  await scanner.locator("#foodNameSearchForm button[type=submit]").click();
+  await scanner.locator('#foodNameSearchResults [data-food-name-result]').first().waitFor({state:"visible",timeout:10000});
+  assert((await scanner.locator("#foodNameSearchResults").innerText()).includes("Ketchup"),"Ketchup returns generic fallback even when online API is down");
+  assert((await scanner.locator("#foodNameSearchResults").innerText()).includes("17"),"Ketchup has estimated calories per tablespoon");
+  await scanner.locator("#foodNameSearchButton").waitFor({state:"enabled",timeout:15000});
+  assert((await scanner.locator("#foodNameSearchStatus").innerText()).includes("estimates"),"offline fallback is explained");
+  assert.equal(await scanner.locator("#foodTotals > div").first().locator("strong").innerText(),"440.3","Ketchup search does not log a food");
+  await scanner.locator("#foodNameSearchResults [data-food-name-result]").first().click();
+  assert((await scanner.locator("#foodScanResult h4").innerText()).includes("Ketchup"),"Ketchup fallback selected");
+  assert((await scanner.locator("#foodScanResult").innerText()).includes("Generic estimate"),"unbranded estimate is labeled");
+  await scanner.locator("#foodScanSave").click();
+  assert(await scanner.locator("#foodAddPanel").isHidden(),"Add Food closes after saving Ketchup");
+  assert.equal(await scanner.locator("#foodTotals > div").first().locator("strong").innerText(),"457.3","Ketchup adds 17 estimated calories exactly once");
  }
  assert.equal(errors.length,0,cfg.file+" runtime errors: "+errors.join(" ; "));
  console.log("PASS: "+cfg.file+" manual meals, move, legacy, water, barcode, deletion, tabs, controls, persistence");

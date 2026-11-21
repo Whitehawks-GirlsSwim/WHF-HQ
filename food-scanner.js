@@ -178,6 +178,96 @@ root.addEventListener("change",e=>{
 });
 renderMealPicker();
 
+
+function openManual(){
+ const panel=$("#foodManualPanel");panel.open=true;
+ $("#foodManualMeal").value=selectedMeal;
+ panel.scrollIntoView({behavior:"smooth",block:"start"});
+ $("#foodManualName").focus({preventScroll:true});
+}
+$("#foodManualOpen").addEventListener("click",openManual);
+$("#foodManualMeal").addEventListener("change",e=>chooseMeal(e.target.value));
+$("#foodManualForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const name=$("#foodManualName").value.trim(),meal=mealId($("#foodManualMeal").value);
+ if(!name||meal==="earlier"){notice("Enter a food name and select a meal.");return}
+ const entry={id:Date.now()+Math.random(),date:localDay(),name:name.slice(0,100),meal,source:"manual",barcode:"",calories:null,protein:null,carbs:null,fat:null,amount:1};
+ if(teen){entry.note=$("#foodManualNote").value.trim().slice(0,140)}
+ else{
+  const servings=num($("#foodManualServings").value);
+  if(servings===null||servings<.1||servings>100){notice("Servings must be between 0.1 and 100.");return}
+  entry.amount=servings;
+  const fields=[["calories","#foodManualCal",5000],["protein","#foodManualProtein",300],["carbs","#foodManualCarbs",500],["fat","#foodManualFat",300]];
+  for(const [field,id,max] of fields){
+   const raw=$(id).value.trim();
+   if(raw===""){entry[field]=null;continue}
+   const value=num(raw);
+   if(value===null||value<0||value>max){notice("Check the "+field+" value.");return}
+   entry[field]=r1(value*servings);
+  }
+ }
+ const rows=data();rows.unshift(entry);
+ if(!persist(rows))return;
+ $("#foodManualName").value="";
+ if(teen)$("#foodManualNote").value="";
+ else{
+  $("#foodManualServings").value="1";
+  ["#foodManualCal","#foodManualProtein","#foodManualCarbs","#foodManualFat"].forEach(id=>$(id).value="");
+ }
+ $("#foodManualPanel").open=false;
+ notice("Added "+name+" to "+mealInfo(meal).label+".");renderLog();
+});
+function renderWater(){
+ const rows=waterData().filter(e=>e.date===localDay());
+ const ounces=rows.reduce((sum,e)=>sum+(num(e.oz)??0),0);
+ $("#foodWaterTotal").textContent=fmt(ounces)+" fl oz";
+ $("#foodWaterLast").textContent=rows.length?rows.length+" water entr"+(rows.length===1?"y":"ies")+" today":"Start with a glass of water.";
+}
+function addWater(value){
+ const oz=num(value);
+ if(oz===null||oz<=0||oz>100){notice("Enter 1–100 fl oz.");return}
+ const rows=waterData();rows.unshift({id:Date.now()+Math.random(),date:localDay(),oz});
+ if(!saveWaterRows(rows))return;
+ renderWater();notice("Added "+fmt(oz)+" fl oz of water.");
+}
+root.addEventListener("click",e=>{const b=e.target.closest("[data-water-oz]");if(b)addWater(b.dataset.waterOz)});
+$("#foodWaterForm").addEventListener("submit",e=>{e.preventDefault();addWater($("#foodWaterCustom").value);$("#foodWaterCustom").value=""});
+$("#foodWaterUndo").addEventListener("click",()=>{
+ const rows=waterData(),pos=rows.findIndex(e=>e.date===localDay());
+ if(pos<0){notice("No water entries to undo.");return}
+ rows.splice(pos,1);
+ if(saveWaterRows(rows)){renderWater();notice("Last water entry undone.")}
+});
+$("#foodBackupExport").addEventListener("click",async()=>{
+ try{
+  const payload={format:"foodscan-nutrition-v1",exportedAt:new Date().toISOString(),meals:data(),water:waterData()};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+  const filename=(teen?"MIA":forge?"FORGE":"SAM")+"-nutrition-"+localDay()+".json";
+  const file=new File([blob],filename,{type:"application/json"});
+  if(navigator.canShare?.({files:[file]})&&navigator.share){
+   try{await navigator.share({files:[file],title:"Private food and water backup"});notice("Nutrition backup shared.");return}
+   catch(e){if(e?.name==="AbortError")return}
+  }
+  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=filename;
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),12000);
+  notice("Save the nutrition backup to Files.");
+ }catch(e){notice("Could not export. Try Safari.")}
+});
+$("#foodBackupImportButton").addEventListener("click",()=>$("#foodBackupImportFile").click());
+$("#foodBackupImportFile").addEventListener("change",async()=>{
+ const input=$("#foodBackupImportFile"),file=input.files?.[0];
+ if(!file)return;
+ try{
+  if(file.size>5000000)throw Error("Backup too large");
+  const payload=JSON.parse(await file.text());
+  if(payload.format!=="foodscan-nutrition-v1"||!Array.isArray(payload.meals)||!Array.isArray(payload.water))throw Error("Not a nutrition backup");
+  if(!confirm("Replace the current food and water journal with this backup? Workouts and photos will not change."))return;
+  if(!persist(payload.meals)||!saveWaterRows(payload.water))throw Error("Storage unavailable");
+  renderLog();renderWater();notice("Food and water history restored.");
+ }catch(e){notice("Could not restore that nutrition backup.")}
+ finally{input.value=""}
+});
+
 async function lookup(code){
  code=String(code||"").replace(/\D/g,"");
  if(code.length<6||code.length>14){notice("Enter a barcode with 6 to 14 digits.");return}

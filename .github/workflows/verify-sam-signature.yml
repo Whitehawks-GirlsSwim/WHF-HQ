@@ -1,0 +1,27 @@
+name: Verify SAM Wellness published edition
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-sam-signature.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check SAM Wellness live GitHub Pages HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://whitehawks-girlsswim.github.io/WHF-HQ/sam.html?signature=$(date +%s)"
+          curl --retry 3 --retry-delay 2 --max-time 30 -sSL -D /tmp/sam-headers.txt -o /tmp/sam-live.html "$URL"
+          echo "LIVE STATUS / CACHE:"
+          grep -iE '^HTTP/|^cache-control:|^age:|^x-cache:|^last-modified:' /tmp/sam-headers.txt || true
+          echo "LIVE BYTES: $(wc -c </tmp/sam-live.html)"
+          grep -Fq 'name="sam-release" content="signature-20261121-1"' /tmp/sam-live.html && echo 'SIGNATURE RELEASE: LIVE'
+          grep -Fq 'THE SIGNATURE WELLNESS EDITION' /tmp/sam-live.html && echo 'SIGNATURE HOME HERO: LIVE'
+          grep -Fq 'THE PRIVATE WELLNESS CLUB' /tmp/sam-live.html && echo 'LUXURY BRANDING: LIVE'
+          grep -Fq 'id="nutriResult"' /tmp/sam-live.html && echo 'CALORIE CALCULATOR: PRESENT'
+          grep -Fq 'sam-bloom-v1' /tmp/sam-live.html && echo 'EXISTING SAVED-STATE KEY: PRESERVED'
+          grep -Fq 'sam-bloom-private-photos-v1' /tmp/sam-live.html && echo 'PHOTO STORAGE KEY: PRESERVED'

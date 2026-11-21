@@ -3,9 +3,9 @@ const assert=require("node:assert/strict");
 const BASE="https://whitehawks-girlsswim.github.io/WHF-HQ/";
 const APPS=[
  {file:"mia.html",mode:"mia",tab:"fuel",key:"mia-food-meals-v1",release:"foodscan-20261121-4"},
- {file:"sam.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-8"},
- {file:"sam-signature.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-8"},
- {file:"forge.html",mode:"forge",tab:"fuel",key:"forge-food-diary-v1",release:"2026112105"}
+ {file:"sam.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-9"},
+ {file:"sam-signature.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-9"},
+ {file:"forge.html",mode:"forge",tab:"fuel",key:"forge-food-diary-v1",release:"2026112106"}
 ];
 const sleep=ms=>new Promise(ok=>setTimeout(ok,ms));
 async function run(){
@@ -28,7 +28,7 @@ async function verify(browser,cfg){
  for(let attempt=0;attempt<17;attempt++){
   const response=await page.goto(BASE+cfg.file+"?e2e="+Date.now()+"-"+attempt,{waitUntil:"domcontentloaded",timeout:30000});
   const html=await page.content();
-  if(response?.status()===200 && html.includes(cfg.release) && html.includes(cfg.mode==="forge"?"food-scanner.js?v=20261121-5":"food-scanner.js?v=20261121-4")){
+  if(response?.status()===200 && html.includes(cfg.release) && html.includes(cfg.mode==="mia"?"food-scanner.js?v=20261121-4":"food-scanner.js?v=20261121-6")){
    loaded=true;break;
   }
   console.log(cfg.file+": awaiting live release, attempt "+(attempt+1));
@@ -42,7 +42,13 @@ async function verify(browser,cfg){
  assert.equal(await page.locator("#foodMealChoices button").count(),4,"four meal picker buttons");
  const scanner=page.locator("#foodScanner");
  await page.locator('.bottomnav [data-nav="'+cfg.tab+'"]').click();
- await scanner.locator("#foodMealChoices button").first().waitFor({state:"visible",timeout:10000});
+ if(cfg.mode==="mia")await scanner.locator("#foodMealChoices button").first().waitFor({state:"visible",timeout:10000});
+ else {
+  await scanner.locator("#foodQuickAdd").waitFor({state:"visible",timeout:10000});
+  assert(await scanner.locator("#foodAddPanel").isHidden(),"adult add-food panel starts closed");
+  assert(await scanner.locator(".foodscan-journal").isVisible(),"adult daily journal starts visible");
+  assert.equal(await page.locator(".nutrition-settings").getAttribute("open"),null,"nutrition calculator starts collapsed");
+ }
  assert(await scanner.isVisible(),cfg.file+" scanner must be visible inside "+cfg.tab);
  const buttons=await page.locator(".bottomnav [data-nav]").all();
  for(const b of buttons){
@@ -50,8 +56,15 @@ async function verify(browser,cfg){
   assert.equal(await page.locator(".view.active").count(),1,"one active view at a time");
  }
  await page.locator('.bottomnav [data-nav="'+cfg.tab+'"]').click();
+ if(cfg.mode!=="mia"){
+  const metrics=await scanner.locator("#foodTotals").innerText();
+  assert(metrics.includes("kcal logged")&&metrics.includes("protein"),"daily totals shown before adding food");
+  const compact=await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+3);
+  assert(compact,"no horizontal overflow at 390px");
+ }
 
  // Manual entry from breakfast.
+ if(cfg.mode!=="mia")await scanner.locator("#foodQuickAdd").click();
  await scanner.locator('[data-food-meal="breakfast"]').click();
  await scanner.locator("#foodManualOpen").click();
  assert(await scanner.locator("#foodManualPanel").getAttribute("open")!==null,"manual form expands");
@@ -70,9 +83,18 @@ async function verify(browser,cfg){
  const first= scanner.locator(".foodscan-meal-group").nth(0);
  assert(await first.locator(".foodscan-entry").count()===1,"Breakfast item saved");
  assert((await first.innerText()).includes("Test yogurt"),"breakfast item displayed");
+ if(cfg.mode!=="mia")assert(await scanner.locator("#foodAddPanel").isHidden(),"manual form closes after saving");
  if(cfg.mode!=="mia"){
   const totals=await scanner.locator("#foodTotals").innerText();
   assert(totals.includes("200")&&totals.includes("30"),"manual 2-serving nutrients calculated");
+ }
+ // Check new per-meal + ADD opens the correct meal and a ready manual form.
+ if(cfg.mode!=="mia"){
+  await scanner.locator('.foodscan-meal-group').nth(1).locator('[data-food-target]').click();
+  assert(await scanner.locator("#foodAddPanel").isVisible(),"meal shortcut opens one Add Food panel");
+  assert.equal(await scanner.locator("#foodManualMeal").inputValue(),"lunch","meal shortcut selects the right meal");
+  await scanner.locator("#foodCloseAdd").click();
+  assert(await scanner.locator("#foodAddPanel").isHidden(),"close button hides entry panel");
  }
  // Move item from Breakfast to Lunch, retaining totals.
  await first.locator("select.foodscan-reassign").selectOption("lunch");
@@ -86,7 +108,8 @@ async function verify(browser,cfg){
  },cfg.key);
  await page.reload({waitUntil:"domcontentloaded"});
  await page.locator('.bottomnav [data-nav="'+cfg.tab+'"]').click();
- await scanner.locator("#foodMealChoices button").first().waitFor({state:"visible"});
+ if(cfg.mode==="mia")await scanner.locator("#foodMealChoices button").first().waitFor({state:"visible"});
+ else await scanner.locator("#foodQuickAdd").waitFor({state:"visible"});
  assert((await scanner.innerText()).includes("Earlier entries"),"legacy entries preserved");
  const last=scanner.locator(".foodscan-meal-group").last();
  await last.locator("select.foodscan-reassign").selectOption("snacks");
@@ -103,11 +126,13 @@ async function verify(browser,cfg){
  assert.equal(await scanner.locator("#foodWaterTotal").innerText(),"15.5 fl oz");
  await page.reload({waitUntil:"domcontentloaded"});
  await page.locator('.bottomnav [data-nav="'+cfg.tab+'"]').click();
- await scanner.locator("#foodMealChoices button").first().waitFor({state:"visible"});
+ if(cfg.mode==="mia")await scanner.locator("#foodMealChoices button").first().waitFor({state:"visible"});
+ else await scanner.locator("#foodQuickAdd").waitFor({state:"visible"});
  assert.equal(await scanner.locator("#foodWaterTotal").innerText(),"15.5 fl oz","water survives reload");
  assert((await scanner.innerText()).includes("Test yogurt"),"meal survives reload");
 
  // Barcode lookup and automatic scaled nutrition, with meal selected to Dinner.
+ if(cfg.mode!=="mia")await scanner.locator("#foodQuickAdd").click();
  await scanner.locator('[data-food-meal="dinner"]').click();
  await scanner.locator("#foodBarcodeInput").fill("3017620422003");
  await scanner.locator('#foodBarcodeForm button[type="submit"]').click();
@@ -115,12 +140,14 @@ async function verify(browser,cfg){
  assert((await scanner.locator("#foodScanResult h4").innerText()).includes("Test canned beans"),"barcode result");
  await scanner.locator("#foodScanSave").click();
  assert((await scanner.locator(".foodscan-meal-group").nth(2).innerText()).includes("Test canned beans"),"scanned food goes to selected dinner");
- if(cfg.mode==="forge"){
+ if(cfg.mode!=="mia"){
+  assert(await scanner.locator("#foodAddPanel").isHidden(),"adult Add Food panel closes after saving");
   assert(await scanner.locator("#foodScanResult").isHidden(),"product details close after saving");
   assert.equal(await scanner.locator("#foodBarcodeInput").inputValue(),"","barcode input clears after saving");
   assert.equal(await scanner.locator("#foodScanSave").count(),0,"previous product save button disappears, preventing duplicate saves");
   assert.equal(await scanner.locator("#foodTotals > div").first().locator("strong").innerText(),"400","daily calorie total equals manual 200 + legacy 140 + scanned 60, exactly once");
   assert.equal(await scanner.locator('.foodscan-meal-group').nth(2).locator(".foodscan-entry").count(),1,"one scanned item per save");
+  await scanner.locator("#foodQuickAdd").click();
   await scanner.locator("#foodBarcodeInput").fill("3017620422004");
   await scanner.locator('#foodBarcodeForm button[type="submit"]').click();
   await scanner.locator("#foodScanResult h4").waitFor({state:"visible",timeout:15000});

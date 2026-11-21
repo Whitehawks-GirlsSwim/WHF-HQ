@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f8f1ee"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="SAM WELLNESS">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="SAM / WELLNESS — beginner workouts, practical nutrition, daily habits and progress for healthy living.">
-<meta name="sam-release" content="signature-20261121-8"><title>SAM / WELLNESS — Signature Edition</title><style>
+<meta name="sam-release" content="signature-20261121-9"><title>SAM / WELLNESS — Signature Edition</title><style>
 :root{--ink:#26372f;--muted:#66796b;--bg:#f7f6ef;--card:#fffefa;--sage:#dfead8;--forest:#315b49;--peach:#ff9b76;--orange:#e87550;--sun:#f7cc84;--line:#dce3d7}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 100% 0,#f8e6d7 0,transparent 35%),var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif}
 button,input,select{font:inherit}button{cursor:pointer;touch-action:manipulation}button:disabled{opacity:.45;cursor:default}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f49c74;outline-offset:2px}
@@ -374,9 +374,20 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline-color:#b98
 .wellness-ideas>summary span{font-size:11px;font-weight:600;color:#927482}
 .wellness-ideas .sustain-card,.wellness-ideas>.surface{margin:11px 12px;border-radius:15px;box-shadow:none}
 .wellness-ideas>.surface:last-child{margin-bottom:13px}
-</style><link rel="stylesheet" href="./food-scanner.css?v=20261121-3"></head><body>
+
+/* Signature daily-first Eat layout, using the existing saved calculator. */
+#eat .nutrition-mini-hero{min-height:0;padding:16px 19px 17px;margin-bottom:10px;border-radius:18px}
+#eat .nutrition-mini-hero h2{font-size:27px;line-height:1.12;margin:5px 0 6px}
+#eat .nutrition-mini-hero p{font-size:11px;margin:0;line-height:1.45;max-width:none}
+#eat .nutrition-mini-hero .eyebrow{font-size:9px}
+#eat .nutrition-settings{border:1px solid #e4ceca;background:#fff8f4;border-radius:15px;overflow:hidden;margin:13px 0}
+#eat .nutrition-settings>summary{padding:15px;color:#734959;font-size:11px;font-weight:950;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer}
+#eat .nutrition-settings>summary::-webkit-details-marker{display:none}
+#eat .nutrition-settings>summary span{font-size:10px;font-weight:500;color:#9f7985}
+#eat .nutrition-settings>.surface{margin:0 9px 10px;padding:15px;box-shadow:none}
+</style><link rel="stylesheet" href="./food-scanner.css?v=20261121-4"></head><body>
 <div class="app">
-<header class="top"><div class="brand"><div class="mark" aria-hidden="true"><span class="monogram">S</span></div><div><small>THE PRIVATE WELLNESS CLUB</small><h1>SAM <span>/ WELLNESS</span></h1></div></div><div class="version">SIGNATURE <span>✦</span> 08</div></header>
+<header class="top"><div class="brand"><div class="mark" aria-hidden="true"><span class="monogram">S</span></div><div><small>THE PRIVATE WELLNESS CLUB</small><h1>SAM <span>/ WELLNESS</span></h1></div></div><div class="version">SIGNATURE <span>✦</span> 09</div></header>
 <div class="signature-update-notice" id="samUpdateNotice" role="status" hidden><span>✦ New Signature Edition available</span><button id="samUpdateNow" type="button">UPDATE NOW ↗</button></div>
 <section id="home" class="view active">
 <div class="hero"><div class="tag">✦ &nbsp; THE SIGNATURE WELLNESS EDITION</div><h2>THE ART OF<br><em>FEELING</em><br>GOOD.</h2><p>Stronger. Healthier. More you. A routine that feels like a lifestyle, not a punishment.</p><button class="btn" data-nav="move">BEGIN YOUR WORKOUT ↗</button></div>
@@ -405,7 +416,9 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline-color:#b98
 <div class="save-panel"><button class="btn full" id="saveWorkout">Finish &amp; save workout ✓</button><button class="reset" id="clearSets">Clear checked sets</button><div class="note">Aim for two strength days a week, plus walks on days that suit you.</div></div>
 </section>
 <section id="eat" class="view">
-<div class="fuel-hero"><span class="eyebrow">THE NOURISH EDIT</span><h2>Eat well. Live well.</h2><p>More balance, less all-or-nothing. No foods are off limits.</p></div>
+<div class="fuel-hero nutrition-mini-hero"><span class="eyebrow">SAM · THE NOURISH EDIT</span><h2>Your daily nourishment.</h2><p>Food and water tracking, made simple.</p></div>
+<section id="foodScanner" class="foodscan-card" data-food-mode="sam"><p>Barcode food scanner loading…</p></section>
+<details class="nutrition-settings"><summary>⚙️ NUTRITION TARGETS &amp; SETTINGS <span>Adjust your estimates ＋</span></summary>
 <div class="surface calorie-card"><span class="eyebrow">YOUR PERSONAL CALORIE STARTING POINT</span><h3 class="calorie-card-title">How many calories should I eat?</h3><p class="muted calorie-card-lead">Enter your details below to get one daily calorie recommendation for gradual weight loss. You can adjust it as your routine and weight change.</p>
 <div class="nutri-form">
 <label>Age<input id="nAge" inputmode="numeric" type="number" placeholder="Years" min="18" max="95"></label>
@@ -416,7 +429,8 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline-color:#b98
 <div id="nutriResult" class="nutri-result" aria-live="polite"><span>YOUR DAILY CALORIE TARGET</span><p>Enter your age, weight, height and activity level above to calculate your personal starting recommendation.</p></div>
 <p class="soft-note">This is a general starting estimate, not a prescribed diet or a number you must stay under. It uses a standard adult-woman metabolism equation and estimated activity. If pregnant, breastfeeding, managing a medical condition, or using medications that affect appetite or weight, check a target with a healthcare professional. There’s no need to count calories to build healthier habits.</p><details class="calorie-how"><summary>How this recommendation is calculated <span>＋</span></summary><p>We estimate resting needs using the Mifflin–St Jeor equation, multiply by your chosen activity level for maintenance, then suggest a modest reduction of roughly 300–500 calories a day where appropriate. The estimate cannot account for all medical, medication, metabolic or lifestyle factors. Recalculate after meaningful weight or activity changes.</p><p>For individualized planning, try the <a href="https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner/" rel="noopener noreferrer" target="_blank">NIH Body Weight Planner</a>.</p></details></div>
 
-<section id="foodScanner" class="foodscan-card" data-food-mode="sam"><p>Barcode food scanner loading…</p></section>
+</details>
+
 <details class="wellness-ideas"><summary>✧ MEAL IDEAS &amp; BALANCED PLATES <span>See inspiration ＋</span></summary>
 <div class="sustain-card"><div class="sustain-emoji">🌿</div><div><span>START WITH THE BASICS</span><h3>Plan meals that keep you satisfied.</h3><p>Include protein, high-fiber produce and foods you enjoy. Choose one change you can repeat for weeks, like preparing breakfast, packing lunch or swapping a sugary drink for water some days.</p><p class="sustain-tip">No crash diets. No need to be perfect on weekends.</p></div></div>
 <div class="surface"><span class="eyebrow">BUILD YOUR PLATE</span><h3 style="margin-top:6px">A simple place to start</h3><div class="plate">
@@ -442,7 +456,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline-color:#b98
 <div class="surface"><h3>Workout history</h3><div id="workoutHistory"></div></div>
 <div class="surface"><h3>Optional weight check-ins</h3><p class="muted" style="font-size:12px">If you prefer not to weigh yourself, skip this completely. How you feel and what you can do matter too.</p><div class="weight-row"><input id="weighInput" type="number" step=".1" min="80" max="700" inputmode="decimal" placeholder="Weight in lb" aria-label="Weight in pounds"><button id="addWeight" class="btn light">Save entry</button></div><div id="weightHistory" class="weight-history"></div></div>
 <div class="signature-app-settings">
-<div><span class="eyebrow">APP EDITION</span><strong>Signature 08</strong><small>Fresh updates without reinstalling</small></div>
+<div><span class="eyebrow">APP EDITION</span><strong>Signature 09</strong><small>Fresh updates without reinstalling</small></div>
 <button type="button" id="samCheckUpdate">CHECK FOR UPDATES ↻</button>
 </div>
 <div class="photo-box"><span class="eyebrow">PRIVATE PHOTO JOURNAL</span><h3 style="margin:5px 0">Your moments</h3><p class="sub">Save a photo from a walk, workout, milestone or a day you felt good. No comparisons required.</p><label class="photo-upload" for="photoInput"><span>📸</span>＋ Add a photo</label><input type="file" accept="image/*" id="photoInput" hidden>
@@ -667,7 +681,7 @@ render();
 </script><script>
 (function(){
 "use strict";
-const release=2026112108,notice=document.getElementById("samUpdateNotice"),button=document.getElementById("samCheckUpdate"),apply=document.getElementById("samUpdateNow");
+const release=2026112109,notice=document.getElementById("samUpdateNotice"),button=document.getElementById("samCheckUpdate"),apply=document.getElementById("samUpdateNow");
 let available=null,last=0;
 function feedback(t){const toast=document.getElementById("toast");if(!toast)return;toast.textContent=t;toast.style.display="block";setTimeout(()=>{if(toast.textContent===t)toast.style.display="none"},2500)}
 const cleanUrl=()=>{const u=new URL(location.href);u.searchParams.set("sam_refresh",String(Date.now()));return u};
@@ -694,4 +708,4 @@ apply.addEventListener("click",()=>{
 check(false);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-last>180000)check(false)});
 })();
-</script><script src="./food-scanner.js?v=20261121-4" defer></script></body></html>
+</script><script src="./food-scanner.js?v=20261121-6" defer></script></body></html>

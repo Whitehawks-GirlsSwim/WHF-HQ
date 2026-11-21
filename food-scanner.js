@@ -31,6 +31,75 @@ const fmt=v=>Number.isFinite(v)?r1(v).toLocaleString(undefined,{maximumFractionD
 const $=selector=>root.querySelector(selector);
 let active=null,scanner=null,reading=false,libPromise=null,cameraOn=false;
 let nameSearchResults=[],nameSearchSeq=0,nameSearchBusy=false;
+// Basic, approximate common-food estimates per 100 grams. NOT brand-specific values.
+const COMMON_FOODS=[
+ ["Ketchup","tomato ketchup catsup",100,1,25,.1,17,"1 tbsp"],
+ ["Mustard, yellow","yellow mustard",66,4,5.8,3.4,5,"1 tsp"],
+ ["Mayonnaise","mayo",680,1,1,75,14,"1 tbsp"],
+ ["Ranch dressing","ranch salad dressing",430,1,7,44,30,"2 tbsp"],
+ ["Peanut butter","nut butter pb",588,25,20,50,32,"2 tbsp"],
+ ["Banana","bananas",89,1.1,22.8,.3,118,"1 medium"],
+ ["Apple","apples",52,.3,14,.2,182,"1 medium"],
+ ["Strawberries","strawberry",32,.7,7.7,.3,150,"1 cup"],
+ ["Blueberries","blueberry",57,.7,14.5,.3,148,"1 cup"],
+ ["Avocado","avocados",160,2,8.5,14.7,75,"1/2 avocado"],
+ ["Egg, whole","egg eggs boiled scrambled",143,12.6,.7,9.5,50,"1 large"],
+ ["Chicken breast, cooked","chicken grilled breast",165,31,0,3.6,100,"100 g"],
+ ["Ground beef, cooked","ground beef hamburger meat",250,26,0,15,85,"3 oz"],
+ ["Salmon, cooked","salmon fish",206,22,0,12,85,"3 oz"],
+ ["Tuna, canned in water","tuna canned",116,25.5,0,.8,85,"3 oz"],
+ ["Rice, white cooked","white rice steamed",130,2.7,28.2,.3,158,"1 cup"],
+ ["Pasta, cooked","noodles spaghetti macaroni",157,5.8,30.9,.9,140,"1 cup"],
+ ["Oatmeal, cooked","oats porridge",71,2.5,12,1.5,234,"1 cup"],
+ ["Bread, white","white bread toast",265,9,49,3.2,28,"1 slice"],
+ ["Bread, whole wheat","whole grain bread wheat",247,13,41,4.2,28,"1 slice"],
+ ["Cheddar cheese","cheddar cheese",403,25,1.3,33,28,"1 oz"],
+ ["Cottage cheese, 2%","cottage cheese",82,11.1,3.4,2.3,113,"1/2 cup"],
+ ["Greek yogurt, plain","greek yoghurt yogurt",59,10,3.6,.4,170,"3/4 cup"],
+ ["Yogurt, plain","yogurt yoghurt",63,5.3,7,.8,170,"3/4 cup"],
+ ["Milk, 2%","milk two percent",50,3.4,4.8,2,244,"1 cup"],
+ ["Orange juice","orange juice oj",45,.7,10.4,.2,240,"1 cup"],
+ ["Potato, baked","baked potato",93,2.5,21.2,.1,173,"1 medium"],
+ ["Sweet potato, baked","sweet potatoes",90,2,20.7,.2,114,"1 medium"],
+ ["French fries","fries fried potatoes",312,3.4,41,15,85,"3 oz"],
+ ["Potato chips","chips crisps",536,7,53,35,28,"1 oz"],
+ ["Broccoli, cooked","broccoli",35,2.4,7.2,.4,91,"1 cup"],
+ ["Coffee, black","coffee plain",1,0,0,0,240,"1 cup"],
+ ["Cola, regular","soda pop coke",42,0,10.6,0,355,"12 fl oz"],
+ ["Soda, zero sugar","coke zero diet soda",0,0,0,0,355,"12 fl oz"],
+ ["Butter","butter",717,.9,.1,81,14,"1 tbsp"],
+ ["Honey","honey",304,.3,82.4,0,21,"1 tbsp"],
+ ["Pizza, cheese","cheese pizza",266,11,33,10,107,"1 slice"]
+];
+function basicFoodMatches(query){
+ const q=query.toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+ if(q.length<2)return [];
+ return COMMON_FOODS.map(([name,aliases,cal,protein,carbs,fat,grams,label])=>{
+  const words=(name+" "+aliases).toLowerCase(),terms=q.split(" ").filter(t=>t.length>1),n=name.toLowerCase();
+  const score=n===q?6:n.startsWith(q)?5:words.includes(q)?4:
+     terms.length&&terms.every(t=>words.includes(t))?2:q.length>=4&&q.includes(n)?1:0;
+  return score?{score,product:{
+   product_name:name+" (generic estimate)",brands:"Typical estimate · verify your label",
+   serving_size:label+" ("+grams+" g)",serving_quantity:grams,
+   nutriments:{"energy-kcal_100g":cal,"proteins_100g":protein,"carbohydrates_100g":carbs,"fat_100g":fat},
+   _basic_estimate:true
+  }}:null;
+ }).filter(Boolean).sort((a,b)=>b.score-a.score).slice(0,5).map(x=>x.product);
+}
+function renderNameMatches(items,statusText){
+ const list=$("#foodNameSearchResults"),status=$("#foodNameSearchStatus");
+ nameSearchResults=items;
+ if(!items.length){list.hidden=true;list.replaceChildren();status.textContent=statusText;return}
+ list.innerHTML=items.map((p,i)=>{
+  const info=freshProduct(p,p.code||"");
+  const cals=Math.round(info.calories*info.amount/100);
+  const serving=info.serving||fmt(info.amount)+" g/mL";
+  return '<button type="button" data-food-name-result="'+i+'" class="foodscan-name-hit"><span><b>'+
+    safe(p.product_name||p.product_name_en)+'</b><small>'+safe(info.brand||"Food")+' · '+safe(serving)+
+    '</small></span><strong>'+cals+' <em>cal</em></strong></button>';
+ }).join("");
+ list.hidden=false;status.textContent=statusText;
+}
 root.innerHTML=
 '<div class="foodscan-head"><div class="foodscan-kicker">'+(teen?'FUEL SMARTER · FOOD SCANNER':forge?'THE NUTRITION LAB · SCAN TO FUEL':'THE NOURISH EDIT · FOOD SCANNER')+'</div>'+
 '<h3>'+(teen?'Fuel the whole day.':forge?'Scan. Fuel. Perform.':'Scan your food.')+'</h3>'+
@@ -87,7 +156,7 @@ function setupQuickJournal(){
  panel.className="foodscan-add-panel";
  panel.id="foodAddPanel";panel.hidden=true;
  panel.innerHTML='<div class="foodscan-add-top"><strong>ADD A FOOD</strong><button type="button" id="foodCloseAdd" aria-label="Close food entry">✕ CLOSE</button></div>';
- const parts=[".foodscan-head",".foodscan-meal-picker",".foodscan-actions","#foodManualPanel",".foodscan-photo-row","#foodCameraArea","#foodImageFile","#foodBarcodeForm","#foodScanStatus","#foodScanResult"];
+ const parts=[".foodscan-meal-picker",".foodscan-actions","#foodManualPanel",".foodscan-photo-row","#foodCameraArea","#foodImageFile","#foodBarcodeForm","#foodScanStatus","#foodScanResult"];
  for(const selector of parts){const el=$(selector);if(el)panel.append(el)}
  const search=document.createElement("div");
  search.className="foodscan-name-search";
@@ -111,7 +180,7 @@ function setupQuickJournal(){
  prefs.innerHTML="<summary>Food history, backups & data privacy ＋</summary>";
  prefs.append($(".foodscan-storage"),$(".foodscan-source"));
  root.append(prefs);
- $("#foodQuickAdd").addEventListener("click",()=>openQuickAdd("manual"));
+ $("#foodQuickAdd").addEventListener("click",()=>openQuickAdd("search"));
  $("#foodCloseAdd").addEventListener("click",closeQuickAdd);
 }
 function openQuickAdd(which){

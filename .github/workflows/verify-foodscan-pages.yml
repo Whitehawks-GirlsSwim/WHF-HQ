@@ -27,15 +27,21 @@ jobs:
             if [ "$success" -eq 1 ]; then
               for filename in mia.html sam.html sam-signature.html forge.html; do
                 grep -Fq 'id="foodScanner"' "/tmp/$filename" || success=0
-                grep -Fq './food-scanner.js?v=20261121-1' "/tmp/$filename" || success=0
-                grep -Fq './food-scanner.css?v=20261121-1' "/tmp/$filename" || success=0
+                grep -Fq './food-scanner.js?v=20261121-2' "/tmp/$filename" || success=0
+                grep -Fq './food-scanner.css?v=20261121-2' "/tmp/$filename" || success=0
               done
-              grep -Fq 'signature-20261121-4' /tmp/sam.html || success=0
-              grep -Fq 'signature-20261121-4' /tmp/sam-signature.html || success=0
-              grep -Fq 'foodscan-20261121-1' /tmp/mia.html || success=0
-              grep -Fq 'forge-release" content="2026112102"' /tmp/forge.html || success=0
+              grep -Fq 'signature-20261121-5' /tmp/sam.html || success=0
+              grep -Fq 'signature-20261121-5' /tmp/sam-signature.html || success=0
+              grep -Fq 'foodscan-20261121-2' /tmp/mia.html || success=0
+              grep -Fq 'forge-release" content="2026112103"' /tmp/forge.html || success=0
               grep -Fq 'world.openfoodfacts.org/api/v2/product/' /tmp/food-scanner.js || success=0
               grep -Fq 'foodscan-journal' /tmp/food-scanner.css || success=0
+              grep -Fq 'id="foodMealChoices"' /tmp/food-scanner.js || success=0
+              grep -Fq 'const mealId=' /tmp/food-scanner.js || success=0
+              grep -Fq 'data-food-target=' /tmp/food-scanner.js || success=0
+              grep -Fq 'mia-food-meals-v1' /tmp/food-scanner.js || success=0
+              grep -Fq '.foodscan-meal-choices' /tmp/food-scanner.css || success=0
+              grep -Fq 'foodSaveMeal' /tmp/food-scanner.js || success=0
             fi
             if [ "$success" -eq 1 ]; then echo "ALL SIX LIVE ASSETS HAVE LATEST SCANNER CODE"; break; fi
             sleep 8

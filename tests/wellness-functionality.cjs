@@ -2,7 +2,7 @@ const { chromium }=require("playwright-core");
 const assert=require("node:assert/strict");
 const BASE="https://whitehawks-girlsswim.github.io/WHF-HQ/";
 const APPS=[
- {file:"mia.html",mode:"mia",tab:"fuel",key:"mia-food-meals-v1",release:"foodscan-20261121-4"},
+ {file:"mia.html",mode:"mia",tab:"fuel",key:"mia-food-meals-v1",release:"macros-20261121-1"},
  {file:"sam.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-11"},
  {file:"sam-signature.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-11"},
  {file:"forge.html",mode:"forge",tab:"fuel",key:"forge-food-diary-v1",release:"2026112108"}
@@ -36,7 +36,7 @@ async function verify(browser,cfg){
  for(let attempt=0;attempt<17;attempt++){
   const response=await page.goto(BASE+cfg.file+"?e2e="+Date.now()+"-"+attempt,{waitUntil:"domcontentloaded",timeout:30000});
   const html=await page.content();
-  if(response?.status()===200 && html.includes(cfg.release) && html.includes(cfg.mode==="mia"?"food-scanner.js?v=20261121-4":"food-scanner.js?v=20261121-8")){
+  if(response?.status()===200 && html.includes(cfg.release) && html.includes(cfg.mode==="mia"?"food-scanner.js?v=20261121-9":"food-scanner.js?v=20261121-8")){
    loaded=true;break;
   }
   console.log(cfg.file+": awaiting live release, attempt "+(attempt+1));
@@ -79,6 +79,10 @@ async function verify(browser,cfg){
  await scanner.locator("#foodManualName").fill("Test yogurt");
  if(cfg.mode==="mia"){
   assert.equal(await scanner.locator("#foodManualCal").count(),0,"teen manual entry must not count calories");
+  await scanner.locator("#foodManualServings").fill("2");
+  await scanner.locator("#foodManualCarbs").fill("20");
+  await scanner.locator("#foodManualProtein").fill("8");
+  await scanner.locator("#foodManualFat").fill("5");
   await scanner.locator("#foodManualNote").fill("After morning training");
  }else{
   await scanner.locator("#foodManualServings").fill("2");
@@ -95,6 +99,13 @@ async function verify(browser,cfg){
  if(cfg.mode!=="mia"){
   const totals=await scanner.locator("#foodTotals").innerText();
   assert(totals.includes("200")&&totals.includes("30"),"manual 2-serving nutrients calculated");
+ }else{
+  const tiles=await scanner.locator("#teenMacroTotals").innerText();
+  assert(tiles.includes("40 g")&&tiles.includes("16 g")&&tiles.includes("10 g"),"Mia daily manual macro totals must scale by servings");
+  assert((await first.innerText()).includes("C: 40g")&&(await first.innerText()).includes("P: 16g")&&(await first.innerText()).includes("F: 10g"),"Mia breakfast shows actual carbs protein fat");
+  const row=await page.evaluate(key=>JSON.parse(localStorage.getItem(key))[0],cfg.key);
+  assert.equal(row.calories,null,"Mia manual macro save must not record calories");
+  assert.equal(row.carbs,40);assert.equal(row.protein,16);assert.equal(row.fat,10);
  }
  // Check new per-meal + ADD opens the correct meal and a ready manual form.
  if(cfg.mode!=="mia"){
@@ -149,6 +160,12 @@ async function verify(browser,cfg){
  assert((await scanner.locator("#foodScanResult h4").innerText()).includes("Test canned beans"),"barcode result");
  await scanner.locator("#foodScanSave").click();
  assert((await scanner.locator(".foodscan-meal-group").nth(2).innerText()).includes("Test canned beans"),"scanned food goes to selected dinner");
+ if(cfg.mode==="mia"){
+  assert(await scanner.locator("#foodScanResult").isHidden(),"Mia barcode result resets after save, preventing duplicates");
+  const tiles=await scanner.locator("#teenMacroTotals").innerText();
+  assert(tiles.includes("71 g")&&tiles.includes("25 g")&&tiles.includes("14 g"),"Mia combines breakfast, earlier snacks, and scanned dinner macros without double counting");
+  assert.equal(await scanner.locator("#foodTotals").count(),0,"Mia has no calorie totals");
+ }
  if(cfg.mode!=="mia"){
   assert(await scanner.locator("#foodAddPanel").isHidden(),"adult Add Food panel closes after saving");
   assert(await scanner.locator("#foodScanResult").isHidden(),"product details close after saving");
@@ -181,6 +198,24 @@ async function verify(browser,cfg){
   assert.equal(await scanner.locator("#foodTotals").count(),0,"no calorie total for minor");
   assert.equal(await scanner.locator("#foodManualCal").count(),0,"no calorie input for minor");
   assert.equal(await scanner.locator("#foodScanResult #foodItemCal").count(),0,"no barcode calorie input for minor");
+  assert.equal(await page.locator(".mia-macro-reference").getAttribute("open"),null,"optional weight-based fuel guide starts collapsed");
+  assert((await scanner.locator("#teenMacroTotals").innerText()).includes("CARBS"),"daily macro overview is visible");
+  const yesterday=await page.evaluate(key=>{
+   const d=new Date();d.setDate(d.getDate()-1);
+   const day=new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10);
+   const items=JSON.parse(localStorage.getItem(key));
+   items.push({id:898989,date:day,name:"Last-day recovery sandwich",amount:1,source:"manual",meal:"dinner",calories:null,carbs:75,protein:32,fat:15});
+   localStorage.setItem(key,JSON.stringify(items));return day;
+  },cfg.key);
+  await page.reload({waitUntil:"domcontentloaded"});
+  await page.locator('.bottomnav [data-nav="'+cfg.tab+'"]').click();
+  await scanner.locator("#teenMacroTotals").waitFor({state:"visible"});
+  assert((await scanner.locator("#teenMacroTotals").innerText()).includes("71 g"),"Mia's current-day totals are unchanged by prior days");
+  await scanner.locator(".teen-macro-history summary").click();
+  const history=await scanner.locator("#teenMacroHistoryEntries").innerText();
+  assert(history.includes("75 g")&&history.includes("32 g")&&history.includes("15 g"),"previous days display saved macro grams");
+  assert(!history.toLowerCase().includes("calor"),"teen macro history does not show calories");
+  assert(yesterday.length===10);
  }
  // Remove one food entry to check deletion is functional.
  const dinner=scanner.locator(".foodscan-meal-group").nth(2);

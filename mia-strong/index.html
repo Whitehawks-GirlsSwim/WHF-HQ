@@ -250,6 +250,22 @@ body{background:radial-gradient(ellipse at 30% -100px,#c7f9ff 0,transparent 42%)
 .set{font-size:10px}.training-tools{flex-direction:column;align-items:stretch}
 }
 
+
+.warmup-hint{display:flex;align-items:center;gap:8px;background:#e8ffda;color:#336b52;border:1px solid #b5e7b0;border-radius:12px;padding:9px 11px;font-size:11px;font-weight:850;line-height:1.3;margin:2px 0 14px}
+.warmup-hint span:first-child{font-size:18px}
+.history-session{border:1px solid #b7e1eb;background:#f3fcff;border-radius:14px;margin:8px 0;overflow:hidden}
+.history-session summary{display:flex;align-items:center;justify-content:space-between;padding:14px;cursor:pointer;gap:8px;list-style:none}
+.history-session summary::-webkit-details-marker{display:none}
+.history-session summary span{display:grid;gap:4px}
+.history-session summary b{font-size:13px;color:#12384f}
+.history-session summary small{font-size:11px;color:#668398}
+.history-session summary strong{font-size:11px;white-space:nowrap;color:#1187a1}
+.history-session summary strong span{display:inline;margin-left:5px;font-size:17px}
+.history-detail{border-top:1px solid #c8e7f0;padding:3px 13px 9px;background:#fff}
+.history-detail>div{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid #e5eff5;font-size:11px;color:#275c76}
+.history-detail>div:last-child{border-bottom:0}
+.history-detail b{color:#0d4b66;text-align:right}
+
 </style>
 </head>
 <body>
@@ -276,7 +292,7 @@ body{background:radial-gradient(ellipse at 30% -100px,#c7f9ff 0,transparent 42%)
 <section id="workouts" class="view">
 <div class="section-kicker">LET'S GET MOVING</div>
 <div class="train-top"><h2>Today's workout</h2><button class="help-link" data-nav="learn">Gym tips ?</button></div>
-<p class="muted train-intro">One move at a time. Follow the steps, pick a weight and check off each set.</p>
+<p class="muted train-intro">One move at a time. Follow the steps, pick a weight and check off each set.</p><div class="warmup-hint"><span>⚡</span><span>FIRST: 5–10 min easy warm-up, then a few practice reps.</span></div>
 <div class="workoutPick" role="group" aria-label="Choose your workout">
 <button id="pickA" class="pick active" data-day="A">A · Starts + Turns</button><button id="pickB" class="pick" data-day="B">B · Pull + Core</button></div>
 <div class="train-status"><div class="toprow"><div><div class="overline">YOUR SESSION</div><h3 id="workoutName">START + TURN POWER</h3></div><span class="pill" id="setCount">0 / 12 SETS</span></div>
@@ -290,7 +306,7 @@ body{background:radial-gradient(ellipse at 30% -100px,#c7f9ff 0,transparent 42%)
 </section>
 <section id="progressView" class="view">
 <div class="overline">KEEP SHOWING UP</div><h2 style="margin:7px 0">YOUR PROGRESS</h2><div class="stats"><div class="stat"><b id="sessionsTotal">0</b><span>WORKOUTS</span></div><div class="stat"><b id="setsTotal">0</b><span>SETS DONE</span></div><div class="stat"><b id="movesTotal">12</b><span>EXERCISES</span></div></div>
-<div class="card"><h3>Workout history</h3><p class="muted">Your sessions are stored on this phone.</p><div id="historyList" class="history"></div></div>
+<div class="card"><h3>Workout history</h3><p class="muted">Tap a session to see the weights and exercises you completed.</p><div id="historyList" class="history"></div></div>
 <div class="card"><button class="btn secondary full" id="copyHistory">COPY HISTORY TO NOTES</button></div>
 </section>
 <section id="fuel" class="view">
@@ -317,7 +333,7 @@ body{background:radial-gradient(ellipse at 30% -100px,#c7f9ff 0,transparent 42%)
 <div class="card"><h3>Good nutrition is more than macros.</h3><p>Include varied foods with iron, calcium, vitamin D and healthy fats. Fatigue, recurrent injury, missed periods or persistent low energy are reasons to talk with a health professional or sports dietitian, not to cut food.</p><div class="line"></div><div class="footnote">Sources: <a href="https://www.swimming.org.au/performance/athlete-resources/body-empowerment/for-swimmers" target="_blank" rel="noopener noreferrer">Swimming Australia</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11587028/" target="_blank" rel="noopener noreferrer">Youth athlete nutrition review</a> · <a href="https://www.healthychildren.org/English/healthy-living/nutrition/Pages/Sports-Nutrition-for-Busy-Families-and-Busy-Lifestyles.aspx" target="_blank" rel="noopener noreferrer">American Academy of Pediatrics</a></div></div>
 </section>
 <section id="learn" class="view">
-<div class="overline">BEFORE YOU LIFT</div><h2 style="margin:7px 0">GYM PLAYBOOK</h2>
+<button class="help-link" data-nav="workouts" style="margin:4px 0 15px">← Back to workout</button><div class="overline">BEFORE YOU LIFT</div><h2 style="margin:7px 0">GYM PLAYBOOK</h2>
 <div class="card"><h3>01 · Warm up</h3><p>5–10 minutes of easy cycling or walking, followed by a few controlled practice reps for the first exercise.</p></div>
 <div class="card"><h3>02 · Find your starting weight</h3><p>Suggested weights are just a place to start. Use one that leaves 3–4 clean reps in reserve. Machines don't all feel the same.</p></div>
 <div class="card"><h3>03 · Your sets</h3><p>Two sets per exercise. Rest about 60–90 seconds between them. Keep every movement smooth and controlled.</p></div>
@@ -375,9 +391,14 @@ function drawWorkouts(){
   x("previousMove").disabled=mi===0;x("nextMove").textContent=mi===items.length-1?"Review workout ✓":"Next move →";
 }
 function drawProgress(){
-var total=s.sessions.reduce(function(a,b){return a+b.sets},0);x("sessionsTotal").textContent=s.sessions.length;x("setsTotal").textContent=total;x("homeSessionCount").textContent=s.sessions.length+(s.sessions.length===1?" session":" sessions");
-x("lastSession").textContent=s.sessions.length?s.sessions[0].label+" · "+new Date(s.sessions[0].date).toLocaleDateString()+" · "+s.sessions[0].sets+" sets completed":"Your completed sessions will show here.";
-x("historyList").innerHTML=s.sessions.length?s.sessions.map(function(it){return '<div class="historyItem"><div><b>'+escapeText(it.label)+'</b><div class="muted" style="font-size:12px">'+new Date(it.date).toLocaleDateString()+'</div></div><span class="pill">'+it.sets+' SETS</span></div>'}).join(""):'<div class="empty">No logged workouts yet.<br>Start with Workout A!</div>';
+  const total=s.sessions.reduce((a,b)=>a+b.sets,0);
+  x("sessionsTotal").textContent=s.sessions.length;
+  x("setsTotal").textContent=total;
+  x("homeSessionCount").textContent=s.sessions.length+(s.sessions.length===1?" session":" sessions");
+  x("lastSession").textContent=s.sessions.length?s.sessions[0].label+" · "+new Date(s.sessions[0].date).toLocaleDateString()+" · "+s.sessions[0].sets+" sets completed":"Your completed sessions will show here.";
+  x("historyList").innerHTML=s.sessions.length?s.sessions.map(it=>
+    `<details class="history-session"><summary><span><b>${escapeText(it.label)}</b><small>${new Date(it.date).toLocaleDateString()}</small></span><strong>${it.sets} SETS <span>⌄</span></strong></summary>
+    <div class="history-detail">${(it.used||[]).filter(e=>e.sets).map(e=>`<div><span>${escapeText(e.exercise)}</span><b>${escapeText(e.weight)} ${escapeText(e.unit)} · ${e.sets} set${e.sets===1?"":"s"}</b></div>`).join("")}</div></details>`).join(""):'<div class="empty">No saved sessions yet. Head to Train and start Workout A.</div>';
 }
 function show(tab){
 document.querySelectorAll(".view").forEach(function(el){el.classList.toggle("active",el.id===tab)});

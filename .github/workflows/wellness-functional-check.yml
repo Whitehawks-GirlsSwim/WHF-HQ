@@ -3,6 +3,13 @@ on:
   push:
     paths:
       - '.github/workflows/wellness-functional-check.yml'
+      - 'tests/wellness-functionality.cjs'
+      - 'food-scanner.js'
+      - 'food-scanner.css'
+      - 'mia.html'
+      - 'sam.html'
+      - 'sam-signature.html'
+      - 'forge.html'
   workflow_dispatch:
 permissions:
   contents: read

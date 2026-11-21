@@ -118,6 +118,11 @@ html{background:#0b0c0e}
 }
 
 
+
+.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:13px 0}
+.backup-actions .btn{padding:11px 8px;min-height:52px;font-size:11px}
+@media(max-width:350px){.backup-actions{grid-template-columns:1fr}}
+
 </style></head><body>
 <div class="app">
 <header class="top"><div class="brand"><div class="logo" aria-hidden="true">F</div><div><small>PRIVATE PERFORMANCE CLUB</small><strong>FORGE <span style="color:#cdb380">/ ATHLETIC</span></strong></div></div><div class="member">MEMBER 001</div></header>
@@ -180,6 +185,13 @@ html{background:#0b0c0e}
 <label for="photoInput" class="photo-upload"><span>◫</span>＋ TAKE OR CHOOSE PHOTO</label><input id="photoInput" type="file" accept="image/*" hidden>
 <div class="photo-preview" id="photoPreview" hidden><img id="previewImg" alt="Chosen photo"><input id="photoNote" maxlength="110" type="text" placeholder="Optional note about this moment"><div style="display:grid;grid-template-columns:1fr 1fr;gap:9px"><button class="btn" id="photoSave">SAVE PHOTO</button><button class="btn dark" id="photoCancel">CANCEL</button></div></div>
 <div class="photo-grid" id="photoGrid"></div><p class="disclaimer" id="photoError"></p><p class="disclaimer">Keep your originals in Photos. Clearing browser data or changing devices may erase this journal.</p></div>
+<div class="surface" id="backupSection">
+ <span class="eyebrow">PROTECT YOUR PROGRESS</span><h3 style="margin:7px 0">Save a backup</h3>
+ <p class="muted" style="font-size:12px">Your app stores nutrition settings, workouts, protein entries, and weigh-ins on this device. Back them up before removing a Home Screen icon, clearing website data, or changing phones.</p>
+ <div class="backup-actions"><button class="btn" type="button" id="backupExport">SAVE MY DATA</button><button class="btn outline" type="button" id="backupImportButton">RESTORE BACKUP</button></div>
+ <input id="backupImportFile" hidden type="file" accept=".json,application/json" aria-label="Select a previously saved FORGE data backup">
+ <p class="disclaimer">The backup contains personal fitness and nutrition data. Save it somewhere private, such as Files. Photos are not included; save those individually from the photo journal.</p>
+</div>
 </section>
 </div>
 <nav class="bottomnav" aria-label="Main navigation"><div class="navinner"><button class="active" data-nav="home"><span>⌂</span>HOME</button><button data-nav="train"><span>↗</span>TRAIN</button><button data-nav="fuel"><span>◉</span>FUEL</button><button data-nav="track"><span>▥</span>TRACK</button></div></nav>
@@ -448,6 +460,42 @@ $("copyLog").onclick=()=>{
  if(navigator.clipboard?.writeText)navigator.clipboard.writeText(text).then(()=>toast("HISTORY COPIED."),()=>toast("Copy unavailable in this browser."));
  else toast("Copy unavailable in this browser.");
 };
+
+/* One-tap user-controlled data backup to avoid losing device-only records. */
+$("backupExport").addEventListener("click",async()=>{
+ try{
+  const payload={format:"forge-athletic-backup-v1",savedAt:new Date().toISOString(),data:s};
+  const stamp=localDate(),blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+  const file=new File([blob],"FORGE-backup-"+stamp+".json",{type:"application/json"});
+  if(navigator.share&&navigator.canShare?.({files:[file]})){
+   try{await navigator.share({files:[file],title:"FORGE private fitness backup"});toast("BACKUP SHARED.");return}
+   catch(e){if(e?.name==="AbortError")return}
+  }
+  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=file.name;a.style.display="none";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),12000);toast("SAVE THE BACKUP TO FILES.");
+ }catch(e){toast("BACKUP COULDN'T BE SAVED.")}
+});
+$("backupImportButton").addEventListener("click",()=>$("backupImportFile").click());
+$("backupImportFile").addEventListener("change",async()=>{
+ const input=$("backupImportFile"),file=input.files&&input.files[0];if(!file)return;
+ try{
+  if(file.size>5000000)throw Error("File is too large");
+  const payload=JSON.parse(await file.text()),d=payload.data;
+  if(payload.format!=="forge-athletic-backup-v1"||!d||!Array.isArray(d.sessions)||!Array.isArray(d.weighs)||typeof d.nutrition!=="object"||!d.nutrition||typeof d.protein!=="object"||!d.protein)throw Error("Not a FORGE backup");
+  if(!confirm("Restore this FORGE backup? It will replace the current workouts, weigh-ins and nutrition entries in this app. Photo journal images are not included."))return;
+  s.location=["home","gym"].includes(d.location)?d.location:"home";
+  s.phase=["foundation","build"].includes(d.phase)?d.phase:"foundation";
+  s.day=["UA","LA","UB","LB"].includes(d.day)?d.day:"UA";
+  for(const k of ["move","checks","weights","habits","nutrition","protein"]){
+   s[k]=d[k]&&typeof d[k]==="object"&&!Array.isArray(d[k])?d[k]:{};
+  }
+  s.sessions=d.sessions.slice(0,150);
+  s.weighs=d.weighs.slice(0,150);
+  nutritionFields.forEach(id=>$(id).value=s.nutrition[id]??"");
+  persist();renderHabits();renderTrain();renderNutrition();renderTrack();toast("FORGE DATA RESTORED.");
+ }catch(e){toast("THAT BACKUP COULD NOT BE OPENED.")}
+ finally{input.value=""}
+});
+
 renderHabits();renderTrain();renderNutrition();renderTrack();
 })();</script><script>
 (function(){

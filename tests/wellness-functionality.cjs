@@ -35,13 +35,14 @@ async function verify(browser,cfg){
   await sleep(9000);
  }
  assert(loaded,cfg.file+" release not served after retry");
- await page.locator("#foodMealChoices button").first().waitFor({state:"visible",timeout:30000});
+ await page.locator("#foodMealChoices button").first().waitFor({state:"attached",timeout:30000});
  const version=await page.locator("#foodScanner").getAttribute("data-food-mode");
  assert.equal(version,cfg.mode);
  assert.equal(await page.locator(".bottomnav [data-nav]").count(),4,"main bottom tab count must remain four");
  assert.equal(await page.locator("#foodMealChoices button").count(),4,"four meal picker buttons");
  const scanner=page.locator("#foodScanner");
  await page.locator('.bottomnav [data-nav="'+cfg.tab+'"]').click();
+ await scanner.locator("#foodMealChoices button").first().waitFor({state:"visible",timeout:10000});
  assert(await scanner.isVisible(),cfg.file+" scanner must be visible inside "+cfg.tab);
  const buttons=await page.locator(".bottomnav [data-nav]").all();
  for(const b of buttons){

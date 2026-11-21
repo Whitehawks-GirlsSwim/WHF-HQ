@@ -27,3 +27,8 @@ jobs:
           grep -Fq 'id="backupExport"' /tmp/forge-live.html
           grep -Fq 'padding:20px 17px calc(125px + env(safe-area-inset-bottom, 0px))' /tmp/forge-live.html
           ! grep -Fq 'max(104px' /tmp/forge-live.html
+          echo "NEW RELEASE MARKER:"
+          if grep -Fq 'name="forge-release" content="2026112101"' /tmp/forge-live.html; then echo 'RELEASE 2026112101: LIVE'; else echo 'RELEASE 2026112101: NOT LIVE'; fi
+          if grep -Fq 'id="forgeCheckUpdate"' /tmp/forge-live.html; then echo 'IN-APP REFRESH CONTROL: LIVE'; else echo 'IN-APP REFRESH CONTROL: MISSING'; fi
+          grep -Fq 'name="forge-release" content="2026112101"' /tmp/forge-live.html
+          grep -Fq 'id="forgeCheckUpdate"' /tmp/forge-live.html

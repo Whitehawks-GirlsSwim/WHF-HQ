@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0c0e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="FORGE ATHLETIC"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="FORGE ATHLETIC: premium strength training, muscle preservation, fueling, and private progress."><meta name="forge-release" content="2026112103"><title>FORGE / ATHLETIC — Private Performance Club</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0c0e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="FORGE ATHLETIC"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="FORGE ATHLETIC: premium strength training, muscle preservation, fueling, and private progress."><meta name="forge-release" content="2026112104"><title>FORGE / ATHLETIC — Private Performance Club</title><style>
 :root{--bg:#0b0c0e;--panel:#15171a;--panel2:#1a1c20;--gold:#d9bf87;--gold2:#f8e2ac;--muted:#91959d;--text:#f3f0e8;--line:#303136;--ok:#b2dfa9}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);background:radial-gradient(ellipse at 80% -20%,#302a20 0%,transparent 43%),var(--bg);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 button,input,select{font:inherit}button{touch-action:manipulation;cursor:pointer}button:disabled{opacity:.45;cursor:default}input,select{color-scheme:dark}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}a{color:var(--gold2)}
@@ -132,7 +132,13 @@ html{background:#0b0c0e}
 .update-controls button{background:transparent;color:#dfc28b;border:1px solid #6c5c3c;border-radius:10px;padding:10px 12px;font-size:11px;font-weight:950}
 .update-controls span{font-size:10px;color:#9c9383}
 @media(max-width:355px){.update-strip{flex-wrap:wrap}.update-strip button{width:100%}}
-</style><link rel="stylesheet" href="./food-scanner.css?v=20261121-2"></head><body>
+
+.forge-quick-protein,.forge-fuel-ideas{background:#1a1c1e;border:1px solid #64583f;border-radius:15px;margin:13px 0;overflow:hidden}
+.forge-quick-protein>summary,.forge-fuel-ideas>summary{padding:14px 15px;color:#e6d4af;font-size:11px;letter-spacing:.6px;font-weight:950;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:9px}
+.forge-quick-protein>summary::-webkit-details-marker,.forge-fuel-ideas>summary::-webkit-details-marker{display:none}
+.forge-quick-protein>summary span,.forge-fuel-ideas>summary span{font-size:10px;letter-spacing:0;color:#b5a386;font-weight:500}
+.forge-quick-protein>.surface,.forge-fuel-ideas>.surface{margin:0 10px 11px;box-shadow:none;border-color:#4b4539}
+</style><link rel="stylesheet" href="./food-scanner.css?v=20261121-3"></head><body>
 <div class="app">
 <header class="top"><div class="brand"><div class="logo" aria-hidden="true">F</div><div><small>PRIVATE PERFORMANCE CLUB</small><strong>FORGE <span style="color:#cdb380">/ ATHLETIC</span></strong></div></div><div class="member">MEMBER 001</div></header>
 <div class="update-strip" id="forgeUpdateNotice" role="status" hidden>
@@ -175,17 +181,21 @@ html{background:#0b0c0e}
 <p class="disclaimer">Estimates are not prescriptions and don't account for all medical conditions, medications or changes in appetite. Discuss calorie and protein targets with your clinician, especially with kidney disease, very low intake, vomiting or dehydration. <a href="https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner" target="_blank" rel="noopener noreferrer">NIH Body Weight Planner ↗</a></p>
 </div>
 <section id="foodScanner" class="foodscan-card" data-food-mode="forge"><p>Barcode food scanner loading…</p></section>
-<div class="surface protein-tracker"><span class="eyebrow">PROTEIN PERFORMANCE</span><h3 style="margin:6px 0">Your daily protein log</h3><div class="tracker-number"><span id="proteinTotal">0</span><small> g eaten today <span id="proteinGoalText"></span></small></div>
+<details class="forge-quick-protein"><summary>＋ QUICK PROTEIN ENTRY <span>For protein not in your food journal</span></summary>
+<div class="surface protein-tracker"><span class="eyebrow">PROTEIN PERFORMANCE</span><h3 style="margin:6px 0">Daily protein total</h3><div class="tracker-number"><span id="proteinTotal">0</span><small> g eaten today <span id="proteinGoalText"></span></small></div>
 <div class="protein-bar"><i id="proteinFill"></i></div>
 <div class="protein-buttons"><button data-protein="25">+25 g</button><button data-protein="35">+35 g</button><button data-protein="50">+50 g</button></div>
 <div class="protein-custom"><input id="proteinCustom" type="number" min="1" max="150" inputmode="numeric" placeholder="Custom grams" aria-label="Protein grams"><button class="btn small" id="proteinAdd">ADD</button></div>
-<button class="btn small outline" id="proteinUndo">Undo last entry</button><p class="disclaimer">Use food labels or your usual estimate. This is a simple log, not an exact food database. Resets each day.</p></div>
+<button class="btn small outline" id="proteinUndo">Undo last entry</button><p class="disclaimer">This total includes protein from scanned/manual foods and these quick-add entries. Do not add the same food twice. Quick-add is for protein you have not entered in your food journal.</p></div>
+</details>
+<details class="forge-fuel-ideas"><summary>✧ PROTEIN-FIRST MEAL IDEAS <span>Explore ＋</span></summary>
 <div class="surface"><span class="eyebrow">EAT FOR STRENGTH</span><h3 style="margin:7px 0">Protein-first meal ideas</h3><div class="meal-options">
 <div class="meal-option"><span>🍳</span><div><b>Breakfast</b><small>Eggs + Greek yogurt, or protein oats with berries</small></div></div>
 <div class="meal-option"><span>🥩</span><div><b>Lunch</b><small>Chicken, turkey, tofu or tuna with rice + vegetables</small></div></div>
 <div class="meal-option"><span>🥣</span><div><b>When appetite is low</b><small>Greek yogurt, cottage cheese or a smoothie with protein</small></div></div>
 <div class="meal-option"><span>🐟</span><div><b>Dinner</b><small>Salmon, lean beef, beans or poultry + potatoes + greens</small></div></div>
 </div></div>
+</details>
 <div class="advice"><strong>ON WEGOVY:</strong> Protein plus progressive lifting can help reduce muscle loss during weight reduction. Smaller meals may be easier when appetite is low. Eat enough to recover, drink regularly, and don't force a hard workout when feeling unwell. Persistent vomiting or trouble keeping fluids down warrants prompt medical advice; severe persistent abdominal pain warrants urgent evaluation.</div>
 <div class="disclaimer">References: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13237850/" target="_blank" rel="noopener noreferrer">GLP-1 nutrition advisory</a> · <a href="https://www.cdc.gov/physical-activity-basics/guidelines/adults.html" target="_blank" rel="noopener noreferrer">CDC activity guidance</a> · <a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ee06186f-2aa3-4990-a760-757579d8f77b" target="_blank" rel="noopener noreferrer">Wegovy safety information</a></div>
 </section>
@@ -203,9 +213,9 @@ html{background:#0b0c0e}
  <span class="eyebrow">PROTECT YOUR PROGRESS</span><h3 style="margin:7px 0">Save a backup</h3>
  <p class="muted" style="font-size:12px">Your app stores nutrition settings, workouts, protein entries, and weigh-ins on this device. Back them up before removing a Home Screen icon, clearing website data, or changing phones.</p>
  <div class="backup-actions"><button class="btn" type="button" id="backupExport">SAVE MY DATA</button><button class="btn outline" type="button" id="backupImportButton">RESTORE BACKUP</button></div>
- <div class="update-controls"><button id="forgeCheckUpdate" type="button">CHECK FOR APP UPDATES ↻</button><span>Build 2026.11.21.03</span></div>
+ <div class="update-controls"><button id="forgeCheckUpdate" type="button">CHECK FOR APP UPDATES ↻</button><span>Build 2026.11.21.04</span></div>
  <input id="backupImportFile" hidden type="file" accept=".json,application/json" aria-label="Select a previously saved FORGE data backup">
- <p class="disclaimer">The backup contains personal fitness, nutrition, and scanned food log data. Save it somewhere private, such as Files. Photos are not included; save those individually from the photo journal.</p>
+ <p class="disclaimer">The backup contains personal fitness, nutrition, food and water log data. Save it somewhere private, such as Files. Photos are not included; save those individually from the photo journal.</p>
 </div>
 </section>
 </div>
@@ -480,7 +490,7 @@ $("copyLog").onclick=()=>{
 /* One-tap user-controlled data backup to avoid losing device-only records. */
 $("backupExport").addEventListener("click",async()=>{
  try{
-  const payload={format:"forge-athletic-backup-v1",savedAt:new Date().toISOString(),data:s,foodDiary:JSON.parse(localStorage.getItem("forge-food-diary-v1")||"[]")};
+  const payload={format:"forge-athletic-backup-v1",savedAt:new Date().toISOString(),data:s,foodDiary:JSON.parse(localStorage.getItem("forge-food-diary-v1")||"[]"),waterDiary:JSON.parse(localStorage.getItem("forge-water-diary-v1")||"[]")};
   const stamp=localDate(),blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
   const file=new File([blob],"FORGE-backup-"+stamp+".json",{type:"application/json"});
   if(navigator.share&&navigator.canShare?.({files:[file]})){
@@ -507,6 +517,7 @@ $("backupImportFile").addEventListener("change",async()=>{
   s.sessions=d.sessions.slice(0,150);
   s.weighs=d.weighs.slice(0,150);
   if(Array.isArray(payload.foodDiary))localStorage.setItem("forge-food-diary-v1",JSON.stringify(payload.foodDiary.slice(0,500)));
+  if(Array.isArray(payload.waterDiary))localStorage.setItem("forge-water-diary-v1",JSON.stringify(payload.waterDiary.slice(0,500)));
   nutritionFields.forEach(id=>$(id).value=s.nutrition[id]??"");
   persist();renderHabits();renderTrain();renderNutrition();renderTrack();document.dispatchEvent(new Event("foodscan-sync"));toast("FORGE DATA RESTORED.");
  }catch(e){toast("THAT BACKUP COULD NOT BE OPENED.")}
@@ -623,7 +634,7 @@ render();
 <script>
 (function(){
  "use strict";
- const current=2026112103,notice=document.getElementById("forgeUpdateNotice"),
+ const current=2026112104,notice=document.getElementById("forgeUpdateNotice"),
  refresh=document.getElementById("forgeRefreshNow"),check=document.getElementById("forgeCheckUpdate");
  let newest=null,lastCheck=0;
  const announce=(message)=>{
@@ -675,4 +686,4 @@ render();
  checkForUpdate(false);
  document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-lastCheck>180000)checkForUpdate(false)});
 })();
-</script><script src="./food-scanner.js?v=20261121-2" defer></script></body></html>
+</script><script src="./food-scanner.js?v=20261121-3" defer></script></body></html>

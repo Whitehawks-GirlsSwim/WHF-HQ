@@ -1,0 +1,46 @@
+name: Verify actual Open Food Facts search from FORGE browser
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-live-food-name-search.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  search-api:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save playwright-core@1.56.1
+      - name: Test live food-name search without mocking the food API
+        shell: bash
+        run: |
+          node <<'NODE'
+          const {chromium}=require("playwright-core");
+          (async()=>{
+           const browser=await chromium.launch({headless:true,executablePath:"/usr/bin/google-chrome",args:["--no-sandbox"]});
+           try{
+            const page=await browser.newPage();
+            page.on("console",m=>console.log("BROWSER:",m.type(),m.text().slice(0,400)));
+            const resp=await page.goto("https://whitehawks-girlsswim.github.io/WHF-HQ/forge.html?apiCheck="+Date.now(),{waitUntil:"domcontentloaded"});
+            console.log("FORGE HTTP:",resp?.status());
+            const status=await page.evaluate(async()=>{
+             const q=new URLSearchParams({search_terms:"greek yogurt",search_simple:"1",action:"process",json:"1",page_size:"5",fields:"code,product_name,brands,serving_size,serving_quantity,nutriments"});
+             const url="https://world.openfoodfacts.org/cgi/search.pl?"+q.toString();
+             const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),25000);
+             try{
+              const resp=await fetch(url,{headers:{Accept:"application/json"},cache:"no-store",signal:controller.signal});
+              const data=await resp.json();
+              return {http:resp.status,ok:resp.ok,count:data?.products?.length??0,first:data?.products?.[0]?.product_name};
+             }catch(e){return {error:String(e)}}finally{clearTimeout(timer)}
+            });
+            console.log("LIVE OPEN FOOD FACTS SEARCH:",JSON.stringify(status));
+            if(!status.ok||status.count<1)throw Error("Real browser name search failed");
+            console.log("PASS real external Open Food Facts name search from FORGE origin");
+           }finally{await browser.close()}
+          })().catch(e=>{console.error(String(e));process.exit(1)});
+          NODE

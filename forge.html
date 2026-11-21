@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0c0e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="FORGE ATHLETIC"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="FORGE ATHLETIC: premium strength training, muscle preservation, fueling, and private progress."><title>FORGE / ATHLETIC — Private Performance Club</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0c0e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="FORGE ATHLETIC"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="FORGE ATHLETIC: premium strength training, muscle preservation, fueling, and private progress."><meta name="forge-release" content="2026112101"><title>FORGE / ATHLETIC — Private Performance Club</title><style>
 :root{--bg:#0b0c0e;--panel:#15171a;--panel2:#1a1c20;--gold:#d9bf87;--gold2:#f8e2ac;--muted:#91959d;--text:#f3f0e8;--line:#303136;--ok:#b2dfa9}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);background:radial-gradient(ellipse at 80% -20%,#302a20 0%,transparent 43%),var(--bg);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 button,input,select{font:inherit}button{touch-action:manipulation;cursor:pointer}button:disabled{opacity:.45;cursor:default}input,select{color-scheme:dark}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}a{color:var(--gold2)}
@@ -123,9 +123,22 @@ html{background:#0b0c0e}
 .backup-actions .btn{padding:11px 8px;min-height:52px;font-size:11px}
 @media(max-width:350px){.backup-actions{grid-template-columns:1fr}}
 
+
+/* Version-aware refresh: no reinstall and no deletion of device data */
+.update-strip{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#3b3528;border:1px solid #a68b59;border-radius:13px;padding:10px 12px;margin:-6px 0 16px;color:#f4dcac}
+.update-strip span{font-size:12px;font-weight:850;line-height:1.3}
+.update-strip button{background:#dfbe82;color:#1c1b17;border:0;border-radius:9px;font-size:10px;font-weight:950;padding:11px 10px;white-space:nowrap}
+.update-controls{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:11px 0 0}
+.update-controls button{background:transparent;color:#dfc28b;border:1px solid #6c5c3c;border-radius:10px;padding:10px 12px;font-size:11px;font-weight:950}
+.update-controls span{font-size:10px;color:#9c9383}
+@media(max-width:355px){.update-strip{flex-wrap:wrap}.update-strip button{width:100%}}
 </style></head><body>
 <div class="app">
 <header class="top"><div class="brand"><div class="logo" aria-hidden="true">F</div><div><small>PRIVATE PERFORMANCE CLUB</small><strong>FORGE <span style="color:#cdb380">/ ATHLETIC</span></strong></div></div><div class="member">MEMBER 001</div></header>
+<div class="update-strip" id="forgeUpdateNotice" role="status" hidden>
+ <span>✦ A newer FORGE update is available.</span>
+ <button id="forgeRefreshNow" type="button">UPDATE NOW ↗</button>
+</div>
 <section id="home" class="view active">
 <div class="home-hero"><div class="hero-orbit" aria-hidden="true"></div><span class="tag">YOUR NEXT CHAPTER STARTS HERE</span><div class="ed">BUILT WITH PURPOSE.</div><h2>STRONGER<br>THAN THE<br><em>SCALE.</em></h2><p>Build strength. Protect muscle. Train for a body that works as hard as you do.</p><button class="btn" data-nav="train">ENTER THE WEIGHT ROOM ↗</button></div>
 <div class="motto"><small>THE STANDARD</small><p id="dailyQuote">Strength is built through consistency.</p><button id="refreshQuote" aria-label="Another quote">↻</button></div>
@@ -189,6 +202,7 @@ html{background:#0b0c0e}
  <span class="eyebrow">PROTECT YOUR PROGRESS</span><h3 style="margin:7px 0">Save a backup</h3>
  <p class="muted" style="font-size:12px">Your app stores nutrition settings, workouts, protein entries, and weigh-ins on this device. Back them up before removing a Home Screen icon, clearing website data, or changing phones.</p>
  <div class="backup-actions"><button class="btn" type="button" id="backupExport">SAVE MY DATA</button><button class="btn outline" type="button" id="backupImportButton">RESTORE BACKUP</button></div>
+ <div class="update-controls"><button id="forgeCheckUpdate" type="button">CHECK FOR APP UPDATES ↻</button><span>Build 2026.11.21.01</span></div>
  <input id="backupImportFile" hidden type="file" accept=".json,application/json" aria-label="Select a previously saved FORGE data backup">
  <p class="disclaimer">The backup contains personal fitness and nutrition data. Save it somewhere private, such as Files. Photos are not included; save those individually from the photo journal.</p>
 </div>
@@ -602,4 +616,60 @@ dialog.addEventListener("close",()=>{
  activeUrl=null;active=null;$("photoLarge").removeAttribute("src");
 });
 render();
-})();</script></body></html>
+})();</script>
+<script>
+(function(){
+ "use strict";
+ const current=2026112101,notice=document.getElementById("forgeUpdateNotice"),
+ refresh=document.getElementById("forgeRefreshNow"),check=document.getElementById("forgeCheckUpdate");
+ let newest=null,lastCheck=0;
+ const announce=(message)=>{
+  const el=document.getElementById("toast");
+  if(!el)return;
+  el.textContent=message;el.style.display="block";
+  setTimeout(()=>{if(el.textContent===message)el.style.display="none"},2500);
+ };
+ const freshUrl=()=>{
+  const u=new URL(location.href);
+  u.searchParams.set("forge_fresh",String(Date.now()));
+  return u;
+ };
+ async function checkForUpdate(manual){
+  lastCheck=Date.now();
+  if(manual){check.disabled=true;check.textContent="CHECKING..."}
+  try{
+   const response=await fetch(freshUrl().toString(),{cache:"no-store",credentials:"same-origin"});
+   if(!response.ok)throw new Error("Site temporarily unavailable");
+   const html=await response.text();
+   const match=html.match(/<meta name="forge-release" content="([0-9]+)">/);
+   if(!match)throw new Error("Live version unavailable");
+   const version=Number(match[1]);
+   if(version>current){
+    newest=version;notice.hidden=false;
+    if(manual)announce("AN UPDATE IS READY.");
+   }else if(manual){announce("YOU'RE ON THE LATEST FORGE VERSION.")}
+  }catch(e){if(manual)announce("COULDN'T CHECK. TRY AGAIN WHEN ONLINE.")}
+  finally{if(manual){check.disabled=false;check.textContent="CHECK FOR APP UPDATES ↻"}}
+ }
+ function updateNow(){
+  if(!newest)return;
+  // The destination is the exact same origin and app, so local data keys stay intact.
+  const tab=document.querySelector(".view.active")?.id;
+  try{sessionStorage.setItem("forge-return-tab",tab||"home")}catch(e){}
+  const u=freshUrl();u.searchParams.set("forge_build",String(newest));
+  location.assign(u.toString());
+ }
+ refresh.addEventListener("click",updateNow);
+ check.addEventListener("click",()=>checkForUpdate(true));
+ try{
+  const returnTo=sessionStorage.getItem("forge-return-tab");
+  if(returnTo&&["home","train","fuel","track"].includes(returnTo)){
+   sessionStorage.removeItem("forge-return-tab");
+   document.querySelector('[data-nav="'+returnTo+'"]')?.click();
+  }
+ }catch(e){}
+ // Use a unique query to bypass the 600-second GitHub Pages CDN/browser cache.
+ checkForUpdate(false);
+ document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-lastCheck>180000)checkForUpdate(false)});
+})();
+</script></body></html>

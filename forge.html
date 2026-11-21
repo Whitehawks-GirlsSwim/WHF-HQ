@@ -1,0 +1,158 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0c0e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="FORGE ATHLETIC"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="FORGE ATHLETIC: premium strength training, muscle preservation, fueling, and private progress."><title>FORGE / ATHLETIC — Private Performance Club</title><style>
+:root{--bg:#0b0c0e;--panel:#15171a;--panel2:#1a1c20;--gold:#d9bf87;--gold2:#f8e2ac;--muted:#91959d;--text:#f3f0e8;--line:#303136;--ok:#b2dfa9}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);background:radial-gradient(ellipse at 80% -20%,#302a20 0%,transparent 43%),var(--bg);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button,input,select{font:inherit}button{touch-action:manipulation;cursor:pointer}button:disabled{opacity:.45;cursor:default}input,select{color-scheme:dark}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}a{color:var(--gold2)}
+.app{margin:auto;max-width:590px;padding:20px 17px 125px;min-height:100vh}
+.top{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:21px}
+.brand{display:flex;gap:11px;align-items:center}.logo{border:1px solid #806d4d;background:linear-gradient(155deg,#24221b,#0f1010);width:48px;height:48px;border-radius:14px;display:grid;place-items:center;position:relative;color:var(--gold2);font-family:Georgia,serif;font-size:33px;line-height:1}
+.logo:after{content:"";position:absolute;inset:4px;border:1px solid #5b513e;border-radius:10px;pointer-events:none}
+.brand small{display:block;font-size:9px;letter-spacing:2.1px;color:#b0a185;font-weight:950}.brand strong{font-size:21px;letter-spacing:1.3px;font-weight:1000}.member{color:#c5b595;font-size:9px;border:1px solid #665b48;border-radius:999px;padding:8px 10px;letter-spacing:1.1px;font-weight:900}
+.view{display:none}.view.active{display:block}h1,h2,h3{margin:0}h2{font-size:29px;letter-spacing:-.7px;line-height:1.1;font-weight:950}h3{font-size:19px;line-height:1.2;letter-spacing:-.4px}p{margin:7px 0 12px}.muted{color:var(--muted)}.eyebrow{font-size:10px;letter-spacing:1.6px;font-weight:950;color:var(--gold)}
+.btn{background:var(--gold);border:1px solid #f2dfb4;color:#131516;padding:13px 17px;border-radius:12px;font-weight:950;font-size:13px;min-height:49px}.btn.outline{background:#202023;border:1px solid #58524a;color:var(--gold2)}.btn.dark{background:#303139;color:#f5e6c8;border-color:#4a4b52}.btn.full{width:100%}.btn.small{font-size:12px;padding:9px 12px;min-height:38px}.surface{background:linear-gradient(170deg,#1a1c1f,#141519);border:1px solid #303137;border-radius:21px;padding:18px;margin:13px 0;box-shadow:0 9px 20px #0003}
+.home-hero{position:relative;overflow:hidden;background:radial-gradient(circle at 74% 16%,#806d48 0,transparent 31%),linear-gradient(141deg,#202225,#111316 59%,#252118);min-height:381px;border-radius:26px;padding:25px 24px;border:1px solid #6a614d;box-shadow:0 20px 35px #0006}
+.hero-orbit{position:absolute;right:-85px;top:-66px;width:350px;height:350px;border-radius:50%;border:1px solid #c1a36a55;box-shadow:0 0 0 24px #bb96500c,0 0 0 53px #bb965009,0 0 0 87px #bb965008}
+.hero-orbit:after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:1px solid #d3b77945;transform:rotate(-30deg)}
+.home-hero .tag{position:relative;z-index:1;display:inline-block;border:1px solid #bba87577;color:#f8db99;font-size:10px;letter-spacing:1.1px;font-weight:900;border-radius:50px;padding:8px 10px;background:#bca67b17}
+.home-hero .ed{position:relative;z-index:1;margin:74px 0 7px;font-size:10px;font-weight:900;letter-spacing:2.3px;color:#c9bd9d}
+.home-hero h2{position:relative;z-index:1;font-family:Georgia,"Times New Roman",serif;font-size:clamp(44px,11vw,62px);letter-spacing:-2.5px;font-weight:700;line-height:.98;color:#fffdf4}
+.home-hero h2 em{font-style:italic;color:#dfc28c}.home-hero p{position:relative;z-index:1;color:#c5c5bf;font-size:13px;max-width:310px;margin:14px 0 20px}
+.home-hero .btn{position:relative;z-index:1}
+.motto{text-align:center;margin:18px 0 22px;border-left:2px solid var(--gold);border-right:2px solid var(--gold);padding:8px 19px}
+.motto small{font-size:9px;letter-spacing:2px;color:#c0ae85;font-weight:950}.motto p{font-family:Georgia,serif;font-size:18px;font-style:italic;line-height:1.25;margin:7px 0}
+.motto button{background:transparent;color:var(--gold);border:none;font-size:18px;padding:5px 14px}
+.home-section-title{display:flex;justify-content:space-between;align-items:end;margin:23px 0 12px}.home-section-title h3{font-size:22px}.home-section-title small{color:#999b97;font-size:10px}
+.habits{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.habit{padding:15px 12px;border-radius:15px;min-height:79px;background:#1a1b1e;border:1px solid #3b3934;display:flex;align-items:center;gap:9px;text-align:left;color:#ddd9cc}
+.habit span:first-child{font-size:23px}.habit b{display:block;font-size:12px;line-height:1.2}.habit small{display:block;font-size:10px;color:#99958c;margin-top:3px}.habit i{margin-left:auto;font-style:normal;color:#77746d}.habit.done{background:#273627;border-color:#79956d}.habit.done i{color:#acdf9a}
+.habit-line{height:5px;border-radius:9px;background:#353433;overflow:hidden;margin:12px 0 5px}.habit-line i{display:block;height:100%;width:0;background:linear-gradient(90deg,#d2b56c,#b8df9d);transition:width .2s}.habit-status{color:#a29c8d;font-size:11px}
+.home-note{background:#191a1d;border:1px solid #353333;border-radius:15px;padding:15px;margin:15px 0;display:flex;align-items:center;justify-content:space-between;gap:10px}.home-note b{font-size:13px}.home-note small{font-size:11px;color:#9d9d99}.home-note button{border:0;background:#d5b984;color:#19191a;border-radius:11px;padding:10px 11px;font-weight:900;white-space:nowrap;font-size:12px}
+.section-head{margin:11px 0 16px}.section-head h2{font-size:32px;margin:6px 0}.section-head p{font-size:12px;color:#a7a7a1;line-height:1.55}
+.split-tabs{display:grid;grid-template-columns:1fr 1fr;gap:7px;background:#1c1e22;border:1px solid #323337;border-radius:14px;padding:5px;margin:13px 0}
+.split-tabs button{border:0;background:transparent;color:#96948f;border-radius:10px;min-height:44px;font-size:12px;font-weight:900}.split-tabs button.active{background:var(--gold);color:#1e1d1b}
+.training-plan{background:#201f1c;border:1px solid #514939;border-radius:16px;padding:13px;margin:11px 0}.training-plan b{font-size:12px;color:#ebd3a1}.training-plan p{color:#b0aea7;font-size:11px;line-height:1.5;margin:4px 0}
+.week-list{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0}
+.week-list button{background:#1e2023;color:#c7c3bb;border:1px solid #3d3d3f;border-radius:12px;min-height:66px;padding:10px 5px;text-align:center}.week-list button.active{border-color:#c8ac77;background:#3a342a;color:#fff7dc}.week-list b{display:block;font-size:11px;letter-spacing:.2px}.week-list small{font-size:10px;color:#b4ad9a}
+.train-summary{background:linear-gradient(135deg,#3d362a,#242321);border:1px solid #716348;border-radius:18px;padding:17px;margin:13px 0}
+.train-summary .eyebrow{color:#d7bc81}.train-summary h3{font-size:24px;color:#fff9eb;margin:6px 0}.train-summary p{font-size:12px;color:#ccc2af;margin:5px 0 12px}
+.progress-line{height:9px;border-radius:10px;background:#514b44;overflow:hidden;margin-top:11px}.progress-line i{display:block;height:100%;width:0;background:linear-gradient(90deg,#b68b4d,#f2dcaa);transition:width .2s}.train-metrics{display:flex;justify-content:space-between;font-size:11px;color:#d9caa9}
+.steps-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:19px 0 9px;font-size:10px;font-weight:950;letter-spacing:1px;color:#d7bf84}.steps-top small{font-size:10px;color:#928d84}
+.step-dots{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.step-dot{background:#1f2023;color:#bbb4a5;border:1px solid #494640;border-radius:11px;min-height:41px;font-weight:950}.step-dot.active{background:var(--gold);border-color:#e7ca8c;color:#1c1915}.step-dot.complete:not(.active){background:#30402b;border-color:#718b66;color:#d8efce}
+.exercise{background:#16181b;border:1px solid #37373a;border-radius:21px;margin:14px 0;overflow:hidden}
+.exercise-top{padding:20px 18px 15px}.exercise-top .eyebrow{color:#d7b880}.exercise h3{font-size:29px;letter-spacing:-1px;color:#f9f6eb;margin:6px 0}.exercise-top p{font-size:12px;color:#a7a5a0;margin:5px 0}
+.rep-pill{background:#353126;color:#f1dcaa;padding:14px 16px;border-radius:13px;margin:0 18px;display:flex;justify-content:space-between;align-items:center}.rep-pill b{font-size:20px}.rep-pill small{font-size:10px;font-weight:900;letter-spacing:.8px}
+.exercise-steps{padding:17px 18px}.exercise-steps h4{font-size:13px;margin:0 0 10px;color:#e8dcc0}.exercise-steps ol{margin:0;padding-left:22px;display:grid;gap:9px}.exercise-steps li{font-size:12px;color:#b8b9b5;line-height:1.45}
+.coach-tip{background:#24251f;border-left:3px solid #d6b875;border-radius:5px 11px 11px 5px;padding:12px 13px;margin:15px 0;color:#bbb8ac;font-size:12px}.coach-tip b{color:#e4cd9e}
+.demo-link{display:block;background:#373a37;border:1px solid #555951;color:#dfebdb;text-decoration:none;padding:12px 13px;border-radius:10px;font-size:12px;font-weight:900}
+.lift{border-top:1px solid #34363a;padding:16px 18px 19px;background:#1d2023}.lift label{display:block;font-size:12px;font-weight:850;color:#ded6c1}.lift .hint{font-size:11px;color:#9da097;line-height:1.4;margin:5px 0 10px}.weightline{display:flex;align-items:center;gap:9px;margin-bottom:13px}.weightline input{width:96px;max-width:45%;height:49px;border:1px solid #827052;border-radius:11px;background:#151719;color:#fff0cf;padding:10px;font-size:19px;font-weight:900}.weightline small{font-size:11px;color:#c6b799}.set-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.set-row button{min-height:55px;border:1px solid #6b604d;background:#2d2b29;color:#e6d8bc;font-size:11px;border-radius:11px;font-weight:950;padding:7px}.set-row button.done{background:#d5ebbb;color:#24462e;border-color:#bde4aa}
+.train-actions{display:grid;grid-template-columns:1fr 1.45fr;gap:9px;margin:13px 0}.train-actions .btn{min-height:53px}
+.timer{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#222427;border-radius:13px;border:1px solid #3f3d39;padding:12px;margin-bottom:14px}
+.timer button{font-size:12px;font-weight:950;border:1px solid #796b4e;background:#373229;color:#ead4a1;border-radius:10px;padding:11px 12px}.timer span{color:#a3a19b;font-size:11px}
+.save-zone{text-align:center;margin:17px 0 24px}.save-zone .btn{font-size:15px;min-height:55px}.save-zone button.link{display:block;margin:11px auto;background:transparent;color:#9f9a8c;text-decoration:underline;border:none;font-size:12px}.save-zone p{font-size:11px;color:#999999}
+.fuel-hero{background:linear-gradient(145deg,#403324,#181a1a);border:1px solid #65543c;border-radius:22px;padding:19px;margin:5px 0 15px}
+.fuel-hero h2{font-family:Georgia,serif;color:#f8e8bc;font-size:34px;font-weight:700;margin:6px 0}.fuel-hero p{font-size:12px;color:#d1c6af}
+.nutri-form{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:13px 0}
+.nutri-form label{font-size:11px;color:#c5c0b4;font-weight:850;min-width:0}.nutri-form .pair{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.nutri-form input,.nutri-form select{background:#23252a;color:#f5eddb;border:1px solid #55524b;border-radius:10px;width:100%;min-width:0;height:46px;font-size:16px;padding:9px 10px;margin-top:6px}
+.nutri-form .wide{grid-column:1/-1}.nutri-result{border:1px solid #7b694c;border-radius:17px;background:linear-gradient(120deg,#3b3324,#262825);padding:17px;margin:15px 0}
+.nutri-result .label{font-size:9px;letter-spacing:1.4px;color:#ead19d;font-weight:950}
+.nutri-result .big{font-size:39px;font-weight:1000;letter-spacing:-1.4px;line-height:1.15;color:#fff5da;margin:7px 0 2px}
+.nutri-result .big small{font-size:13px;letter-spacing:0;color:#d7c49f}
+.nutri-result p{color:#d2c9b4;font-size:12px;line-height:1.45}
+.nutri-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:13px 0}
+.nutri-grid>div{background:#ffffff12;border:1px solid #ffffff29;border-radius:11px;padding:11px 9px}
+.nutri-grid small{color:#d0c4a7;font-size:10px}.nutri-grid b{display:block;color:#fff5d6;font-size:15px}
+.protein-tracker .tracker-number{font-family:Georgia,serif;color:#f0d49c;font-size:35px}.protein-tracker .tracker-number small{font:12px -apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif;color:#9c998e}
+.protein-bar{height:10px;background:#373839;border-radius:10px;overflow:hidden;margin:9px 0 13px}.protein-bar i{display:block;width:0;height:100%;background:linear-gradient(90deg,#a4824b,#f4e0a5);transition:width .2s}
+.protein-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.protein-buttons button{background:#262824;border:1px solid #665c48;color:#e3d2ac;border-radius:11px;padding:12px 7px;font-size:12px;font-weight:900}
+.protein-custom{display:flex;gap:8px;margin:10px 0}.protein-custom input{background:#222327;color:#fff;border:1px solid #55504a;border-radius:10px;padding:11px;min-width:0;flex:1;font-size:16px}.protein-custom button{flex:0 0 95px}
+.meal-options{display:grid;gap:9px;margin:12px 0}.meal-option{display:flex;align-items:center;gap:10px;background:#212327;border:1px solid #3c3a36;border-radius:12px;padding:12px}
+.meal-option>span{font-size:25px}.meal-option b{display:block;font-size:13px}.meal-option small{display:block;font-size:11px;color:#a7a6a1}
+.advice{background:#22231f;border:1px solid #53513e;border-radius:14px;padding:15px;margin:12px 0;color:#c8c6b6;font-size:12px;line-height:1.55}
+.advice strong{color:#edd8aa}.advice a{color:#e8cf9a}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:14px 0}.stat{background:#353124;border:1px solid #55472e;border-radius:13px;padding:13px 9px}.stat b{font-size:25px;color:#f7dfa9;display:block;line-height:1.1}.stat span{font-size:9px;color:#c9b998;font-weight:900;letter-spacing:.3px}
+.history details{border:1px solid #3d3c39;border-radius:13px;margin:8px 0;background:#202225}
+.history summary{cursor:pointer;padding:14px;list-style:none;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.history summary::-webkit-details-marker{display:none}.history summary b{display:block;font-size:12px}.history summary small{display:block;font-size:10px;color:#a6a39d;margin-top:4px}.history summary>span:last-child{color:#e0c88f;font-size:12px;font-weight:900}
+.history .detail{padding:6px 13px 13px;border-top:1px solid #383839}.history .detail div{display:flex;justify-content:space-between;gap:10px;font-size:11px;padding:7px 0;color:#c7c5be}.history .detail b{color:#ead4a9;text-align:right}
+.weigh-row{display:grid;grid-template-columns:minmax(0,1fr) 125px;gap:8px;margin:12px 0}.weigh-row input{background:#222427;color:#fff;border:1px solid #5a554b;border-radius:10px;width:100%;min-width:0;padding:11px;font-size:16px}
+.weigh-list>div{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid #363837;font-size:12px}.weigh-list b{color:#eddaaf}.weigh-list small{color:#aaa7a0}.weigh-list button{border:0;background:#48302c;color:#f3b9a9;border-radius:9px;padding:8px}
+.spark{width:100%;height:104px;margin:11px 0 0}
+.photo-upload{display:block;text-align:center;border:2px dashed #766b50;background:#26241e;border-radius:14px;padding:23px 11px;cursor:pointer;color:#e9d5a6;font-size:13px;font-weight:900}.photo-upload span{font-size:29px;display:block;margin-bottom:9px}
+.photo-preview img{width:100%;max-height:220px;object-fit:contain;background:#111;border-radius:11px;display:block;margin-top:13px}.photo-preview input{background:#252629;border:1px solid #69604f;border-radius:10px;width:100%;padding:12px;margin:11px 0;color:#f1e5ce;font-size:16px}
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.photo-grid button{text-align:left;background:#232427;border:1px solid #5c513d;border-radius:12px;padding:0;overflow:hidden;color:#d5c6a6}.photo-grid img{width:100%;height:130px;display:block;object-fit:cover}.photo-grid small{display:block;padding:9px;font-size:10px}
+.photo-dialog{width:95%;max-width:560px;max-height:90vh;overflow:auto;background:#18191b;border:1px solid #817252;color:#f8ebcc;padding:13px;border-radius:20px}.photo-dialog::backdrop{background:#000d}.photo-dialog img{width:100%;max-height:55vh;object-fit:contain;background:#090a0a;border-radius:10px}.photo-dialog .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}.photo-dialog .actions a,.photo-dialog .actions button{border:0;border-radius:11px;background:#36362f;color:#efd7a8;padding:12px 8px;text-align:center;text-decoration:none;font-size:12px;font-weight:900}.photo-dialog .actions button{background:#49312b;color:#f5c8b3}
+.disclaimer{font-size:11px;color:#999791;line-height:1.5;margin:13px 0}.disclaimer a{color:#dbbe87}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;background:#111215f0;backdrop-filter:blur(16px);border-top:1px solid #4d4433;padding:8px 10px calc(10px + env(safe-area-inset-bottom));z-index:15}
+.navinner{max-width:590px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.navinner button{background:transparent;color:#969084;border:0;border-radius:11px;min-height:56px;font-size:10px;font-weight:950;letter-spacing:.4px}.navinner button span{display:block;font-size:22px;margin-bottom:2px}.navinner button.active{color:#edcf94;background:#353024}
+.toast{display:none;position:fixed;left:50%;bottom:92px;transform:translateX(-50%);z-index:20;color:#0f1113;background:#f1d29d;border-radius:12px;padding:11px 15px;max-width:90vw;font-weight:900;font-size:12px;white-space:nowrap}
+[hidden]{display:none!important}
+@media(max-width:370px){.app{padding-left:11px;padding-right:11px}.brand strong{font-size:18px}.home-hero{padding:21px}.home-hero h2{font-size:41px}.step-dots{gap:4px}.set-row{gap:4px}.set-row button{font-size:10px}.protein-buttons{gap:5px}}
+</style></head><body>
+<div class="app">
+<header class="top"><div class="brand"><div class="logo" aria-hidden="true">F</div><div><small>PRIVATE PERFORMANCE CLUB</small><strong>FORGE <span style="color:#cdb380">/ ATHLETIC</span></strong></div></div><div class="member">MEMBER 001</div></header>
+<section id="home" class="view active">
+<div class="home-hero"><div class="hero-orbit" aria-hidden="true"></div><span class="tag">YOUR NEXT CHAPTER STARTS HERE</span><div class="ed">BUILT WITH PURPOSE.</div><h2>STRONGER<br>THAN THE<br><em>SCALE.</em></h2><p>Build strength. Protect muscle. Train for a body that works as hard as you do.</p><button class="btn" data-nav="train">ENTER THE WEIGHT ROOM ↗</button></div>
+<div class="motto"><small>THE STANDARD</small><p id="dailyQuote">Strength is built through consistency.</p><button id="refreshQuote" aria-label="Another quote">↻</button></div>
+<div class="home-section-title"><div><div class="eyebrow">YOUR DAILY STANDARD</div><h3>Four non-negotiables</h3></div><small id="currentDay"></small></div>
+<div class="habits" id="habitGrid"></div><div class="habit-line"><i id="habitFill"></i></div><p class="habit-status" id="habitStatus">Every checkmark is a win.</p>
+<div class="home-note"><div><b id="homeSessions">0 sessions logged</b><br><small id="homeRecent">The first workout starts here.</small></div><button data-nav="track">MY PROGRESS ↗</button></div>
+</section>
+<section id="train" class="view">
+<div class="section-head"><span class="eyebrow">THE STRENGTH PROTOCOL</span><h2>Earn your strength.</h2><p>Four-session upper/lower program. Complete each exercise with good form and leave roughly two reps in reserve. Build steadily, not recklessly.</p></div>
+<div class="training-plan"><b>THE BUILD-UP</b><p>Weeks 1–2: start with 2 sets, 2–3 nonconsecutive sessions. Weeks 3–4: build toward 3 sessions. From week 5, work toward the 4-session split if recovery allows. Use the lighter option whenever needed.</p></div>
+<div class="split-tabs" role="group" aria-label="Training location"><button data-location="gym">GYM EQUIPMENT</button><button data-location="home">HOME WEIGHTS</button></div>
+<div class="split-tabs" role="group" aria-label="Training intensity"><button data-phase="foundation">BASE · 2 SETS</button><button data-phase="build">BUILD · 3 SETS</button></div>
+<div class="eyebrow" style="margin-top:18px">CHOOSE YOUR SESSION</div>
+<div class="week-list" id="sessionChoices"></div>
+<div class="train-summary"><div class="eyebrow">TODAY'S SESSION</div><h3 id="workoutTitle">UPPER A</h3><p id="workoutDesc"></p><div class="train-metrics"><span>YOUR PROGRESS</span><b id="setCount">0 / 12 sets</b></div><div class="progress-line"><i id="setFill"></i></div></div>
+<div class="steps-top"><span id="moveLabel">EXERCISE 1 OF 6</span><small>Tap any number to jump</small></div>
+<div class="step-dots" id="stepDots"></div><div id="exerciseCard"></div>
+<div class="train-actions"><button class="btn dark" id="prevMove">← PREVIOUS</button><button class="btn" id="nextMove">NEXT MOVE →</button></div>
+<div class="timer"><button id="restTimer">◷ REST 90s</button><span>Rest 90–120s between hard sets.<br>Longer if you need it.</span></div>
+<div class="save-zone"><button class="btn full" id="saveWorkout">FINISH &amp; LOG SESSION ✓</button><button class="link" id="resetSets">Clear this session's checkmarks</button><p>Your weights and completed sessions are saved on this phone.</p></div>
+</section>
+<section id="fuel" class="view">
+<div class="fuel-hero"><span class="eyebrow">THE MUSCLE PRESERVATION PLAN</span><h2>Fuel the work.</h2><p>Wegovy can lower appetite. Training needs enough energy, protein, fluids and recovery.</p></div>
+<div class="surface">
+<div class="eyebrow">YOUR DAILY RECOMMENDATION</div><h3 style="margin:7px 0">Calories + protein</h3><p class="muted" style="font-size:12px">Enter your current measurements for a starting point. You'll get a modest fat-loss or recomposition target, never an aggressive crash-diet goal.</p>
+<div class="nutri-form">
+<label>Age<input id="nAge" type="number" min="18" max="95" inputmode="numeric" placeholder="Years"></label>
+<label>Current weight (lb)<input id="nWeight" type="number" min="80" max="700" step=".1" inputmode="decimal" placeholder="lb"></label>
+<label>Height<div class="pair"><input id="nFeet" type="number" min="4" max="7" inputmode="numeric" placeholder="ft" aria-label="Height feet"><input id="nInches" type="number" min="0" max="11" inputmode="numeric" placeholder="in" aria-label="Height inches"></div></label>
+<label>Activity<select id="nActivity"><option value="1.2">Mostly sitting</option><option value="1.375">Light activity</option><option value="1.55">Training 3–4 days</option><option value="1.725">Very active</option></select></label>
+<label class="wide">Nutrition focus<select id="nFocus"><option value="recomp">Build / preserve muscle · small deficit</option><option value="cut">Fat loss with strength · moderate deficit</option><option value="maintain">Maintain weight · focus on performance</option></select></label>
+</div>
+<div class="nutri-result" id="nutritionResult" aria-live="polite"><div class="label">YOUR NUTRITION TARGET</div><p>Enter your details above to see a calorie and protein starting recommendation.</p></div>
+<p class="disclaimer">Estimates are not prescriptions and don't account for all medical conditions, medications or changes in appetite. Discuss calorie and protein targets with your clinician, especially with kidney disease, very low intake, vomiting or dehydration. <a href="https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner" target="_blank" rel="noopener noreferrer">NIH Body Weight Planner ↗</a></p>
+</div>
+<div class="surface protein-tracker"><span class="eyebrow">PROTEIN PERFORMANCE</span><h3 style="margin:6px 0">Your daily protein log</h3><div class="tracker-number"><span id="proteinTotal">0</span><small> g eaten today <span id="proteinGoalText"></span></small></div>
+<div class="protein-bar"><i id="proteinFill"></i></div>
+<div class="protein-buttons"><button data-protein="25">+25 g</button><button data-protein="35">+35 g</button><button data-protein="50">+50 g</button></div>
+<div class="protein-custom"><input id="proteinCustom" type="number" min="1" max="150" inputmode="numeric" placeholder="Custom grams" aria-label="Protein grams"><button class="btn small" id="proteinAdd">ADD</button></div>
+<button class="btn small outline" id="proteinUndo">Undo last entry</button><p class="disclaimer">Use food labels or your usual estimate. This is a simple log, not an exact food database. Resets each day.</p></div>
+<div class="surface"><span class="eyebrow">EAT FOR STRENGTH</span><h3 style="margin:7px 0">Protein-first meal ideas</h3><div class="meal-options">
+<div class="meal-option"><span>🍳</span><div><b>Breakfast</b><small>Eggs + Greek yogurt, or protein oats with berries</small></div></div>
+<div class="meal-option"><span>🥩</span><div><b>Lunch</b><small>Chicken, turkey, tofu or tuna with rice + vegetables</small></div></div>
+<div class="meal-option"><span>🥣</span><div><b>When appetite is low</b><small>Greek yogurt, cottage cheese or a smoothie with protein</small></div></div>
+<div class="meal-option"><span>🐟</span><div><b>Dinner</b><small>Salmon, lean beef, beans or poultry + potatoes + greens</small></div></div>
+</div></div>
+<div class="advice"><strong>ON WEGOVY:</strong> Protein plus progressive lifting can help reduce muscle loss during weight reduction. Smaller meals may be easier when appetite is low. Eat enough to recover, drink regularly, and don't force a hard workout when feeling unwell. Persistent vomiting or trouble keeping fluids down warrants prompt medical advice; severe persistent abdominal pain warrants urgent evaluation.</div>
+<div class="disclaimer">References: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13237850/" target="_blank" rel="noopener noreferrer">GLP-1 nutrition advisory</a> · <a href="https://www.cdc.gov/physical-activity-basics/guidelines/adults.html" target="_blank" rel="noopener noreferrer">CDC activity guidance</a> · <a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ee06186f-2aa3-4990-a760-757579d8f77b" target="_blank" rel="noopener noreferrer">Wegovy safety information</a></div>
+</section>
+<section id="track" class="view">
+<div class="section-head"><span class="eyebrow">THE RECORD BOOK</span><h2>Results you can measure.</h2><p>Build your log over months. Better technique, more reps, and heavier lifts all count. Bodyweight and photos are optional.</p></div>
+<div class="stats"><div class="stat"><b id="statsSessions">0</b><span>SESSIONS</span></div><div class="stat"><b id="statsSets">0</b><span>TOTAL SETS</span></div><div class="stat"><b id="statsMoves">0</b><span>MOVES LOGGED</span></div></div>
+<div class="surface"><span class="eyebrow">STRENGTH JOURNAL</span><h3 style="margin:7px 0">Your sessions</h3><div class="history" id="sessionHistory"></div><button class="btn outline full" id="copyLog" style="margin-top:12px">COPY TRAINING HISTORY</button></div>
+<div class="surface"><span class="eyebrow">OPTIONAL BODYWEIGHT</span><h3 style="margin:7px 0">Weight trend</h3><p class="muted" style="font-size:12px">Look at the overall pattern, not daily fluctuations. Strength matters more than a single weigh-in.</p><div class="weigh-row"><input id="weighInput" type="number" min="80" max="700" inputmode="decimal" step=".1" placeholder="Weight (lb)" aria-label="Weight in pounds"><button id="weighSave" class="btn">LOG WEIGHT</button></div><div id="weightSpark"></div><div class="weigh-list" id="weightHistory"></div></div>
+<div class="surface"><span class="eyebrow">PRIVATE PROGRESS JOURNAL</span><h3 style="margin:7px 0">Progress photos</h3><p class="muted" style="font-size:12px">Track strength, confidence and milestones. Photos stay on this device, not the public website.</p>
+<label for="photoInput" class="photo-upload"><span>◫</span>＋ TAKE OR CHOOSE PHOTO</label><input id="photoInput" type="file" accept="image/*" hidden>
+<div class="photo-preview" id="photoPreview" hidden><img id="previewImg" alt="Chosen photo"><input id="photoNote" maxlength="110" type="text" placeholder="Optional note about this moment"><div style="display:grid;grid-template-columns:1fr 1fr;gap:9px"><button class="btn" id="photoSave">SAVE PHOTO</button><button class="btn dark" id="photoCancel">CANCEL</button></div></div>
+<div class="photo-grid" id="photoGrid"></div><p class="disclaimer" id="photoError"></p><p class="disclaimer">Keep your originals in Photos. Clearing browser data or changing devices may erase this journal.</p></div>
+</section>
+</div>
+<nav class="bottomnav" aria-label="Main navigation"><div class="navinner"><button class="active" data-nav="home"><span>⌂</span>HOME</button><button data-nav="train"><span>↗</span>TRAIN</button><button data-nav="fuel"><span>◉</span>FUEL</button><button data-nav="track"><span>▥</span>TRACK</button></div></nav>
+<div class="toast" id="toast" role="status"></div>
+<dialog class="photo-dialog" id="photoDialog" aria-label="Progress photo"><button id="photoClose" class="btn dark small" style="display:block;margin:0 0 10px auto">✕ CLOSE</button><img id="photoLarge" alt="Saved progress photo"><p id="photoCaption" style="font-size:12px"></p><div class="actions"><a id="photoDownload" download="forge-photo.jpg">SAVE A COPY</a><button id="photoDelete">DELETE PHOTO</button></div></dialog>
+<script>/*MAIN_APPLICATION_SCRIPT*/</script><script>/*PRIVATE_PHOTO_JOURNAL*/</script></body></html>

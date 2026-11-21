@@ -119,7 +119,7 @@ async function verify(browser,cfg){
   assert.equal(await page.locator(".forge-quick-protein").getAttribute("open"),null,"quick protein collapsed");
   assert.equal(await page.locator(".forge-fuel-ideas").getAttribute("open"),null,"meal ideas collapsed");
   const after=await scanner.locator("#foodTotals").innerText();
-  assert(after.includes("260"),"existing legacy+manual+barcode total, not doubled by quick protein");
+  assert(after.includes("400"),"200 manual + 140 legacy + 60 scanned calories, without quick-protein double count");
  }
  if(cfg.mode==="sam"){
   assert.equal(await page.locator(".wellness-ideas").count(),1);

@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0c0e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="FORGE ATHLETIC"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="FORGE ATHLETIC: premium strength training, muscle preservation, fueling, and private progress."><meta name="forge-release" content="2026112105"><title>FORGE / ATHLETIC — Private Performance Club</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0c0e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="FORGE ATHLETIC"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="FORGE ATHLETIC: premium strength training, muscle preservation, fueling, and private progress."><meta name="forge-release" content="2026112106"><title>FORGE / ATHLETIC — Private Performance Club</title><style>
 :root{--bg:#0b0c0e;--panel:#15171a;--panel2:#1a1c20;--gold:#d9bf87;--gold2:#f8e2ac;--muted:#91959d;--text:#f3f0e8;--line:#303136;--ok:#b2dfa9}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);background:radial-gradient(ellipse at 80% -20%,#302a20 0%,transparent 43%),var(--bg);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 button,input,select{font:inherit}button{touch-action:manipulation;cursor:pointer}button:disabled{opacity:.45;cursor:default}input,select{color-scheme:dark}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}a{color:var(--gold2)}
@@ -138,7 +138,18 @@ html{background:#0b0c0e}
 .forge-quick-protein>summary::-webkit-details-marker,.forge-fuel-ideas>summary::-webkit-details-marker{display:none}
 .forge-quick-protein>summary span,.forge-fuel-ideas>summary span{font-size:10px;letter-spacing:0;color:#b5a386;font-weight:500}
 .forge-quick-protein>.surface,.forge-fuel-ideas>.surface{margin:0 10px 11px;box-shadow:none;border-color:#4b4539}
-</style><link rel="stylesheet" href="./food-scanner.css?v=20261121-3"></head><body>
+
+/* Simple, daily-first Fuel layout. Existing calculator is available on demand. */
+#fuel .nutrition-mini-hero{min-height:0;padding:15px 18px 16px;margin-bottom:10px;border-radius:17px}
+#fuel .nutrition-mini-hero h2{font-size:26px;line-height:1.08;margin:5px 0 5px}
+#fuel .nutrition-mini-hero p{font-size:11px;margin:0;line-height:1.4;max-width:none}
+#fuel .nutrition-mini-hero .eyebrow{font-size:9px}
+#fuel .nutrition-settings{border:1px solid #524b39;background:#161719;border-radius:14px;overflow:hidden;margin:13px 0}
+#fuel .nutrition-settings>summary{padding:15px;color:#e4c897;font-size:11px;letter-spacing:.5px;font-weight:950;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:9px;cursor:pointer}
+#fuel .nutrition-settings>summary::-webkit-details-marker{display:none}
+#fuel .nutrition-settings>summary span{font-size:10px;font-weight:500;letter-spacing:0;color:#aa9f8b}
+#fuel .nutrition-settings>.surface{margin:0 9px 10px;padding:15px;border-color:#47443c;box-shadow:none}
+</style><link rel="stylesheet" href="./food-scanner.css?v=20261121-4"></head><body>
 <div class="app">
 <header class="top"><div class="brand"><div class="logo" aria-hidden="true">F</div><div><small>PRIVATE PERFORMANCE CLUB</small><strong>FORGE <span style="color:#cdb380">/ ATHLETIC</span></strong></div></div><div class="member">MEMBER 001</div></header>
 <div class="update-strip" id="forgeUpdateNotice" role="status" hidden>
@@ -167,7 +178,9 @@ html{background:#0b0c0e}
 <div class="save-zone"><button class="btn full" id="saveWorkout">FINISH &amp; LOG SESSION ✓</button><button class="link" id="resetSets">Clear this session's checkmarks</button><p>Your weights and completed sessions are saved on this phone.</p></div>
 </section>
 <section id="fuel" class="view">
-<div class="fuel-hero"><span class="eyebrow">THE MUSCLE PRESERVATION PLAN</span><h2>Fuel the work.</h2><p>Wegovy can lower appetite. Training needs enough energy, protein, fluids and recovery.</p></div>
+<div class="fuel-hero nutrition-mini-hero"><span class="eyebrow">FORGE · DAILY FUEL</span><h2>Fuel the work.</h2><p>Food, protein and water. All in one place.</p></div>
+<section id="foodScanner" class="foodscan-card" data-food-mode="forge"><p>Barcode food scanner loading…</p></section>
+<details class="nutrition-settings"><summary>⚙️ NUTRITION TARGETS &amp; SETTINGS <span>Adjust your estimates ＋</span></summary>
 <div class="surface">
 <div class="eyebrow">YOUR DAILY RECOMMENDATION</div><h3 style="margin:7px 0">Calories + protein</h3><p class="muted" style="font-size:12px">Enter your current measurements for a starting point. You'll get a modest fat-loss or recomposition target, never an aggressive crash-diet goal.</p>
 <div class="nutri-form">
@@ -180,7 +193,8 @@ html{background:#0b0c0e}
 <div class="nutri-result" id="nutritionResult" aria-live="polite"><div class="label">YOUR NUTRITION TARGET</div><p>Enter your details above to see a calorie and protein starting recommendation.</p></div>
 <p class="disclaimer">Estimates are not prescriptions and don't account for all medical conditions, medications or changes in appetite. Discuss calorie and protein targets with your clinician, especially with kidney disease, very low intake, vomiting or dehydration. <a href="https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner" target="_blank" rel="noopener noreferrer">NIH Body Weight Planner ↗</a></p>
 </div>
-<section id="foodScanner" class="foodscan-card" data-food-mode="forge"><p>Barcode food scanner loading…</p></section>
+</details>
+
 <details class="forge-quick-protein"><summary>＋ QUICK PROTEIN ENTRY <span>For protein not in your food journal</span></summary>
 <div class="surface protein-tracker"><span class="eyebrow">PROTEIN PERFORMANCE</span><h3 style="margin:6px 0">Daily protein total</h3><div class="tracker-number"><span id="proteinTotal">0</span><small> g eaten today <span id="proteinGoalText"></span></small></div>
 <div class="protein-bar"><i id="proteinFill"></i></div>
@@ -213,7 +227,7 @@ html{background:#0b0c0e}
  <span class="eyebrow">PROTECT YOUR PROGRESS</span><h3 style="margin:7px 0">Save a backup</h3>
  <p class="muted" style="font-size:12px">Your app stores nutrition settings, workouts, protein entries, and weigh-ins on this device. Back them up before removing a Home Screen icon, clearing website data, or changing phones.</p>
  <div class="backup-actions"><button class="btn" type="button" id="backupExport">SAVE MY DATA</button><button class="btn outline" type="button" id="backupImportButton">RESTORE BACKUP</button></div>
- <div class="update-controls"><button id="forgeCheckUpdate" type="button">CHECK FOR APP UPDATES ↻</button><span>Build 2026.11.21.05</span></div>
+ <div class="update-controls"><button id="forgeCheckUpdate" type="button">CHECK FOR APP UPDATES ↻</button><span>Build 2026.11.21.06</span></div>
  <input id="backupImportFile" hidden type="file" accept=".json,application/json" aria-label="Select a previously saved FORGE data backup">
  <p class="disclaimer">The backup contains personal fitness, nutrition, food and water log data. Save it somewhere private, such as Files. Photos are not included; save those individually from the photo journal.</p>
 </div>
@@ -634,7 +648,7 @@ render();
 <script>
 (function(){
  "use strict";
- const current=2026112105,notice=document.getElementById("forgeUpdateNotice"),
+ const current=2026112106,notice=document.getElementById("forgeUpdateNotice"),
  refresh=document.getElementById("forgeRefreshNow"),check=document.getElementById("forgeCheckUpdate");
  let newest=null,lastCheck=0;
  const announce=(message)=>{
@@ -686,4 +700,4 @@ render();
  checkForUpdate(false);
  document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-lastCheck>180000)checkForUpdate(false)});
 })();
-</script><script src="./food-scanner.js?v=20261121-5" defer></script></body></html>
+</script><script src="./food-scanner.js?v=20261121-6" defer></script></body></html>

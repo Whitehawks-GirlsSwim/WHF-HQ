@@ -19,9 +19,11 @@ jobs:
           echo "LIVE STATUS / CACHE:"
           grep -iE '^HTTP/|^cache-control:|^age:|^x-cache:|^last-modified:' /tmp/sam-headers.txt || true
           echo "LIVE BYTES: $(wc -c </tmp/sam-live.html)"
-          grep -Fq 'name="sam-release" content="signature-20261121-1"' /tmp/sam-live.html && echo 'SIGNATURE RELEASE: LIVE'
+          grep -Fq 'name="sam-release" content="signature-20261121-2"' /tmp/sam-live.html && echo 'SIGNATURE RELEASE: LIVE'
           grep -Fq 'THE SIGNATURE WELLNESS EDITION' /tmp/sam-live.html && echo 'SIGNATURE HOME HERO: LIVE'
           grep -Fq 'THE PRIVATE WELLNESS CLUB' /tmp/sam-live.html && echo 'LUXURY BRANDING: LIVE'
           grep -Fq 'id="nutriResult"' /tmp/sam-live.html && echo 'CALORIE CALCULATOR: PRESENT'
           grep -Fq 'sam-bloom-v1' /tmp/sam-live.html && echo 'EXISTING SAVED-STATE KEY: PRESERVED'
           grep -Fq 'sam-bloom-private-photos-v1' /tmp/sam-live.html && echo 'PHOTO STORAGE KEY: PRESERVED'
+          grep -Fq 'id="samCheckUpdate"' /tmp/sam-live.html && echo 'IN-APP UPDATE CONTROL: LIVE'
+          grep -Fq 'SIGNATURE <span>✦</span> 02' /tmp/sam-live.html && echo 'SIGNATURE 02 BRAND BADGE: LIVE'

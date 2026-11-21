@@ -508,7 +508,7 @@ $("backupImportFile").addEventListener("change",async()=>{
   s.weighs=d.weighs.slice(0,150);
   if(Array.isArray(payload.foodDiary))localStorage.setItem("forge-food-diary-v1",JSON.stringify(payload.foodDiary.slice(0,500)));
   nutritionFields.forEach(id=>$(id).value=s.nutrition[id]??"");
-  persist();renderHabits();renderTrain();renderNutrition();renderTrack();toast("FORGE DATA RESTORED.");
+  persist();renderHabits();renderTrain();renderNutrition();renderTrack();document.dispatchEvent(new Event("foodscan-sync"));toast("FORGE DATA RESTORED.");
  }catch(e){toast("THAT BACKUP COULD NOT BE OPENED.")}
  finally{input.value=""}
 });

@@ -2,10 +2,10 @@ const { chromium }=require("playwright-core");
 const assert=require("node:assert/strict");
 const BASE="https://whitehawks-girlsswim.github.io/WHF-HQ/";
 const APPS=[
- {file:"mia.html",mode:"mia",tab:"fuel",key:"mia-food-meals-v1",release:"foodscan-20261121-3"},
- {file:"sam.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-6"},
- {file:"sam-signature.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-6"},
- {file:"forge.html",mode:"forge",tab:"fuel",key:"forge-food-diary-v1",release:"2026112104"}
+ {file:"mia.html",mode:"mia",tab:"fuel",key:"mia-food-meals-v1",release:"foodscan-20261121-4"},
+ {file:"sam.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-7"},
+ {file:"sam-signature.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-7"},
+ {file:"forge.html",mode:"forge",tab:"fuel",key:"forge-food-diary-v1",release:"2026112105"}
 ];
 const sleep=ms=>new Promise(ok=>setTimeout(ok,ms));
 async function run(){
@@ -28,7 +28,7 @@ async function verify(browser,cfg){
  for(let attempt=0;attempt<17;attempt++){
   const response=await page.goto(BASE+cfg.file+"?e2e="+Date.now()+"-"+attempt,{waitUntil:"domcontentloaded",timeout:30000});
   const html=await page.content();
-  if(response?.status()===200 && html.includes(cfg.release) && html.includes("food-scanner.js?v=20261121-3")){
+  if(response?.status()===200 && html.includes(cfg.release) && html.includes("food-scanner.js?v=20261121-4")){
    loaded=true;break;
   }
   console.log(cfg.file+": awaiting live release, attempt "+(attempt+1));

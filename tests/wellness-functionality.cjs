@@ -5,7 +5,7 @@ const APPS=[
  {file:"mia.html",mode:"mia",tab:"fuel",key:"mia-food-meals-v1",release:"foodscan-20261121-4"},
  {file:"sam.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-8"},
  {file:"sam-signature.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-8"},
- {file:"forge.html",mode:"forge",tab:"fuel",key:"forge-food-diary-v1",release:"2026112104"}
+ {file:"forge.html",mode:"forge",tab:"fuel",key:"forge-food-diary-v1",release:"2026112105"}
 ];
 const sleep=ms=>new Promise(ok=>setTimeout(ok,ms));
 async function run(){
@@ -28,7 +28,7 @@ async function verify(browser,cfg){
  for(let attempt=0;attempt<17;attempt++){
   const response=await page.goto(BASE+cfg.file+"?e2e="+Date.now()+"-"+attempt,{waitUntil:"domcontentloaded",timeout:30000});
   const html=await page.content();
-  if(response?.status()===200 && html.includes(cfg.release) && html.includes("food-scanner.js?v=20261121-4")){
+  if(response?.status()===200 && html.includes(cfg.release) && html.includes(cfg.mode==="forge"?"food-scanner.js?v=20261121-5":"food-scanner.js?v=20261121-4")){
    loaded=true;break;
   }
   console.log(cfg.file+": awaiting live release, attempt "+(attempt+1));
@@ -115,6 +115,18 @@ async function verify(browser,cfg){
  assert((await scanner.locator("#foodScanResult h4").innerText()).includes("Test canned beans"),"barcode result");
  await scanner.locator("#foodScanSave").click();
  assert((await scanner.locator(".foodscan-meal-group").nth(2).innerText()).includes("Test canned beans"),"scanned food goes to selected dinner");
+ if(cfg.mode==="forge"){
+  assert(await scanner.locator("#foodScanResult").isHidden(),"product details close after saving");
+  assert.equal(await scanner.locator("#foodBarcodeInput").inputValue(),"","barcode input clears after saving");
+  assert.equal(await scanner.locator("#foodScanSave").count(),0,"previous product save button disappears, preventing duplicate saves");
+  assert.equal(await scanner.locator("#foodTotals > div").first().locator("strong").innerText(),"400","daily calorie total equals manual 200 + legacy 140 + scanned 60, exactly once");
+  assert.equal(await scanner.locator('.foodscan-meal-group').nth(2).locator(".foodscan-entry").count(),1,"one scanned item per save");
+  await scanner.locator("#foodBarcodeInput").fill("3017620422004");
+  await scanner.locator('#foodBarcodeForm button[type="submit"]').click();
+  await scanner.locator("#foodScanResult h4").waitFor({state:"visible",timeout:15000});
+  assert.equal(await scanner.locator('.foodscan-meal-group').nth(2).locator(".foodscan-entry").count(),1,"looking up next product does not log old item again");
+  assert.equal(await scanner.locator("#foodTotals > div").first().locator("strong").innerText(),"400","lookup alone does not alter today's calories");
+ }
 
  // Duplicate-content / layout checks specific to adults.
  if(cfg.mode==="forge"){

@@ -104,3 +104,49 @@
 .foodscan-storage{font-size:11px;color:var(--fs-muted);line-height:1.5;margin:12px 0}
 .foodscan-storage button{background:transparent;color:var(--fs-accent);text-decoration:underline;text-underline-offset:3px;font-size:10px;font-weight:900;border:0;padding:7px 5px}
 @media(max-width:370px){.foodscan-manual summary{display:block}.foodscan-manual summary span{display:block;text-align:left;margin-top:3px}.foodscan-water-head strong{font-size:19px}}
+
+/* ADULT NUTRITION V4 · daily-first, one-action food logging
+   No changes to the Mia athlete journal or saved data. */
+.foodscan-card.foodscan-simple{padding:0;margin:9px 0 17px;border:0;background:transparent;box-shadow:none;overflow:visible}
+.foodscan-simple .foodscan-journal{margin:0;padding:17px 14px 14px;border:1px solid var(--fs-border);border-radius:22px;background:var(--fs-bg);box-shadow:0 11px 28px #54333a12}
+.foodscan-simple .foodscan-journal-heading{margin:0 0 10px;padding:0}
+.foodscan-simple .foodscan-journal-heading b{font-size:12px;letter-spacing:1.2px}
+.foodscan-simple .foodscan-journal-heading small{font-size:11px}
+.foodscan-simple .foodscan-totals{display:grid;grid-template-columns:1.24fr 1fr 1fr;margin:7px 0 12px;gap:7px}
+.foodscan-simple .foodscan-totals>div{padding:13px 5px 11px;border:1px solid var(--fs-border);border-radius:13px;background:var(--fs-soft)}
+.foodscan-simple .foodscan-totals strong{font-size:clamp(20px,5vw,27px);letter-spacing:-.7px;line-height:1.16}
+.foodscan-simple .foodscan-totals small{font-size:10px;line-height:1.25;display:block;margin-top:3px}
+.foodscan-simple .foodscan-add-bar{margin:11px 0 13px}
+.foodscan-simple #foodQuickAdd{width:100%;min-height:58px;border:0;border-radius:14px;background:var(--fs-accent);color:white;text-align:left;padding:12px 16px;font-size:15px;font-weight:950;display:flex;align-items:center;justify-content:space-between;gap:8px;box-shadow:0 6px 16px #3f242224;cursor:pointer}
+.foodscan-simple[data-food-mode="forge"] #foodQuickAdd{color:#251d12}
+.foodscan-simple #foodQuickAdd span{font-size:11px;font-weight:500;white-space:nowrap;opacity:.85}
+.foodscan-simple .foodscan-add-panel[hidden]{display:none!important}
+.foodscan-simple .foodscan-add-panel{background:var(--fs-soft);border:1px solid var(--fs-border);border-radius:16px;padding:13px 12px 14px;margin:12px 0 13px;box-shadow:0 8px 18px #3c24261b}
+.foodscan-simple .foodscan-add-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;gap:12px}
+.foodscan-simple .foodscan-add-top strong{font-size:11px;letter-spacing:1px;color:var(--fs-ink)}
+.foodscan-simple .foodscan-add-top button{border:0;background:transparent;color:var(--fs-muted);padding:8px 5px;font-size:11px;font-weight:850}
+.foodscan-simple .foodscan-head h3{font-size:22px;margin:5px 0}
+.foodscan-simple .foodscan-head p{font-size:11px;margin-bottom:10px}
+.foodscan-simple .foodscan-meal-picker{margin:10px 0;padding:9px}
+.foodscan-simple .foodscan-meal-choices button{min-height:42px}
+.foodscan-simple .foodscan-manual summary{font-size:11px}
+.foodscan-simple .foodscan-code label{font-size:9px;letter-spacing:0}
+.foodscan-simple .foodscan-water{margin:11px 0 15px;padding:12px;border-radius:13px;background:var(--fs-soft)}
+.foodscan-simple .foodscan-water-head strong{font-size:22px}
+.foodscan-simple .foodscan-water-actions{margin:10px 0 4px}
+.foodscan-simple .foodscan-water-actions button{min-height:38px;padding:8px 4px}
+.foodscan-simple .foodscan-water-extra{margin:9px 0 0;border-top:1px solid var(--fs-border);padding-top:8px}
+.foodscan-simple .foodscan-water-extra summary{font-size:10px;cursor:pointer;font-weight:850;color:var(--fs-accent);padding:7px 1px;list-style:none}
+.foodscan-simple .foodscan-water-extra summary::-webkit-details-marker{display:none}
+.foodscan-simple .foodscan-water-custom{margin:5px 0 8px}
+.foodscan-simple .foodscan-water-footer{margin-top:6px}
+.foodscan-simple .foodscan-meal-group{margin:8px 0;padding:11px 12px;border-radius:13px;background:var(--fs-bg)}
+.foodscan-simple .foodscan-meal-group-top strong{font-size:13px}
+.foodscan-simple .foodscan-group-subtotal{font-size:10px;margin-top:3px}
+.foodscan-simple .foodscan-meal-group-top button{min-height:34px;padding:6px 11px;font-size:10px;font-weight:950}
+.foodscan-simple .foodscan-entry{margin-top:6px;padding:8px 0}
+.foodscan-simple .foodscan-privacy{border:1px solid var(--fs-border);border-radius:13px;background:var(--fs-bg);margin:11px 0 0;padding:0}
+.foodscan-simple .foodscan-privacy>summary{list-style:none;cursor:pointer;color:var(--fs-muted);padding:12px 13px;font-size:11px;font-weight:850}
+.foodscan-simple .foodscan-privacy>summary::-webkit-details-marker{display:none}
+.foodscan-simple .foodscan-storage,.foodscan-simple .foodscan-source{padding:0 13px 12px;margin:0}
+@media(max-width:380px){.foodscan-simple #foodQuickAdd{padding:11px 12px}.foodscan-simple #foodQuickAdd span{font-size:10px}.foodscan-simple .foodscan-journal{padding:14px 11px}}

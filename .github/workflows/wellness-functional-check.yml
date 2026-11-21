@@ -1,0 +1,27 @@
+name: Wellness app functional browser checks
+on:
+  push:
+    paths:
+      - '.github/workflows/wellness-functional-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install headless browser controller
+        run: npm install --no-save playwright-core@1.56.1
+      - name: Locate Chrome
+        shell: bash
+        run: |
+          command -v google-chrome || command -v google-chrome-stable || command -v chromium
+      - name: Run live four-app interaction tests
+        run: |
+          export CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium)"
+          node tests/wellness-functionality.cjs

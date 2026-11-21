@@ -1,4 +1,4 @@
-/* FoodScan v2 — shared across MIA / STRONG, SAM / WELLNESS and FORGE / ATHLETIC.
+/* FoodScan v3 — shared across MIA / STRONG, SAM / WELLNESS and FORGE / ATHLETIC.
    Fetches public product nutrition only by barcode. No camera images are uploaded.
    Daily adult logs stay in this browser; teen mode shows fueling info without calorie targets. */
 (function(){
@@ -6,6 +6,9 @@
 const root=document.getElementById("foodScanner");if(!root)return;
 const mode=root.dataset.foodMode||"sam",teen=mode==="mia",forge=mode==="forge";
 const key=teen?"mia-food-meals-v1":forge?"forge-food-diary-v1":"sam-wellness-food-diary-v1";
+const waterKey=teen?"mia-water-diary-v1":forge?"forge-water-diary-v1":"sam-wellness-water-diary-v1";
+const waterData=()=>{try{const x=JSON.parse(localStorage.getItem(waterKey)||"[]");return Array.isArray(x)?x:[]}catch(e){return []}};
+const saveWaterRows=rows=>{try{localStorage.setItem(waterKey,JSON.stringify(rows.slice(0,500)));return true}catch(e){notice("Storage full. Water entry was not saved.");return false}};
 const MEALS=[
  {id:"breakfast",label:"Breakfast",icon:"☀️"},
  {id:"lunch",label:"Lunch",icon:"🥗"},
@@ -32,7 +35,20 @@ root.innerHTML=
 '<h3>'+(teen?'Fuel the whole day.':forge?'Scan. Fuel. Perform.':'Scan your food.')+'</h3>'+
 '<p>'+(teen?'See carbs and protein in packaged foods, then organize meals without calorie or weight-loss targets.':'Scan packaged foods, select a meal, and save the serving to your daily journal.')+'</p></div>'+
 '<div class="foodscan-meal-picker"><div class="foodscan-meal-caption">ADD FOOD TO <span>· choose before scanning</span></div><div id="foodMealChoices" class="foodscan-meal-choices"></div></div>'+
-'<div class="foodscan-actions"><button type="button" class="foodscan-primary" id="foodCameraButton">▣ &nbsp; SCAN BARCODE</button><button type="button" class="foodscan-secondary" id="foodPhotoButton">PHOTO OF BARCODE</button></div>'+
+'<div class="foodscan-actions"><button type="button" class="foodscan-primary" id="foodCameraButton">▣ &nbsp; SCAN BARCODE</button><button type="button" class="foodscan-secondary" id="foodManualOpen">✎ &nbsp; ADD MANUALLY</button></div>'+
+'<details class="foodscan-manual" id="foodManualPanel"><summary>✎ MANUAL FOOD ENTRY <span>Food without a barcode? Add it here.</span></summary>'+
+'<form id="foodManualForm" class="foodscan-manual-form">'+
+'<label class="foodscan-full">MEAL <select id="foodManualMeal" aria-label="Choose meal for manual food">'+mealOptions(selectedMeal)+'</select></label>'+
+'<label class="foodscan-full">FOOD NAME <input id="foodManualName" type="text" autocomplete="off" maxlength="100" required placeholder="e.g. Homemade turkey sandwich"></label>'+
+(teen?'<label class="foodscan-full">OPTIONAL NOTE <input id="foodManualNote" type="text" maxlength="140" placeholder="e.g. After practice, with fruit"></label>':
+'<label>SERVINGS EATEN <input id="foodManualServings" type="number" inputmode="decimal" value="1" step=".25" min=".1" max="100" required></label>'+
+'<div class="foodscan-manual-note">Enter nutrition <b>per serving</b> from the label or your own estimate. Leave unknown values blank.</div>'+
+'<label>CALORIES / SERVING <input id="foodManualCal" type="number" inputmode="decimal" min="0" max="5000" step="1" placeholder="Optional"></label>'+
+'<label>PROTEIN (g) / SERVING <input id="foodManualProtein" type="number" inputmode="decimal" min="0" max="300" step=".1" placeholder="Optional"></label>'+
+'<label>CARBS (g) / SERVING <input id="foodManualCarbs" type="number" inputmode="decimal" min="0" max="500" step=".1" placeholder="Optional"></label>'+
+'<label>FAT (g) / SERVING <input id="foodManualFat" type="number" inputmode="decimal" min="0" max="300" step=".1" placeholder="Optional"></label>')+
+'<button type="submit" class="foodscan-save">＋ SAVE MANUAL FOOD</button></form></details>'+
+'<div class="foodscan-photo-row"><button type="button" class="foodscan-photo-button" id="foodPhotoButton">▧ &nbsp; Scan barcode from a photo</button></div>'+
 '<div id="foodCameraArea" class="foodscan-camera-area" hidden><div id="foodCamera" class="foodscan-camera"></div><button type="button" id="foodCameraStop">STOP CAMERA ×</button></div>'+
 '<input id="foodImageFile" type="file" accept="image/*" capture="environment" hidden>'+
 '<form id="foodBarcodeForm" class="foodscan-code"><label for="foodBarcodeInput">OR ENTER THE NUMBERS UNDER THE BARCODE</label>'+
@@ -40,7 +56,12 @@ root.innerHTML=
 '<div class="foodscan-status" id="foodScanStatus" role="status" aria-live="polite"></div>'+
 '<div id="foodScanResult" class="foodscan-result" hidden></div>'+
 '<div class="foodscan-journal"><div class="foodscan-journal-heading"><b>'+(teen?'YOUR MEALS TODAY':'TODAY’S MEAL JOURNAL')+'</b><small id="foodLogDay"></small></div>'+(!teen?'<div class="foodscan-totals" id="foodTotals"></div>':'')+'<div class="foodscan-entries" id="foodEntries"></div></div>'+
+'<div class="foodscan-water"><div class="foodscan-water-head"><div><b>💧 TODAY’S WATER</b><small>Log drinks when helpful. No fixed target.</small></div><strong id="foodWaterTotal">0 oz</strong></div>'+
+'<div class="foodscan-water-actions"><button type="button" data-water-oz="8">＋ 8 oz</button><button type="button" data-water-oz="12">＋ 12 oz</button><button type="button" data-water-oz="16">＋ 16 oz</button></div>'+
+'<form id="foodWaterForm" class="foodscan-water-custom"><label for="foodWaterCustom">OTHER AMOUNT (FL OZ)</label><div><input id="foodWaterCustom" type="number" inputmode="decimal" min="1" max="100" step=".5" placeholder="Enter ounces"><button type="submit">ADD</button></div></form>'+
+'<div class="foodscan-water-footer"><small id="foodWaterLast"></small><button type="button" id="foodWaterUndo">UNDO LAST</button></div></div>'+
 (teen?'<p class="foodscan-teen-note">Food is fuel for swimming, school and recovery. This meal journal does not set calorie targets or rate foods.</p>':'')+
+'<p class="foodscan-storage">Your food and water logs stay on this device. <button type="button" id="foodBackupExport">SAVE NUTRITION BACKUP</button> <button type="button" id="foodBackupImportButton">RESTORE</button><input id="foodBackupImportFile" hidden type="file" accept=".json,application/json"></p>'+
 '<p class="foodscan-source">Product data: <a href="https://world.openfoodfacts.org/" target="_blank" rel="noopener noreferrer">Open Food Facts</a> (community supplied). Check the package label for accurate serving size, ingredients and nutrition. Barcodes are sent to Open Food Facts for lookup; photos stay on your phone. Camera access requires permission and internet.</p>';
 function notice(msg){$("#foodScanStatus").textContent=msg||""}
 function freshProduct(product,barcode){
@@ -106,11 +127,13 @@ function saveFood(){
 function renderMealPicker(){
  const host=$("#foodMealChoices");if(!host)return;
  host.innerHTML=MEALS.map(m=>'<button type="button" data-food-meal="'+m.id+'" class="'+(selectedMeal===m.id?'active':'')+'" aria-pressed="'+(selectedMeal===m.id)+'">'+m.icon+' '+m.label+'</button>').join("");
+ const manual=$("#foodManualMeal");if(manual)manual.value=selectedMeal;
 }
 function chooseMeal(id){
  if(mealId(id)==="earlier")return;
  selectedMeal=id;renderMealPicker();
  const select=$("#foodSaveMeal");if(select)select.value=id;
+ const manual=$("#foodManualMeal");if(manual)manual.value=id;
  const button=$("#foodScanSave");if(button)button.textContent="＋ SAVE TO "+mealInfo(id).label.toUpperCase();
 }
 function renderLog(){
@@ -128,18 +151,19 @@ function renderLog(){
   const itemHtml=items.map(e=>{
    const moveOptions=mealOptions(m.id);
    const controls='<select class="foodscan-reassign" data-food-move="'+safe(e.id)+'" aria-label="Move '+safe(e.name)+' to another meal">'+(m.id==="earlier"?'<option value="earlier">Move to...</option>':'')+moveOptions+'</select>';
-   const details=teen?fmt(e.amount)+' g/mL':fmt(e.amount)+' g/mL · '+fmt(num(e.calories))+' cal · '+fmt(num(e.protein))+' g protein';
+   const qty=e.source==="manual"?(teen?"Manual entry":fmt(e.amount)+' serving'+(e.amount===1?'':'s')):fmt(e.amount)+' g/mL';
+   const details=teen?(e.note?safe(e.note):qty):qty+(e.calories===null||e.calories===undefined?'':' · '+fmt(num(e.calories))+' cal')+(e.protein===null||e.protein===undefined?'':' · '+fmt(num(e.protein))+' g protein');
    return '<div class="foodscan-entry"><div><b>'+safe(e.name)+'</b><small>'+details+'</small>'+controls+'</div><button type="button" data-food-delete="'+safe(e.id)+'" aria-label="Delete '+safe(e.name)+'">×</button></div>';
   }).join("");
   return '<section class="foodscan-meal-group" aria-label="'+safe(m.label)+'"><div class="foodscan-meal-group-top"><div><strong>'+m.icon+' '+safe(m.label)+'</strong>'+subtotal+'</div>'+
-   (m.id!=="earlier"?'<button type="button" data-food-target="'+m.id+'">＋ SCAN</button>':'')+'</div>'+
+   (m.id!=="earlier"?'<button type="button" data-food-target="'+m.id+'">＋ ADD FOOD</button>':'')+'</div>'+
    (itemHtml||'<p class="foodscan-empty">'+(m.id==="earlier"?'Earlier scanned foods appear here. You can move them into a meal.':'Tap + Scan to add a food to '+m.label.toLowerCase()+'.')+'</p>')+'</section>';
  }).join("");
  if(forge)document.dispatchEvent(new Event("forge-food-changed"));
 }
 root.addEventListener("click",e=>{
  const target=e.target.closest("[data-food-target]");
- if(target){chooseMeal(target.dataset.foodTarget);$("#foodCameraButton").scrollIntoView({behavior:"smooth",block:"center"});$("#foodCameraButton").click();return}
+ if(target){chooseMeal(target.dataset.foodTarget);openManual();return}
  const pick=e.target.closest("[data-food-meal]");if(pick){chooseMeal(pick.dataset.foodMeal);return}
  const b=e.target.closest("[data-food-delete]");if(!b)return;
  const id=Number(b.dataset.foodDelete);if(!confirm("Remove this food entry?"))return;
@@ -217,9 +241,9 @@ $("#foodImageFile").addEventListener("change",async()=>{
  }catch(e){await stopCamera();notice("Could not read that barcode photo. Try a sharper photo or enter the digits below.")}
 });
 document.addEventListener("click",e=>{if(e.target.closest("[data-nav]"))stopCamera()});
-document.addEventListener("visibilitychange",()=>{if(document.hidden)stopCamera()});
+document.addEventListener("visibilitychange",()=>{if(document.hidden)stopCamera();else{renderLog();renderWater()}});
 window.addEventListener("pagehide",()=>stopCamera());
 if(forge)window.forgeFoodProteinToday=()=>data().filter(e=>e.date===localDay()).reduce((n,e)=>n+(num(e.protein)??0),0);
-document.addEventListener("foodscan-sync",renderLog);
-renderLog();
+document.addEventListener("foodscan-sync",()=>{renderLog();renderWater()});
+renderLog();renderWater();
 })();

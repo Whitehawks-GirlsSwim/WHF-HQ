@@ -72,3 +72,35 @@
 .foodscan-entry .foodscan-reassign{display:block;background:var(--fs-soft);color:var(--fs-muted);border:1px solid var(--fs-border);border-radius:8px;padding:7px 9px;margin-top:7px;font-size:11px;max-width:200px;width:100%}
 .foodscan-card[data-food-mode="mia"] .foodscan-journal{border-top-color:var(--fs-border)}
 @media(max-width:360px){.foodscan-meal-choices{gap:4px}.foodscan-meal-choices button{font-size:9px;padding:6px 2px}.foodscan-meal-group{padding:10px}}
+
+/* FoodScan v3: manual food entries and compact water diary */
+.foodscan-manual{border:1px solid var(--fs-border);background:var(--fs-soft);border-radius:14px;margin:9px 0 13px;overflow:hidden}
+.foodscan-manual summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px;color:var(--fs-ink);font-size:12px;font-weight:950}
+.foodscan-manual summary::-webkit-details-marker{display:none}
+.foodscan-manual summary span{color:var(--fs-muted);font-weight:500;font-size:11px;text-align:right}
+.foodscan-manual-form{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:3px 13px 14px;border-top:1px solid var(--fs-border)}
+.foodscan-manual-form label{font-size:10px;font-weight:950;letter-spacing:.2px;color:var(--fs-muted);min-width:0;padding-top:8px}
+.foodscan-manual-form label.foodscan-full{grid-column:1/-1}
+.foodscan-manual-form input,.foodscan-manual-form select{display:block;width:100%;max-width:100%;min-width:0;background:var(--fs-bg);color:var(--fs-ink);border:1px solid var(--fs-border);border-radius:10px;min-height:44px;padding:9px 10px;margin-top:6px;font-size:16px}
+.foodscan-manual-form button.foodscan-save{grid-column:1/-1;margin:5px 0 0}
+.foodscan-manual-note{grid-column:1/-1;color:var(--fs-muted);font-size:11px;line-height:1.45;padding-top:9px}
+.foodscan-photo-row{text-align:center;margin:-4px 0 12px}
+.foodscan-photo-button{background:transparent;color:var(--fs-muted);border:0;font-size:11px;text-decoration:underline;text-underline-offset:3px;min-height:36px;padding:5px;font-weight:750}
+.foodscan-water{background:var(--fs-soft);border:1px solid var(--fs-border);border-radius:17px;padding:14px;margin:18px 0 15px}
+.foodscan-water-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.foodscan-water-head b{color:var(--fs-ink);font-size:12px;letter-spacing:.6px}
+.foodscan-water-head small{display:block;color:var(--fs-muted);font-size:10px;margin-top:3px}
+.foodscan-water-head strong{white-space:nowrap;color:var(--fs-accent);font-size:23px;font-weight:950}
+.foodscan-water-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:13px 0 11px}
+.foodscan-water-actions button{border:1px solid var(--fs-border);border-radius:11px;background:var(--fs-bg);color:var(--fs-ink);padding:12px 7px;min-height:43px;font-size:12px;font-weight:900}
+.foodscan-water-custom label{color:var(--fs-muted);font-size:10px;font-weight:900;letter-spacing:.5px}
+.foodscan-water-custom>div{display:grid;grid-template-columns:minmax(0,1fr) 85px;gap:7px;margin-top:5px}
+.foodscan-water-custom input{width:100%;min-width:0;background:var(--fs-bg);color:var(--fs-ink);border:1px solid var(--fs-border);border-radius:10px;padding:10px;font-size:16px}
+.foodscan-water-custom button{background:var(--fs-accent);color:#fff;border:0;border-radius:10px;font-size:11px;font-weight:950}
+.foodscan-card[data-food-mode="forge"] .foodscan-water-custom button{color:#211b15}
+.foodscan-water-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}
+.foodscan-water-footer small{font-size:10px;color:var(--fs-muted)}
+.foodscan-water-footer button{border:none;background:transparent;color:var(--fs-accent);font-size:10px;font-weight:850;padding:5px}
+.foodscan-storage{font-size:11px;color:var(--fs-muted);line-height:1.5;margin:12px 0}
+.foodscan-storage button{background:transparent;color:var(--fs-accent);text-decoration:underline;text-underline-offset:3px;font-size:10px;font-weight:900;border:0;padding:7px 5px}
+@media(max-width:370px){.foodscan-manual summary{display:block}.foodscan-manual summary span{display:block;text-align:left;margin-top:3px}.foodscan-water-head strong{font-size:19px}}

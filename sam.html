@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f7f6ef"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="SAM BLOOM">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="SAM / BLOOM — beginner workouts, practical nutrition, daily habits and progress for healthy living.">
-<title>SAM / BLOOM — Your Wellness App</title><style>
+<meta name="theme-color" content="#f7f6ef"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="SAM WELLNESS">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="SAM / WELLNESS — beginner workouts, practical nutrition, daily habits and progress for healthy living.">
+<title>SAM / WELLNESS — Your Wellness App</title><style>
 :root{--ink:#26372f;--muted:#66796b;--bg:#f7f6ef;--card:#fffefa;--sage:#dfead8;--forest:#315b49;--peach:#ff9b76;--orange:#e87550;--sun:#f7cc84;--line:#dce3d7}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 100% 0,#f8e6d7 0,transparent 35%),var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif}
 button,input,select{font:inherit}button{cursor:pointer;touch-action:manipulation}button:disabled{opacity:.45;cursor:default}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f49c74;outline-offset:2px}
@@ -56,7 +56,7 @@ a{color:#2d7152}.app{max-width:550px;min-height:100vh;margin:auto;padding:20px 1
 @media(max-width:360px){.app{padding:17px 11px 125px}.brand h1{font-size:22px}.hero{padding:19px;min-height:310px}.hero h2{font-size:41px}.habits-grid{gap:7px}.habit{padding:11px 8px}.nutri-form{gap:7px}.weight-row{grid-template-columns:1fr 94px}}
 </style></head><body>
 <div class="app">
-<header class="top"><div class="brand"><div class="mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="none" stroke="#f7ead2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M24 39C12 30 13 16 28 9c9 10 8 24-4 30Zm0 0c1-11 4-17 11-22M23 39c-12-9-14-17-11-26"/></svg></div><div><small>WELLNESS FOR REAL LIFE</small><h1>SAM <span>/ BLOOM</span></h1></div></div><div class="version">YOUR ROUTINE</div></header>
+<header class="top"><div class="brand"><div class="mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="none" stroke="#f7ead2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M24 39C12 30 13 16 28 9c9 10 8 24-4 30Zm0 0c1-11 4-17 11-22M23 39c-12-9-14-17-11-26"/></svg></div><div><small>WELLNESS FOR REAL LIFE</small><h1>SAM <span>/ WELLNESS</span></h1></div></div><div class="version">YOUR ROUTINE</div></header>
 <section id="home" class="view active">
 <div class="hero"><div class="tag">YOUR HEALTHIER CHAPTER</div><h2>SMALL STEPS.<br><em>BIG CHANGE.</em></h2><p>Feel stronger, find your rhythm, and build habits that actually fit your life.</p><button class="btn" data-nav="move">START A WORKOUT ↗</button></div>
 <div class="quote"><span class="symbol">“</span><div><small>WORDS TO KEEP YOU GOING</small><p id="quoteText">You don't have to be perfect. Just keep showing up.</p></div><button id="quoteNext" aria-label="Next quote">↻</button></div>
@@ -76,7 +76,7 @@ a{color:#2d7152}.app{max-width:550px;min-height:100vh;margin:auto;padding:20px 1
 <div class="save-panel"><button class="btn full" id="saveWorkout">Finish &amp; save workout ✓</button><button class="reset" id="clearSets">Clear checked sets</button><div class="note">Aim for two strength days a week, plus walks on days that suit you.</div></div>
 </section>
 <section id="eat" class="view">
-<div class="fuel-hero"><span class="eyebrow">FOOD THAT FITS YOUR LIFE</span><h2>Nourish to flourish.</h2><p>More balance, less all-or-nothing. No foods are off limits.</p></div>
+<div class="fuel-hero"><span class="eyebrow">FOOD THAT FITS YOUR LIFE</span><h2>Eat well. Feel good.</h2><p>More balance, less all-or-nothing. No foods are off limits.</p></div>
 <div class="surface"><span class="eyebrow">BUILD YOUR PLATE</span><h3 style="margin-top:6px">A simple place to start</h3><div class="plate">
 <div class="plate-item"><span>🥦</span><strong>½ plate</strong><small>Vegetables or fruit</small></div><div class="plate-item"><span>🍗</span><strong>¼ plate</strong><small>Protein: eggs, beans, fish, chicken, tofu</small></div><div class="plate-item"><span>🍠</span><strong>¼ plate</strong><small>Rice, potatoes or whole grains</small></div><div class="plate-item"><span>🥑</span><strong>Add some fat</strong><small>Olive oil, nuts, avocado, or other fats</small></div></div><p class="muted" style="font-size:12px">This is an easy visual guide, not a strict rule for every meal.</p></div>
 <div class="surface"><span class="eyebrow">KEEP IT PRACTICAL</span><h3 style="margin:7px 0">What could I eat?</h3><div class="meal-tabs"><button class="active" data-meal="breakfast">Breakfast</button><button data-meal="lunch">Lunch</button><button data-meal="dinner">Dinner</button></div><div class="meal-box"><div class="meal-emoji" id="mealEmoji">🥣</div><h3 id="mealTitle"></h3><p id="mealDesc"></p><button class="swap" id="swapMeal">Another idea ↻</button></div></div>
@@ -102,7 +102,7 @@ a{color:#2d7152}.app{max-width:550px;min-height:100vh;margin:auto;padding:20px 1
 </section>
 </div>
 <nav class="bottomnav" aria-label="Main navigation"><div class="navinner"><button class="active" data-nav="home"><span>⌂</span>HOME</button><button data-nav="move"><span>✳</span>MOVE</button><button data-nav="eat"><span>◒</span>EAT</button><button data-nav="progress"><span>▥</span>PROGRESS</button></div></nav>
-<dialog id="photoDialog" class="photo-dialog"><button id="closePhoto" class="btn light small" style="float:right">✕ Close</button><img id="photoLarge" alt="Saved journal photo"><p id="photoDetail"></p><div class="row"><a id="downloadPhoto" download="sam-bloom-photo.jpg">Save a copy</a><button id="deletePhoto" class="delete">Delete photo</button></div></dialog>
+<dialog id="photoDialog" class="photo-dialog"><button id="closePhoto" class="btn light small" style="float:right">✕ Close</button><img id="photoLarge" alt="Saved journal photo"><p id="photoDetail"></p><div class="row"><a id="downloadPhoto" download="sam-wellness-photo.jpg">Save a copy</a><button id="deletePhoto" class="delete">Delete photo</button></div></dialog>
 <div class="toast" id="toast" role="status"></div>
 <script>
 (function(){
@@ -267,7 +267,7 @@ async function render(){try{let records=(await getAll()).sort((a,b)=>b.created-a
  let btn=document.createElement("button"),im=document.createElement("img"),label=document.createElement("span"),url=URL.createObjectURL(r.blob);displayUrls.push(url);
  im.src=url;im.alt="Journal photo";im.loading="lazy";label.textContent=(r.note?r.note+" · ":"")+r.date;btn.append(im,label);btn.setAttribute("aria-label","Open photo "+r.date);btn.onclick=()=>openPhoto(r);gallery.append(btn);
  });status("")}catch(e){status("Photo storage isn't available. Open the site in regular Safari, not Private Browsing.")}}
-function openPhoto(r){active=r;if(activeUrl)URL.revokeObjectURL(activeUrl);activeUrl=URL.createObjectURL(r.blob);$("photoLarge").src=activeUrl;$("photoDetail").textContent=(r.note?r.note+" · ":"")+r.date;$("downloadPhoto").href=activeUrl;$("downloadPhoto").download="sam-bloom-"+r.date+".jpg";dialog.showModal()}
+function openPhoto(r){active=r;if(activeUrl)URL.revokeObjectURL(activeUrl);activeUrl=URL.createObjectURL(r.blob);$("photoLarge").src=activeUrl;$("photoDetail").textContent=(r.note?r.note+" · ":"")+r.date;$("downloadPhoto").href=activeUrl;$("downloadPhoto").download="sam-wellness-"+r.date+".jpg";dialog.showModal()}
 $("closePhoto").onclick=()=>dialog.close();
 $("deletePhoto").onclick=async()=>{if(!active||!confirm("Delete this photo from this device?"))return;try{await del(active.id);dialog.close();await render()}catch(e){status("Couldn't delete photo.")}};
 dialog.addEventListener("close",()=>{if(activeUrl){URL.revokeObjectURL(activeUrl);activeUrl=null}active=null;$("photoLarge").removeAttribute("src")});

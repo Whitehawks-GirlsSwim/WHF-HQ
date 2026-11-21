@@ -403,4 +403,109 @@ $("copyLog").onclick=()=>{
  else toast("Copy unavailable in this browser.");
 };
 renderHabits();renderTrain();renderNutrition();renderTrack();
-})();</script><script>/*PRIVATE_PHOTO_JOURNAL*/</script></body></html>
+})();</script><script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id), DB="forge-athletic-photos-v1",STORE="photos";
+const file=$("photoInput"),pending=$("photoPreview"),preview=$("previewImg"),grid=$("photoGrid"),error=$("photoError"),dialog=$("photoDialog");
+if(!file||!grid)return;
+let dbPromise,chosen=null,previewUrl=null,displayUrls=[],active=null,activeUrl=null;
+function database(){
+ if(!window.indexedDB)return Promise.reject(new Error("Local photos require regular Safari."));
+ if(dbPromise)return dbPromise;
+ dbPromise=new Promise((resolve,reject)=>{
+  const req=indexedDB.open(DB,1);
+  req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:"id",autoIncrement:true})};
+  req.onsuccess=()=>resolve(req.result);
+  req.onerror=()=>{dbPromise=null;reject(req.error||new Error("Storage unavailable"))};
+ });
+ return dbPromise;
+}
+async function transact(mode,fn){
+ const db=await database();
+ return new Promise((resolve,reject)=>{
+  let tx=db.transaction(STORE,mode),req;
+  try{req=fn(tx.objectStore(STORE))}catch(e){reject(e);return}
+  tx.oncomplete=()=>resolve(req.result);
+  tx.onabort=()=>reject(tx.error||new Error("Storage operation cancelled"));
+  tx.onerror=()=>reject(tx.error||new Error("Storage operation failed"));
+ });
+}
+const all=()=>transact("readonly",store=>store.getAll());
+const add=obj=>transact("readwrite",store=>store.add(obj));
+const remove=id=>transact("readwrite",store=>store.delete(id));
+function reset(){
+ chosen=null;file.value="";pending.hidden=true;$("photoNote").value="";
+ if(previewUrl){URL.revokeObjectURL(previewUrl);previewUrl=null}
+ preview.removeAttribute("src");
+}
+file.addEventListener("change",()=>{
+ const f=file.files?.[0];if(!f)return;
+ if(!f.type.startsWith("image/")){error.textContent="Choose an image.";return}
+ if(f.size>35*1024*1024){error.textContent="Please choose a photo under 35 MB.";return}
+ chosen=f;if(previewUrl)URL.revokeObjectURL(previewUrl);previewUrl=URL.createObjectURL(f);
+ preview.src=previewUrl;pending.hidden=false;error.textContent="";
+ pending.scrollIntoView({behavior:"smooth",block:"nearest"});
+});
+$("photoCancel").onclick=reset;
+function compressed(file){
+ return new Promise((resolve,reject)=>{
+  const url=URL.createObjectURL(file),im=new Image();
+  im.onerror=()=>{URL.revokeObjectURL(url);reject(new Error("Couldn't open this photo. Try JPEG or PNG."))};
+  im.onload=()=>{
+   URL.revokeObjectURL(url);
+   const factor=Math.min(1,1600/Math.max(im.naturalWidth,im.naturalHeight));
+   const canvas=document.createElement("canvas");
+   canvas.width=Math.max(1,Math.round(im.naturalWidth*factor));
+   canvas.height=Math.max(1,Math.round(im.naturalHeight*factor));
+   const ctx=canvas.getContext("2d");if(!ctx){reject(new Error("Photo processing is unsupported."));return}
+   ctx.drawImage(im,0,0,canvas.width,canvas.height);
+   canvas.toBlob(b=>b?resolve(b):reject(new Error("Photo couldn't be converted.")),"image/jpeg",.82);
+  };
+  im.src=url;
+ });
+}
+$("photoSave").onclick=async()=>{
+ if(!chosen)return;let btn=$("photoSave");btn.disabled=true;
+ try{let blob=await compressed(chosen);await add({blob,date:new Date().toISOString().slice(0,10),note:$("photoNote").value.trim(),created:Date.now()});reset();error.textContent="";await render()}
+ catch(e){error.textContent="Couldn't save photo: "+(e.message||"Storage unavailable")}
+ finally{btn.disabled=false}
+};
+function clearThumbs(){displayUrls.forEach(url=>URL.revokeObjectURL(url));displayUrls=[]}
+async function render(){
+ try{
+  const rows=(await all()).sort((a,b)=>b.created-a.created);
+  clearThumbs();grid.replaceChildren();
+  rows.forEach(item=>{
+   const btn=document.createElement("button"),img=document.createElement("img"),label=document.createElement("small");
+   const u=URL.createObjectURL(item.blob);displayUrls.push(u);
+   img.src=u;img.alt="Progress photo from "+item.date;img.loading="lazy";
+   label.textContent=(item.note?item.note+" · ":"")+item.date;
+   btn.type="button";btn.setAttribute("aria-label","View photo from "+item.date);
+   btn.append(img,label);btn.onclick=()=>open(item);grid.appendChild(btn);
+  });
+  if(!rows.length)grid.innerHTML='<p class="muted" style="font-size:12px;grid-column:1/-1">Your first progress photo will appear here.</p>';
+  error.textContent="";
+ }catch(e){error.textContent="Photo storage isn't available. Try opening in regular Safari instead of Private Browsing."}
+}
+function open(item){
+ active=item;if(activeUrl)URL.revokeObjectURL(activeUrl);
+ activeUrl=URL.createObjectURL(item.blob);
+ $("photoLarge").src=activeUrl;
+ $("photoCaption").textContent=(item.note?item.note+" · ":"")+item.date;
+ $("photoDownload").href=activeUrl;
+ $("photoDownload").download="forge-progress-"+item.date+".jpg";
+ if(dialog.showModal)dialog.showModal();else dialog.setAttribute("open","");
+}
+$("photoClose").onclick=()=>dialog.close();
+$("photoDelete").onclick=async()=>{
+ if(!active||!confirm("Delete this private photo from this device?"))return;
+ try{await remove(active.id);dialog.close();await render()}
+ catch(e){error.textContent="Couldn't delete this photo."}
+};
+dialog.addEventListener("close",()=>{
+ if(activeUrl)URL.revokeObjectURL(activeUrl);
+ activeUrl=null;active=null;$("photoLarge").removeAttribute("src");
+});
+render();
+})();</script></body></html>

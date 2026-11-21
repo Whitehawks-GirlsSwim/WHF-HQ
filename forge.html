@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0c0e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="FORGE ATHLETIC"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="FORGE ATHLETIC: premium strength training, muscle preservation, fueling, and private progress."><meta name="forge-release" content="2026112104"><title>FORGE / ATHLETIC — Private Performance Club</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0c0e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="FORGE ATHLETIC"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="FORGE ATHLETIC: premium strength training, muscle preservation, fueling, and private progress."><meta name="forge-release" content="2026112105"><title>FORGE / ATHLETIC — Private Performance Club</title><style>
 :root{--bg:#0b0c0e;--panel:#15171a;--panel2:#1a1c20;--gold:#d9bf87;--gold2:#f8e2ac;--muted:#91959d;--text:#f3f0e8;--line:#303136;--ok:#b2dfa9}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);background:radial-gradient(ellipse at 80% -20%,#302a20 0%,transparent 43%),var(--bg);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 button,input,select{font:inherit}button{touch-action:manipulation;cursor:pointer}button:disabled{opacity:.45;cursor:default}input,select{color-scheme:dark}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}a{color:var(--gold2)}
@@ -213,7 +213,7 @@ html{background:#0b0c0e}
  <span class="eyebrow">PROTECT YOUR PROGRESS</span><h3 style="margin:7px 0">Save a backup</h3>
  <p class="muted" style="font-size:12px">Your app stores nutrition settings, workouts, protein entries, and weigh-ins on this device. Back them up before removing a Home Screen icon, clearing website data, or changing phones.</p>
  <div class="backup-actions"><button class="btn" type="button" id="backupExport">SAVE MY DATA</button><button class="btn outline" type="button" id="backupImportButton">RESTORE BACKUP</button></div>
- <div class="update-controls"><button id="forgeCheckUpdate" type="button">CHECK FOR APP UPDATES ↻</button><span>Build 2026.11.21.04</span></div>
+ <div class="update-controls"><button id="forgeCheckUpdate" type="button">CHECK FOR APP UPDATES ↻</button><span>Build 2026.11.21.05</span></div>
  <input id="backupImportFile" hidden type="file" accept=".json,application/json" aria-label="Select a previously saved FORGE data backup">
  <p class="disclaimer">The backup contains personal fitness, nutrition, food and water log data. Save it somewhere private, such as Files. Photos are not included; save those individually from the photo journal.</p>
 </div>
@@ -634,7 +634,7 @@ render();
 <script>
 (function(){
  "use strict";
- const current=2026112104,notice=document.getElementById("forgeUpdateNotice"),
+ const current=2026112105,notice=document.getElementById("forgeUpdateNotice"),
  refresh=document.getElementById("forgeRefreshNow"),check=document.getElementById("forgeCheckUpdate");
  let newest=null,lastCheck=0;
  const announce=(message)=>{
@@ -686,4 +686,4 @@ render();
  checkForUpdate(false);
  document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-lastCheck>180000)checkForUpdate(false)});
 })();
-</script><script src="./food-scanner.js?v=20261121-4" defer></script></body></html>
+</script><script src="./food-scanner.js?v=20261121-5" defer></script></body></html>

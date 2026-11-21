@@ -107,6 +107,37 @@ a{color:#2d7152}.app{max-width:550px;min-height:100vh;margin:auto;padding:20px 1
 .journey-privacy{font-size:11px;line-height:1.45;color:#7e917c;margin:9px 0 0}
 @media(max-width:360px){.journey-card{padding:16px 12px}.journey-milestones{gap:4px}.journey-chip b{font-size:11px}.journey-chip small{font-size:8px}}
 
+
+/* SAM WELLNESS: prominent personalized calorie starting target */
+.calorie-card{background:#fffefa;border:1.5px solid #cfe4ce;box-shadow:0 10px 25px #476c4a1b}
+.calorie-card-title{font-size:22px;line-height:1.15;letter-spacing:-.65px;color:#2d5840;margin:7px 0 8px}
+.calorie-card-lead{font-size:12px;line-height:1.5}
+.calorie-card .nutri-form{margin:15px 0 18px}
+.calorie-card .nutri-form label{font-size:12px}
+.calorie-card .nutri-result{background:#f0f6eb;border:1px solid #cee3c7;border-radius:19px;padding:18px 16px;overflow-wrap:anywhere}
+.calorie-card .nutri-result.calorie-ready{background:linear-gradient(142deg,#315a46,#558164);color:#fff;border:none;box-shadow:0 9px 18px #305c4a38}
+.calorie-card .nutri-result>span,.calorie-result-label{display:block;font-size:10px;font-weight:950;letter-spacing:1.15px;color:#42734f}
+.calorie-card .calorie-ready .calorie-result-label{color:#d7f2d7}
+.calorie-number{font-size:clamp(35px,10vw,47px);font-weight:1000;line-height:1.14;letter-spacing:-1.8px;margin:7px 0 4px;color:#285a40}
+.calorie-ready .calorie-number{color:#fff}
+.calorie-number small{font-size:14px;font-weight:750;letter-spacing:0;white-space:nowrap}
+.calorie-placeholder{color:#486b56;font-size:17px;font-weight:900;margin:9px 0}
+.calorie-card .nutri-result p{font-size:12px;line-height:1.45;color:#587363}
+.calorie-card .nutri-result.calorie-ready p{color:#eef7e9}
+.calorie-ready .calorie-sub{font-size:12px;font-weight:850;color:#e3f5de}
+.calorie-details{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:16px 0 14px}
+.calorie-details>div{background:#ffffff20;border:1px solid #ffffff30;border-radius:12px;padding:11px 9px;min-width:0}
+.calorie-details small{display:block;color:#e1f0df;font-size:10px;line-height:1.3}
+.calorie-details b{display:block;color:#fff;font-size:13px;line-height:1.2;margin-top:5px}
+.calorie-guidance{border-top:1px solid #ffffff3b;padding-top:10px}
+.calorie-protein{font-size:11px;line-height:1.4;color:#edf7e9;background:#ffffff1b;border-radius:11px;padding:10px;margin-top:11px}
+.calorie-how{margin:14px 0 0;background:#f3f7ef;border:1px solid #dce8d6;border-radius:12px}
+.calorie-how summary{cursor:pointer;padding:12px;font-size:12px;font-weight:850;color:#54785d;list-style:none}
+.calorie-how summary::-webkit-details-marker{display:none}
+.calorie-how summary span{float:right}
+.calorie-how p{font-size:12px;color:#647e6b;line-height:1.5;margin:4px 12px 12px}
+@media(max-width:355px){.calorie-number{font-size:33px}.calorie-details{grid-template-columns:1fr}}
+
 </style></head><body>
 <div class="app">
 <header class="top"><div class="brand"><div class="mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="none" stroke="#f7ead2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M24 39C12 30 13 16 28 9c9 10 8 24-4 30Zm0 0c1-11 4-17 11-22M23 39c-12-9-14-17-11-26"/></svg></div><div><small>WELLNESS FOR REAL LIFE</small><h1>SAM <span>/ WELLNESS</span></h1></div></div><div class="version">YOUR ROUTINE</div></header>
@@ -138,19 +169,20 @@ a{color:#2d7152}.app{max-width:550px;min-height:100vh;margin:auto;padding:20px 1
 </section>
 <section id="eat" class="view">
 <div class="fuel-hero"><span class="eyebrow">FOOD THAT FITS YOUR LIFE</span><h2>Eat well. Feel good.</h2><p>More balance, less all-or-nothing. No foods are off limits.</p></div>
-<div class="sustain-card"><div class="sustain-emoji">🌿</div><div><span>START WITH THE BASICS</span><h3>Plan meals that keep you satisfied.</h3><p>Include protein, high-fiber produce and foods you enjoy. Choose one change you can repeat for weeks, like preparing breakfast, packing lunch or swapping a sugary drink for water some days.</p><p class="sustain-tip">No crash diets. No need to be perfect on weekends.</p></div></div>
-<div class="surface"><span class="eyebrow">BUILD YOUR PLATE</span><h3 style="margin-top:6px">A simple place to start</h3><div class="plate">
-<div class="plate-item"><span>🥦</span><strong>½ plate</strong><small>Vegetables or fruit</small></div><div class="plate-item"><span>🍗</span><strong>¼ plate</strong><small>Protein: eggs, beans, fish, chicken, tofu</small></div><div class="plate-item"><span>🍠</span><strong>¼ plate</strong><small>Rice, potatoes or whole grains</small></div><div class="plate-item"><span>🥑</span><strong>Add some fat</strong><small>Olive oil, nuts, avocado, or other fats</small></div></div><p class="muted" style="font-size:12px">This is an easy visual guide, not a strict rule for every meal.</p></div>
-<div class="surface"><span class="eyebrow">KEEP IT PRACTICAL</span><h3 style="margin:7px 0">What could I eat?</h3><div class="meal-tabs"><button class="active" data-meal="breakfast">Breakfast</button><button data-meal="lunch">Lunch</button><button data-meal="dinner">Dinner</button></div><div class="meal-box"><div class="meal-emoji" id="mealEmoji">🥣</div><h3 id="mealTitle"></h3><p id="mealDesc"></p><button class="swap" id="swapMeal">Another idea ↻</button></div></div>
-<div class="surface"><span class="eyebrow">OPTIONAL PERSONAL ESTIMATE</span><h3 style="margin:7px 0">Your nutrition guide</h3><p class="muted" style="font-size:12px">Add your details only if numbers are useful to you. This estimates adult energy needs, not a medical prescription.</p>
+<div class="surface calorie-card"><span class="eyebrow">YOUR PERSONAL CALORIE STARTING POINT</span><h3 class="calorie-card-title">How many calories should I eat?</h3><p class="muted calorie-card-lead">Enter your details below to get one daily calorie recommendation for gradual weight loss. You can adjust it as your routine and weight change.</p>
 <div class="nutri-form">
 <label>Age<input id="nAge" inputmode="numeric" type="number" placeholder="Years" min="18" max="95"></label>
 <label>Weight (lb)<input id="nWeight" inputmode="decimal" type="number" placeholder="lb" min="80" max="700" step=".1"></label>
 <label>Height<div class="pair"><input id="nFeet" inputmode="numeric" type="number" placeholder="ft" min="4" max="7"><input id="nInches" inputmode="numeric" type="number" placeholder="in" min="0" max="11"></div></label>
 <label>Activity<select id="nActivity"><option value="1.2">Mostly sitting</option><option value="1.375">Lightly active</option><option value="1.55">Moderately active</option><option value="1.725">Very active</option></select></label>
 </div>
-<div id="nutriResult" class="nutri-result"><span>YOUR ESTIMATE</span><p>Fill in all four details to see an approximate maintenance range and a gentle weight-loss starting point.</p></div>
-<p class="soft-note">These estimates use an adult-woman metabolic equation, which may not fit everyone. If pregnant, breastfeeding, managing a medical condition, or concerned about calorie targets, use personalized guidance from a healthcare professional. You never need to count calories to benefit from this app.</p></div>
+<div id="nutriResult" class="nutri-result" aria-live="polite"><span>YOUR DAILY CALORIE TARGET</span><p>Enter your age, weight, height and activity level above to calculate your personal starting recommendation.</p></div>
+<p class="soft-note">This is a general starting estimate, not a prescribed diet or a number you must stay under. It uses a standard adult-woman metabolism equation and estimated activity. If pregnant, breastfeeding, managing a medical condition, or using medications that affect appetite or weight, check a target with a healthcare professional. There’s no need to count calories to build healthier habits.</p><details class="calorie-how"><summary>How this recommendation is calculated <span>＋</span></summary><p>We estimate resting needs using the Mifflin–St Jeor equation, multiply by your chosen activity level for maintenance, then suggest a modest reduction of roughly 300–500 calories a day where appropriate. The estimate cannot account for all medical, medication, metabolic or lifestyle factors. Recalculate after meaningful weight or activity changes.</p><p>For individualized planning, try the <a href="https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner/" rel="noopener noreferrer" target="_blank">NIH Body Weight Planner</a>.</p></details></div>
+
+<div class="sustain-card"><div class="sustain-emoji">🌿</div><div><span>START WITH THE BASICS</span><h3>Plan meals that keep you satisfied.</h3><p>Include protein, high-fiber produce and foods you enjoy. Choose one change you can repeat for weeks, like preparing breakfast, packing lunch or swapping a sugary drink for water some days.</p><p class="sustain-tip">No crash diets. No need to be perfect on weekends.</p></div></div>
+<div class="surface"><span class="eyebrow">BUILD YOUR PLATE</span><h3 style="margin-top:6px">A simple place to start</h3><div class="plate">
+<div class="plate-item"><span>🥦</span><strong>½ plate</strong><small>Vegetables or fruit</small></div><div class="plate-item"><span>🍗</span><strong>¼ plate</strong><small>Protein: eggs, beans, fish, chicken, tofu</small></div><div class="plate-item"><span>🍠</span><strong>¼ plate</strong><small>Rice, potatoes or whole grains</small></div><div class="plate-item"><span>🥑</span><strong>Add some fat</strong><small>Olive oil, nuts, avocado, or other fats</small></div></div><p class="muted" style="font-size:12px">This is an easy visual guide, not a strict rule for every meal.</p></div>
+<div class="surface"><span class="eyebrow">KEEP IT PRACTICAL</span><h3 style="margin:7px 0">What could I eat?</h3><div class="meal-tabs"><button class="active" data-meal="breakfast">Breakfast</button><button data-meal="lunch">Lunch</button><button data-meal="dinner">Dinner</button></div><div class="meal-box"><div class="meal-emoji" id="mealEmoji">🥣</div><h3 id="mealTitle"></h3><p id="mealDesc"></p><button class="swap" id="swapMeal">Another idea ↻</button></div></div>
 <details class="health-support"><summary>Getting support for a bigger goal <span>＋</span></summary><div><p>A substantial weight-loss goal is worth discussing with a healthcare professional who can review health history, medications, blood pressure, sleep and nutrition and help confirm a healthy target.</p><p>Behavioral programs, registered dietitian support, and, when appropriate, prescription weight-management treatments or other options can be discussed together.</p><p>There is no fixed deadline. A common early goal is about 5–10% of starting weight over roughly six months, with the plan adjusted over time.</p></div></details>
 <div class="surface"><span class="eyebrow">THE BASICS</span><h3 style="margin:7px 0">Healthy habits that stick</h3><p class="muted">Build meals around protein and produce, include fiber-rich foods, enjoy satisfying portions and hydrate regularly. Get enough sleep and make room for foods you love.</p><p class="muted" style="font-size:12px">Aim for steady, sustainable progress rather than crash diets or fast results.</p></div>
 <div class="sources">Based on general guidance from <a target="_blank" rel="noopener noreferrer" href="https://www.cdc.gov/healthy-weight-growth/losing-weight/index.html">CDC Healthy Weight</a>, <a target="_blank" rel="noopener noreferrer" href="https://www.cdc.gov/physical-activity-basics/guidelines/adults.html">CDC Activity Guidelines</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner">NIDDK Body Weight Planner</a>.</div>
@@ -296,17 +328,38 @@ $("swapMeal").onclick=()=>{s.mealIndex[s.meal]=(s.mealIndex[s.meal]+1)%3;persist
  el.addEventListener("input",updateNutrition);el.addEventListener("change",updateNutrition);
 });
 function updateNutrition(){
- ["nAge","nWeight","nFeet","nInches","nActivity"].forEach(id=>s.profile[id]=$(id).value);persist();
- const a=Number($("nAge").value),w=Number($("nWeight").value),ft=Number($("nFeet").value),ins=Number($("nInches").value),f=Number($("nActivity").value),height=(ft*12+ins)*2.54,kg=w/2.20462;
- const box=$("nutriResult");
+ ["nAge","nWeight","nFeet","nInches","nActivity"].forEach(id=>s.profile[id]=$(id).value);
+ persist();
+ const a=Number($("nAge").value),w=Number($("nWeight").value),ft=Number($("nFeet").value),
+ ins=Number($("nInches").value),f=Number($("nActivity").value);
+ const height=(ft*12+ins)*2.54,kg=w/2.20462,box=$("nutriResult");
  if(!(a>=18&&a<=95&&w>=80&&w<=700&&ft>=4&&ft<=7&&ins>=0&&ins<=11&&height>=122&&height<=215&&f>=1.2&&f<=1.725)){
-  box.innerHTML='<span>YOUR ESTIMATE</span><p>Enter your age, height, weight and activity level to see approximate maintenance needs and a gentle starting point.</p>';return;
+  box.classList.remove("calorie-ready");
+  box.innerHTML='<span>YOUR DAILY CALORIE TARGET</span><div class="calorie-placeholder">Your recommendation will appear here</div><p>Fill in your age, weight, height and activity level to calculate a starting target.</p>';
+  return;
  }
- const bmr=10*kg+6.25*height-5*a-161,maintenance=Math.round(bmr*f/50)*50,low=maintenance-400,high=maintenance-250,proteinLo=Math.round(kg*1.2/5)*5,proteinHi=Math.round(kg*1.6/5)*5;
- if(maintenance<1750||low<1450){
-  box.innerHTML='<span>PERSONALIZED GUIDE</span><p>Your estimated energy needs are on the lower end. Instead of showing a restrictive calorie target, focus on balanced meals and activity, and consider advice from a registered dietitian.</p><p>Protein reference for active adults: roughly '+proteinLo+'–'+proteinHi+' g/day, individualized as needed.</p>';return;
+ const round50=x=>Math.round(x/50)*50;
+ const fmt=x=>x.toLocaleString();
+ const bmr=10*kg+6.25*height-5*a-161;
+ const maintenance=round50(bmr*f);
+ const deficit=Math.max(300,Math.min(500,round50(maintenance*.15)));
+ const rawTarget=round50(maintenance-deficit);
+ const proteinLo=Math.round(kg*1.2/5)*5,proteinHi=Math.round(kg*1.6/5)*5;
+ if(maintenance<1750||rawTarget<1500){
+  box.classList.remove("calorie-ready");
+  box.innerHTML='<span>ESTIMATED MAINTENANCE</span><div class="calorie-number">'+fmt(maintenance)+' <small>cal/day</small></div><p>A standard deficit would lead to a relatively low intake based on these estimates. Rather than give a potentially too-low target, ask a registered dietitian or healthcare professional for a personalized calorie recommendation.</p><div class="calorie-sub">Regular meals, strength training, walking and recovery still help.</div>';
+  return;
  }
- box.innerHTML='<span>ESTIMATED MAINTENANCE</span><div class="big">'+maintenance.toLocaleString()+' kcal/day</div><p>For gradual weight loss, an illustrative starting range might be <b>'+low.toLocaleString()+'–'+high.toLocaleString()+' kcal/day</b>. Actual needs vary with metabolism, medication and activity. This is not an intake limit.</p><p>Approximate protein reference: <b>'+proteinLo+'–'+proteinHi+' g/day</b>, spread across meals.</p>';
+ const target=rawTarget;
+ const lower=Math.max(1500,target-100),upper=target+100;
+ box.classList.add("calorie-ready");
+ box.innerHTML='<div class="calorie-result-label">RECOMMENDED DAILY STARTING TARGET</div>'+
+ '<div class="calorie-number">'+fmt(target)+' <small>calories/day</small></div>'+
+ '<div class="calorie-sub">For gradual, sustainable weight loss</div>'+
+ '<div class="calorie-details"><div><small>Estimated maintenance</small><b>'+fmt(maintenance)+' cal/day</b></div>'+
+ '<div><small>Flexible daily range</small><b>'+fmt(lower)+'–'+fmt(upper)+' cal</b></div></div>'+
+ '<p class="calorie-guidance">Start here, not as a strict cap. Check your overall weight trend, hunger, energy and workout recovery over the next 3–4 weeks, then adjust with professional guidance if needed. As your weight changes, log a new weigh-in and this estimate will update.</p>'+
+ '<div class="calorie-protein">🍳 Protein reference: about <b>'+proteinLo+'–'+proteinHi+' g/day</b>, spread over meals; individual needs vary.</div>';
 }
 function renderJourney(){
  var input=$("journeyGoal"),result=$("journeyResult"),milestones=$("journeyMilestones");
@@ -335,7 +388,7 @@ function renderProgress(){
  $("weightHistory").innerHTML=s.weightLog.length?s.weightLog.map(e=>'<div class="entry"><span><b>'+Number(e.value).toFixed(1)+' lb</b><small>'+esc(e.date)+'</small></span><button data-remove-weight="'+e.id+'">Delete</button></div>').join(""):'<div class="empty">No weight entries. Tracking is optional.</div>';
  renderHabits();renderJourney();
 }
-$("addWeight").onclick=()=>{let value=Number($("weighInput").value);if(!Number.isFinite(value)||value<80||value>700){toast("Enter a valid weight");return}s.weightLog.unshift({id:Date.now(),value,date:localDay()});s.weightLog=s.weightLog.slice(0,150);$("weighInput").value="";persist();renderProgress();toast("Check-in saved")};
+$("addWeight").onclick=()=>{let value=Number($("weighInput").value);if(!Number.isFinite(value)||value<80||value>700){toast("Enter a valid weight");return}s.weightLog.unshift({id:Date.now(),value,date:localDay()});s.weightLog=s.weightLog.slice(0,150);$("weighInput").value="";$("nWeight").value=String(value);updateNutrition();persist();renderProgress();toast("Check-in saved. Calorie estimate updated!")};
 document.addEventListener("click",e=>{let b=e.target.closest("[data-remove-weight]");if(!b)return;if(!confirm("Delete this weight entry?"))return;s.weightLog=s.weightLog.filter(x=>x.id!==Number(b.dataset.removeWeight));persist();renderProgress()});
 renderHabits();renderWorkout();renderMeal();updateNutrition();renderProgress();
 })();

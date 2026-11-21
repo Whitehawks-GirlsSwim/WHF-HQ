@@ -2,7 +2,7 @@
 :root{--bg:#0b0c0e;--panel:#15171a;--panel2:#1a1c20;--gold:#d9bf87;--gold2:#f8e2ac;--muted:#91959d;--text:#f3f0e8;--line:#303136;--ok:#b2dfa9}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);background:radial-gradient(ellipse at 80% -20%,#302a20 0%,transparent 43%),var(--bg);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 button,input,select{font:inherit}button{touch-action:manipulation;cursor:pointer}button:disabled{opacity:.45;cursor:default}input,select{color-scheme:dark}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}a{color:var(--gold2)}
-.app{margin:auto;max-width:590px;padding:20px 17px 125px;min-height:100vh}
+.app{margin:auto;max-width:590px;padding:calc(20px + env(safe-area-inset-top, 0px)) 17px calc(125px + env(safe-area-inset-bottom, 0px));min-height:100vh}
 .top{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:21px}
 .brand{display:flex;gap:11px;align-items:center}.logo{border:1px solid #806d4d;background:linear-gradient(155deg,#24221b,#0f1010);width:48px;height:48px;border-radius:14px;display:grid;place-items:center;position:relative;color:var(--gold2);font-family:Georgia,serif;font-size:33px;line-height:1}
 .logo:after{content:"";position:absolute;inset:4px;border:1px solid #5b513e;border-radius:10px;pointer-events:none}
@@ -98,6 +98,24 @@ button,input,select{font:inherit}button{touch-action:manipulation;cursor:pointer
 .best-item small{display:block;font-size:10px;color:#99968d;margin-top:3px}
 .best-item strong{font-size:17px;color:#ebd6a4;text-align:right;line-height:1.1;flex:0 0 auto}
 .best-item strong small{font-size:10px;color:#b6a985;max-width:100px}
+
+
+/* iOS Home Screen: keep the entire header BELOW Dynamic Island / status bar. */
+html{background:#0b0c0e}
+.top{position:relative;isolation:isolate}
+.brand{min-width:0;flex:1}
+.brand>div:last-child{min-width:0}
+.logo{flex:0 0 48px}
+.brand strong{display:block;white-space:nowrap;font-size:clamp(15px,4.2vw,21px);letter-spacing:.6px}
+.brand small{white-space:nowrap;font-size:clamp(7px,2vw,9px);letter-spacing:clamp(.8px,.35vw,2px)}
+.member{flex:0 0 auto;white-space:nowrap}
+@media(max-width:400px){
+  .top{gap:7px}
+  .brand{gap:8px}
+  .logo{width:42px;height:42px;flex-basis:42px;font-size:28px}
+  .member{font-size:8px;padding:7px 7px;letter-spacing:.5px}
+  .brand strong{font-size:clamp(14px,4.4vw,18px);letter-spacing:.15px}
+}
 
 </style></head><body>
 <div class="app">

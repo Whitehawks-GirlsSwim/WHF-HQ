@@ -103,14 +103,20 @@ function renderNameMatches(items,statusText){
 root.innerHTML=
 '<div class="foodscan-head"><div class="foodscan-kicker">'+(teen?'FUEL SMARTER · FOOD SCANNER':forge?'THE NUTRITION LAB · SCAN TO FUEL':'THE NOURISH EDIT · FOOD SCANNER')+'</div>'+
 '<h3>'+(teen?'Fuel the whole day.':forge?'Scan. Fuel. Perform.':'Scan your food.')+'</h3>'+
-'<p>'+(teen?'See carbs and protein in packaged foods, then organize meals without calorie or weight-loss targets.':'Scan packaged foods, select a meal, and save the serving to your daily journal.')+'</p></div>'+
+'<p>'+(teen?'Log the carbs, protein and fats that support practice and recovery. No calorie or weight-loss targets.':'Scan packaged foods, select a meal, and save the serving to your daily journal.')+'</p></div>'+
+(teen?'<div class="teen-macro-overview"><div class="teen-macro-overline">YOUR MACROS · TODAY</div><div class="teen-macro-tiles" id="teenMacroTotals" aria-live="polite"><div><strong>—</strong><small>CARBS</small></div><div><strong>—</strong><small>PROTEIN</small></div><div><strong>—</strong><small>FATS</small></div></div><p>Grams from foods you log, not a target or limit.</p></div>':'')+
 '<div class="foodscan-meal-picker"><div class="foodscan-meal-caption">ADD FOOD TO <span>· choose before scanning</span></div><div id="foodMealChoices" class="foodscan-meal-choices"></div></div>'+
 '<div class="foodscan-actions"><button type="button" class="foodscan-primary" id="foodCameraButton">▣ &nbsp; SCAN BARCODE</button><button type="button" class="foodscan-secondary" id="foodManualOpen">✎ &nbsp; ADD MANUALLY</button></div>'+
 '<details class="foodscan-manual" id="foodManualPanel"><summary>✎ MANUAL FOOD ENTRY <span>Food without a barcode? Add it here.</span></summary>'+
 '<form id="foodManualForm" class="foodscan-manual-form">'+
 '<label class="foodscan-full">MEAL <select id="foodManualMeal" aria-label="Choose meal for manual food">'+mealOptions(selectedMeal)+'</select></label>'+
 '<label class="foodscan-full">FOOD NAME <input id="foodManualName" type="text" autocomplete="off" maxlength="100" required placeholder="e.g. Homemade turkey sandwich"></label>'+
-(teen?'<label class="foodscan-full">OPTIONAL NOTE <input id="foodManualNote" type="text" maxlength="140" placeholder="e.g. After practice, with fruit"></label>':
+(teen?'<label>SERVINGS EATEN <input id="foodManualServings" type="number" inputmode="decimal" value="1" step="any" min=".1" max="100" required></label>'+
+'<div class="foodscan-manual-note">Macros <b>per serving</b> from a label or estimate; leave unknown values blank.</div>'+
+'<label>CARBS (g) / SERVING <input id="foodManualCarbs" type="number" inputmode="decimal" min="0" max="500" step=".1" placeholder="Optional"></label>'+
+'<label>PROTEIN (g) / SERVING <input id="foodManualProtein" type="number" inputmode="decimal" min="0" max="300" step=".1" placeholder="Optional"></label>'+
+'<label>FAT (g) / SERVING <input id="foodManualFat" type="number" inputmode="decimal" min="0" max="300" step=".1" placeholder="Optional"></label>'+
+'<label class="foodscan-full">OPTIONAL NOTE <input id="foodManualNote" type="text" maxlength="140" placeholder="e.g. After practice, with fruit"></label>':
 '<label>SERVINGS EATEN <input id="foodManualServings" type="number" inputmode="decimal" value="1" step="any" min=".1" max="100" required></label>'+
 '<div class="foodscan-manual-note">Enter nutrition <b>per serving</b> from the label or your own estimate. Leave unknown values blank.</div>'+
 '<label>CALORIES / SERVING <input id="foodManualCal" type="number" inputmode="decimal" min="0" max="5000" step="1" placeholder="Optional"></label>'+
@@ -125,7 +131,8 @@ root.innerHTML=
 '<div><input id="foodBarcodeInput" inputmode="numeric" pattern="[0-9]*" maxlength="14" autocomplete="off" placeholder="Barcode / UPC / EAN" aria-label="Barcode number"><button type="submit">LOOK UP ↗</button></div></form>'+
 '<div class="foodscan-status" id="foodScanStatus" role="status" aria-live="polite"></div>'+
 '<div id="foodScanResult" class="foodscan-result" hidden></div>'+
-'<div class="foodscan-journal"><div class="foodscan-journal-heading"><b>'+(teen?'YOUR MEALS TODAY':'TODAY’S MEAL JOURNAL')+'</b><small id="foodLogDay"></small></div>'+(!teen?'<div class="foodscan-totals" id="foodTotals"></div>':'')+'<div class="foodscan-entries" id="foodEntries"></div></div>'+
+'<div class="foodscan-journal"><div class="foodscan-journal-heading"><b>'+(teen?'MEALS & SNACKS':'TODAY’S MEAL JOURNAL')+'</b><small id="foodLogDay"></small></div>'+(!teen?'<div class="foodscan-totals" id="foodTotals"></div>':'')+'<div class="foodscan-entries" id="foodEntries"></div></div>'+
+(teen?'<details class="teen-macro-history"><summary>PREVIOUS DAYS <span>See logged macros ＋</span></summary><div id="teenMacroHistoryEntries"></div></details>':'')+
 '<div class="foodscan-water"><div class="foodscan-water-head"><div><b>💧 TODAY’S WATER</b><small>Log drinks when helpful. No fixed target.</small></div><strong id="foodWaterTotal">0 oz</strong></div>'+
 '<div class="foodscan-water-actions"><button type="button" data-water-oz="8">＋ 8 oz</button><button type="button" data-water-oz="12">＋ 12 oz</button><button type="button" data-water-oz="16">＋ 16 oz</button></div>'+
 '<form id="foodWaterForm" class="foodscan-water-custom"><label for="foodWaterCustom">OTHER AMOUNT (FL OZ)</label><div><input id="foodWaterCustom" type="number" inputmode="decimal" min="1" max="100" step=".5" placeholder="Enter ounces"><button type="submit">ADD</button></div></form>'+
@@ -323,13 +330,9 @@ function saveFood(){
  rows.unshift(r);
  if(!persist(rows))return;
  renderLog();
- if(!teen){
-  clearScanResult();
-  closeQuickAdd();
-  notice("Saved to "+mealInfo(meal).label+".");
- }else{
-  notice("Saved to "+mealInfo(meal).label+".");
- }
+ clearScanResult();
+ if(!teen)closeQuickAdd();
+ notice("Saved to "+mealInfo(meal).label+".");
 }
 function clearScanResult(){
  active=null;
@@ -358,17 +361,37 @@ function renderLog(){
  $("#foodLogDay").textContent=new Date().toLocaleDateString(undefined,{month:"short",day:"numeric"});
  if(!teen){
   $("#foodTotals").innerHTML='<div><strong>'+fmt(add(rows,"calories"))+'</strong><small>kcal logged</small></div><div><strong>'+fmt(add(rows,"protein"))+' g</strong><small>protein</small></div><div><strong>'+fmt(add(rows,"carbs"))+' g</strong><small>carbs</small></div>';
+ }else{
+  const total=(items,k)=>{
+   const known=items.map(e=>num(e[k])).filter(v=>v!==null);
+   return known.length?fmt(known.reduce((a,b)=>a+b,0))+" g":"—";
+  };
+  $("#teenMacroTotals").innerHTML=
+   '<div><strong>'+total(rows,"carbs")+'</strong><small>CARBS</small></div>'+
+   '<div><strong>'+total(rows,"protein")+'</strong><small>PROTEIN</small></div>'+
+   '<div><strong>'+total(rows,"fat")+'</strong><small>FATS</small></div>';
+  const history=data().filter(e=>typeof e.date==="string"&&e.date<localDay()).sort((a,b)=>b.date.localeCompare(a.date));
+  const days=[...new Set(history.map(e=>e.date))].slice(0,7);
+  $("#teenMacroHistoryEntries").innerHTML=days.length?days.map(day=>{
+   const items=history.filter(e=>e.date===day);
+   const formatted=new Date(day+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"});
+   return '<div class="teen-macro-history-day"><b>'+safe(formatted)+'</b><span>Carbs '+total(items,"carbs")+' · Protein '+total(items,"protein")+' · Fats '+total(items,"fat")+'</span></div>';
+  }).join(""):'<p>Previous entries will appear here when you log meals on another day.</p>';
  }
  const groups=MEALS.slice();
  if(rows.some(e=>mealId(e.meal)==="earlier"))groups.push({id:"earlier",label:"Earlier entries",icon:"📁"});
  $("#foodEntries").innerHTML=groups.map(m=>{
   const items=rows.filter(e=>mealId(e.meal)===m.id);
-  const subtotal=!teen?(items.length?'<div class="foodscan-group-subtotal">'+fmt(add(items,"calories"))+' cal · '+fmt(add(items,"protein"))+' g protein</div>':'<div class="foodscan-group-subtotal">Nothing logged yet</div>'):'<div class="foodscan-group-subtotal">'+(items.length?items.length+' item'+(items.length===1?'':'s')+' added':'Nothing added yet')+'</div>';
+  const subtotal=!teen?(items.length?'<div class="foodscan-group-subtotal">'+fmt(add(items,"calories"))+' cal · '+fmt(add(items,"protein"))+' g protein</div>':'<div class="foodscan-group-subtotal">Nothing logged yet</div>'):'<div class="foodscan-group-subtotal">'+(items.length?
+  ["carbs","protein","fat"].map(k=>{const known=items.map(e=>num(e[k])).filter(v=>v!==null);
+   return (k==="carbs"?"C":k==="protein"?"P":"F")+": "+(known.length?fmt(known.reduce((a,b)=>a+b,0))+"g":"—");
+  }).join(" · "):"Nothing logged yet")+'</div>';
   const itemHtml=items.map(e=>{
    const moveOptions=mealOptions(m.id);
    const controls='<select class="foodscan-reassign" data-food-move="'+safe(e.id)+'" aria-label="Move '+safe(e.name)+' to another meal">'+(m.id==="earlier"?'<option value="earlier">Move to...</option>':'')+moveOptions+'</select>';
    const qty=e.source==="manual"?(teen?"Manual entry":fmt(e.amount)+' serving'+(e.amount===1?'':'s')):fmt(e.amount)+' g/mL';
-   const details=teen?(e.note?safe(e.note):qty):qty+(e.estimated?" · estimate":"")+(e.calories===null||e.calories===undefined?'':' · '+fmt(num(e.calories))+' cal')+(e.protein===null||e.protein===undefined?'':' · '+fmt(num(e.protein))+' g protein');
+   const teenMacros=["carbs","protein","fat"].map(k=>num(e[k])===null?null:(k==="carbs"?"C":k==="protein"?"P":"F")+": "+fmt(num(e[k]))+"g").filter(Boolean).join(" · ");
+   const details=teen?(qty+(teenMacros?" · "+teenMacros:" · macros not entered")+(e.note?" · "+safe(e.note):"")):qty+(e.estimated?" · estimate":"")+(e.calories===null||e.calories===undefined?'':' · '+fmt(num(e.calories))+' cal')+(e.protein===null||e.protein===undefined?'':' · '+fmt(num(e.protein))+' g protein');
    return '<div class="foodscan-entry"><div><b>'+safe(e.name)+'</b><small>'+details+'</small>'+controls+'</div><button type="button" data-food-delete="'+safe(e.id)+'" aria-label="Delete '+safe(e.name)+'">×</button></div>';
   }).join("");
   return '<section class="foodscan-meal-group" aria-label="'+safe(m.label)+'"><div class="foodscan-meal-group-top"><div><strong>'+m.icon+' '+safe(m.label)+'</strong>'+subtotal+'</div>'+
@@ -409,28 +432,25 @@ $("#foodManualForm").addEventListener("submit",e=>{
  const name=$("#foodManualName").value.trim(),meal=mealId($("#foodManualMeal").value);
  if(!name||meal==="earlier"){notice("Enter a food name and select a meal.");return}
  const entry={id:Date.now()+Math.random(),date:localDay(),name:name.slice(0,100),meal,source:"manual",barcode:"",calories:null,protein:null,carbs:null,fat:null,amount:1};
- if(teen){entry.note=$("#foodManualNote").value.trim().slice(0,140)}
- else{
-  const servings=num($("#foodManualServings").value);
-  if(servings===null||servings<.1||servings>100){notice("Servings must be between 0.1 and 100.");return}
-  entry.amount=servings;
-  const fields=[["calories","#foodManualCal",5000],["protein","#foodManualProtein",300],["carbs","#foodManualCarbs",500],["fat","#foodManualFat",300]];
-  for(const [field,id,max] of fields){
-   const raw=$(id).value.trim();
-   if(raw===""){entry[field]=null;continue}
-   const value=num(raw);
-   if(value===null||value<0||value>max){notice("Check the "+field+" value.");return}
-   entry[field]=r1(value*servings);
-  }
+ const servings=num($("#foodManualServings").value);
+ if(servings===null||servings<.1||servings>100){notice("Servings must be between 0.1 and 100.");return}
+ entry.amount=servings;
+ const fields=teen?[["protein","#foodManualProtein",300],["carbs","#foodManualCarbs",500],["fat","#foodManualFat",300]]:
+ [["calories","#foodManualCal",5000],["protein","#foodManualProtein",300],["carbs","#foodManualCarbs",500],["fat","#foodManualFat",300]];
+ for(const [field,id,max] of fields){
+  const raw=$(id).value.trim();
+  if(raw===""){entry[field]=null;continue}
+  const value=num(raw);
+  if(value===null||value<0||value>max){notice("Check the "+field+" value.");return}
+  entry[field]=r1(value*servings);
  }
+ if(teen)entry.note=$("#foodManualNote").value.trim().slice(0,140);
  const rows=data();rows.unshift(entry);
  if(!persist(rows))return;
  $("#foodManualName").value="";
+ $("#foodManualServings").value="1";
  if(teen)$("#foodManualNote").value="";
- else{
-  $("#foodManualServings").value="1";
-  ["#foodManualCal","#foodManualProtein","#foodManualCarbs","#foodManualFat"].forEach(id=>$(id).value="");
- }
+ fields.forEach(([,id])=>$(id).value="");
  $("#foodManualPanel").open=false;
  if(!teen)closeQuickAdd();
  notice("Added "+name+" to "+mealInfo(meal).label+".");renderLog();

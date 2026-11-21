@@ -64,11 +64,54 @@ a{color:#2d7152}.app{max-width:550px;min-height:100vh;margin:auto;padding:20px 1
 .walk-card p{font-size:12px;color:#4d7257;line-height:1.45;margin:6px 0}
 .walk-card small{display:block;color:#69836b;font-size:11px;line-height:1.35;margin-top:8px}
 
+
+/* Sustainable long-range weight-loss roadmap, private goal */
+.month-plan,.health-support{background:#eaf3e8;border:1px solid #cadfcb;border-radius:15px;margin:12px 0 16px;overflow:hidden}
+.month-plan summary,.health-support summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:15px;cursor:pointer;font-size:12px;font-weight:950;color:#376c4b}
+.month-plan summary::-webkit-details-marker,.health-support summary::-webkit-details-marker{display:none}
+.month-plan summary b,.health-support summary span{font-size:11px;color:#7a977b;white-space:nowrap}
+.month-items{display:grid;gap:8px;margin:0 13px 10px}
+.month-items>div{border:1px solid #d5e6d1;background:#fff;padding:11px 12px;border-radius:10px}
+.month-items strong{color:#a56c4c;font-size:12px}
+.month-items p{margin:4px 0 0;color:#5c7463;font-size:12px;line-height:1.45}
+.month-reminder{font-size:11px;line-height:1.4;color:#657e67;margin:10px 14px 15px}
+.health-support>div{padding:1px 15px 13px}
+.health-support p{font-size:12px;color:#587461;line-height:1.5;margin:10px 0}
+.sustain-card{display:flex;gap:13px;background:linear-gradient(135deg,#e0f1db,#ffeedb);border:1px solid #d4e4ce;padding:16px;border-radius:18px;margin:14px 0}
+.sustain-emoji{background:#fff;border-radius:14px;font-size:25px;display:grid;place-items:center;width:46px;height:46px;flex:0 0 46px}
+.sustain-card span{font-size:10px;font-weight:950;letter-spacing:1px;color:#668b67}
+.sustain-card h3{font-size:17px;line-height:1.2;margin:6px 0;color:#356044}
+.sustain-card p{font-size:12px;color:#5a7964;line-height:1.4;margin:7px 0}
+.sustain-card .sustain-tip{color:#aa765a;font-weight:850}
+.journey-card{background:#fffdf7;border:1px solid #e5dbc9;border-radius:22px;padding:19px 17px;box-shadow:0 8px 25px #7e8e6e1a;margin:15px 0}
+.journey-eyebrow{font-size:10px;font-weight:950;color:#b17a5e;letter-spacing:1.3px}
+.journey-card h3{color:#325845;font-size:25px;margin:6px 0;line-height:1.1}
+.journey-intro{font-size:12px;color:#66806d;line-height:1.5}
+.journey-setting{margin-top:17px}
+.journey-setting label{display:block;font-size:12px;font-weight:850;color:#39654b;margin-bottom:8px}
+.journey-setting label span{font-weight:500;color:#718d78}
+.journey-inputrow{display:grid;grid-template-columns:minmax(0,1fr) 106px;gap:9px}
+.journey-inputrow input{min-width:0;width:100%;height:48px;border:1.5px solid #bed7b9;background:#fff;color:#2e5c43;border-radius:11px;padding:11px 12px;font-size:16px}
+.journey-inputrow button{border:0;background:#416e54;color:#fff;border-radius:11px;padding:10px 8px;font-size:12px;font-weight:950}
+.journey-result{margin:17px 0 9px;background:linear-gradient(110deg,#376148,#739e73);color:#fff;border-radius:15px;padding:16px}
+.journey-result p{color:#e9f7e8;font-size:12px;line-height:1.4;margin:6px 0 0}
+.journey-big{font-size:21px;line-height:1.1;font-weight:1000}
+.journey-progressbar{height:9px;border-radius:20px;background:#ffffff50;margin:12px 0 5px;overflow:hidden}
+.journey-progressbar i{height:100%;background:#ffd6a2;display:block;border-radius:20px}
+.journey-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;font-weight:850;color:#f5faed}
+.journey-milestones{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:10px 0}
+.journey-chip{background:#f3f6ed;border:1px solid #d5e2d0;color:#7b9177;border-radius:12px;padding:9px 2px;text-align:center;min-width:0}
+.journey-chip b{display:block;font-size:13px}
+.journey-chip small{font-size:9px}
+.journey-chip.hit{background:#d5f0d5;color:#28704a;border-color:#8fcb9d}
+.journey-privacy{font-size:11px;line-height:1.45;color:#7e917c;margin:9px 0 0}
+@media(max-width:360px){.journey-card{padding:16px 12px}.journey-milestones{gap:4px}.journey-chip b{font-size:11px}.journey-chip small{font-size:8px}}
+
 </style></head><body>
 <div class="app">
 <header class="top"><div class="brand"><div class="mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="none" stroke="#f7ead2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M24 39C12 30 13 16 28 9c9 10 8 24-4 30Zm0 0c1-11 4-17 11-22M23 39c-12-9-14-17-11-26"/></svg></div><div><small>WELLNESS FOR REAL LIFE</small><h1>SAM <span>/ WELLNESS</span></h1></div></div><div class="version">YOUR ROUTINE</div></header>
 <section id="home" class="view active">
-<div class="hero"><div class="tag">YOUR HEALTHIER CHAPTER</div><h2>SMALL STEPS.<br><em>BIG CHANGE.</em></h2><p>Feel stronger, find your rhythm, and build habits that actually fit your life.</p><button class="btn" data-nav="move">START A WORKOUT ↗</button></div>
+<div class="hero"><div class="tag">A LONG-TERM WELLNESS JOURNEY</div><h2>SMALL STEPS.<br><em>BIG CHANGE.</em></h2><p>One sustainable choice at a time. Build strength, energy and momentum that lasts.</p><button class="btn" data-nav="move">START A WORKOUT ↗</button></div>
 <div class="quote"><span class="symbol">“</span><div><small>WORDS TO KEEP YOU GOING</small><p id="quoteText">You don't have to be perfect. Just keep showing up.</p></div><button id="quoteNext" aria-label="Next quote">↻</button></div>
 <div class="today-heading"><div><span class="eyebrow">MAKE TODAY COUNT</span><h2>Your daily wins</h2></div><small id="todayDate"></small></div>
 <div class="habits-grid" id="habitsGrid"></div>
@@ -77,7 +120,15 @@ a{color:#2d7152}.app{max-width:550px;min-height:100vh;margin:auto;padding:20px 1
 </section>
 <section id="move" class="view">
 <div class="section-head"><span class="eyebrow">BEGINNER STRENGTH</span><h2>Move your way.</h2><p class="muted">About 25–35 minutes. Start with two sets and keep 2–3 comfortable reps left at the end of each set.</p></div>
-<div class="walk-card"><div class="walk-icon">🚶</div><div><span>YOUR EVERYDAY CARDIO</span><h3>Walk your way to healthier.</h3><p>Start with 10–15 minutes of comfortable walking, 3 days a week. Build time gradually as it gets easier. Short walks count, too.</p><small>A long-term goal for most adults is 150 minutes of moderate activity weekly, plus 2 strength days.</small></div></div><div class="segment"><button id="homeMode" data-mode="home">At home</button><button id="gymMode" data-mode="gym">At the gym</button></div>
+<div class="walk-card"><div class="walk-icon">🚶</div><div><span>YOUR EVERYDAY CARDIO</span><h3>Walk your way to healthier.</h3><p>Start with 10–15 minutes of comfortable walking, 3 days a week. Build time gradually as it gets easier. Short walks count, too.</p><small>A long-term goal for most adults is 150 minutes of moderate activity weekly, plus 2 strength days.</small></div></div>
+<details class="month-plan"><summary><span>🗓️ YOUR FIRST FOUR WEEKS</span><b>See easy plan ＋</b></summary>
+<div class="month-items">
+<div><strong>Week 1</strong><p>Walk or use a low-impact bike for 10 minutes, three times. Try one strength session and learn the movements.</p></div>
+<div><strong>Week 2</strong><p>Move for 10–15 minutes, three or four times. Aim for two comfortable strength sessions.</p></div>
+<div><strong>Week 3</strong><p>Try 15–20 minutes of movement, up to four days. Continue two strength days if recovery feels good.</p></div>
+<div><strong>Week 4</strong><p>Keep the routine that fits your life. Add time gradually instead of making every workout harder.</p></div>
+</div><p class="month-reminder">Go slower when needed. The eventual general guideline is 150 minutes of moderate activity per week and two strength days, not a day-one requirement.</p></details>
+<div class="segment"><button id="homeMode" data-mode="home">At home</button><button id="gymMode" data-mode="gym">At the gym</button></div>
 <div class="segment"><button id="pickA" data-work="A">Workout A</button><button id="pickB" data-work="B">Workout B</button></div>
 <div class="workout-top"><small>TODAY'S PLAN</small><h3 id="workoutTitle">Full Body Basics</h3><p id="workoutDesc"></p><div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:8px;font-size:11px"><span>PROGRESS</span><b id="setCount">0 / 10 sets</b></div><div class="bar"><i id="setBar" style="width:0"></i></div></div>
 <div class="move-label"><span id="moveCounter">EXERCISE 1 OF 5</span><span>Tap to jump ahead</span></div><div class="move-dots" id="moveDots"></div><div id="exerciseCard"></div>
@@ -87,6 +138,7 @@ a{color:#2d7152}.app{max-width:550px;min-height:100vh;margin:auto;padding:20px 1
 </section>
 <section id="eat" class="view">
 <div class="fuel-hero"><span class="eyebrow">FOOD THAT FITS YOUR LIFE</span><h2>Eat well. Feel good.</h2><p>More balance, less all-or-nothing. No foods are off limits.</p></div>
+<div class="sustain-card"><div class="sustain-emoji">🌿</div><div><span>START WITH THE BASICS</span><h3>Plan meals that keep you satisfied.</h3><p>Include protein, high-fiber produce and foods you enjoy. Choose one change you can repeat for weeks, like preparing breakfast, packing lunch or swapping a sugary drink for water some days.</p><p class="sustain-tip">No crash diets. No need to be perfect on weekends.</p></div></div>
 <div class="surface"><span class="eyebrow">BUILD YOUR PLATE</span><h3 style="margin-top:6px">A simple place to start</h3><div class="plate">
 <div class="plate-item"><span>🥦</span><strong>½ plate</strong><small>Vegetables or fruit</small></div><div class="plate-item"><span>🍗</span><strong>¼ plate</strong><small>Protein: eggs, beans, fish, chicken, tofu</small></div><div class="plate-item"><span>🍠</span><strong>¼ plate</strong><small>Rice, potatoes or whole grains</small></div><div class="plate-item"><span>🥑</span><strong>Add some fat</strong><small>Olive oil, nuts, avocado, or other fats</small></div></div><p class="muted" style="font-size:12px">This is an easy visual guide, not a strict rule for every meal.</p></div>
 <div class="surface"><span class="eyebrow">KEEP IT PRACTICAL</span><h3 style="margin:7px 0">What could I eat?</h3><div class="meal-tabs"><button class="active" data-meal="breakfast">Breakfast</button><button data-meal="lunch">Lunch</button><button data-meal="dinner">Dinner</button></div><div class="meal-box"><div class="meal-emoji" id="mealEmoji">🥣</div><h3 id="mealTitle"></h3><p id="mealDesc"></p><button class="swap" id="swapMeal">Another idea ↻</button></div></div>
@@ -99,11 +151,22 @@ a{color:#2d7152}.app{max-width:550px;min-height:100vh;margin:auto;padding:20px 1
 </div>
 <div id="nutriResult" class="nutri-result"><span>YOUR ESTIMATE</span><p>Fill in all four details to see an approximate maintenance range and a gentle weight-loss starting point.</p></div>
 <p class="soft-note">These estimates use an adult-woman metabolic equation, which may not fit everyone. If pregnant, breastfeeding, managing a medical condition, or concerned about calorie targets, use personalized guidance from a healthcare professional. You never need to count calories to benefit from this app.</p></div>
+<details class="health-support"><summary>Getting support for a bigger goal <span>＋</span></summary><div><p>A substantial weight-loss goal is worth discussing with a healthcare professional who can review health history, medications, blood pressure, sleep and nutrition and help confirm a healthy target.</p><p>Behavioral programs, registered dietitian support, and, when appropriate, prescription weight-management treatments or other options can be discussed together.</p><p>There is no fixed deadline. A common early goal is about 5–10% of starting weight over roughly six months, with the plan adjusted over time.</p></div></details>
 <div class="surface"><span class="eyebrow">THE BASICS</span><h3 style="margin:7px 0">Healthy habits that stick</h3><p class="muted">Build meals around protein and produce, include fiber-rich foods, enjoy satisfying portions and hydrate regularly. Get enough sleep and make room for foods you love.</p><p class="muted" style="font-size:12px">Aim for steady, sustainable progress rather than crash diets or fast results.</p></div>
 <div class="sources">Based on general guidance from <a target="_blank" rel="noopener noreferrer" href="https://www.cdc.gov/healthy-weight-growth/losing-weight/index.html">CDC Healthy Weight</a>, <a target="_blank" rel="noopener noreferrer" href="https://www.cdc.gov/physical-activity-basics/guidelines/adults.html">CDC Activity Guidelines</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner">NIDDK Body Weight Planner</a>.</div>
 </section>
 <section id="progress" class="view"><div class="section-head"><span class="eyebrow">YOUR JOURNEY</span><h2>Progress, not perfection.</h2><p class="muted">Track the things that matter to you. Weight and photos are optional.</p></div>
 <div class="progress-stats"><div><b id="statWorkouts">0</b><span>WORKOUTS</span></div><div><b id="statSets">0</b><span>SETS DONE</span></div><div><b id="statWins">0</b><span>TODAY'S WINS</span></div></div>
+<div class="journey-card">
+<div class="journey-eyebrow">YOUR BIG PICTURE</div><h3>Your weight-loss journey</h3>
+<p class="journey-intro">A big goal is easier to manage in smaller stages. You choose the number, and it stays on this phone.</p>
+<div class="journey-setting"><label for="journeyGoal">Long-term goal <span>(pounds to lose)</span></label><div class="journey-inputrow"><input type="number" id="journeyGoal" min="1" max="400" step="1" inputmode="numeric" placeholder="Set your goal"><button id="saveJourneyGoal" type="button">Save goal</button></div></div>
+<div id="journeyResult" class="journey-result">
+<div class="journey-big">Start with a small win.</div><p>Enter a personal goal here, then add a starting weight below if you want to track pounds lost.</p></div>
+<div id="journeyMilestones" class="journey-milestones"></div>
+<p class="journey-privacy">Your goal and weigh-ins stay in this browser; they aren't posted online. Progress can include more energy, strength and consistency, not just the scale.</p>
+</div>
+
 <div class="surface"><h3>Workout history</h3><div id="workoutHistory"></div></div>
 <div class="surface"><h3>Optional weight check-ins</h3><p class="muted" style="font-size:12px">If you prefer not to weigh yourself, skip this completely. How you feel and what you can do matter too.</p><div class="weight-row"><input id="weighInput" type="number" step=".1" min="80" max="700" inputmode="decimal" placeholder="Weight in lb" aria-label="Weight in pounds"><button id="addWeight" class="btn light">Save entry</button></div><div id="weightHistory" class="weight-history"></div></div>
 <div class="photo-box"><span class="eyebrow">PRIVATE PHOTO JOURNAL</span><h3 style="margin:5px 0">Your moments</h3><p class="sub">Save a photo from a walk, workout, milestone or a day you felt good. No comparisons required.</p><label class="photo-upload" for="photoInput"><span>📸</span>＋ Add a photo</label><input type="file" accept="image/*" id="photoInput" hidden>
@@ -245,11 +308,32 @@ function updateNutrition(){
  }
  box.innerHTML='<span>ESTIMATED MAINTENANCE</span><div class="big">'+maintenance.toLocaleString()+' kcal/day</div><p>For gradual weight loss, an illustrative starting range might be <b>'+low.toLocaleString()+'–'+high.toLocaleString()+' kcal/day</b>. Actual needs vary with metabolism, medication and activity. This is not an intake limit.</p><p>Approximate protein reference: <b>'+proteinLo+'–'+proteinHi+' g/day</b>, spread across meals.</p>';
 }
+function renderJourney(){
+ var input=$("journeyGoal"),result=$("journeyResult"),milestones=$("journeyMilestones");
+ var goal=Number(s.journeyGoal)||0;
+ if(document.activeElement!==input)input.value=goal||"";
+ if(!goal){result.innerHTML='<div class="journey-big">Start with a small win.</div><p>Set a private goal above. Your first logged weigh-in below can become your starting point.</p>';milestones.replaceChildren();return}
+ var entries=s.weightLog.filter(e=>Number.isFinite(Number(e.value)));
+ var start=entries.length?Number(entries[entries.length-1].value):null,latest=entries.length?Number(entries[0].value):null;
+ if(start===null){result.innerHTML='<div class="journey-big">'+goal+' lb long-term goal</div><p>Add your first weight check-in below if you want to track progress. A first health milestone can be about 5% of starting weight.</p>';milestones.replaceChildren();return}
+ var lost=Math.max(0,start-latest),remaining=Math.max(0,goal-lost),fraction=Math.min(1,lost/goal);
+ var early=Math.round(start*.05*10)/10;
+ var headline=lost>0?lost.toFixed(1)+' lb down':'Your starting point is set';
+ result.innerHTML='<div class="journey-big">'+headline+'</div><p>Starting weight '+start.toFixed(1)+' lb · Latest '+latest.toFixed(1)+' lb</p><div class="journey-progressbar"><i style="width:'+Math.round(fraction*100)+'%"></i></div><div class="journey-meta"><span>'+Math.round(fraction*100)+'% of your goal</span><span>'+remaining.toFixed(1)+' lb remaining</span></div><p>First health milestone: about '+early.toFixed(1)+' lb (5% of starting weight). '+(lost>=early?'Milestone reached!':'Every steady step counts.')+'</p>';
+ var steps=[10,25,50,75,100].filter(n=>n<=goal);
+ if(!steps.includes(goal))steps.push(goal);
+ milestones.innerHTML=steps.map(n=>'<div class="journey-chip '+(lost>=n?'hit':'')+'"><b>'+(lost>=n?'✓ ':'')+n+'</b><small>lb</small></div>').join("");
+}
+$("saveJourneyGoal").addEventListener("click",()=>{
+ var n=Number($("journeyGoal").value);
+ if(!Number.isInteger(n)||n<1||n>400){toast("Enter a goal from 1 to 400 pounds");return}
+ s.journeyGoal=n;persist();renderJourney();toast("Private goal saved")
+});
 function renderProgress(){
  $("statWorkouts").textContent=s.sessions.length;$("statSets").textContent=s.sessions.reduce((sum,e)=>sum+e.sets,0);
  $("workoutHistory").innerHTML=s.sessions.length?s.sessions.map(e=>'<details class="history-item"><summary><b>'+esc(e.title)+'</b><small>'+esc(e.date)+' · '+e.sets+' sets · '+esc(e.mode)+'</small></summary><div style="margin:8px 0">'+e.items.map(it=>'<p class="muted" style="font-size:12px">'+esc(it.name)+': '+it.sets+' sets at '+esc(it.weight)+' '+esc(it.unit)+'</p>').join("")+'</div></details>').join(""):'<div class="empty">Your completed workouts will show up here.</div>';
  $("weightHistory").innerHTML=s.weightLog.length?s.weightLog.map(e=>'<div class="entry"><span><b>'+Number(e.value).toFixed(1)+' lb</b><small>'+esc(e.date)+'</small></span><button data-remove-weight="'+e.id+'">Delete</button></div>').join(""):'<div class="empty">No weight entries. Tracking is optional.</div>';
- renderHabits();
+ renderHabits();renderJourney();
 }
 $("addWeight").onclick=()=>{let value=Number($("weighInput").value);if(!Number.isFinite(value)||value<80||value>700){toast("Enter a valid weight");return}s.weightLog.unshift({id:Date.now(),value,date:localDay()});s.weightLog=s.weightLog.slice(0,150);$("weighInput").value="";persist();renderProgress();toast("Check-in saved")};
 document.addEventListener("click",e=>{let b=e.target.closest("[data-remove-weight]");if(!b)return;if(!confirm("Delete this weight entry?"))return;s.weightLog=s.weightLog.filter(x=>x.id!==Number(b.dataset.removeWeight));persist();renderProgress()});

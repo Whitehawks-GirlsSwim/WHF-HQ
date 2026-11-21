@@ -155,4 +155,252 @@ button,input,select{font:inherit}button{touch-action:manipulation;cursor:pointer
 <nav class="bottomnav" aria-label="Main navigation"><div class="navinner"><button class="active" data-nav="home"><span>⌂</span>HOME</button><button data-nav="train"><span>↗</span>TRAIN</button><button data-nav="fuel"><span>◉</span>FUEL</button><button data-nav="track"><span>▥</span>TRACK</button></div></nav>
 <div class="toast" id="toast" role="status"></div>
 <dialog class="photo-dialog" id="photoDialog" aria-label="Progress photo"><button id="photoClose" class="btn dark small" style="display:block;margin:0 0 10px auto">✕ CLOSE</button><img id="photoLarge" alt="Saved progress photo"><p id="photoCaption" style="font-size:12px"></p><div class="actions"><a id="photoDownload" download="forge-photo.jpg">SAVE A COPY</a><button id="photoDelete">DELETE PHOTO</button></div></dialog>
-<script>/*MAIN_APPLICATION_SCRIPT*/</script><script>/*PRIVATE_PHOTO_JOURNAL*/</script></body></html>
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id),K="forge-athletic-v1";
+let s;const defaults={location:"home",phase:"foundation",day:"UA",move:{},checks:{},weights:{},sessions:[],weighs:[],habits:{},nutrition:{},protein:{},current:0};
+try{s=Object.assign(defaults,JSON.parse(localStorage.getItem(K)||"{}"))}catch(e){s=defaults}
+for(const name of ["move","checks","weights","habits","nutrition","protein"])s[name]=s[name]||{};
+s.sessions=s.sessions||[];s.weighs=s.weighs||[];
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const persist=()=>{try{localStorage.setItem(K,JSON.stringify(s))}catch(e){toast("Storage full. Save a backup.")}};
+let to;
+function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";clearTimeout(to);to=setTimeout(()=>$("toast").style.display="none",2300)}
+const localDate=()=>{let d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)};
+const nameDay={UA:"UPPER A",LA:"LOWER A",UB:"UPPER B",LB:"LOWER B"};
+const ex=(name,muscle,reps,weight,unit,steps,tip)=>({name,muscle,reps,weight,unit,steps,tip});
+const plans={
+gym:{
+ UA:[
+ ex("Dumbbell Bench Press","CHEST · TRICEPS","8–12 reps",15,"lb / dumbbell",["Plant feet and lie back on a bench with dumbbells near chest.","Press up smoothly, then lower to a comfortable chest level."],"Keep wrists stacked; never chase shaky final reps."),
+ ex("Chest-Supported Row","UPPER BACK","8–12 reps",15,"lb / dumbbell",["Lie chest-down on an incline bench holding dumbbells.","Pull elbows back toward your hips, then lower slowly."],"Keep your chest supported and avoid swinging."),
+ ex("Lat Pulldown","LATS","8–12 reps",30,"lb / machine",["Take an overhand grip and sit tall with knees secure.","Pull bar toward upper chest, then return under control."],"Keep shoulders away from ears; no behind-the-neck pulls."),
+ ex("Incline Dumbbell Press","UPPER CHEST","8–12 reps",10,"lb / dumbbell",["Set an incline bench around 20–30 degrees.","Press weights up from the sides of your chest, lower steadily."],"Use a lower incline if your shoulders prefer it."),
+ ex("Dumbbell Lateral Raise","SHOULDERS","10–15 reps",5,"lb / hand",["With light dumbbells and soft elbows, lift arms outward.","Stop around shoulder height and lower slowly."],"If you shrug or swing, the weight is too heavy."),
+ ex("Cable Triceps Pressdown","TRICEPS","10–12 reps",15,"lb / cable",["Stand close to a cable with elbows pinned near your sides.","Straighten arms down, then return smoothly."],"Keep upper arms still.")
+ ],
+ LA:[
+ ex("Leg Press","QUADS · GLUTES","8–12 reps",50,"lb / machine",["Set seat so your back stays supported and knees bend comfortably.","Push platform away with full feet, then lower steadily."],"Do not lock your knees or force a deep range."),
+ ex("Dumbbell Romanian Deadlift","HAMSTRINGS · GLUTES","8–10 reps",15,"lb / hand",["Stand tall, dumbbells near thighs and knees softly bent.","Hinge hips back with flat back; stand by squeezing glutes."],"The movement is a hip hinge, not a reach for the floor."),
+ ex("Supported Split Squat","LEGS","8 per leg",0,"bodyweight",["Take a staggered stance next to a stable handhold.","Bend both knees as far as comfortable, then press up."],"Start without weights. Keep front foot planted."),
+ ex("Seated Leg Curl","HAMSTRINGS","10–12 reps",20,"lb / machine",["Adjust machine to fit your thigh and lower-leg pads.","Bend knees slowly and control the return."],"Don't kick or yank the weight."),
+ ex("Standing Calf Raise","CALVES","12–15 reps",0,"bodyweight",["Hold a stable support and rise slowly onto your toes.","Pause, then lower heels under control."],"Avoid bouncing."),
+ ex("Pallof Press","CORE · ANTI-ROTATION","10 per side",10,"lb / cable",["Stand sideways to a light cable at chest height.","Press handle forward and resist twisting, then return."],"Keep ribs stacked over hips.")
+ ],
+ UB:[
+ ex("Machine Chest Press","CHEST","8–12 reps",30,"lb / machine",["Set handles at mid-chest height and sit with back supported.","Press forward smoothly; let elbows return comfortably."],"Choose a pain-free range."),
+ ex("Single-Arm Dumbbell Row","BACK","10 per side",15,"lb / hand",["Brace one hand on a stable bench with spine neutral.","Pull dumbbell toward hip and lower under control."],"Don't rotate your torso to lift."),
+ ex("Assisted Pull-Up Machine","LATS · BACK","6–10 reps",70,"lb / assistance",["Adjust assistance to make the movement manageable.","Pull chest toward handles, lower with control."],"Higher assistance makes this easier; ask for setup help."),
+ ex("Seated Dumbbell Shoulder Press","SHOULDERS","8–10 reps",10,"lb / hand",["Sit with back supported, dumbbells near shoulders.","Press overhead in a comfortable range and lower smoothly."],"Stop for shoulder pain; keep ribs down."),
+ ex("Cable Biceps Curl","BICEPS","10–12 reps",10,"lb / cable",["Stand stable with elbows near your torso.","Curl handle toward chest, lower without swinging."],"Slow lowering helps control."),
+ ex("Face Pull","REAR DELTS · POSTURE","12–15 reps",10,"lb / cable",["Set cable near face height, use a rope grip.","Pull rope toward face as elbows move out, then return."],"Keep neck relaxed and weight light.")
+ ],
+ LB:[
+ ex("Goblet Squat","QUADS · GLUTES","8–12 reps",15,"lb / dumbbell",["Hold a dumbbell vertically at chest height.","Sit down between hips with heels grounded, then stand tall."],"Use a bench target if it helps control depth."),
+ ex("Hip Thrust","GLUTES","10–12 reps",0,"bodyweight",["Support upper back on a stable bench with feet planted.","Lift hips by squeezing glutes, then lower smoothly."],"Avoid over-arching the lower back."),
+ ex("Low Step-Up","LEGS · BALANCE","8 per leg",0,"bodyweight",["Use a low stable step and a support if needed.","Step up through the planted foot and lower slowly."],"Keep the step low enough for full control."),
+ ex("Leg Extension","QUADS","10–12 reps",20,"lb / machine",["Set the seat and ankle pad to match your body.","Straighten knees against light resistance, lower slowly."],"Avoid swinging or forcing joint range."),
+ ex("Dumbbell Farmer Carry","GRIP · CORE","30 seconds",15,"lb / hand",["Stand upright holding equal dumbbells by your sides.","Walk slowly on clear ground, then set weights down safely."],"Breathe normally and avoid leaning."),
+ ex("Dead Bug","CORE","8 per side",0,"bodyweight",["Lie on your back with knees bent above hips.","Extend opposite arm and leg without arching your back."],"Shorter reaches are fine.")
+ ]
+},
+home:{
+ UA:[
+ ex("Dumbbell Floor Press","CHEST · TRICEPS","8–12 reps",15,"lb / dumbbell",["Lie on the floor, knees bent, dumbbells near chest.","Press dumbbells up, lower until upper arms gently touch floor."],"Use a weight you can lift from the floor safely."),
+ ex("One-Arm Dumbbell Row","BACK","10 per side",15,"lb / dumbbell",["Brace on a sturdy bench, shoulders square.","Pull weight toward back pocket and lower slowly."],"No twisting or jerking."),
+ ex("Dumbbell Shoulder Press","SHOULDERS","8–10 reps",10,"lb / dumbbell",["Sit upright with back supported, weights at shoulders.","Press up through a comfortable range and lower slowly."],"If shoulder pain appears, stop and use a lighter variation."),
+ ex("Incline Counter Push-Up","CHEST","8–12 reps",0,"bodyweight",["Set hands on a fixed counter or high bench.","Lower chest toward support and push away."],"Move feet closer to make it easier."),
+ ex("Dumbbell Lateral Raise","SHOULDERS","10–15 reps",5,"lb / hand",["Stand tall with light dumbbells and soft elbows.","Lift arms outward to shoulder level, then lower smoothly."],"Lead with controlled movement, not momentum."),
+ ex("Hammer Curl","BICEPS","10–12 reps",10,"lb / hand",["Hold dumbbells with palms facing inward.","Curl while keeping elbows near sides; lower slowly."],"Don't swing your back.")
+ ],
+ LA:[
+ ex("Goblet Squat to Bench","QUADS · GLUTES","8–12 reps",15,"lb / dumbbell",["Stand in front of a stable bench with dumbbell at chest.","Sit back toward the bench, then stand through both feet."],"Use bodyweight first if the pattern is new."),
+ ex("Dumbbell Hip Hinge","HAMSTRINGS · GLUTES","8–12 reps",15,"lb / hand",["Hold dumbbells in front of thighs, knees soft.","Move hips backward with flat back, stand tall again."],"Stop at the depth where your back stays neutral."),
+ ex("Supported Reverse Lunge","LEGS","8 per leg",0,"bodyweight",["Hold a counter or rail for balance.","Step back, bend knees comfortably, then return."],"Smaller steps count."),
+ ex("Glute Bridge","GLUTES","10–15 reps",0,"bodyweight",["Lie on back with knees bent and feet planted.","Squeeze glutes to lift hips, then lower smoothly."],"Keep ribs down."),
+ ex("Calf Raise","CALVES","12–15 reps",0,"bodyweight",["Rise up onto your toes beside a support.","Pause briefly and lower heels slowly."],"No bouncing."),
+ ex("Side Plank from Knees","CORE","20–30 seconds",0,"bodyweight",["Lie on one side propped on forearm, knees bent.","Lift hips into a straight line from knees to head."],"Breathe steadily; switch sides.")
+ ],
+ UB:[
+ ex("Incline Dumbbell Floor Press","CHEST","8–12 reps",15,"lb / hand",["Use a stable incline bench if available; otherwise flat floor.","Press dumbbells smoothly and lower under control."],"Do not let elbows flare excessively."),
+ ex("Two-Dumbbell Bent-Over Row","BACK","8–12 reps",15,"lb / hand",["Hinge hips back with knees soft, dumbbells hanging.","Pull elbows toward hips, then lower slowly."],"Keep trunk steady; reduce weight if back rounds."),
+ ex("Dumbbell Arnold-Free Press","SHOULDERS","8–10 reps",10,"lb / hand",["Sit tall with palms facing inward and weights at shoulders.","Press overhead with hands in a neutral grip, then lower."],"A neutral grip may feel more comfortable."),
+ ex("Band Pull-Apart","UPPER BACK","12–15 reps",0,"light band",["Hold a light band at shoulder height with arms out.","Pull band apart using shoulder blades, return slowly."],"Use a light band; stop if shoulder discomfort."),
+ ex("Dumbbell Hammer Curl","BICEPS","10–12 reps",10,"lb / hand",["Hold dumbbells at sides, palms inward.","Curl upward, then lower over two seconds."],"Keep elbows still."),
+ ex("Close-Grip Dumbbell Floor Press","TRICEPS","8–12 reps",10,"lb / hand",["Lie on floor with weights close to chest and elbows tucked.","Press upward and lower slowly until elbows touch floor."],"Start light to learn control.")
+ ],
+ LB:[
+ ex("Step-Up to Low Box","QUADS · GLUTES","8 per leg",0,"bodyweight",["Step up onto a stable low box holding a support if needed.","Stand fully and lower slowly, alternating legs."],"Choose the lowest step that feels controlled."),
+ ex("Dumbbell Split Squat","LEGS","8 per leg",0,"bodyweight",["Take staggered stance and stay tall.","Lower a little and press up, then switch legs."],"Support yourself on a stable rail to learn it."),
+ ex("Dumbbell Suitcase Carry","CORE · GRIP","30s per side",15,"lb / hand",["Hold a dumbbell in one hand and stand straight.","Walk slowly without leaning; change hands."],"Keep shoulders level, breathe normally."),
+ ex("Single-Leg Glute Bridge","GLUTES","8 per side",0,"bodyweight",["Lie on back, knees bent; extend one leg.","Push through planted foot to lift hips and lower."],"If difficult, use both feet."),
+ ex("Wall Sit","QUADS","20–30 seconds",0,"bodyweight",["Lean against wall, slide down into a shallow seated position.","Hold while breathing, then stand slowly."],"Shallow knee bend is fine."),
+ ex("Bird Dog","CORE","8 per side",0,"bodyweight",["On hands and knees, extend opposite arm and leg.","Hold briefly, return under control, then switch."],"Avoid tipping hips.")
+ ]
+}
+};
+const desc={UA:"Pressing and pulling strength for chest, back, shoulders and arms.",LA:"Build leg drive, glutes, hamstrings and trunk stability.",UB:"Second upper-body session for balanced muscle development.",LB:"Lower-body strength, carries and controlled core work."};
+const q=["Discipline creates the physique.","Train today. Thank yourself tomorrow.","Strength is built one rep at a time.","The process is the luxury.","Earn the next level.","Progress happens between the highlights."];
+let qi=(new Date().getDate()+new Date().getMonth())%q.length;
+function quote(){ $("dailyQuote").textContent=q[qi];qi=(qi+1)%q.length }
+$("refreshQuote").onclick=quote;quote();
+function show(tab){
+ document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===tab));
+ document.querySelectorAll(".navinner [data-nav]").forEach(b=>b.classList.toggle("active",b.dataset.nav===tab));
+ window.scrollTo(0,0);
+ if(tab==="track")renderTrack();
+}
+document.addEventListener("click",e=>{let nav=e.target.closest("[data-nav]");if(nav){show(nav.dataset.nav);return}});
+const habitList=[
+ {key:"protein",icon:"🥩",title:"Protein first",sub:"Build meals around it"},
+ {key:"move",icon:"🏋️",title:"Move with purpose",sub:"Lift or walk"},
+ {key:"water",icon:"💧",title:"Stay hydrated",sub:"Sip regularly"},
+ {key:"recover",icon:"🌙",title:"Prioritize sleep",sub:"Recovery is training"}
+];
+function todayHabits(){return s.habits[localDate()]||{}}
+function renderHabits(){
+ let done=todayHabits(),count=habitList.reduce((n,h)=>n+Number(!!done[h.key]),0);
+ $("habitGrid").innerHTML=habitList.map(h=>'<button class="habit '+(done[h.key]?'done':'')+'" data-habit="'+h.key+'" aria-pressed="'+!!done[h.key]+'"><span>'+h.icon+'</span><span><b>'+h.title+'</b><small>'+h.sub+'</small></span><i>'+(done[h.key]?'✓':'○')+'</i></button>').join("");
+ $("habitFill").style.width=(count/4*100)+"%";
+ $("habitStatus").textContent=count===4?"All four done. You kept your standard.":count===0?"Start with one good choice today.":count+" of 4 commitments checked.";
+ $("currentDay").textContent=new Date().toLocaleDateString(undefined,{month:"short",day:"numeric"});
+}
+document.addEventListener("click",e=>{let b=e.target.closest("[data-habit]");if(!b)return;let day=localDate();s.habits[day]=s.habits[day]||{};s.habits[day][b.dataset.habit]=!s.habits[day][b.dataset.habit];persist();renderHabits()});
+function plan(){return plans[s.location][s.day]}
+function sessionKey(){return s.location+"-"+s.day}
+function numSets(){return s.phase==="build"?3:2}
+function moveIndex(){return Math.max(0,Math.min(plan().length-1,Number(s.move[sessionKey()]||0)))}
+function setCount(){let k=sessionKey(),n=numSets();return plan().reduce((sum,it,i)=>sum+[1,2,3].slice(0,n).reduce((a,x)=>a+Number(!!s.checks[k+"-"+i+"-"+x]),0),0)}
+function goMove(index){s.move[sessionKey()]=Math.max(0,Math.min(plan().length-1,index));persist();renderTrain();$("moveLabel").scrollIntoView({behavior:"smooth",block:"start"})}
+function renderTrain(){
+ document.querySelectorAll("[data-location]").forEach(b=>b.classList.toggle("active",b.dataset.location===s.location));
+ document.querySelectorAll("[data-phase]").forEach(b=>b.classList.toggle("active",b.dataset.phase===s.phase));
+ $("sessionChoices").innerHTML=["UA","LA","UB","LB"].map((key,i)=>'<button class="'+(key===s.day?'active':'')+'" data-day="'+key+'"><b>'+nameDay[key]+'</b><small>DAY '+(i+1)+'</small></button>').join("");
+ const arr=plan(),i=moveIndex(),it=arr[i],key=sessionKey(),n=numSets(),done=setCount();
+ $("workoutTitle").textContent=nameDay[s.day];$("workoutDesc").textContent=desc[s.day];
+ $("setCount").textContent=done+" / "+n*arr.length+" sets";$("setFill").style.width=Math.round(done/(n*arr.length)*100)+"%";
+ $("moveLabel").textContent="EXERCISE "+(i+1)+" OF "+arr.length;
+ $("stepDots").innerHTML=arr.map((v,index)=>{let c=[1,2,3].slice(0,n).filter(x=>s.checks[key+"-"+index+"-"+x]).length;return '<button class="step-dot '+(i===index?'active ':'')+(c===n?'complete':'')+'" data-move="'+index+'" aria-label="'+esc(v.name)+'" aria-current="'+(i===index?'step':'false')+'">'+(c===n?'✓':index+1)+'</button>'}).join("");
+ const weightKey=key+"-"+i,weight=s.weights[weightKey]===undefined?it.weight:s.weights[weightKey];
+ const checked=x=>!!s.checks[weightKey+"-"+x];
+ $("exerciseCard").innerHTML='<article class="exercise">'+
+ '<div class="exercise-top"><div class="eyebrow">MOVE '+String(i+1).padStart(2,"0")+' · '+esc(it.muscle)+'</div><h3>'+esc(it.name)+'</h3><p>Make every rep clean. Add weight when the last reps feel controlled.</p></div>'+
+ '<div class="rep-pill"><b>'+n+' × '+esc(it.reps)+'</b><small>TARGET REPS</small></div>'+
+ '<div class="exercise-steps"><h4>HOW TO LIFT</h4><ol>'+it.steps.map(t=>'<li>'+esc(t)+'</li>').join("")+'</ol><div class="coach-tip"><b>FORM NOTE</b> · '+esc(it.tip)+'</div><a class="demo-link" href="https://www.youtube.com/results?search_query='+encodeURIComponent(it.name+" exercise proper form demonstration")+'" rel="noopener noreferrer" target="_blank">▷ WATCH AN EXERCISE DEMO ↗</a></div>'+
+ '<div class="lift"><label for="activeWeight">WEIGHT USED</label><p class="hint">The starting weight is a suggestion, not a requirement. Log only the weight you actually lift.</p><div class="weightline"><input id="activeWeight" type="number" inputmode="decimal" min="0" step="2.5" data-weight="'+weightKey+'" value="'+esc(weight)+'"><small>'+esc(it.unit)+'</small></div><div class="set-row">'+[1,2,3].slice(0,n).map(x=>'<button aria-pressed="'+checked(x)+'" data-set="'+weightKey+"-"+x+'" class="'+(checked(x)?'done':'')+'">'+(checked(x)?'✓ SET '+x:'○ SET '+x)+'</button>').join("")+'</div></div>'+
+ '</article>';
+ $("prevMove").disabled=i===0;$("nextMove").textContent=i===arr.length-1?"REVIEW SESSION ✓":"NEXT MOVE →";
+}
+document.addEventListener("click",e=>{
+ let l=e.target.closest("[data-location]");if(l){s.location=l.dataset.location;persist();renderTrain();return}
+ let p=e.target.closest("[data-phase]");if(p){s.phase=p.dataset.phase;persist();renderTrain();return}
+ let d=e.target.closest("[data-day]");if(d){s.day=d.dataset.day;persist();renderTrain();return}
+ let m=e.target.closest("[data-move]");if(m){goMove(Number(m.dataset.move));return}
+ let set=e.target.closest("[data-set]");if(set){s.checks[set.dataset.set]=!s.checks[set.dataset.set];persist();renderTrain();return}
+});
+document.addEventListener("change",e=>{const el=e.target.closest("[data-weight]");if(!el)return;let val=Number(el.value);s.weights[el.dataset.weight]=Number.isFinite(val)&&val>=0?val:0;persist()});
+$("prevMove").onclick=()=>goMove(moveIndex()-1);
+$("nextMove").onclick=()=>moveIndex()===plan().length-1?$("saveWorkout").scrollIntoView({behavior:"smooth",block:"center"}):goMove(moveIndex()+1);
+$("resetSets").onclick=()=>{if(!confirm("Clear the checked sets for this session?"))return;let k=sessionKey();plan().forEach((it,i)=>[1,2,3].forEach(x=>delete s.checks[k+"-"+i+"-"+x]));persist();renderTrain()};
+$("saveWorkout").onclick=()=>{
+ const n=setCount();if(n===0){toast("Complete a set first.");return}
+ const k=sessionKey(),items=plan().map((it,i)=>{
+  const sets=[1,2,3].slice(0,numSets()).filter(x=>s.checks[k+"-"+i+"-"+x]).length;
+  return {name:it.name,sets,weight:s.weights[k+"-"+i]===undefined?it.weight:s.weights[k+"-"+i],unit:it.unit}
+ }).filter(it=>it.sets>0);
+ s.sessions.unshift({id:Date.now(),date:localDate(),name:nameDay[s.day],location:s.location,sets:n,items});
+ s.sessions=s.sessions.slice(0,150);plan().forEach((it,i)=>[1,2,3].forEach(x=>delete s.checks[k+"-"+i+"-"+x]));
+ s.move[k]=0;persist();renderTrain();renderTrack();toast("SESSION SAVED. STRONG WORK.");show("track");
+};
+let seconds=0,timer=null;
+$("restTimer").onclick=()=>{
+ if(timer){clearInterval(timer);timer=null;seconds=0;$("restTimer").textContent="◷ REST 90s";return}
+ seconds=90;$("restTimer").textContent="◷ "+seconds+"s · STOP";
+ timer=setInterval(()=>{seconds--; $("restTimer").textContent="◷ "+seconds+"s · STOP";if(seconds<=0){clearInterval(timer);timer=null;$("restTimer").textContent="◷ REST 90s";toast("REST COMPLETE.")}},1000);
+};
+// Adult male formula; user chooses current measurements; no assumed personal weight is saved.
+const nutritionFields=["nAge","nWeight","nFeet","nInches","nActivity","nFocus"];
+function nutritionEstimate(){
+ const age=Number($("nAge").value),wt=Number($("nWeight").value),ft=Number($("nFeet").value),
+ inch=Number($("nInches").value),factor=Number($("nActivity").value),focus=$("nFocus").value;
+ const cm=(ft*12+inch)*2.54,kg=wt/2.2046226218;
+ if(!(age>=18&&age<=95&&wt>=80&&wt<=700&&ft>=4&&ft<=7&&inch>=0&&inch<=11&&cm>=121&&cm<=215&&factor>=1.2&&factor<=1.725))return null;
+ const round50=n=>Math.round(n/50)*50;
+ const rest=10*kg+6.25*cm-5*age+5;
+ const maintenance=round50(rest*factor),deficit=focus==="maintain"?0:focus==="cut"?400:250,proposal=round50(maintenance-deficit);
+ // Reference weight avoids impractically high protein estimates at higher BMI.
+ const bmi25=25*Math.pow(cm/100,2);
+ const reference=kg>bmi25*1.2?bmi25+.25*(kg-bmi25):kg;
+ const proteinLo=Math.round(reference*1.2/5)*5,proteinHi=Math.round(reference*1.6/5)*5,proteinMid=Math.round(reference*1.4/5)*5;
+ return {maintenance,target:proposal,deficit,proteinLo,proteinHi,proteinMid,tooLow:proposal<1800,focus};
+}
+function renderNutrition(){
+ const box=$("nutritionResult"),result=nutritionEstimate();
+ if(!result){
+  box.innerHTML='<div class="label">YOUR NUTRITION TARGET</div><p>Enter age, weight, height and activity level for an estimated calorie and protein starting point.</p>';
+  renderProtein();return;
+ }
+ if(result.tooLow){
+  box.innerHTML='<div class="label">CALORIE ESTIMATE</div><div class="big">'+result.maintenance.toLocaleString()+' <small>maintenance cal/day</small></div><p>The suggested reduction would be low for an adult male training for muscle. Rather than set an overly restrictive intake, review a personalized target with your clinician or dietitian. Strength and adequate meals still matter.</p><div class="nutri-grid"><div><small>Protein reference</small><b>'+result.proteinLo+'–'+result.proteinHi+' g/day</b></div><div><small>Training emphasis</small><b>Fuel + recover</b></div></div>';
+ }else{
+  box.innerHTML='<div class="label">RECOMMENDED DAILY STARTING POINT</div><div class="big">'+result.target.toLocaleString()+' <small>calories / day</small></div>'+
+  '<div class="nutri-grid"><div><small>PROTEIN REFERENCE</small><b>'+result.proteinLo+'–'+result.proteinHi+' g</b></div><div><small>MAINTENANCE ESTIMATE</small><b>'+result.maintenance.toLocaleString()+' cal</b></div></div>'+
+  '<p>For '+(result.focus==="maintain"?"maintenance and performance":result.focus==="cut"?"moderate fat loss alongside strength training":"recomposition and muscle preservation")+'. This is a starting estimate, not a cap. Monitor energy, recovery and strength over 3–4 weeks before revising it with your care team.</p>';
+ }
+ renderProtein();
+}
+nutritionFields.forEach(id=>{
+ const el=$(id);if(s.nutrition[id]!==undefined)el.value=s.nutrition[id];
+ el.addEventListener("input",()=>{s.nutrition[id]=el.value;persist();renderNutrition()});
+ el.addEventListener("change",()=>{s.nutrition[id]=el.value;persist();renderNutrition()});
+});
+function proteinEntries(){return s.protein[localDate()]||[]}
+function renderProtein(){
+ const grams=proteinEntries().reduce((a,v)=>a+v,0),est=nutritionEstimate(),goal=est?.proteinMid||null;
+ $("proteinTotal").textContent=grams;
+ $("proteinGoalText").textContent=goal?" / around "+goal+" g reference":"";
+ $("proteinFill").style.width=goal?Math.min(100,grams/goal*100)+"%":"0%";
+}
+function addProtein(value){
+ const n=Number(value);if(!Number.isFinite(n)||n<=0||n>150){toast("Enter 1–150 grams.");return}
+ const d=localDate();s.protein[d]=s.protein[d]||[];s.protein[d].push(n);persist();renderProtein();toast("+"+n+" g PROTEIN LOGGED");
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-protein]");if(b)addProtein(b.dataset.protein)});
+$("proteinAdd").onclick=()=>{addProtein($("proteinCustom").value);$("proteinCustom").value=""};
+$("proteinUndo").onclick=()=>{const items=proteinEntries();if(!items.length){toast("No entries to undo.");return}items.pop();persist();renderProtein();toast("Entry undone.")};
+function renderTrack(){
+ $("statsSessions").textContent=s.sessions.length;
+ $("statsSets").textContent=s.sessions.reduce((n,e)=>n+e.sets,0);
+ $("statsMoves").textContent=s.sessions.reduce((n,e)=>n+e.items.length,0);
+ $("homeSessions").textContent=s.sessions.length+" session"+(s.sessions.length===1?"":"s")+" logged";
+ $("homeRecent").textContent=s.sessions.length?"Last: "+s.sessions[0].name+" · "+s.sessions[0].date:"Your strength journey starts with session one.";
+ const container=$("sessionHistory");
+ container.innerHTML=s.sessions.length?s.sessions.map(e=>
+ '<details><summary><span><b>'+esc(e.name)+' · '+esc(e.location)+'</b><small>'+esc(e.date)+'</small></span><span>'+e.sets+' SETS ⌄</span></summary>'+
+ '<div class="detail">'+e.items.map(v=>'<div><span>'+esc(v.name)+'</span><b>'+v.weight+' '+esc(v.unit)+' · '+v.sets+' sets</b></div>').join("")+'</div></details>').join(""):'<p class="muted" style="font-size:12px">Your completed workouts will appear here.</p>';
+ $("weightHistory").innerHTML=s.weighs.length?s.weighs.map(x=>'<div><span><b>'+Number(x.value).toFixed(1)+' lb</b><small> · '+esc(x.date)+'</small></span><button data-delete-weight="'+x.id+'">DELETE</button></div>').join(""):'<p class="muted" style="font-size:12px">No weigh-ins saved. Optional.</p>';
+ renderSpark();
+}
+function renderSpark(){
+ const el=$("weightSpark"),values=s.weighs.slice(0,25).reverse().map(x=>Number(x.value)).filter(Number.isFinite);
+ if(values.length<2){el.innerHTML="";return}
+ const min=Math.min(...values)-2,max=Math.max(...values)+2,w=320,h=94;
+ const pts=values.map((v,i)=>[12+i*(w-24)/(values.length-1),11+(max-v)/(max-min)*(h-22)]);
+ const path=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ");
+ el.innerHTML='<svg class="spark" viewBox="0 0 320 94" role="img" aria-label="Bodyweight trend from '+values[0].toFixed(1)+' to '+values[values.length-1].toFixed(1)+' pounds"><path d="'+path+'" stroke="#dec084" stroke-width="2.6" fill="none" stroke-linejoin="round" stroke-linecap="round"/>'+pts.map((p,i)=>'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+(i===pts.length-1?4:2)+'" fill="#d7bc82"/>').join("")+'</svg>';
+}
+$("weighSave").onclick=()=>{
+ const weight=Number($("weighInput").value);if(!Number.isFinite(weight)||weight<80||weight>700){toast("Enter a valid weight.");return}
+ s.weighs.unshift({id:Date.now(),date:localDate(),value:weight});s.weighs=s.weighs.slice(0,150);
+ $("weighInput").value="";$("nWeight").value=weight;s.nutrition.nWeight=String(weight);
+ persist();renderNutrition();renderTrack();toast("WEIGHT LOGGED. NUTRITION UPDATED.");
+};
+document.addEventListener("click",e=>{const b=e.target.closest("[data-delete-weight]");if(!b)return;if(!confirm("Delete this weigh-in?"))return;s.weighs=s.weighs.filter(x=>x.id!==Number(b.dataset.deleteWeight));persist();renderTrack()});
+$("copyLog").onclick=()=>{
+ const text="FORGE ATHLETIC · TRAINING HISTORY\n"+s.sessions.map(e=>e.date+" · "+e.name+" · "+e.sets+" sets\n"+e.items.map(it=>"  "+it.name+" — "+it.weight+" "+it.unit+", "+it.sets+" sets").join("\n")).join("\n\n");
+ if(navigator.clipboard?.writeText)navigator.clipboard.writeText(text).then(()=>toast("HISTORY COPIED."),()=>toast("Copy unavailable in this browser."));
+ else toast("Copy unavailable in this browser.");
+};
+renderHabits();renderTrain();renderNutrition();renderTrack();
+})();</script><script>/*PRIVATE_PHOTO_JOURNAL*/</script></body></html>

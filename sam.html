@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f6ef"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="SAM BLOOM">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="SAM / BLOOM — beginner workouts, practical nutrition, daily habits and progress for healthy living.">
+<title>SAM / BLOOM — Your Wellness App</title><style>
+:root{--ink:#26372f;--muted:#66796b;--bg:#f7f6ef;--card:#fffefa;--sage:#dfead8;--forest:#315b49;--peach:#ff9b76;--orange:#e87550;--sun:#f7cc84;--line:#dce3d7}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 100% 0,#f8e6d7 0,transparent 35%),var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;touch-action:manipulation}button:disabled{opacity:.45;cursor:default}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f49c74;outline-offset:2px}
+a{color:#2d7152}.app{max-width:550px;min-height:100vh;margin:auto;padding:20px 16px 120px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:22px}
+.brand{display:flex;gap:10px;align-items:center}.mark{width:42px;height:42px;background:#335e4a;border-radius:15px;display:grid;place-items:center;color:#fff;box-shadow:0 6px 15px #335e4a33}.mark svg{width:26px;height:26px}
+.brand small{color:#738676;letter-spacing:1.8px;font-size:9px;font-weight:900}.brand h1{font-size:24px;line-height:1;letter-spacing:-1px;margin:2px 0 0;font-weight:950}.brand h1 span{color:#ec8662}
+.version{font-size:9px;font-weight:900;background:#e5efdf;color:#52715b;border:1px solid #c3d5bd;border-radius:20px;padding:7px 9px}
+.view{display:none}.view.active{display:block}h2{font-size:28px;margin:0;letter-spacing:-1px;line-height:1.08}h3{font-size:18px;letter-spacing:-.45px;margin:0}p{margin:6px 0 12px}.muted{color:var(--muted)}.eyebrow{font-size:10px;font-weight:900;letter-spacing:1.4px;color:#58806b}
+.btn{border:0;border-radius:13px;background:var(--forest);color:#fff;font-size:13px;padding:14px 17px;font-weight:900;min-height:49px;text-align:center}.btn.light{background:#e1ecdb;color:#315f48}.btn.peach{background:var(--orange);color:#fff}.btn.full{width:100%}.btn.outline{border:1px solid #b8cfba;background:#fff;color:#315a47}.btn.small{min-height:37px;padding:9px 13px;font-size:12px}.surface{background:var(--card);border:1px solid var(--line);padding:18px;border-radius:20px;margin:13px 0;box-shadow:0 7px 22px #6c947812}
+.hero{position:relative;overflow:hidden;background:linear-gradient(140deg,#385e4c 0%,#406e54 55%,#86a784 100%);border-radius:26px;color:#fff;min-height:328px;padding:22px 24px;box-shadow:0 17px 30px #47745135}
+.hero:before{content:"";position:absolute;width:290px;height:290px;border-radius:50%;background:#ffffff13;right:-125px;top:-95px;box-shadow:0 0 0 33px #ffffff0c,0 0 0 66px #ffffff08}
+.hero:after{content:"";position:absolute;right:35px;top:30px;width:125px;height:170px;border-radius:100% 0 100% 0;transform:rotate(-32deg);border:3px solid #ffffff3a;box-shadow:40px 23px 0 -1px #ffffff0a,-24px 50px 0 -1px #ffffff0a}
+.hero .tag{display:inline-block;background:#ffffff25;border:1px solid #ffffff40;padding:7px 10px;border-radius:99px;font-size:10px;font-weight:900;letter-spacing:1px;position:relative;z-index:1}
+.hero h2{font-size:clamp(42px,11vw,58px);line-height:.96;color:#fff;letter-spacing:-2px;font-weight:1000;margin:68px 0 12px;position:relative;z-index:1}
+.hero h2 em{font-style:normal;color:#ffce99}.hero p{font-size:13px;line-height:1.5;max-width:290px;color:#f3fff5;position:relative;z-index:1;margin:0 0 15px}
+.hero .btn{background:#ffb28e;color:#533828;position:relative;z-index:1;box-shadow:0 5px 0 #2c533e}
+.quote{display:flex;gap:11px;align-items:start;background:#fff9eb;border:1px solid #f2dfbe;border-radius:17px;padding:16px;margin:15px 0}.quote .symbol{font-family:Georgia,serif;font-size:52px;line-height:.8;color:#e99a72}.quote div:nth-child(2){flex:1}.quote small{display:block;font-size:9px;letter-spacing:1.4px;color:#96754c;font-weight:900}.quote p{font-size:16px;font-weight:850;line-height:1.32;margin:6px 0 0}.quote button{border:0;background:#f5e5c8;color:#825c38;border-radius:50%;font-size:21px;height:36px;width:36px}
+.today-heading{display:flex;justify-content:space-between;align-items:end;margin:21px 0 12px}.today-heading h2{font-size:23px}.today-heading small{color:#809082;font-size:10px;font-weight:800}
+.habits-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.habit{border:1px solid #d5dfd0;background:#fff;border-radius:16px;padding:14px 12px;display:flex;gap:9px;align-items:center;text-align:left;min-height:78px;box-shadow:0 4px 11px #54765a0c;color:#355341}
+.habit .emoji{font-size:23px;flex:0 0 27px}.habit strong{font-size:12px;line-height:1.2;display:block}.habit small{font-size:10px;color:#7e9082}.habit.done{background:#e1f3dd;border-color:#79bb89}.habit.done .tick{color:#238851}.habit .tick{font-size:13px;color:#b9c4b5;margin-left:auto}.habit-meter{height:8px;background:#e3e9df;overflow:hidden;border-radius:10px;margin:14px 0 5px}.habit-meter i{display:block;height:100%;background:linear-gradient(90deg,#8ac7a3,#e6a47f);width:0;transition:width .2s}.habit-caption{font-size:11px;color:#6b806e}
+.quick-link{margin-top:14px;width:100%;background:#e7eee1;border:1px solid #d1dfc9;border-radius:15px;padding:14px 15px;display:flex;align-items:center;justify-content:space-between;text-align:left;color:#315a45}.quick-link b{font-size:14px}.quick-link span{font-size:12px}
+.section-head{margin:7px 0 14px}.section-head h2{font-size:30px}.section-head p{font-size:13px;margin-top:7px}.segment{display:grid;grid-template-columns:1fr 1fr;background:#e5ebdf;border-radius:14px;padding:5px;gap:5px;margin:14px 0}.segment button{padding:12px 5px;border:0;background:transparent;color:#68816c;font-size:12px;font-weight:900;border-radius:10px}.segment button.active{background:#fffefa;color:#315842;box-shadow:0 2px 9px #456d461b}
+.workout-top{background:linear-gradient(115deg,#335d49,#6c906b);color:#fff;border-radius:19px;padding:16px;margin:12px 0}.workout-top h3{font-size:23px;color:#fff}.workout-top small{font-size:10px;font-weight:900;color:#e0f2de;letter-spacing:1px}.workout-top p{font-size:12px;color:#e9f5e4}.bar{height:9px;background:#b1c4af;border-radius:9px;overflow:hidden}.bar>i{display:block;height:100%;background:#ffc28e;transition:width .2s}
+.move-label{display:flex;align-items:center;justify-content:space-between;margin:19px 0 10px;color:#52795f;font-size:10px;font-weight:900;letter-spacing:1px}
+.move-dots{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.move-dot{background:#fff;border:1px solid #cddccd;color:#7c9b80;border-radius:11px;padding:10px 0;font-weight:900;min-height:41px}.move-dot.current{background:#e37f5d;border-color:#e37f5d;color:#fff}.move-dot.finished:not(.current){background:#d0f1d7;color:#2e7b45;border-color:#9ddcb3}
+.exercise{background:#fff;border:1px solid #d9e5d9;border-radius:21px;margin:13px 0;overflow:hidden;box-shadow:0 7px 18px #52724b16}
+.exercise .exhead{padding:19px 18px 15px}.exercise .exhead small{font-size:10px;color:#c17b5e;letter-spacing:1.1px;font-weight:900}.exercise h3{font-size:26px;letter-spacing:-1px;line-height:1.1;margin:6px 0}.reps{display:flex;justify-content:space-between;align-items:center;margin:0 18px 14px;padding:12px 14px;background:#f8e9d5;border-radius:13px;color:#7e4f30}.reps b{font-size:19px}.reps span{font-size:25px}
+.steps{padding:8px 18px 15px}.steps h4{margin:0 0 9px;font-size:14px}.steps ol{margin:0;padding-left:21px;display:grid;gap:8px}.steps li{font-size:12px;color:#566b5e;line-height:1.45}.tip{background:#edf5e9;border-left:3px solid #97c49a;padding:10px 12px;margin:13px 0;color:#4b6b56;font-size:12px;border-radius:5px 10px 10px 5px}
+.demo-link{display:block;background:#345d49;color:#fff;border-radius:10px;padding:11px 13px;font-size:12px;font-weight:800;text-decoration:none}
+.lift-controls{border-top:1px solid #e3eae0;padding:16px 18px 18px;background:#f9fcf7}.lift-controls label{font-size:12px;font-weight:800;color:#4e6c56}.lift-controls p{font-size:11px;color:#819080;margin:3px 0 10px}
+.weight-field{display:flex;align-items:center;gap:8px;margin:9px 0 14px}.weight-field input{height:46px;width:100px;max-width:45%;border:1.5px solid #b4ceb4;border-radius:11px;padding:8px 10px;font-size:18px;color:#2b503e;background:#fff}.weight-field span{font-size:11px;color:#607b6a}
+.set-buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px}.set-buttons button{border:1.5px solid #b8d5ba;border-radius:12px;background:#fff;color:#406447;padding:13px 8px;font-size:12px;font-weight:900;min-height:53px}.set-buttons button.checked{background:#bdeac4;border-color:#65b079;color:#235d34}
+.move-actions{display:grid;grid-template-columns:1fr 1.3fr;gap:9px;margin:12px 0}.move-actions .btn{min-height:54px}.move-actions .next{background:#e68564}
+.timer-row{display:flex;align-items:center;justify-content:space-between;gap:9px;background:#ecf2e8;border-radius:14px;padding:12px;margin:13px 0}.timer-row button{border:0;background:#365b49;color:#fff;border-radius:10px;padding:11px 12px;font-weight:900;font-size:12px}.timer-row span{font-size:11px;color:#6c806e}
+.save-panel{text-align:center;margin:14px 0 25px}.save-panel .note{font-size:11px;color:#809083;margin:9px auto}.save-panel .reset{display:block;background:none;border:0;color:#758777;text-decoration:underline;font-size:12px;margin:13px auto;padding:4px}
+.fuel-hero{background:linear-gradient(130deg,#f6d6b5,#fbead7);border:1px solid #efd6b8;border-radius:22px;padding:19px;margin:0 0 14px;position:relative}.fuel-hero .eyebrow{color:#a4664c}.fuel-hero h2{font-size:32px;color:#744a38;margin:6px 0}.fuel-hero p{color:#846756;font-size:13px}
+.plate{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:15px 0}.plate-item{padding:16px 12px;background:#edf3e7;border:1px solid #d5e2ca;border-radius:15px}.plate-item strong{display:block;font-size:13px;color:#375d48}.plate-item span{display:block;font-size:24px;margin-bottom:6px}.plate-item small{color:#6b816a;font-size:11px}
+.meal-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:14px 0}.meal-tabs button{background:#e9eee4;color:#5d7960;border:0;border-radius:11px;padding:10px 6px;font-size:12px;font-weight:900}.meal-tabs button.active{background:#325d49;color:#fff}
+.meal-box{background:#fff;border:1px solid #e0e7db;border-radius:17px;padding:16px}.meal-box .meal-emoji{font-size:31px}.meal-box h3{margin:7px 0}.meal-box p{font-size:13px;color:#6a7c6b}.meal-box .swap{background:#fae6d3;color:#956849;border:0;border-radius:10px;padding:10px 12px;font-weight:800;font-size:12px}
+.nutri-form{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:14px 0}.nutri-form label{font-size:12px;color:#587363;font-weight:850;min-width:0}.nutri-form input,.nutri-form select{width:100%;height:47px;min-width:0;border:1px solid #c6d8c6;border-radius:11px;margin-top:5px;background:#fff;color:#315443;padding:10px;font-size:16px}.nutri-form .wide{grid-column:1/-1}.nutri-form .pair{display:grid;grid-template-columns:1fr 1fr;gap:7px}.nutri-result{background:#e6f3e8;border-radius:15px;padding:15px;margin-top:11px}.nutri-result .big{font-size:26px;color:#2e664e;font-weight:1000;line-height:1}.nutri-result span{font-size:11px;color:#577661;font-weight:850}.nutri-result p{font-size:12px;color:#5c7765;margin-bottom:0}.soft-note{background:#f5f1e7;padding:12px 14px;border-radius:13px;font-size:12px;color:#7c7466;line-height:1.5}.sources{font-size:11px;color:#718175;line-height:1.5}.sources a{color:#3b7655}
+.progress-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:15px 0}.progress-stats div{background:#345b49;border-radius:14px;padding:14px 9px}.progress-stats b{display:block;color:#ffe0aa;font-size:26px;line-height:1}.progress-stats span{font-size:9px;color:#e0f0df;letter-spacing:.5px;font-weight:900}
+.history-item{padding:13px 0;border-bottom:1px solid #e2e9df;color:#42624a}.history-item:last-child{border-bottom:0}.history-item b{font-size:13px;display:block}.history-item small{font-size:11px;color:#7a907e}.empty{padding:20px 12px;text-align:center;color:#9aa89b;font-size:13px}
+.weight-row{display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:10px;margin:13px 0}.weight-row input{width:100%;min-width:0;border:1px solid #c6d8c6;border-radius:11px;font-size:16px;padding:12px;background:#fff;color:#2e563e}
+.weight-history .entry{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #e3e9df}.weight-history .entry b{font-size:13px;color:#345642}.weight-history .entry small{font-size:11px;color:#819383}.weight-history .entry button{background:#fae8e1;border:0;border-radius:8px;color:#a65a4a;padding:7px 9px;font-size:11px}
+.photo-box{background:#fff;border:1px solid #dce7d9;border-radius:20px;padding:17px;margin:13px 0}.photo-box .sub{font-size:12px;color:#728674;margin:6px 0 15px}.photo-upload{display:block;border:2px dashed #b6d2bc;background:#f4faf2;text-align:center;padding:21px 12px;border-radius:14px;cursor:pointer;font-weight:900;color:#427b57}.photo-upload span{display:block;font-size:30px;margin-bottom:8px}.photo-preview{margin-top:14px}.photo-preview img{display:block;width:100%;max-height:240px;object-fit:contain;background:#dee7da;border-radius:13px}.photo-preview input{width:100%;border:1px solid #c5d8c4;border-radius:10px;padding:11px;font-size:16px;margin:10px 0;color:#274c38}.photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.photo-grid button{background:#edf4e8;border:1px solid #cddfcc;border-radius:13px;padding:0;overflow:hidden;text-align:left}.photo-grid img{display:block;width:100%;height:125px;object-fit:cover}.photo-grid span{display:block;padding:8px 9px;color:#52745c;font-size:11px;font-weight:800}
+.photo-dialog{width:94%;max-width:500px;max-height:90vh;padding:13px;border:0;border-radius:19px;background:#fffefa;color:#34513b}.photo-dialog::backdrop{background:#1a2b24c9}.photo-dialog img{width:100%;max-height:55vh;object-fit:contain;background:#d4e0d5;border-radius:13px}.photo-dialog .row{display:flex;gap:9px;margin-top:10px;justify-content:space-between}.photo-dialog .row button,.photo-dialog .row a{flex:1;text-align:center;font-size:12px;font-weight:900;text-decoration:none;padding:12px 8px;border:0;border-radius:11px;background:#e6f0e3;color:#355842}.photo-dialog .row .delete{background:#fce8df;color:#a9553d}
+.bottomnav{position:fixed;left:0;right:0;bottom:0;background:#fffefaed;backdrop-filter:blur(16px);border-top:1px solid #dae4d7;padding:8px 10px calc(10px + env(safe-area-inset-bottom));z-index:10;box-shadow:0 -7px 19px #4c714015}
+.navinner{max-width:550px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.navinner button{background:transparent;border:0;min-height:55px;border-radius:12px;color:#839282;font-weight:900;font-size:10px}.navinner button span{display:block;font-size:22px;line-height:1.25}.navinner button.active{background:#e2efdf;color:#37644d}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#345744;color:#fff;border-radius:12px;padding:11px 15px;font-size:12px;font-weight:800;z-index:20;display:none;white-space:nowrap}
+[hidden]{display:none!important}
+@media(max-width:360px){.app{padding:17px 11px 125px}.brand h1{font-size:22px}.hero{padding:19px;min-height:310px}.hero h2{font-size:41px}.habits-grid{gap:7px}.habit{padding:11px 8px}.nutri-form{gap:7px}.weight-row{grid-template-columns:1fr 94px}}
+</style></head><body>
+<div class="app">
+<header class="top"><div class="brand"><div class="mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="none" stroke="#f7ead2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M24 39C12 30 13 16 28 9c9 10 8 24-4 30Zm0 0c1-11 4-17 11-22M23 39c-12-9-14-17-11-26"/></svg></div><div><small>WELLNESS FOR REAL LIFE</small><h1>SAM <span>/ BLOOM</span></h1></div></div><div class="version">YOUR ROUTINE</div></header>
+<section id="home" class="view active">
+<div class="hero"><div class="tag">YOUR HEALTHIER CHAPTER</div><h2>SMALL STEPS.<br><em>BIG CHANGE.</em></h2><p>Feel stronger, find your rhythm, and build habits that actually fit your life.</p><button class="btn" data-nav="move">START A WORKOUT ↗</button></div>
+<div class="quote"><span class="symbol">“</span><div><small>WORDS TO KEEP YOU GOING</small><p id="quoteText">You don't have to be perfect. Just keep showing up.</p></div><button id="quoteNext" aria-label="Next quote">↻</button></div>
+<div class="today-heading"><div><span class="eyebrow">MAKE TODAY COUNT</span><h2>Your daily wins</h2></div><small id="todayDate"></small></div>
+<div class="habits-grid" id="habitsGrid"></div>
+<div class="habit-meter"><i id="habitMeter"></i></div><div class="habit-caption" id="habitCaption">Every small win counts.</div>
+<button class="quick-link" data-nav="eat"><b>What's for dinner? 🍽️</b><span>Simple meal ideas →</span></button>
+</section>
+<section id="move" class="view">
+<div class="section-head"><span class="eyebrow">BEGINNER STRENGTH</span><h2>Move your way.</h2><p class="muted">About 25–35 minutes. Start with two sets and keep 2–3 comfortable reps left at the end of each set.</p></div>
+<div class="segment"><button id="homeMode" data-mode="home">At home</button><button id="gymMode" data-mode="gym">At the gym</button></div>
+<div class="segment"><button id="pickA" data-work="A">Workout A</button><button id="pickB" data-work="B">Workout B</button></div>
+<div class="workout-top"><small>TODAY'S PLAN</small><h3 id="workoutTitle">Full Body Basics</h3><p id="workoutDesc"></p><div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:8px;font-size:11px"><span>PROGRESS</span><b id="setCount">0 / 10 sets</b></div><div class="bar"><i id="setBar" style="width:0"></i></div></div>
+<div class="move-label"><span id="moveCounter">EXERCISE 1 OF 5</span><span>Tap to jump ahead</span></div><div class="move-dots" id="moveDots"></div><div id="exerciseCard"></div>
+<div class="move-actions"><button id="backMove" class="btn light">← Back</button><button id="forwardMove" class="btn next">Next →</button></div>
+<div class="timer-row"><button id="restTimer">◷ Rest 75s</button><span>Start with light weights and controlled movement.</span></div>
+<div class="save-panel"><button class="btn full" id="saveWorkout">Finish &amp; save workout ✓</button><button class="reset" id="clearSets">Clear checked sets</button><div class="note">Aim for two strength days a week, plus walks on days that suit you.</div></div>
+</section>
+<section id="eat" class="view">
+<div class="fuel-hero"><span class="eyebrow">FOOD THAT FITS YOUR LIFE</span><h2>Nourish to flourish.</h2><p>More balance, less all-or-nothing. No foods are off limits.</p></div>
+<div class="surface"><span class="eyebrow">BUILD YOUR PLATE</span><h3 style="margin-top:6px">A simple place to start</h3><div class="plate">
+<div class="plate-item"><span>🥦</span><strong>½ plate</strong><small>Vegetables or fruit</small></div><div class="plate-item"><span>🍗</span><strong>¼ plate</strong><small>Protein: eggs, beans, fish, chicken, tofu</small></div><div class="plate-item"><span>🍠</span><strong>¼ plate</strong><small>Rice, potatoes or whole grains</small></div><div class="plate-item"><span>🥑</span><strong>Add some fat</strong><small>Olive oil, nuts, avocado, or other fats</small></div></div><p class="muted" style="font-size:12px">This is an easy visual guide, not a strict rule for every meal.</p></div>
+<div class="surface"><span class="eyebrow">KEEP IT PRACTICAL</span><h3 style="margin:7px 0">What could I eat?</h3><div class="meal-tabs"><button class="active" data-meal="breakfast">Breakfast</button><button data-meal="lunch">Lunch</button><button data-meal="dinner">Dinner</button></div><div class="meal-box"><div class="meal-emoji" id="mealEmoji">🥣</div><h3 id="mealTitle"></h3><p id="mealDesc"></p><button class="swap" id="swapMeal">Another idea ↻</button></div></div>
+<div class="surface"><span class="eyebrow">OPTIONAL PERSONAL ESTIMATE</span><h3 style="margin:7px 0">Your nutrition guide</h3><p class="muted" style="font-size:12px">Add your details only if numbers are useful to you. This estimates adult energy needs, not a medical prescription.</p>
+<div class="nutri-form">
+<label>Age<input id="nAge" inputmode="numeric" type="number" placeholder="Years" min="18" max="95"></label>
+<label>Weight (lb)<input id="nWeight" inputmode="decimal" type="number" placeholder="lb" min="80" max="700" step=".1"></label>
+<label>Height<div class="pair"><input id="nFeet" inputmode="numeric" type="number" placeholder="ft" min="4" max="7"><input id="nInches" inputmode="numeric" type="number" placeholder="in" min="0" max="11"></div></label>
+<label>Activity<select id="nActivity"><option value="1.2">Mostly sitting</option><option value="1.375">Lightly active</option><option value="1.55">Moderately active</option><option value="1.725">Very active</option></select></label>
+</div>
+<div id="nutriResult" class="nutri-result"><span>YOUR ESTIMATE</span><p>Fill in all four details to see an approximate maintenance range and a gentle weight-loss starting point.</p></div>
+<p class="soft-note">These estimates use an adult-woman metabolic equation, which may not fit everyone. If pregnant, breastfeeding, managing a medical condition, or concerned about calorie targets, use personalized guidance from a healthcare professional. You never need to count calories to benefit from this app.</p></div>
+<div class="surface"><span class="eyebrow">THE BASICS</span><h3 style="margin:7px 0">Healthy habits that stick</h3><p class="muted">Build meals around protein and produce, include fiber-rich foods, enjoy satisfying portions and hydrate regularly. Get enough sleep and make room for foods you love.</p><p class="muted" style="font-size:12px">Aim for steady, sustainable progress rather than crash diets or fast results.</p></div>
+<div class="sources">Based on general guidance from <a target="_blank" rel="noopener noreferrer" href="https://www.cdc.gov/healthy-weight-growth/losing-weight/index.html">CDC Healthy Weight</a>, <a target="_blank" rel="noopener noreferrer" href="https://www.cdc.gov/physical-activity-basics/guidelines/adults.html">CDC Activity Guidelines</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner">NIDDK Body Weight Planner</a>.</div>
+</section>
+<section id="progress" class="view"><div class="section-head"><span class="eyebrow">YOUR JOURNEY</span><h2>Progress, not perfection.</h2><p class="muted">Track the things that matter to you. Weight and photos are optional.</p></div>
+<div class="progress-stats"><div><b id="statWorkouts">0</b><span>WORKOUTS</span></div><div><b id="statSets">0</b><span>SETS DONE</span></div><div><b id="statWins">0</b><span>TODAY'S WINS</span></div></div>
+<div class="surface"><h3>Workout history</h3><div id="workoutHistory"></div></div>
+<div class="surface"><h3>Optional weight check-ins</h3><p class="muted" style="font-size:12px">If you prefer not to weigh yourself, skip this completely. How you feel and what you can do matter too.</p><div class="weight-row"><input id="weighInput" type="number" step=".1" min="80" max="700" inputmode="decimal" placeholder="Weight in lb" aria-label="Weight in pounds"><button id="addWeight" class="btn light">Save entry</button></div><div id="weightHistory" class="weight-history"></div></div>
+<div class="photo-box"><span class="eyebrow">PRIVATE PHOTO JOURNAL</span><h3 style="margin:5px 0">Your moments</h3><p class="sub">Save a photo from a walk, workout, milestone or a day you felt good. No comparisons required.</p><label class="photo-upload" for="photoInput"><span>📸</span>＋ Add a photo</label><input type="file" accept="image/*" id="photoInput" hidden>
+<div id="photoPreview" class="photo-preview" hidden><img id="previewImg" alt="Selected photo"><input id="photoNote" type="text" placeholder="Add a note (optional)" maxlength="90"><div style="display:flex;gap:8px"><button class="btn peach" id="savePhoto">Save photo</button><button class="btn light" id="cancelPhoto">Cancel</button></div></div>
+<div id="photoGrid" class="photo-grid" style="margin-top:13px"></div><div id="photoEmpty" class="empty">No photos yet. Your memories will appear here.</div><p id="photoError" style="font-size:12px;color:#ab584b"></p><p class="muted" style="font-size:11px">Photos are stored in this browser on this device, not uploaded to a server. Keep originals in your Photos app. Clearing browser data can erase this journal.</p></div>
+</section>
+</div>
+<nav class="bottomnav" aria-label="Main navigation"><div class="navinner"><button class="active" data-nav="home"><span>⌂</span>HOME</button><button data-nav="move"><span>✳</span>MOVE</button><button data-nav="eat"><span>◒</span>EAT</button><button data-nav="progress"><span>▥</span>PROGRESS</button></div></nav>
+<dialog id="photoDialog" class="photo-dialog"><button id="closePhoto" class="btn light small" style="float:right">✕ Close</button><img id="photoLarge" alt="Saved journal photo"><p id="photoDetail"></p><div class="row"><a id="downloadPhoto" download="sam-bloom-photo.jpg">Save a copy</a><button id="deletePhoto" class="delete">Delete photo</button></div></dialog>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function(){
+"use strict";
+var $=id=>document.getElementById(id),K="sam-bloom-v1";
+var initial={mode:"home",day:"A",index:{},sets:{},weights:{},sessions:[],habits:{},weightLog:[],profile:{},meal:"breakfast",mealIndex:{breakfast:0,lunch:0,dinner:0}};
+var s;try{s=Object.assign(initial,JSON.parse(localStorage.getItem(K)||"{}")||{})}catch(e){s=initial}
+s.index=s.index||{};s.sets=s.sets||{};s.weights=s.weights||{};s.habits=s.habits||{};s.sessions=s.sessions||[];s.weightLog=s.weightLog||[];s.profile=s.profile||{};s.mealIndex=s.mealIndex||initial.mealIndex;
+function persist(){try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}}
+function esc(str){return String(str).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",1900)}
+function localDay(){var d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
+const quoteList=["You don't have to be perfect. Just keep showing up.","A little progress every day adds up.","Healthy is built in the ordinary moments.","Start where you are. Use what you have.","Consistency beats an all-or-nothing plan.","Every walk counts. Every effort matters.","Get stronger for the life you want to live.","One good choice is always a fresh start."];
+let quoteIndex=(new Date().getDate()+new Date().getMonth())%quoteList.length;
+function quote(){ $("quoteText").textContent=quoteList[quoteIndex];quoteIndex=(quoteIndex+1)%quoteList.length }
+$("quoteNext").onclick=quote;quote();setInterval(()=>{if(!document.hidden)quote()},18000);
+function show(tab){
+ document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===tab));
+ document.querySelectorAll(".navinner [data-nav]").forEach(b=>b.classList.toggle("active",b.dataset.nav===tab));
+ window.scrollTo(0,0);
+ if(tab==="progress")renderProgress();
+}
+document.addEventListener("click",e=>{var n=e.target.closest("[data-nav]");if(n)show(n.dataset.nav)});
+const habits=[{id:"walk",emoji:"🚶",title:"Move a little",hint:"Walk or stretch"},{id:"produce",emoji:"🥗",title:"Add produce",hint:"Fruit or veggies"},{id:"water",emoji:"💧",title:"Hydrate",hint:"Drink regularly"},{id:"sleep",emoji:"🌙",title:"Prioritize rest",hint:"Wind down tonight"}];
+function daily(){return s.habits[localDay()]||{}}
+function renderHabits(){
+ $("todayDate").textContent=new Date().toLocaleDateString(undefined,{month:"short",day:"numeric"});
+ let done=daily(),count=Object.values(done).filter(Boolean).length;
+ $("habitsGrid").innerHTML=habits.map(h=>'<button class="habit '+(done[h.id]?'done':'')+'" data-habit="'+h.id+'" aria-pressed="'+!!done[h.id]+'"><span class="emoji">'+h.emoji+'</span><span><strong>'+h.title+'</strong><small>'+h.hint+'</small></span><span class="tick">'+(done[h.id]?'✓':'○')+'</span></button>').join("");
+ $("habitMeter").style.width="100%";$("habitMeter").firstElementChild.style.width=count/4*100+"%";
+ $("habitCaption").textContent=count===0?"One small step is a great start.":count===4?"All four checked. Nice work!":count+" of 4 daily wins checked.";
+ $("statWins").textContent=count;
+}
+document.addEventListener("click",e=>{let el=e.target.closest("[data-habit]");if(!el)return;const d=localDay();if(!s.habits[d])s.habits[d]={};s.habits[d][el.dataset.habit]=!s.habits[d][el.dataset.habit];persist();renderHabits();});
+const item=(name,reps,unit,weight,steps,tip)=>({name,reps,unit,weight,steps,tip});
+const plans={
+ home:{
+  A:{title:"Full Body Basics",desc:"Strength you can build in your living room.",items:[
+   item("Chair Squat","8–10 reps","Bodyweight",0,["Stand in front of a stable chair, feet comfortable apart.","Sit back slowly until you lightly touch the chair.","Press through your feet to stand tall."],"Keep the movement slow. Use the chair for confidence."),
+   item("Countertop Push-Up","8 reps","Bodyweight",0,["Place hands on a stable counter, wider than shoulders.","Step feet back and form a straight line.","Lower chest toward the counter, then push away."],"The higher the surface, the easier it is."),
+   item("Glute Bridge","10–12 reps","Bodyweight",0,["Lie on your back with knees bent, feet planted.","Squeeze glutes to lift hips, keeping ribs down.","Lower smoothly without arching your lower back."],"Think glutes, not lower back."),
+   item("Supported Reverse Lunge","6–8 per leg","Bodyweight",0,["Stand beside a stable countertop for balance.","Step one foot back and bend both knees gently.","Push through your front foot to stand, then switch sides."],"Shorter steps are fine. If knees hurt, choose another squat."),
+   item("Bird Dog","8 per side","Bodyweight",0,["Begin on hands and knees, spine neutral.","Extend opposite arm and leg without tipping your hips.","Return slowly and alternate."],"Keep the reach small enough to stay steady.")
+  ]},
+  B:{title:"Strong & Steady",desc:"Balance, posture and everyday strength.",items:[
+   item("Low Step-Up","8 per leg","Bodyweight",0,["Use a low stable step with a rail or wall nearby.","Place your entire foot on the step.","Stand tall and lower slowly, alternating legs."],"Start with the lowest safe step."),
+   item("Resistance Band Row","10 reps","Light band",0,["Secure a light resistance band to a stable anchor.","Pull elbows back toward ribs.","Slowly reach forward without shrugging."],"If no safe band setup is available, do gentle wall slides instead."),
+   item("Wall Push-Up","10 reps","Bodyweight",0,["Stand arm's length from a wall, hands at shoulder level.","Bend elbows to bring chest toward wall.","Push back to standing."],"Keep your body straight from head to heels."),
+   item("Standing Hip Hinge","10 reps","Bodyweight",0,["Stand tall, feet hip-width, knees soft.","Push hips back while keeping spine neutral.","Stand by squeezing glutes."],"Practice the movement before holding weights."),
+   item("Dead Bug","8 per side","Bodyweight",0,["Lie on back with arms up and knees bent.","Reach one arm and opposite leg away without arching back.","Return, then switch sides."],"Slow and controlled beats big movements.")
+  ]}
+ },
+ gym:{
+  A:{title:"Gym Foundations",desc:"Simple machines to build whole-body strength.",items:[
+   item("Leg Press","10 reps","lb on machine",20,["Adjust the seat so hips and back stay supported.","Press platform steadily with feet shoulder width.","Return slowly without locking your knees."],"Start at the machine's easiest comfortable resistance."),
+   item("Seated Row","10 reps","lb",15,["Sit tall with feet supported.","Pull handles toward lower ribs, elbows near sides.","Return slowly without rocking."],"Set the machine for smooth, comfortable reps."),
+   item("Chest Press","8–10 reps","lb",10,["Set the seat so handles align near mid-chest.","Press forward smoothly, keeping shoulders relaxed.","Return with control."],"Avoid any painful shoulder range."),
+   item("Leg Curl Machine","10 reps","lb",10,["Adjust machine pads to fit your legs.","Bend knees against light resistance.","Return slowly without kicking."],"Begin light; machine weights vary."),
+   item("Dead Bug","8 per side","Bodyweight",0,["Lie down with arms over shoulders and knees bent.","Extend opposite arm and leg without arching.","Return and repeat the other side."],"Control your breathing while moving.")
+  ]},
+  B:{title:"Build Your Strength",desc:"Learn a few versatile movements at your own pace.",items:[
+   item("Goblet Squat","8 reps","lb single weight",5,["Hold one light dumbbell at your chest.","Sit down and back into a comfortable squat.","Stand tall, keeping feet planted."],"Start bodyweight if new to squats."),
+   item("Lat Pulldown","10 reps","lb",15,["Adjust thigh pad, sit tall and take a comfortable grip.","Pull bar toward your upper chest.","Return slowly without swinging."],"Don't pull the bar behind your head."),
+   item("Dumbbell Hip Hinge","8 reps","lb each hand",5,["Hold two light dumbbells near thighs.","Push hips back with soft knees and flat back.","Squeeze glutes to return to standing."],"Ask an instructor to check your form initially."),
+   item("Seated Shoulder Press","8 reps","lb per hand",5,["Sit supported and hold light dumbbells near shoulders.","Press upward within a comfortable pain-free range.","Lower slowly."],"If overhead movement is uncomfortable, use a gentle incline press."),
+   item("Pallof Press","8 per side","lb cable",5,["Hold a light cable at chest height, facing sideways.","Press hands forward without rotating.","Return and repeat each side."],"Choose very light resistance.")
+  ]}
+ }
+};
+function plan(){return plans[s.mode][s.day]}
+function workoutKey(){return s.mode+"-"+s.day}
+function moveIndex(){let k=workoutKey(),n=Number(s.index[k]||0);return Math.max(0,Math.min(plan().items.length-1,n))}
+function countSets(){let k=workoutKey();return plan().items.reduce((n,it,i)=>n+(s.sets[k+"-"+i+"-1"]?1:0)+(s.sets[k+"-"+i+"-2"]?1:0),0)}
+function moveTo(i){s.index[workoutKey()]=Math.max(0,Math.min(plan().items.length-1,i));persist();renderWorkout();$("moveCounter").scrollIntoView({behavior:"smooth",block:"start"})}
+function renderWorkout(){
+ ["home","gym"].forEach(m=>$(m==="home"?"homeMode":"gymMode").classList.toggle("active",s.mode===m));
+ ["A","B"].forEach(d=>$("pick"+d).classList.toggle("active",s.day===d));
+ const p=plan(),i=moveIndex(),it=p.items[i],k=workoutKey();
+ $("workoutTitle").textContent=p.title;$("workoutDesc").textContent=p.desc;
+ const sets=countSets();$("setCount").textContent=sets+" / "+p.items.length*2+" sets";$("setBar").style.width=(sets/(p.items.length*2)*100)+"%";$("moveCounter").textContent="EXERCISE "+(i+1)+" OF "+p.items.length;
+ $("moveDots").innerHTML=p.items.map((it,index)=>'<button data-index="'+index+'" class="move-dot '+(i===index?'current ':'')+(s.sets[k+"-"+index+"-1"]&&s.sets[k+"-"+index+"-2"]?'finished':'')+'" aria-label="Exercise '+(index+1)+': '+esc(it.name)+'">'+(s.sets[k+"-"+index+"-1"]&&s.sets[k+"-"+index+"-2"]?'✓':index+1)+'</button>').join("");
+ const wKey=k+"-"+i;
+ const wt=(s.weights[wKey]===undefined?it.weight:s.weights[wKey]);
+ $("exerciseCard").innerHTML='<article class="exercise"><div class="exhead"><small>MOVE '+String(i+1).padStart(2,"0")+'</small><h3>'+esc(it.name)+'</h3><p class="muted" style="font-size:12px;margin:0">Learn the movement. Then check off your sets.</p></div><div class="reps"><b>2 × '+esc(it.reps)+'</b><span>✳</span></div><div class="steps"><h4>How to do it</h4><ol>'+it.steps.map(st=>'<li>'+esc(st)+'</li>').join("")+'</ol><div class="tip"><b>FORM TIP:</b> '+esc(it.tip)+'</div><a class="demo-link" href="https://www.youtube.com/results?search_query='+encodeURIComponent(it.name+" beginner form exercise")+'" target="_blank" rel="noopener noreferrer">▷ Watch an exercise demo ↗</a></div><div class="lift-controls"><label for="workWeight">Weight used (optional)</label><p>Bodyweight is a great starting point.</p><div class="weight-field"><input id="workWeight" data-weight="'+wKey+'" type="number" min="0" inputmode="decimal" step="2.5" value="'+esc(wt)+'"><span>'+esc(it.unit)+'</span></div><div class="set-buttons">'+[1,2].map(n=>'<button data-set="'+wKey+"-"+n+'" class="'+(s.sets[wKey+"-"+n]?'checked':'')+'">'+(s.sets[wKey+"-"+n]?'✓ SET '+n+' DONE':'○ FINISH SET '+n)+'</button>').join("")+'</div></div></article>';
+ $("backMove").disabled=i===0;$("forwardMove").textContent=i===p.items.length-1?"Finish up ✓":"Next move →";
+}
+document.addEventListener("click",e=>{
+ const mode=e.target.closest("[data-mode]");if(mode){s.mode=mode.dataset.mode;persist();renderWorkout();return}
+ const work=e.target.closest("[data-work]");if(work){s.day=work.dataset.work;persist();renderWorkout();return}
+ const move=e.target.closest("[data-index]");if(move){moveTo(Number(move.dataset.index));return}
+ const set=e.target.closest("[data-set]");if(set){s.sets[set.dataset.set]=!s.sets[set.dataset.set];persist();renderWorkout();return}
+});
+document.addEventListener("change",e=>{const el=e.target.closest("[data-weight]");if(el){const n=Number(el.value);s.weights[el.dataset.weight]=Number.isFinite(n)&&n>=0?n:0;persist()}});
+$("backMove").onclick=()=>moveTo(moveIndex()-1);
+$("forwardMove").onclick=()=>{if(moveIndex()===plan().items.length-1){$("saveWorkout").scrollIntoView({behavior:"smooth",block:"center"})}else moveTo(moveIndex()+1)};
+$("clearSets").onclick=()=>{if(!confirm("Clear the checkmarks for this workout?"))return;let k=workoutKey();plan().items.forEach((it,i)=>{delete s.sets[k+"-"+i+"-1"];delete s.sets[k+"-"+i+"-2"]});persist();renderWorkout()};
+$("saveWorkout").onclick=()=>{
+ let n=countSets();if(n===0){toast("Finish a set first");return}
+ let k=workoutKey(),p=plan();
+ let items=p.items.map((it,i)=>({name:it.name,sets:Number(!!s.sets[k+"-"+i+"-1"])+Number(!!s.sets[k+"-"+i+"-2"]),weight:s.weights[k+"-"+i]===undefined?it.weight:s.weights[k+"-"+i],unit:it.unit})).filter(x=>x.sets>0);
+ s.sessions.unshift({id:Date.now(),date:localDay(),title:p.title,mode:s.mode,day:s.day,sets:n,items});
+ s.sessions=s.sessions.slice(0,150);
+ p.items.forEach((it,i)=>{delete s.sets[k+"-"+i+"-1"];delete s.sets[k+"-"+i+"-2"]});
+ s.index[k]=0;persist();renderWorkout();renderProgress();toast("Workout saved. Nice work!");show("progress");
+};
+let rem=0,interval=null;
+$("restTimer").onclick=()=>{if(interval){clearInterval(interval);interval=null;rem=0;$("restTimer").textContent="◷ Rest 75s";return}rem=75;$("restTimer").textContent=rem+"s · stop";interval=setInterval(()=>{rem--;$("restTimer").textContent=rem+"s · stop";if(rem<=0){clearInterval(interval);interval=null;$("restTimer").textContent="◷ Rest 75s";toast("Rest complete!")}},1000)};
+const meals={
+ breakfast:[["🥣","Greek yogurt bowl","Plain Greek yogurt, berries, oats and a little nut butter."],["🍳","Eggs + toast","Scrambled eggs, whole-grain toast and fruit."],["🥤","Quick smoothie","Milk or yogurt, berries, a banana and a spoon of peanut butter."]],
+ lunch:[["🥗","Protein bowl","Greens, chicken or beans, quinoa or rice, and dressing."],["🥪","Turkey or hummus wrap","Whole-wheat wrap with protein, lettuce, peppers and a side of fruit."],["🍲","Soup + sandwich","Hearty bean soup and half a sandwich with veggies."]],
+ dinner:[["🍛","Sheet-pan dinner","Salmon or chicken, roasted potatoes and vegetables."],["🌮","Taco bowls","Seasoned beans or turkey, rice, salsa, peppers and avocado."],["🍝","Pasta night","Pasta, lean protein or lentils, tomato sauce and a big salad."]]
+};
+function renderMeal(){document.querySelectorAll("[data-meal]").forEach(b=>b.classList.toggle("active",b.dataset.meal===s.meal));const m=meals[s.meal][s.mealIndex[s.meal]%3];$("mealEmoji").textContent=m[0];$("mealTitle").textContent=m[1];$("mealDesc").textContent=m[2]}
+document.addEventListener("click",e=>{let b=e.target.closest("[data-meal]");if(b){s.meal=b.dataset.meal;persist();renderMeal()}});
+$("swapMeal").onclick=()=>{s.mealIndex[s.meal]=(s.mealIndex[s.meal]+1)%3;persist();renderMeal()};
+["nAge","nWeight","nFeet","nInches","nActivity"].forEach(id=>{
+ const el=$(id);if(s.profile[id]!==undefined)el.value=s.profile[id];
+ el.addEventListener("input",updateNutrition);el.addEventListener("change",updateNutrition);
+});
+function updateNutrition(){
+ ["nAge","nWeight","nFeet","nInches","nActivity"].forEach(id=>s.profile[id]=$(id).value);persist();
+ const a=Number($("nAge").value),w=Number($("nWeight").value),ft=Number($("nFeet").value),ins=Number($("nInches").value),f=Number($("nActivity").value),height=(ft*12+ins)*2.54,kg=w/2.20462;
+ const box=$("nutriResult");
+ if(!(a>=18&&a<=95&&w>=80&&w<=700&&ft>=4&&ft<=7&&ins>=0&&ins<=11&&height>=122&&height<=215&&f>=1.2&&f<=1.725)){
+  box.innerHTML='<span>YOUR ESTIMATE</span><p>Enter your age, height, weight and activity level to see approximate maintenance needs and a gentle starting point.</p>';return;
+ }
+ const bmr=10*kg+6.25*height-5*a-161,maintenance=Math.round(bmr*f/50)*50,low=maintenance-400,high=maintenance-250,proteinLo=Math.round(kg*1.2/5)*5,proteinHi=Math.round(kg*1.6/5)*5;
+ if(maintenance<1750||low<1450){
+  box.innerHTML='<span>PERSONALIZED GUIDE</span><p>Your estimated energy needs are on the lower end. Instead of showing a restrictive calorie target, focus on balanced meals and activity, and consider advice from a registered dietitian.</p><p>Protein reference for active adults: roughly '+proteinLo+'–'+proteinHi+' g/day, individualized as needed.</p>';return;
+ }
+ box.innerHTML='<span>ESTIMATED MAINTENANCE</span><div class="big">'+maintenance.toLocaleString()+' kcal/day</div><p>For gradual weight loss, an illustrative starting range might be <b>'+low.toLocaleString()+'–'+high.toLocaleString()+' kcal/day</b>. Actual needs vary with metabolism, medication and activity. This is not an intake limit.</p><p>Approximate protein reference: <b>'+proteinLo+'–'+proteinHi+' g/day</b>, spread across meals.</p>';
+}
+function renderProgress(){
+ $("statWorkouts").textContent=s.sessions.length;$("statSets").textContent=s.sessions.reduce((sum,e)=>sum+e.sets,0);
+ $("workoutHistory").innerHTML=s.sessions.length?s.sessions.map(e=>'<details class="history-item"><summary><b>'+esc(e.title)+'</b><small>'+esc(e.date)+' · '+e.sets+' sets · '+esc(e.mode)+'</small></summary><div style="margin:8px 0">'+e.items.map(it=>'<p class="muted" style="font-size:12px">'+esc(it.name)+': '+it.sets+' sets at '+esc(it.weight)+' '+esc(it.unit)+'</p>').join("")+'</div></details>').join(""):'<div class="empty">Your completed workouts will show up here.</div>';
+ $("weightHistory").innerHTML=s.weightLog.length?s.weightLog.map(e=>'<div class="entry"><span><b>'+Number(e.value).toFixed(1)+' lb</b><small>'+esc(e.date)+'</small></span><button data-remove-weight="'+e.id+'">Delete</button></div>').join(""):'<div class="empty">No weight entries. Tracking is optional.</div>';
+ renderHabits();
+}
+$("addWeight").onclick=()=>{let value=Number($("weighInput").value);if(!Number.isFinite(value)||value<80||value>700){toast("Enter a valid weight");return}s.weightLog.unshift({id:Date.now(),value,date:localDay()});s.weightLog=s.weightLog.slice(0,150);$("weighInput").value="";persist();renderProgress();toast("Check-in saved")};
+document.addEventListener("click",e=>{let b=e.target.closest("[data-remove-weight]");if(!b)return;if(!confirm("Delete this weight entry?"))return;s.weightLog=s.weightLog.filter(x=>x.id!==Number(b.dataset.removeWeight));persist();renderProgress()});
+renderHabits();renderWorkout();renderMeal();updateNutrition();renderProgress();
+})();
+</script><script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id),KEY="sam-bloom-private-photos-v1",STORE="photos";
+const file=$("photoInput"),pending=$("photoPreview"),image=$("previewImg"),gallery=$("photoGrid"),empty=$("photoEmpty"),err=$("photoError"),dialog=$("photoDialog");
+let dbPromise=null,chosen=null,previewUrl=null,displayUrls=[],active=null,activeUrl=null;
+function db(){if(!window.indexedDB)return Promise.reject(new Error("Local photo storage is not available."));if(dbPromise)return dbPromise;
+ dbPromise=new Promise((resolve,reject)=>{let req=indexedDB.open(KEY,1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:"id",autoIncrement:true})};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});return dbPromise}
+async function tx(mode,fn){let database=await db();return new Promise((resolve,reject)=>{let t=database.transaction(STORE,mode),r=fn(t.objectStore(STORE));t.oncomplete=()=>resolve(r.result);t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error)})}
+const getAll=()=>tx("readonly",s=>s.getAll()),add=v=>tx("readwrite",s=>s.add(v)),del=id=>tx("readwrite",s=>s.delete(id));
+function reset(){chosen=null;file.value="";pending.hidden=true;$("photoNote").value="";if(previewUrl){URL.revokeObjectURL(previewUrl);previewUrl=null}}
+function status(v){err.textContent=v||""}
+file.onchange=()=>{let f=file.files&&file.files[0];if(!f)return;if(!f.type.startsWith("image/")){status("Please select a photo.");return}if(f.size>35*1024*1024){status("Choose a smaller photo.");return}
+ chosen=f;if(previewUrl)URL.revokeObjectURL(previewUrl);previewUrl=URL.createObjectURL(f);image.src=previewUrl;pending.hidden=false;status("");pending.scrollIntoView({behavior:"smooth",block:"nearest"})};
+$("cancelPhoto").onclick=reset;
+function shrink(f){return new Promise((resolve,reject)=>{const objUrl=URL.createObjectURL(f),im=new Image();im.onerror=()=>{URL.revokeObjectURL(objUrl);reject(new Error("Cannot open this image format."))};im.onload=()=>{URL.revokeObjectURL(objUrl);let k=Math.min(1,1400/Math.max(im.naturalWidth,im.naturalHeight)),canvas=document.createElement("canvas");canvas.width=Math.max(1,Math.round(im.naturalWidth*k));canvas.height=Math.max(1,Math.round(im.naturalHeight*k));canvas.getContext("2d").drawImage(im,0,0,canvas.width,canvas.height);canvas.toBlob(b=>b?resolve(b):reject(new Error("Cannot resize this photo.")),"image/jpeg",.80)};im.src=objUrl})}
+$("savePhoto").onclick=async()=>{if(!chosen)return;let btn=$("savePhoto");btn.disabled=true;try{let blob=await shrink(chosen);await add({blob,date:new Date().toISOString().slice(0,10),note:$("photoNote").value.trim(),created:Date.now()});reset();await render()}catch(e){status("Couldn't save this photo: "+(e.message||"storage unavailable"))}finally{btn.disabled=false}};
+function clearUrls(){displayUrls.forEach(u=>URL.revokeObjectURL(u));displayUrls=[]}
+async function render(){try{let records=(await getAll()).sort((a,b)=>b.created-a.created);clearUrls();gallery.replaceChildren();empty.hidden=!!records.length;records.forEach(r=>{
+ let btn=document.createElement("button"),im=document.createElement("img"),label=document.createElement("span"),url=URL.createObjectURL(r.blob);displayUrls.push(url);
+ im.src=url;im.alt="Journal photo";im.loading="lazy";label.textContent=(r.note?r.note+" · ":"")+r.date;btn.append(im,label);btn.setAttribute("aria-label","Open photo "+r.date);btn.onclick=()=>openPhoto(r);gallery.append(btn);
+ });status("")}catch(e){status("Photo storage isn't available. Open the site in regular Safari, not Private Browsing.")}}
+function openPhoto(r){active=r;if(activeUrl)URL.revokeObjectURL(activeUrl);activeUrl=URL.createObjectURL(r.blob);$("photoLarge").src=activeUrl;$("photoDetail").textContent=(r.note?r.note+" · ":"")+r.date;$("downloadPhoto").href=activeUrl;$("downloadPhoto").download="sam-bloom-"+r.date+".jpg";dialog.showModal()}
+$("closePhoto").onclick=()=>dialog.close();
+$("deletePhoto").onclick=async()=>{if(!active||!confirm("Delete this photo from this device?"))return;try{await del(active.id);dialog.close();await render()}catch(e){status("Couldn't delete photo.")}};
+dialog.addEventListener("close",()=>{if(activeUrl){URL.revokeObjectURL(activeUrl);activeUrl=null}active=null;$("photoLarge").removeAttribute("src")});
+render();
+})();
+</script></body></html>

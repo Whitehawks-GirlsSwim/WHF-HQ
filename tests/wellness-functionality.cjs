@@ -5,7 +5,7 @@ const APPS=[
  {file:"mia.html",mode:"mia",tab:"fuel",key:"mia-food-meals-v1",release:"foodscan-20261121-4"},
  {file:"sam.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-8"},
  {file:"sam-signature.html",mode:"sam",tab:"eat",key:"sam-wellness-food-diary-v1",release:"signature-20261121-8"},
- {file:"forge.html",mode:"forge",tab:"fuel",key:"forge-food-diary-v1",release:"2026112105"}
+ {file:"forge.html",mode:"forge",tab:"fuel",key:"forge-food-diary-v1",release:"2026112104"}
 ];
 const sleep=ms=>new Promise(ok=>setTimeout(ok,ms));
 async function run(){

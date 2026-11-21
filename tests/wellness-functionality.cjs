@@ -217,7 +217,7 @@ async function verify(browser,cfg){
   await scanner.locator('#foodNameSearchResults [data-food-name-result]').first().waitFor({state:"visible",timeout:10000});
   assert((await scanner.locator("#foodNameSearchResults").innerText()).includes("Ketchup"),"Ketchup returns generic fallback even when online API is down");
   assert((await scanner.locator("#foodNameSearchResults").innerText()).includes("17"),"Ketchup has estimated calories per tablespoon");
-  await scanner.locator("#foodNameSearchButton").waitFor({state:"enabled",timeout:15000});
+  await scanner.locator("#foodNameSearchButton").waitFor({state:"visible",timeout:15000});
   assert((await scanner.locator("#foodNameSearchStatus").innerText()).includes("estimates"),"offline fallback is explained");
   assert.equal(await scanner.locator("#foodTotals > div").first().locator("strong").innerText(),"440.3","Ketchup search does not log a food");
   await scanner.locator("#foodNameSearchResults [data-food-name-result]").first().click();

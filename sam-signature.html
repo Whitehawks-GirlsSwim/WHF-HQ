@@ -481,7 +481,7 @@ function renderHabits(){
  $("todayDate").textContent=new Date().toLocaleDateString(undefined,{month:"short",day:"numeric"});
  let done=daily(),count=Object.values(done).filter(Boolean).length;
  $("habitsGrid").innerHTML=habits.map(h=>'<button class="habit '+(done[h.id]?'done':'')+'" data-habit="'+h.id+'" aria-pressed="'+!!done[h.id]+'"><span class="emoji">'+h.emoji+'</span><span><strong>'+h.title+'</strong><small>'+h.hint+'</small></span><span class="tick">'+(done[h.id]?'✓':'○')+'</span></button>').join("");
- $("habitMeter").style.width="100%";$("habitMeter").firstElementChild.style.width=count/4*100+"%";
+ $("habitMeter").style.width=count/4*100+"%";
  $("habitCaption").textContent=count===0?"One small step is a great start.":count===4?"All four checked. Nice work!":count+" of 4 daily wins checked.";
  $("statWins").textContent=count;
 }

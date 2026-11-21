@@ -1,0 +1,53 @@
+/* Shared food barcode scanner: readable on mobile, palette adapts to each app */
+.foodscan-card{--fs-ink:#44353d;--fs-muted:#786974;--fs-bg:#fffaf8;--fs-border:#e0cbc7;--fs-accent:#73515d;--fs-soft:#f4e7e5;
+ border:1px solid var(--fs-border);background:var(--fs-bg);border-radius:21px;padding:18px;margin:17px 0 23px;color:var(--fs-ink);box-shadow:0 10px 25px #5a33451a;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.foodscan-card[data-food-mode="forge"]{--fs-ink:#f4ead8;--fs-muted:#c2b59f;--fs-bg:#1b1c1e;--fs-border:#695a40;--fs-accent:#dfbf89;--fs-soft:#2e2d29}
+.foodscan-card[data-food-mode="mia"]{--fs-ink:#174c63;--fs-muted:#527e8c;--fs-bg:#f1fbff;--fs-border:#aed9e8;--fs-accent:#007c94;--fs-soft:#ddf6fd}
+.foodscan-head .foodscan-kicker{font-size:10px;font-weight:1000;letter-spacing:1.4px;color:var(--fs-accent)}
+.foodscan-head h3{font-family:Georgia,serif;font-size:27px;line-height:1.1;letter-spacing:-.6px;color:var(--fs-ink);margin:7px 0 9px}
+.foodscan-head p{font-size:12px;line-height:1.45;color:var(--fs-muted);margin:0 0 15px}
+.foodscan-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:11px 0 13px}
+.foodscan-actions button,.foodscan-code button,.foodscan-save{min-height:49px;border-radius:12px;padding:12px 9px;font-size:11px;font-weight:950;line-height:1.2;cursor:pointer}
+.foodscan-primary,.foodscan-code button,.foodscan-save{background:var(--fs-accent);color:#fff;border:1px solid var(--fs-accent)}
+.foodscan-card[data-food-mode="forge"] .foodscan-primary,.foodscan-card[data-food-mode="forge"] .foodscan-code button,.foodscan-card[data-food-mode="forge"] .foodscan-save{color:#211b15}
+.foodscan-secondary{background:var(--fs-soft);color:var(--fs-ink);border:1px solid var(--fs-border)}
+.foodscan-code label{font-size:10px;font-weight:900;letter-spacing:.65px;color:var(--fs-muted);display:block;margin-bottom:7px}
+.foodscan-code>div{display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:8px}
+.foodscan-code input,.foodscan-fields input{min-width:0;width:100%;border:1px solid var(--fs-border);background:var(--fs-bg);color:var(--fs-ink);border-radius:11px;height:47px;padding:10px 11px;font-size:16px}
+.foodscan-status{color:var(--fs-muted);font-size:12px;margin:9px 0;line-height:1.4}
+.foodscan-status:empty{display:none}
+.foodscan-camera-area{padding:8px;margin:9px 0 13px;background:var(--fs-soft);border:1px solid var(--fs-border);border-radius:14px;overflow:hidden}
+.foodscan-camera{width:100%;min-height:160px;overflow:hidden}
+.foodscan-camera video{max-width:100%;object-fit:cover;border-radius:10px}
+.foodscan-camera-area>button{margin:8px 0 0;width:100%;border:1px solid var(--fs-border);background:var(--fs-bg);color:var(--fs-ink);padding:11px;font-size:12px;font-weight:900;border-radius:10px}
+.foodscan-result{border:1px solid var(--fs-border);background:var(--fs-soft);border-radius:16px;padding:15px;margin:14px 0}
+.foodscan-result-kicker{font-size:10px;font-weight:950;color:var(--fs-accent);letter-spacing:1px}
+.foodscan-result h4{font-family:Georgia,serif;font-size:22px;margin:7px 0 3px;color:var(--fs-ink);line-height:1.1}
+.foodscan-result p{color:var(--fs-muted);font-size:12px;line-height:1.4}
+.foodscan-warning{font-weight:800}
+.foodscan-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
+.foodscan-fields label{color:var(--fs-muted);font-size:10px;font-weight:900;min-width:0}
+.foodscan-fields label.foodscan-full{grid-column:1/-1}
+.foodscan-fields input{display:block;margin-top:5px}
+.foodscan-fields small{font-size:10px;color:var(--fs-muted)}
+.foodscan-nutrients{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:13px 0}
+.foodscan-card[data-food-mode="mia"] .foodscan-nutrients{grid-template-columns:repeat(3,minmax(0,1fr))}
+.foodscan-nutrients>div{background:var(--fs-bg);border:1px solid var(--fs-border);border-radius:11px;padding:12px 6px;text-align:center;min-width:0}
+.foodscan-nutrients b{color:var(--fs-ink);font-size:17px;display:block;white-space:nowrap}
+.foodscan-nutrients small{color:var(--fs-muted);font-size:9px;font-weight:900;display:block;letter-spacing:.5px}
+.foodscan-save{display:block;width:100%;margin:12px 0}
+.foodscan-check,.foodscan-source,.foodscan-teen-note{font-size:11px;line-height:1.45;color:var(--fs-muted);margin:12px 0 0}
+.foodscan-source a{color:var(--fs-accent);font-weight:800}
+.foodscan-journal{margin-top:19px;border-top:1px solid var(--fs-border);padding-top:13px}
+.foodscan-journal-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--fs-accent);font-size:11px;letter-spacing:.6px}
+.foodscan-journal-heading small{color:var(--fs-muted);letter-spacing:0}
+.foodscan-totals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:12px 0}
+.foodscan-totals>div{background:var(--fs-soft);padding:11px 5px;border-radius:11px;min-width:0;text-align:center}
+.foodscan-totals strong{font-size:18px;display:block;color:var(--fs-ink)}
+.foodscan-totals small{font-size:10px;color:var(--fs-muted)}
+.foodscan-entries>p{font-size:12px;color:var(--fs-muted);margin:15px 0}
+.foodscan-entry{display:flex;align-items:center;justify-content:space-between;gap:9px;border-bottom:1px solid var(--fs-border);padding:10px 0}
+.foodscan-entry>div{min-width:0}.foodscan-entry b{display:block;font-size:12px;color:var(--fs-ink)}
+.foodscan-entry small{display:block;font-size:11px;color:var(--fs-muted)}
+.foodscan-entry button{border:1px solid var(--fs-border);color:var(--fs-ink);background:var(--fs-soft);border-radius:9px;flex:0 0 33px;min-height:33px;font-size:19px}
+@media(max-width:380px){.foodscan-card{padding:14px 11px}.foodscan-actions{gap:6px}.foodscan-actions button{font-size:10px}.foodscan-nutrients b{font-size:15px}.foodscan-totals strong{font-size:15px}}

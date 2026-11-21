@@ -1,0 +1,49 @@
+name: Verify all food scanner pages LIVE
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-foodscan-pages.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check four published app URLs and both scanner assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://whitehawks-girlsswim.github.io/WHF-HQ"
+          success=0
+          for attempt in $(seq 1 15); do
+            echo "Public-site verification attempt $attempt"
+            success=1
+            for filename in mia.html sam.html sam-signature.html forge.html food-scanner.js food-scanner.css; do
+              code=$(curl --connect-timeout 12 --max-time 25 -sSL -w '%{http_code}' -o "/tmp/$filename" "$BASE/$filename?food_scan_verify=$(date +%s%N)" || true)
+              if [ "$code" != "200" ]; then echo "$filename: HTTP $code"; success=0; continue; fi
+              echo "$filename: HTTP 200, bytes $(wc -c <"/tmp/$filename")"
+            done
+            if [ "$success" -eq 1 ]; then
+              for filename in mia.html sam.html sam-signature.html forge.html; do
+                grep -Fq 'id="foodScanner"' "/tmp/$filename" || success=0
+                grep -Fq './food-scanner.js?v=20261121-1' "/tmp/$filename" || success=0
+                grep -Fq './food-scanner.css?v=20261121-1' "/tmp/$filename" || success=0
+              done
+              grep -Fq 'signature-20261121-4' /tmp/sam.html || success=0
+              grep -Fq 'signature-20261121-4' /tmp/sam-signature.html || success=0
+              grep -Fq 'foodscan-20261121-1' /tmp/mia.html || success=0
+              grep -Fq 'forge-release" content="2026112102"' /tmp/forge.html || success=0
+              grep -Fq 'world.openfoodfacts.org/api/v2/product/' /tmp/food-scanner.js || success=0
+              grep -Fq 'foodscan-journal' /tmp/food-scanner.css || success=0
+            fi
+            if [ "$success" -eq 1 ]; then echo "ALL SIX LIVE ASSETS HAVE LATEST SCANNER CODE"; break; fi
+            sleep 8
+          done
+          test "$success" -eq 1
+          node --check /tmp/food-scanner.js
+          echo "SHARED SCANNER SCRIPT SYNTAX: VALID"
+          echo "Camera library URL response:"
+          curl --connect-timeout 10 --max-time 20 -sSL -o /tmp/lib -w '%{http_code} %{size_download}\n' https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js || true
+          echo "Open Food Facts product API response:"
+          curl --connect-timeout 10 --max-time 20 -sSL -o /tmp/off -w '%{http_code} %{size_download}\n' 'https://world.openfoodfacts.org/api/v2/product/3017620422003.json?fields=code,product_name,serving_size,nutriments' || true

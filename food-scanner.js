@@ -121,8 +121,22 @@ function saveFood(){
  const rows=data(),r={...n,calories:teen?null:n.calories,id:Date.now()+Math.random(),date:localDay(),barcode:active?.barcode||"",meal};
  rows.unshift(r);
  if(!persist(rows))return;
- notice("Saved to "+mealInfo(meal).label+".");renderLog();
+ renderLog();
+ if(forge){
+  clearScanResult();
+  notice("Saved to "+mealInfo(meal).label+". Ready for the next barcode.");
+ }else{
+  notice("Saved to "+mealInfo(meal).label+".");
+ }
 }
+function clearScanResult(){
+ active=null;
+ $("#foodBarcodeInput").value="";
+ const panel=$("#foodScanResult");
+ panel.hidden=true;
+ panel.replaceChildren();
+}
+
 
 function renderMealPicker(){
  const host=$("#foodMealChoices");if(!host)return;
@@ -282,7 +296,13 @@ async function lookup(code){
   }else{results(null,code,"No product found for this barcode. You can enter the nutrition values from the package below.");notice("Product not found. You can enter details manually.")}
  }catch(err){results(null,code,"Could not retrieve nutrition right now. You can still enter details from the label.");notice("Lookup unavailable. Check connection or enter package information manually.")}
 }
-$("#foodBarcodeForm").addEventListener("submit",e=>{e.preventDefault();stopCamera();lookup($("#foodBarcodeInput").value)});
+$("#foodBarcodeForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const code=$("#foodBarcodeInput").value;
+ if(forge)clearScanResult();
+ stopCamera();
+ lookup(code);
+});
 function loadLibrary(){
  if(window.Html5Qrcode)return Promise.resolve(window.Html5Qrcode);
  if(libPromise)return libPromise;
@@ -301,7 +321,9 @@ async function stopCamera(){
  scanner=null;cameraOn=false;reading=false;$("#foodCameraArea").hidden=true;
 }
 $("#foodCameraButton").addEventListener("click",async()=>{
- if(reading)return;reading=true;notice("Opening your camera…");
+ if(reading)return;
+ if(forge)clearScanResult();
+ reading=true;notice("Opening your camera…");
  $("#foodCameraArea").hidden=false;
  try{
   const Html5Qrcode=await loadLibrary();
@@ -321,7 +343,9 @@ $("#foodCameraStop").addEventListener("click",()=>{stopCamera();notice("Camera s
 $("#foodPhotoButton").addEventListener("click",()=>$("#foodImageFile").click());
 $("#foodImageFile").addEventListener("change",async()=>{
  const file=$("#foodImageFile").files?.[0];if(!file)return;
- $("#foodImageFile").value="";notice("Reading barcode photo…");
+ $("#foodImageFile").value="";
+ if(forge)clearScanResult();
+ notice("Reading barcode photo…");
  try{
   await stopCamera();
   const Html5Qrcode=await loadLibrary();

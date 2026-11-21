@@ -150,3 +150,23 @@
 .foodscan-simple .foodscan-privacy>summary::-webkit-details-marker{display:none}
 .foodscan-simple .foodscan-storage,.foodscan-simple .foodscan-source{padding:0 13px 12px;margin:0}
 @media(max-width:380px){.foodscan-simple #foodQuickAdd{padding:11px 12px}.foodscan-simple #foodQuickAdd span{font-size:10px}.foodscan-simple .foodscan-journal{padding:14px 11px}}
+
+/* Name search inside adults' existing Add Food panel. No new tabs. */
+.foodscan-simple .foodscan-name-search{border:1px solid var(--fs-border);background:var(--fs-bg);padding:13px 11px;border-radius:13px;margin:10px 0 11px}
+.foodscan-simple .foodscan-name-search label{font-size:10px;font-weight:950;letter-spacing:.7px;color:var(--fs-accent);display:block;margin-bottom:8px}
+.foodscan-simple .foodscan-name-search-row{display:grid;grid-template-columns:minmax(0,1fr) 87px;gap:7px}
+.foodscan-simple .foodscan-name-search-row input{border:1px solid var(--fs-border);background:var(--fs-bg);color:var(--fs-ink);min-width:0;width:100%;min-height:47px;border-radius:10px;padding:10px;font-size:16px}
+.foodscan-simple .foodscan-name-search-row button{border:1px solid var(--fs-accent);background:var(--fs-accent);color:white;font-size:11px;font-weight:950;border-radius:10px;padding:9px;cursor:pointer}
+.foodscan-simple[data-food-mode="forge"] .foodscan-name-search-row button{color:#261d0f}
+.foodscan-simple .foodscan-name-search-row button:disabled{opacity:.65}
+.foodscan-simple .foodscan-search-status{color:var(--fs-muted);font-size:11px;line-height:1.4;margin:9px 1px 0}
+.foodscan-simple .foodscan-search-status:empty{display:none}
+.foodscan-simple .foodscan-name-results{display:grid;gap:7px;margin:10px 0 0;max-height:310px;overflow-y:auto}
+.foodscan-simple .foodscan-name-results[hidden]{display:none}
+.foodscan-simple .foodscan-name-hit{width:100%;border:1px solid var(--fs-border);background:var(--fs-soft);color:var(--fs-ink);border-radius:11px;padding:10px;display:flex;justify-content:space-between;align-items:center;text-align:left;gap:9px;cursor:pointer}
+.foodscan-simple .foodscan-name-hit span{min-width:0;flex:1}
+.foodscan-simple .foodscan-name-hit b{display:block;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
+.foodscan-simple .foodscan-name-hit small{display:block;color:var(--fs-muted);font-size:10px;line-height:1.3;margin-top:4px;overflow-wrap:anywhere}
+.foodscan-simple .foodscan-name-hit strong{color:var(--fs-accent);font-size:18px;white-space:nowrap;flex-shrink:0}
+.foodscan-simple .foodscan-name-hit em{font-size:10px;font-style:normal;font-weight:700}
+@media(max-width:380px){.foodscan-simple .foodscan-name-search-row{grid-template-columns:minmax(0,1fr) 74px;gap:5px}.foodscan-simple .foodscan-name-search-row button{font-size:10px}}

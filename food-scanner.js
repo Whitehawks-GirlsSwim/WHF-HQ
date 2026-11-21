@@ -162,5 +162,6 @@ document.addEventListener("click",e=>{if(e.target.closest("[data-nav]"))stopCame
 document.addEventListener("visibilitychange",()=>{if(document.hidden)stopCamera()});
 window.addEventListener("pagehide",()=>stopCamera());
 if(forge)window.forgeFoodProteinToday=()=>data().filter(e=>e.date===localDay()).reduce((n,e)=>n+(num(e.protein)??0),0);
+document.addEventListener("foodscan-sync",renderLog);
 renderLog();
 })();

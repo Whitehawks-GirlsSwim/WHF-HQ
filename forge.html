@@ -89,6 +89,16 @@ button,input,select{font:inherit}button{touch-action:manipulation;cursor:pointer
 .toast{display:none;position:fixed;left:50%;bottom:92px;transform:translateX(-50%);z-index:20;color:#0f1113;background:#f1d29d;border-radius:12px;padding:11px 15px;max-width:90vw;font-weight:900;font-size:12px;white-space:nowrap}
 [hidden]{display:none!important}
 @media(max-width:370px){.app{padding-left:11px;padding-right:11px}.brand strong{font-size:18px}.home-hero{padding:21px}.home-hero h2{font-size:41px}.step-dots{gap:4px}.set-row{gap:4px}.set-row button{font-size:10px}.protein-buttons{gap:5px}}
+
+/* Progressive overload module */
+.last-lift{margin:0 0 12px;background:#2c2b25;border:1px solid #64583f;color:#bfae87;border-radius:10px;padding:9px 11px;font-size:10px;letter-spacing:.5px;font-weight:900}
+.last-lift b{font-size:11px;color:#f6dfaf;display:block;letter-spacing:0;margin-top:3px}
+.best-board{margin:12px 0 0}.best-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 0;border-bottom:1px solid #393a38}
+.best-item:last-child{border-bottom:0}.best-item>div{min-width:0}.best-item b{display:block;font-size:12px;color:#e6e0d5}
+.best-item small{display:block;font-size:10px;color:#99968d;margin-top:3px}
+.best-item strong{font-size:17px;color:#ebd6a4;text-align:right;line-height:1.1;flex:0 0 auto}
+.best-item strong small{font-size:10px;color:#b6a985;max-width:100px}
+
 </style></head><body>
 <div class="app">
 <header class="top"><div class="brand"><div class="logo" aria-hidden="true">F</div><div><small>PRIVATE PERFORMANCE CLUB</small><strong>FORGE <span style="color:#cdb380">/ ATHLETIC</span></strong></div></div><div class="member">MEMBER 001</div></header>
@@ -144,6 +154,7 @@ button,input,select{font:inherit}button{touch-action:manipulation;cursor:pointer
 <section id="track" class="view">
 <div class="section-head"><span class="eyebrow">THE RECORD BOOK</span><h2>Results you can measure.</h2><p>Build your log over months. Better technique, more reps, and heavier lifts all count. Bodyweight and photos are optional.</p></div>
 <div class="stats"><div class="stat"><b id="statsSessions">0</b><span>SESSIONS</span></div><div class="stat"><b id="statsSets">0</b><span>TOTAL SETS</span></div><div class="stat"><b id="statsMoves">0</b><span>MOVES LOGGED</span></div></div>
+<div class="surface"><span class="eyebrow">PROGRESSIVE OVERLOAD</span><h3 style="margin:7px 0">Personal best board</h3><p class="muted" style="font-size:12px">Heaviest weights you've logged for each move. Technique first, and add reps before weight.</p><div id="bestBoard" class="best-board"></div></div>
 <div class="surface"><span class="eyebrow">STRENGTH JOURNAL</span><h3 style="margin:7px 0">Your sessions</h3><div class="history" id="sessionHistory"></div><button class="btn outline full" id="copyLog" style="margin-top:12px">COPY TRAINING HISTORY</button></div>
 <div class="surface"><span class="eyebrow">OPTIONAL BODYWEIGHT</span><h3 style="margin:7px 0">Weight trend</h3><p class="muted" style="font-size:12px">Look at the overall pattern, not daily fluctuations. Strength matters more than a single weigh-in.</p><div class="weigh-row"><input id="weighInput" type="number" min="80" max="700" inputmode="decimal" step=".1" placeholder="Weight (lb)" aria-label="Weight in pounds"><button id="weighSave" class="btn">LOG WEIGHT</button></div><div id="weightSpark"></div><div class="weigh-list" id="weightHistory"></div></div>
 <div class="surface"><span class="eyebrow">PRIVATE PROGRESS JOURNAL</span><h3 style="margin:7px 0">Progress photos</h3><p class="muted" style="font-size:12px">Track strength, confidence and milestones. Photos stay on this device, not the public website.</p>
@@ -283,12 +294,15 @@ function renderTrain(){
  $("moveLabel").textContent="EXERCISE "+(i+1)+" OF "+arr.length;
  $("stepDots").innerHTML=arr.map((v,index)=>{let c=[1,2,3].slice(0,n).filter(x=>s.checks[key+"-"+index+"-"+x]).length;return '<button class="step-dot '+(i===index?'active ':'')+(c===n?'complete':'')+'" data-move="'+index+'" aria-label="'+esc(v.name)+'" aria-current="'+(i===index?'step':'false')+'">'+(c===n?'✓':index+1)+'</button>'}).join("");
  const weightKey=key+"-"+i,weight=s.weights[weightKey]===undefined?it.weight:s.weights[weightKey];
+ const previous=s.sessions.find(entry=>entry.location===s.location&&entry.items.some(x=>x.name===it.name));
+ const lastLift=previous?.items.find(x=>x.name===it.name);
+ const previousInfo=lastLift?'<div class="last-lift">LAST SESSION <b>'+esc(lastLift.weight)+' '+esc(lastLift.unit)+' · '+lastLift.sets+' sets</b></div>':'<div class="last-lift">FIRST SESSION · SET YOUR BASELINE</div>';
  const checked=x=>!!s.checks[weightKey+"-"+x];
  $("exerciseCard").innerHTML='<article class="exercise">'+
  '<div class="exercise-top"><div class="eyebrow">MOVE '+String(i+1).padStart(2,"0")+' · '+esc(it.muscle)+'</div><h3>'+esc(it.name)+'</h3><p>Make every rep clean. Add weight when the last reps feel controlled.</p></div>'+
  '<div class="rep-pill"><b>'+n+' × '+esc(it.reps)+'</b><small>TARGET REPS</small></div>'+
  '<div class="exercise-steps"><h4>HOW TO LIFT</h4><ol>'+it.steps.map(t=>'<li>'+esc(t)+'</li>').join("")+'</ol><div class="coach-tip"><b>FORM NOTE</b> · '+esc(it.tip)+'</div><a class="demo-link" href="https://www.youtube.com/results?search_query='+encodeURIComponent(it.name+" exercise proper form demonstration")+'" rel="noopener noreferrer" target="_blank">▷ WATCH AN EXERCISE DEMO ↗</a></div>'+
- '<div class="lift"><label for="activeWeight">WEIGHT USED</label><p class="hint">The starting weight is a suggestion, not a requirement. Log only the weight you actually lift.</p><div class="weightline"><input id="activeWeight" type="number" inputmode="decimal" min="0" step="2.5" data-weight="'+weightKey+'" value="'+esc(weight)+'"><small>'+esc(it.unit)+'</small></div><div class="set-row">'+[1,2,3].slice(0,n).map(x=>'<button aria-pressed="'+checked(x)+'" data-set="'+weightKey+"-"+x+'" class="'+(checked(x)?'done':'')+'">'+(checked(x)?'✓ SET '+x:'○ SET '+x)+'</button>').join("")+'</div></div>'+
+ '<div class="lift">'+previousInfo+'<label for="activeWeight">WEIGHT USED</label><p class="hint">The starting weight is a suggestion, not a requirement. Log only the weight you actually lift.</p><div class="weightline"><input id="activeWeight" type="number" inputmode="decimal" min="0" step="2.5" data-weight="'+weightKey+'" value="'+esc(weight)+'"><small>'+esc(it.unit)+'</small></div><div class="set-row">'+[1,2,3].slice(0,n).map(x=>'<button aria-pressed="'+checked(x)+'" data-set="'+weightKey+"-"+x+'" class="'+(checked(x)?'done':'')+'">'+(checked(x)?'✓ SET '+x:'○ SET '+x)+'</button>').join("")+'</div></div>'+
  '</article>';
  $("prevMove").disabled=i===0;$("nextMove").textContent=i===arr.length-1?"REVIEW SESSION ✓":"NEXT MOVE →";
 }
@@ -379,6 +393,19 @@ function renderTrack(){
  container.innerHTML=s.sessions.length?s.sessions.map(e=>
  '<details><summary><span><b>'+esc(e.name)+' · '+esc(e.location)+'</b><small>'+esc(e.date)+'</small></span><span>'+e.sets+' SETS ⌄</span></summary>'+
  '<div class="detail">'+e.items.map(v=>'<div><span>'+esc(v.name)+'</span><b>'+v.weight+' '+esc(v.unit)+' · '+v.sets+' sets</b></div>').join("")+'</div></details>').join(""):'<p class="muted" style="font-size:12px">Your completed workouts will appear here.</p>';
+
+ const best=new Map();
+ for(const session of s.sessions){
+  for(const lift of session.items){
+   if(!lift.unit.includes("lb")||lift.unit.includes("assistance")||Number(lift.weight)<=0)continue;
+   const existing=best.get(lift.name);
+   if(!existing||Number(lift.weight)>existing.weight)best.set(lift.name,{weight:Number(lift.weight),unit:lift.unit,date:session.date});
+  }
+ }
+ const leaders=[...best.entries()].sort((a,b)=>a[0].localeCompare(b[0]));
+ $("bestBoard").innerHTML=leaders.length?leaders.map(([name,r])=>
+ '<div class="best-item"><div><b>'+esc(name)+'</b><small>Heaviest logged · '+esc(r.date)+'</small></div><strong>'+r.weight+' <small>'+esc(r.unit)+'</small></strong></div>').join(""):'<p class="muted" style="font-size:12px">Log your first weighted session to see your lift records here.</p>';
+
  $("weightHistory").innerHTML=s.weighs.length?s.weighs.map(x=>'<div><span><b>'+Number(x.value).toFixed(1)+' lb</b><small> · '+esc(x.date)+'</small></span><button data-delete-weight="'+x.id+'">DELETE</button></div>').join(""):'<p class="muted" style="font-size:12px">No weigh-ins saved. Optional.</p>';
  renderSpark();
 }

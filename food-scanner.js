@@ -213,41 +213,40 @@ async function onNameSearch(event){
  if(teen||nameSearchBusy)return;
  const query=$("#foodNameSearchInput").value.trim().replace(/\s+/g," ");
  if(query.length<2){$("#foodNameSearchStatus").textContent="Enter at least two letters.";return}
- const resultsBox=$("#foodNameSearchResults"),status=$("#foodNameSearchStatus"),button=$("#foodNameSearchButton");
  const mySeq=++nameSearchSeq;
- nameSearchResults=[];resultsBox.hidden=true;resultsBox.replaceChildren();
- status.textContent="Finding foods…";nameSearchBusy=true;button.disabled=true;button.textContent="SEARCHING";
+ const local=basicFoodMatches(query);
+ // Return common foods immediately, even with no internet or provider outages.
+ renderNameMatches(local,local.length?"Showing common-food estimates. Checking for branded matches…":"Searching branded foods…");
+ nameSearchBusy=true;
+ const button=$("#foodNameSearchButton");button.disabled=true;button.textContent="SEARCHING";
+ let timer;
  try{
   const params=new URLSearchParams({search_terms:query,search_simple:"1",action:"process",json:"1",page_size:"15",fields:"code,product_name,product_name_en,brands,serving_size,serving_quantity,nutriments"});
-  const response=await fetch("https://world.openfoodfacts.org/cgi/search.pl?"+params.toString(),{method:"GET",headers:{"Accept":"application/json"},cache:"no-store"});
-  if(!response.ok)throw new Error("Food search service unavailable");
+  const controller=new AbortController();
+  timer=setTimeout(()=>controller.abort(),8500);
+  const response=await fetch("https://world.openfoodfacts.org/cgi/search.pl?"+params.toString(),{method:"GET",headers:{"Accept":"application/json"},cache:"no-store",signal:controller.signal});
+  if(!response.ok)throw new Error("Search service HTTP "+response.status);
   const payload=await response.json();
   if(mySeq!==nameSearchSeq)return;
-  const items=Array.isArray(payload.products)?payload.products:[];
+  const products=Array.isArray(payload.products)?payload.products:[];
   const seen=new Set();
-  nameSearchResults=items.filter(p=>{
-    const name=String(p.product_name||p.product_name_en||"").trim(),id=String(p.code||"")+"|"+name.toLowerCase();
-    const n=freshProduct(p,p.code||"");
-    if(!name||n.calories===null||n.calories<0||n.calories>1500||seen.has(id))return false;
-    seen.add(id);return true;
+  const remote=products.filter(p=>{
+   const name=String(p.product_name||p.product_name_en||"").trim(),id=String(p.code||"")+"|"+name.toLowerCase();
+   const info=freshProduct(p,p.code||"");
+   if(!name||info.calories===null||info.calories<0||info.calories>1500||seen.has(id))return false;
+   seen.add(id);return true;
   }).slice(0,10);
-  if(!nameSearchResults.length){
-   status.textContent="No foods with calorie information found. Try a brand or more specific name, or use Add Manually.";
-   return;
-  }
-  status.textContent="Select the matching food, then check the serving size before saving.";
-  resultsBox.innerHTML=nameSearchResults.map((p,i)=>{
-   const item=freshProduct(p,p.code||"");
-   const cal=Math.round(item.calories*item.amount/100);
-   const qty=item.serving?item.serving:(item.amount===100?"100 g/mL":fmt(item.amount)+" g/mL");
-   return '<button type="button" data-food-name-result="'+i+'" class="foodscan-name-hit"><span><b>'+safe(p.product_name||p.product_name_en)+'</b>'+
-      '<small>'+safe(item.brand||"Food product")+' · '+safe(qty)+'</small></span><strong>'+cal+' <em>cal</em></strong></button>';
-  }).join("");
-  resultsBox.hidden=false;
- }catch(e){
+  renderNameMatches(local.concat(remote).slice(0,12),remote.length?
+   "Choose a food. Generic estimates are labeled; packaged-food nutrition is community submitted.":
+   local.length?"Showing common-food estimates. No additional branded matches found.":
+   "No matching foods with calorie information. Try a simpler name or add it manually.");
+ }catch(err){
   if(mySeq!==nameSearchSeq)return;
-  status.textContent="Search isn’t available right now. You can still scan a barcode or add food manually.";
+  renderNameMatches(local,local.length?
+   "Showing common-food estimates. Brand search is temporarily unavailable. Check the label for accuracy.":
+   "Online food search is temporarily unavailable. Try a common food or add it manually.");
  }finally{
+  clearTimeout(timer);
   nameSearchBusy=false;button.disabled=false;button.textContent="SEARCH";
  }
 }
@@ -259,7 +258,7 @@ function pickNameResult(event){
  $("#foodNameSearchResults").hidden=true;
  $("#foodNameSearchStatus").textContent="Check the quantity and nutrition, then save this food.";
  // Reuse the existing editable barcode-result form for consistent servings and meals.
- results(choice,choice.code||"");
+ results(choice,choice.code||"",choice._basic_estimate?"Generic estimate, not a brand label. Check and edit the serving and nutrition before saving.":undefined);
 }
 
 setupQuickJournal();
@@ -271,7 +270,7 @@ function freshProduct(product,barcode){
  const servingQuantity=num(product?.serving_quantity);
  let amount=(servingQuantity&&servingQuantity>0)?servingQuantity:100;
  if(amount>2000)amount=100;
- return {barcode,name:product?.product_name||product?.product_name_en||"Packaged food",brand:product?.brands||"",amount,serving:product?.serving_size||"",
+ return {barcode,name:product?.product_name||product?.product_name_en||"Packaged food",brand:product?.brands||"",amount,serving:product?.serving_size||"",generic:Boolean(product?._basic_estimate),
   calories:energy,protein:nval("proteins_100g"),carbs:nval("carbohydrates_100g"),fat:nval("fat_100g")};
 }
 function results(product,barcode,message){
@@ -279,7 +278,7 @@ function results(product,barcode,message){
  active=freshProduct(product,barcode);
  const p=active;
  const result=$("#foodScanResult");result.hidden=false;
- result.innerHTML='<div class="foodscan-result-kicker">'+(message?"BARCODE LOOKUP":"PRODUCT FOUND")+'</div>'+
+ result.innerHTML='<div class="foodscan-result-kicker">'+(product?._basic_estimate?"GENERIC ESTIMATE":message?"BARCODE LOOKUP":"PRODUCT FOUND")+'</div>'+
  '<h4>'+safe(p.name)+'</h4>'+(p.brand?'<p>'+safe(p.brand)+'</p>':'')+
  (message?'<p class="foodscan-warning">'+safe(message)+'</p>':'')+
  '<div class="foodscan-fields">'+
@@ -320,7 +319,7 @@ function saveFood(){
  if(!n.amount||n.amount<=0||n.amount>3000){notice("Enter an amount from 1 to 3000 g or mL.");return}
  const meal=mealId($("#foodSaveMeal")?.value||selectedMeal);
  if(meal==="earlier"){notice("Choose breakfast, lunch, dinner, or snacks.");return}
- const rows=data(),r={...n,calories:teen?null:n.calories,id:Date.now()+Math.random(),date:localDay(),barcode:active?.barcode||"",meal};
+ const rows=data(),r={...n,calories:teen?null:n.calories,id:Date.now()+Math.random(),date:localDay(),barcode:active?.barcode||"",meal,estimated:Boolean(active?.generic)};
  rows.unshift(r);
  if(!persist(rows))return;
  renderLog();
@@ -369,7 +368,7 @@ function renderLog(){
    const moveOptions=mealOptions(m.id);
    const controls='<select class="foodscan-reassign" data-food-move="'+safe(e.id)+'" aria-label="Move '+safe(e.name)+' to another meal">'+(m.id==="earlier"?'<option value="earlier">Move to...</option>':'')+moveOptions+'</select>';
    const qty=e.source==="manual"?(teen?"Manual entry":fmt(e.amount)+' serving'+(e.amount===1?'':'s')):fmt(e.amount)+' g/mL';
-   const details=teen?(e.note?safe(e.note):qty):qty+(e.calories===null||e.calories===undefined?'':' · '+fmt(num(e.calories))+' cal')+(e.protein===null||e.protein===undefined?'':' · '+fmt(num(e.protein))+' g protein');
+   const details=teen?(e.note?safe(e.note):qty):qty+(e.estimated?" · estimate":"")+(e.calories===null||e.calories===undefined?'':' · '+fmt(num(e.calories))+' cal')+(e.protein===null||e.protein===undefined?'':' · '+fmt(num(e.protein))+' g protein');
    return '<div class="foodscan-entry"><div><b>'+safe(e.name)+'</b><small>'+details+'</small>'+controls+'</div><button type="button" data-food-delete="'+safe(e.id)+'" aria-label="Delete '+safe(e.name)+'">×</button></div>';
   }).join("");
   return '<section class="foodscan-meal-group" aria-label="'+safe(m.label)+'"><div class="foodscan-meal-group-top"><div><strong>'+m.icon+' '+safe(m.label)+'</strong>'+subtotal+'</div>'+

@@ -30,6 +30,7 @@ const r1=v=>Math.round(v*10)/10;
 const fmt=v=>Number.isFinite(v)?r1(v).toLocaleString(undefined,{maximumFractionDigits:1}):"—";
 const $=selector=>root.querySelector(selector);
 let active=null,scanner=null,reading=false,libPromise=null,cameraOn=false;
+let nameSearchResults=[],nameSearchSeq=0,nameSearchBusy=false;
 root.innerHTML=
 '<div class="foodscan-head"><div class="foodscan-kicker">'+(teen?'FUEL SMARTER · FOOD SCANNER':forge?'THE NUTRITION LAB · SCAN TO FUEL':'THE NOURISH EDIT · FOOD SCANNER')+'</div>'+
 '<h3>'+(teen?'Fuel the whole day.':forge?'Scan. Fuel. Perform.':'Scan your food.')+'</h3>'+
@@ -73,7 +74,7 @@ function setupQuickJournal(){
  journal.querySelector(".foodscan-journal-heading b").textContent="TODAY'S FOOD";
  const add=document.createElement("div");
  add.className="foodscan-add-bar";
- add.innerHTML='<button type="button" id="foodQuickAdd">＋ ADD FOOD <span>Scan or type it in</span></button>';
+ add.innerHTML='<button type="button" id="foodQuickAdd">＋ ADD FOOD <span>Search, scan or type</span></button>';
  journal.insertBefore(add,entries);
  const water=$(".foodscan-water");
  journal.insertBefore(water,entries);
@@ -88,10 +89,20 @@ function setupQuickJournal(){
  panel.innerHTML='<div class="foodscan-add-top"><strong>ADD A FOOD</strong><button type="button" id="foodCloseAdd" aria-label="Close food entry">✕ CLOSE</button></div>';
  const parts=[".foodscan-head",".foodscan-meal-picker",".foodscan-actions","#foodManualPanel",".foodscan-photo-row","#foodCameraArea","#foodImageFile","#foodBarcodeForm","#foodScanStatus","#foodScanResult"];
  for(const selector of parts){const el=$(selector);if(el)panel.append(el)}
+ const search=document.createElement("div");
+ search.className="foodscan-name-search";
+ search.innerHTML='<form id="foodNameSearchForm" autocomplete="off"><label for="foodNameSearchInput">SEARCH FOODS BY NAME</label>'+
+ '<div class="foodscan-name-search-row"><input id="foodNameSearchInput" type="search" maxlength="70" placeholder="e.g. Greek yogurt, chicken, banana" required aria-label="Search food by name">'+
+ '<button id="foodNameSearchButton" type="submit">SEARCH</button></div></form>'+
+ '<p id="foodNameSearchStatus" class="foodscan-search-status" role="status" aria-live="polite"></p>'+
+ '<div id="foodNameSearchResults" class="foodscan-name-results" hidden></div>';
+ panel.insertBefore(search,panel.querySelector(".foodscan-meal-picker"));
+ search.querySelector("#foodNameSearchForm").addEventListener("submit",onNameSearch);
+ search.querySelector("#foodNameSearchResults").addEventListener("click",pickNameResult);
  const head=panel.querySelector(".foodscan-head");
  if(head){
-  head.querySelector("h3").textContent="Scan it or type it.";
-  head.querySelector("p").textContent="Choose a meal, scan a barcode or enter a food.";
+  head.querySelector("h3").textContent="Find your food.";
+  head.querySelector("p").textContent="Search a food name, scan its barcode, or enter it manually.";
  }
  journal.insertBefore(panel,water);
  root.insertBefore(journal,root.firstChild);
@@ -116,9 +127,72 @@ function closeQuickAdd(){
  const panel=$("#foodAddPanel");
  panel.hidden=true;
  $("#foodManualPanel").open=false;
+ nameSearchSeq++;
+ nameSearchResults=[];
+ $("#foodNameSearchInput").value="";
+ $("#foodNameSearchResults").replaceChildren();
+ $("#foodNameSearchResults").hidden=true;
+ $("#foodNameSearchStatus").textContent="";
  const button=$("#foodQuickAdd");
  if(button)button.focus({preventScroll:true});
 }
+
+/* Open Food Facts full-text product search (v1). Only on explicit user action.
+   Search results are never logged until the user selects and saves a serving. */
+async function onNameSearch(event){
+ event.preventDefault();
+ if(teen||nameSearchBusy)return;
+ const query=$("#foodNameSearchInput").value.trim().replace(/\s+/g," ");
+ if(query.length<2){$("#foodNameSearchStatus").textContent="Enter at least two letters.";return}
+ const resultsBox=$("#foodNameSearchResults"),status=$("#foodNameSearchStatus"),button=$("#foodNameSearchButton");
+ const mySeq=++nameSearchSeq;
+ nameSearchResults=[];resultsBox.hidden=true;resultsBox.replaceChildren();
+ status.textContent="Finding foods…";nameSearchBusy=true;button.disabled=true;button.textContent="SEARCHING";
+ try{
+  const params=new URLSearchParams({search_terms:query,search_simple:"1",action:"process",json:"1",page_size:"15",fields:"code,product_name,product_name_en,brands,serving_size,serving_quantity,nutriments"});
+  const response=await fetch("https://world.openfoodfacts.org/cgi/search.pl?"+params.toString(),{method:"GET",headers:{"Accept":"application/json"},cache:"no-store"});
+  if(!response.ok)throw new Error("Food search service unavailable");
+  const payload=await response.json();
+  if(mySeq!==nameSearchSeq)return;
+  const items=Array.isArray(payload.products)?payload.products:[];
+  const seen=new Set();
+  nameSearchResults=items.filter(p=>{
+    const name=String(p.product_name||p.product_name_en||"").trim(),id=String(p.code||"")+"|"+name.toLowerCase();
+    const n=freshProduct(p,p.code||"");
+    if(!name||n.calories===null||n.calories<0||n.calories>1500||seen.has(id))return false;
+    seen.add(id);return true;
+  }).slice(0,10);
+  if(!nameSearchResults.length){
+   status.textContent="No foods with calorie information found. Try a brand or more specific name, or use Add Manually.";
+   return;
+  }
+  status.textContent="Select the matching food, then check the serving size before saving.";
+  resultsBox.innerHTML=nameSearchResults.map((p,i)=>{
+   const item=freshProduct(p,p.code||"");
+   const cal=Math.round(item.calories*item.amount/100);
+   const qty=item.serving?item.serving:(item.amount===100?"100 g/mL":fmt(item.amount)+" g/mL");
+   return '<button type="button" data-food-name-result="'+i+'" class="foodscan-name-hit"><span><b>'+safe(p.product_name||p.product_name_en)+'</b>'+
+      '<small>'+safe(item.brand||"Food product")+' · '+safe(qty)+'</small></span><strong>'+cal+' <em>cal</em></strong></button>';
+  }).join("");
+  resultsBox.hidden=false;
+ }catch(e){
+  if(mySeq!==nameSearchSeq)return;
+  status.textContent="Search isn’t available right now. You can still scan a barcode or add food manually.";
+ }finally{
+  nameSearchBusy=false;button.disabled=false;button.textContent="SEARCH";
+ }
+}
+function pickNameResult(event){
+ const item=event.target.closest("[data-food-name-result]");
+ if(!item||teen)return;
+ const choice=nameSearchResults[Number(item.dataset.foodNameResult)];
+ if(!choice)return;
+ $("#foodNameSearchResults").hidden=true;
+ $("#foodNameSearchStatus").textContent="Check the quantity and nutrition, then save this food.";
+ // Reuse the existing editable barcode-result form for consistent servings and meals.
+ results(choice,choice.code||"");
+}
+
 setupQuickJournal();
 
 function notice(msg){$("#foodScanStatus").textContent=msg||""}

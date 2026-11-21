@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f8f1ee"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="SAM WELLNESS">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta name="description" content="SAM / WELLNESS — beginner workouts, practical nutrition, daily habits and progress for healthy living.">
-<meta name="sam-release" content="signature-20261121-5"><title>SAM / WELLNESS — Signature 03</title><style>
+<meta name="sam-release" content="signature-20261121-6"><title>SAM / WELLNESS — Signature 03</title><style>
 :root{--ink:#26372f;--muted:#66796b;--bg:#f7f6ef;--card:#fffefa;--sage:#dfead8;--forest:#315b49;--peach:#ff9b76;--orange:#e87550;--sun:#f7cc84;--line:#dce3d7}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 100% 0,#f8e6d7 0,transparent 35%),var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif}
 button,input,select{font:inherit}button{cursor:pointer;touch-action:manipulation}button:disabled{opacity:.45;cursor:default}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f49c74;outline-offset:2px}
@@ -367,9 +367,16 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline-color:#b98
 .signature-app-settings button{font-size:10px;font-weight:950;background:#614051;color:#fff7ec;border:0;border-radius:10px;min-height:43px;padding:11px 12px;max-width:46%}
 @media(max-width:350px){.signature-app-settings{align-items:stretch;flex-direction:column}.signature-app-settings button{max-width:100%}}
 
-</style><link rel="stylesheet" href="./food-scanner.css?v=20261121-2"></head><body>
+
+.wellness-ideas{border:1px solid #e4cdca;border-radius:17px;background:#fff9f6;margin:15px 0;overflow:hidden}
+.wellness-ideas>summary{list-style:none;cursor:pointer;padding:16px;font-size:12px;font-weight:950;letter-spacing:.5px;color:#694656;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.wellness-ideas>summary::-webkit-details-marker{display:none}
+.wellness-ideas>summary span{font-size:11px;font-weight:600;color:#927482}
+.wellness-ideas .sustain-card,.wellness-ideas>.surface{margin:11px 12px;border-radius:15px;box-shadow:none}
+.wellness-ideas>.surface:last-child{margin-bottom:13px}
+</style><link rel="stylesheet" href="./food-scanner.css?v=20261121-3"></head><body>
 <div class="app">
-<header class="top"><div class="brand"><div class="mark" aria-hidden="true"><span class="monogram">S</span></div><div><small>THE PRIVATE WELLNESS CLUB</small><h1>SAM <span>/ WELLNESS</span></h1></div></div><div class="version">SIGNATURE <span>✦</span> 05</div></header>
+<header class="top"><div class="brand"><div class="mark" aria-hidden="true"><span class="monogram">S</span></div><div><small>THE PRIVATE WELLNESS CLUB</small><h1>SAM <span>/ WELLNESS</span></h1></div></div><div class="version">SIGNATURE <span>✦</span> 06</div></header>
 <div class="signature-update-notice" id="samUpdateNotice" role="status" hidden><span>✦ New Signature Edition available</span><button id="samUpdateNow" type="button">UPDATE NOW ↗</button></div>
 <section id="home" class="view active">
 <div class="hero"><div class="tag">✦ &nbsp; THE SIGNATURE WELLNESS EDITION</div><h2>THE ART OF<br><em>FEELING</em><br>GOOD.</h2><p>Stronger. Healthier. More you. A routine that feels like a lifestyle, not a punishment.</p><button class="btn" data-nav="move">BEGIN YOUR WORKOUT ↗</button></div>
@@ -410,12 +417,14 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline-color:#b98
 <p class="soft-note">This is a general starting estimate, not a prescribed diet or a number you must stay under. It uses a standard adult-woman metabolism equation and estimated activity. If pregnant, breastfeeding, managing a medical condition, or using medications that affect appetite or weight, check a target with a healthcare professional. There’s no need to count calories to build healthier habits.</p><details class="calorie-how"><summary>How this recommendation is calculated <span>＋</span></summary><p>We estimate resting needs using the Mifflin–St Jeor equation, multiply by your chosen activity level for maintenance, then suggest a modest reduction of roughly 300–500 calories a day where appropriate. The estimate cannot account for all medical, medication, metabolic or lifestyle factors. Recalculate after meaningful weight or activity changes.</p><p>For individualized planning, try the <a href="https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner/" rel="noopener noreferrer" target="_blank">NIH Body Weight Planner</a>.</p></details></div>
 
 <section id="foodScanner" class="foodscan-card" data-food-mode="sam"><p>Barcode food scanner loading…</p></section>
+<details class="wellness-ideas"><summary>✧ MEAL IDEAS &amp; BALANCED PLATES <span>See inspiration ＋</span></summary>
 <div class="sustain-card"><div class="sustain-emoji">🌿</div><div><span>START WITH THE BASICS</span><h3>Plan meals that keep you satisfied.</h3><p>Include protein, high-fiber produce and foods you enjoy. Choose one change you can repeat for weeks, like preparing breakfast, packing lunch or swapping a sugary drink for water some days.</p><p class="sustain-tip">No crash diets. No need to be perfect on weekends.</p></div></div>
 <div class="surface"><span class="eyebrow">BUILD YOUR PLATE</span><h3 style="margin-top:6px">A simple place to start</h3><div class="plate">
 <div class="plate-item"><span>🥦</span><strong>½ plate</strong><small>Vegetables or fruit</small></div><div class="plate-item"><span>🍗</span><strong>¼ plate</strong><small>Protein: eggs, beans, fish, chicken, tofu</small></div><div class="plate-item"><span>🍠</span><strong>¼ plate</strong><small>Rice, potatoes or whole grains</small></div><div class="plate-item"><span>🥑</span><strong>Add some fat</strong><small>Olive oil, nuts, avocado, or other fats</small></div></div><p class="muted" style="font-size:12px">This is an easy visual guide, not a strict rule for every meal.</p></div>
 <div class="surface"><span class="eyebrow">KEEP IT PRACTICAL</span><h3 style="margin:7px 0">What could I eat?</h3><div class="meal-tabs"><button class="active" data-meal="breakfast">Breakfast</button><button data-meal="lunch">Lunch</button><button data-meal="dinner">Dinner</button></div><div class="meal-box"><div class="meal-emoji" id="mealEmoji">🥣</div><h3 id="mealTitle"></h3><p id="mealDesc"></p><button class="swap" id="swapMeal">Another idea ↻</button></div></div>
+</details>
 <details class="health-support"><summary>Getting support for a bigger goal <span>＋</span></summary><div><p>A substantial weight-loss goal is worth discussing with a healthcare professional who can review health history, medications, blood pressure, sleep and nutrition and help confirm a healthy target.</p><p>Behavioral programs, registered dietitian support, and, when appropriate, prescription weight-management treatments or other options can be discussed together.</p><p>There is no fixed deadline. A common early goal is about 5–10% of starting weight over roughly six months, with the plan adjusted over time.</p></div></details>
-<div class="surface"><span class="eyebrow">THE BASICS</span><h3 style="margin:7px 0">Healthy habits that stick</h3><p class="muted">Build meals around protein and produce, include fiber-rich foods, enjoy satisfying portions and hydrate regularly. Get enough sleep and make room for foods you love.</p><p class="muted" style="font-size:12px">Aim for steady, sustainable progress rather than crash diets or fast results.</p></div>
+
 <div class="sources">Based on general guidance from <a target="_blank" rel="noopener noreferrer" href="https://www.cdc.gov/healthy-weight-growth/losing-weight/index.html">CDC Healthy Weight</a>, <a target="_blank" rel="noopener noreferrer" href="https://www.cdc.gov/physical-activity-basics/guidelines/adults.html">CDC Activity Guidelines</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.niddk.nih.gov/health-information/weight-management/body-weight-planner">NIDDK Body Weight Planner</a>.</div>
 </section>
 <section id="progress" class="view"><div class="section-head"><span class="eyebrow">THE PERSONAL JOURNAL</span><h2>Every chapter counts.</h2><p class="muted">Track the things that matter to you. Weight and photos are optional.</p></div>
@@ -433,7 +442,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline-color:#b98
 <div class="surface"><h3>Workout history</h3><div id="workoutHistory"></div></div>
 <div class="surface"><h3>Optional weight check-ins</h3><p class="muted" style="font-size:12px">If you prefer not to weigh yourself, skip this completely. How you feel and what you can do matter too.</p><div class="weight-row"><input id="weighInput" type="number" step=".1" min="80" max="700" inputmode="decimal" placeholder="Weight in lb" aria-label="Weight in pounds"><button id="addWeight" class="btn light">Save entry</button></div><div id="weightHistory" class="weight-history"></div></div>
 <div class="signature-app-settings">
-<div><span class="eyebrow">APP EDITION</span><strong>Signature 05</strong><small>Fresh updates without reinstalling</small></div>
+<div><span class="eyebrow">APP EDITION</span><strong>Signature 06</strong><small>Fresh updates without reinstalling</small></div>
 <button type="button" id="samCheckUpdate">CHECK FOR UPDATES ↻</button>
 </div>
 <div class="photo-box"><span class="eyebrow">PRIVATE PHOTO JOURNAL</span><h3 style="margin:5px 0">Your moments</h3><p class="sub">Save a photo from a walk, workout, milestone or a day you felt good. No comparisons required.</p><label class="photo-upload" for="photoInput"><span>📸</span>＋ Add a photo</label><input type="file" accept="image/*" id="photoInput" hidden>
@@ -658,7 +667,7 @@ render();
 </script><script>
 (function(){
 "use strict";
-const release=2026112105,notice=document.getElementById("samUpdateNotice"),button=document.getElementById("samCheckUpdate"),apply=document.getElementById("samUpdateNow");
+const release=2026112106,notice=document.getElementById("samUpdateNotice"),button=document.getElementById("samCheckUpdate"),apply=document.getElementById("samUpdateNow");
 let available=null,last=0;
 function feedback(t){const toast=document.getElementById("toast");if(!toast)return;toast.textContent=t;toast.style.display="block";setTimeout(()=>{if(toast.textContent===t)toast.style.display="none"},2500)}
 const cleanUrl=()=>{const u=new URL(location.href);u.searchParams.set("sam_refresh",String(Date.now()));return u};
@@ -685,4 +694,4 @@ apply.addEventListener("click",()=>{
 check(false);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-last>180000)check(false)});
 })();
-</script><script src="./food-scanner.js?v=20261121-2" defer></script></body></html>
+</script><script src="./food-scanner.js?v=20261121-3" defer></script></body></html>

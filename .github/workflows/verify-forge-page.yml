@@ -1,0 +1,29 @@
+name: Verify FORGE public page
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-forge-page.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check GitHub Pages public HTML and cache headers
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARGET="https://whitehawks-girlsswim.github.io/WHF-HQ/forge.html?verify=$(date +%s)"
+          echo "Checking public URL: $TARGET"
+          curl --retry 2 --retry-delay 2 --max-time 30 -sSL -D /tmp/forge-headers.txt -o /tmp/forge-live.html "$TARGET"
+          echo "HTTP/caching response:"
+          grep -iE '^HTTP/|^cache-control:|^age:|^etag:|^x-cache:|^last-modified:' /tmp/forge-headers.txt || true
+          echo "Downloaded bytes: $(wc -c </tmp/forge-live.html)"
+          if grep -Fq 'id="backupExport"' /tmp/forge-live.html; then echo 'BACKUP BUTTON: PRESENT'; else echo 'BACKUP BUTTON: MISSING'; fi
+          if grep -Fq 'padding:20px 17px calc(125px + env(safe-area-inset-bottom, 0px))' /tmp/forge-live.html; then echo 'CORRECTED BASE SPACING: PRESENT'; else echo 'CORRECTED BASE SPACING: MISSING'; fi
+          if grep -Fq 'max(104px' /tmp/forge-live.html; then echo 'OLD EXTRA PADDING: STILL PRESENT'; else echo 'OLD EXTRA PADDING: NOT PRESENT'; fi
+          if grep -Fq 'content="black-translucent"' /tmp/forge-live.html; then echo 'OLD STATUS BAR META: STILL PRESENT'; else echo 'OLD STATUS BAR META: NOT PRESENT'; fi
+          grep -Fq 'id="backupExport"' /tmp/forge-live.html
+          grep -Fq 'padding:20px 17px calc(125px + env(safe-area-inset-bottom, 0px))' /tmp/forge-live.html
+          ! grep -Fq 'max(104px' /tmp/forge-live.html

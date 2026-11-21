@@ -63,6 +63,64 @@ root.innerHTML=
 (teen?'<p class="foodscan-teen-note">Food is fuel for swimming, school and recovery. This meal journal does not set calorie targets or rate foods.</p>':'')+
 '<p class="foodscan-storage">Your food and water logs stay on this device. <button type="button" id="foodBackupExport">SAVE NUTRITION BACKUP</button> <button type="button" id="foodBackupImportButton">RESTORE</button><input id="foodBackupImportFile" hidden type="file" accept=".json,application/json"></p>'+
 '<p class="foodscan-source">Product data: <a href="https://world.openfoodfacts.org/" target="_blank" rel="noopener noreferrer">Open Food Facts</a> (community supplied). Check the package label for accurate serving size, ingredients and nutrition. Barcodes are sent to Open Food Facts for lookup; photos stay on your phone. Camera access requires permission and internet.</p>';
+
+/* Adult-only quick journal. Teen layout stays unchanged. Reuses every existing
+   element and storage key; it only moves controls into a simpler visual order. */
+function setupQuickJournal(){
+ if(teen)return;
+ root.classList.add("foodscan-simple");
+ const journal=$(".foodscan-journal"),entries=$("#foodEntries");
+ journal.querySelector(".foodscan-journal-heading b").textContent="TODAY'S FOOD";
+ const add=document.createElement("div");
+ add.className="foodscan-add-bar";
+ add.innerHTML='<button type="button" id="foodQuickAdd">＋ ADD FOOD <span>Scan or type it in</span></button>';
+ journal.insertBefore(add,entries);
+ const water=$(".foodscan-water");
+ journal.insertBefore(water,entries);
+ const extra=document.createElement("details");
+ extra.className="foodscan-water-extra";
+ extra.innerHTML="<summary>Other water amount ＋</summary>";
+ extra.append(water.querySelector(".foodscan-water-custom"));
+ water.insertBefore(extra,water.querySelector(".foodscan-water-footer"));
+ const panel=document.createElement("div");
+ panel.className="foodscan-add-panel";
+ panel.id="foodAddPanel";panel.hidden=true;
+ panel.innerHTML='<div class="foodscan-add-top"><strong>ADD A FOOD</strong><button type="button" id="foodCloseAdd" aria-label="Close food entry">✕ CLOSE</button></div>';
+ const parts=[".foodscan-head",".foodscan-meal-picker",".foodscan-actions","#foodManualPanel",".foodscan-photo-row","#foodCameraArea","#foodImageFile","#foodBarcodeForm","#foodScanStatus","#foodScanResult"];
+ for(const selector of parts){const el=$(selector);if(el)panel.append(el)}
+ const head=panel.querySelector(".foodscan-head");
+ if(head){
+  head.querySelector("h3").textContent="Scan it or type it.";
+  head.querySelector("p").textContent="Choose a meal, scan a barcode or enter a food.";
+ }
+ journal.insertBefore(panel,water);
+ root.insertBefore(journal,root.firstChild);
+ const prefs=document.createElement("details");
+ prefs.className="foodscan-privacy";
+ prefs.innerHTML="<summary>Food history, backups & data privacy ＋</summary>";
+ prefs.append($(".foodscan-storage"),$(".foodscan-source"));
+ root.append(prefs);
+ $("#foodQuickAdd").addEventListener("click",()=>openQuickAdd("manual"));
+ $("#foodCloseAdd").addEventListener("click",closeQuickAdd);
+}
+function openQuickAdd(which){
+ if(teen)return;
+ const panel=$("#foodAddPanel");
+ panel.hidden=false;
+ if(which==="manual")$("#foodManualPanel").open=true;
+ else $("#foodManualPanel").open=false;
+ panel.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function closeQuickAdd(){
+ if(teen)return;
+ const panel=$("#foodAddPanel");
+ panel.hidden=true;
+ $("#foodManualPanel").open=false;
+ const button=$("#foodQuickAdd");
+ if(button)button.focus({preventScroll:true});
+}
+setupQuickJournal();
+
 function notice(msg){$("#foodScanStatus").textContent=msg||""}
 function freshProduct(product,barcode){
  const n=product?.nutriments||{},nval=k=>num(n[k]);
@@ -74,6 +132,7 @@ function freshProduct(product,barcode){
   calories:energy,protein:nval("proteins_100g"),carbs:nval("carbohydrates_100g"),fat:nval("fat_100g")};
 }
 function results(product,barcode,message){
+ if(!teen)openQuickAdd("scan");
  active=freshProduct(product,barcode);
  const p=active;
  const result=$("#foodScanResult");result.hidden=false;
@@ -122,9 +181,10 @@ function saveFood(){
  rows.unshift(r);
  if(!persist(rows))return;
  renderLog();
- if(forge){
+ if(!teen){
   clearScanResult();
-  notice("Saved to "+mealInfo(meal).label+". Ready for the next barcode.");
+  closeQuickAdd();
+  notice("Saved to "+mealInfo(meal).label+".");
  }else{
   notice("Saved to "+mealInfo(meal).label+".");
  }
@@ -170,14 +230,14 @@ function renderLog(){
    return '<div class="foodscan-entry"><div><b>'+safe(e.name)+'</b><small>'+details+'</small>'+controls+'</div><button type="button" data-food-delete="'+safe(e.id)+'" aria-label="Delete '+safe(e.name)+'">×</button></div>';
   }).join("");
   return '<section class="foodscan-meal-group" aria-label="'+safe(m.label)+'"><div class="foodscan-meal-group-top"><div><strong>'+m.icon+' '+safe(m.label)+'</strong>'+subtotal+'</div>'+
-   (m.id!=="earlier"?'<button type="button" data-food-target="'+m.id+'">＋ ADD FOOD</button>':'')+'</div>'+
-   (itemHtml||'<p class="foodscan-empty">'+(m.id==="earlier"?'Earlier scanned foods appear here. You can move them into a meal.':'Tap + Scan to add a food to '+m.label.toLowerCase()+'.')+'</p>')+'</section>';
+   (m.id!=="earlier"?'<button type="button" data-food-target="'+m.id+'">＋ ADD</button>':'')+'</div>'+
+   (itemHtml||(teen?'<p class="foodscan-empty">Tap + Scan to add a food.</p>':''))+'</section>';
  }).join("");
  if(forge)document.dispatchEvent(new Event("forge-food-changed"));
 }
 root.addEventListener("click",e=>{
  const target=e.target.closest("[data-food-target]");
- if(target){chooseMeal(target.dataset.foodTarget);openManual();return}
+ if(target){chooseMeal(target.dataset.foodTarget);if(!teen)openQuickAdd("manual");else openManual();return}
  const pick=e.target.closest("[data-food-meal]");if(pick){chooseMeal(pick.dataset.foodMeal);return}
  const b=e.target.closest("[data-food-delete]");if(!b)return;
  const id=Number(b.dataset.foodDelete);if(!confirm("Remove this food entry?"))return;
@@ -194,6 +254,7 @@ renderMealPicker();
 
 
 function openManual(){
+ if(!teen)openQuickAdd("manual");
  const panel=$("#foodManualPanel");panel.open=true;
  $("#foodManualMeal").value=selectedMeal;
  panel.scrollIntoView({behavior:"smooth",block:"start"});
@@ -229,6 +290,7 @@ $("#foodManualForm").addEventListener("submit",e=>{
   ["#foodManualCal","#foodManualProtein","#foodManualCarbs","#foodManualFat"].forEach(id=>$(id).value="");
  }
  $("#foodManualPanel").open=false;
+ if(!teen)closeQuickAdd();
  notice("Added "+name+" to "+mealInfo(meal).label+".");renderLog();
 });
 function renderWater(){
@@ -299,7 +361,7 @@ async function lookup(code){
 $("#foodBarcodeForm").addEventListener("submit",e=>{
  e.preventDefault();
  const code=$("#foodBarcodeInput").value;
- if(forge)clearScanResult();
+ if(!teen)clearScanResult();
  stopCamera();
  lookup(code);
 });
@@ -322,7 +384,7 @@ async function stopCamera(){
 }
 $("#foodCameraButton").addEventListener("click",async()=>{
  if(reading)return;
- if(forge)clearScanResult();
+ if(!teen)clearScanResult();
  reading=true;notice("Opening your camera…");
  $("#foodCameraArea").hidden=false;
  try{
@@ -344,7 +406,7 @@ $("#foodPhotoButton").addEventListener("click",()=>$("#foodImageFile").click());
 $("#foodImageFile").addEventListener("change",async()=>{
  const file=$("#foodImageFile").files?.[0];if(!file)return;
  $("#foodImageFile").value="";
- if(forge)clearScanResult();
+ if(!teen)clearScanResult();
  notice("Reading barcode photo…");
  try{
   await stopCamera();

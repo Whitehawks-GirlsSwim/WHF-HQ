@@ -85,6 +85,7 @@ async function verify(browser,cfg){
   localStorage.setItem(key,JSON.stringify(rows));
  },cfg.key);
  await page.reload({waitUntil:"domcontentloaded"});
+ await page.locator('.bottomnav [data-nav="'+cfg.tab+'"]').click();
  await scanner.locator("#foodMealChoices button").first().waitFor({state:"visible"});
  assert((await scanner.innerText()).includes("Earlier entries"),"legacy entries preserved");
  const last=scanner.locator(".foodscan-meal-group").last();
@@ -101,6 +102,7 @@ async function verify(browser,cfg){
  await scanner.locator('#foodWaterForm button[type="submit"]').click();
  assert.equal(await scanner.locator("#foodWaterTotal").innerText(),"15.5 fl oz");
  await page.reload({waitUntil:"domcontentloaded"});
+ await page.locator('.bottomnav [data-nav="'+cfg.tab+'"]').click();
  await scanner.locator("#foodMealChoices button").first().waitFor({state:"visible"});
  assert.equal(await scanner.locator("#foodWaterTotal").innerText(),"15.5 fl oz","water survives reload");
  assert((await scanner.innerText()).includes("Test yogurt"),"meal survives reload");

@@ -133,6 +133,18 @@ html.forge-standalone .app{
 }
 html.forge-standalone body{background-color:#0b0c0e}
 
+
+/*
+ Permanent iPhone layout guard.
+ Previous header clearance depended on standalone detection, which is not
+ reliable for already-installed iOS Home Screen bookmarks.
+ Apply status-bar clearance UNCONDITIONALLY at phone sizes.
+ */
+@media screen and (max-width: 640px) {
+  body > .app {
+    padding-top: max(104px, calc(24px + env(safe-area-inset-top, 0px))) !important;
+  }
+}
 </style><script>
 (function(){
   try{

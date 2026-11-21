@@ -170,3 +170,30 @@
 .foodscan-simple .foodscan-name-hit strong{color:var(--fs-accent);font-size:18px;white-space:nowrap;flex-shrink:0}
 .foodscan-simple .foodscan-name-hit em{font-size:10px;font-style:normal;font-weight:700}
 @media(max-width:380px){.foodscan-simple .foodscan-name-search-row{grid-template-columns:minmax(0,1fr) 74px;gap:5px}.foodscan-simple .foodscan-name-search-row button{font-size:10px}}
+
+/* Mia / STRONG — Fuel macronutrient log. Grams only, no calorie targets. */
+.foodscan-card[data-food-mode="mia"]{--fs-ink:#174d62;--fs-muted:#5b8290;--fs-accent:#097994;--fs-bg:#f5fcff;--fs-soft:#e2f4fa;--fs-border:#afd8e5}
+.foodscan-card[data-food-mode="mia"] .foodscan-head{margin-bottom:12px}
+.foodscan-card[data-food-mode="mia"] .foodscan-head h3{font-size:23px}
+.teen-macro-overview{background:linear-gradient(125deg,#0b6079,#168c9b);color:white;border-radius:17px;padding:16px 13px 13px;margin:15px 0;box-shadow:0 8px 22px #11668124}
+.teen-macro-overline{color:#dafff8;font-size:10px;font-weight:950;letter-spacing:1.3px;margin-bottom:10px}
+.teen-macro-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.teen-macro-tiles>div{background:#ffffff17;border:1px solid #ffffff36;border-radius:11px;padding:13px 5px;text-align:center;min-width:0}
+.teen-macro-tiles strong{display:block;color:#fff;font-size:clamp(19px,5.8vw,25px);line-height:1.15;letter-spacing:-.5px}
+.teen-macro-tiles small{color:#e7ffff;display:block;font-size:9px;font-weight:900;letter-spacing:.6px;margin-top:5px}
+.teen-macro-overview p{color:#e3fbff;font-size:11px;line-height:1.4;margin:11px 0 0}
+.foodscan-card[data-food-mode="mia"] .foodscan-meal-group{padding:11px 10px}
+.foodscan-card[data-food-mode="mia"] .foodscan-group-subtotal{font-size:11px;line-height:1.4;margin-top:6px}
+.foodscan-card[data-food-mode="mia"] .foodscan-entry small{line-height:1.45}
+.foodscan-card[data-food-mode="mia"] .foodscan-manual-form{grid-template-columns:repeat(2,minmax(0,1fr))}
+.foodscan-card[data-food-mode="mia"] .foodscan-manual-form .foodscan-manual-note{color:#476b7c}
+.teen-macro-history{background:#f1faff;border:1px solid #aed9e8;border-radius:14px;margin:12px 0;overflow:hidden}
+.teen-macro-history summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;letter-spacing:.4px;font-weight:950;color:#135b70;padding:13px 12px;cursor:pointer}
+.teen-macro-history summary::-webkit-details-marker{display:none}
+.teen-macro-history summary span{font-weight:600;color:#688997;font-size:10px;letter-spacing:0}
+#teenMacroHistoryEntries{padding:0 12px 12px}
+#teenMacroHistoryEntries>p{font-size:11px;color:#668393;line-height:1.4}
+.teen-macro-history-day{border-top:1px solid #cde8f0;padding:10px 0;display:grid;gap:4px}
+.teen-macro-history-day b{font-size:11px;color:#23596b}
+.teen-macro-history-day span{font-size:11px;color:#587888;line-height:1.4}
+@media(max-width:365px){.teen-macro-tiles strong{font-size:18px}.teen-macro-tiles>div{padding:10px 3px}.teen-macro-history summary span{font-size:9px}}
